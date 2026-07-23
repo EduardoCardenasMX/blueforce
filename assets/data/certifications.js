@@ -2746,5 +2746,1798 @@ window.BLUEFORCE_CERTIFICATIONS = [
         "tip": "Treat an agent as an operational system: test before release, observe after release, and refine continuously."
       }
     ]
+  },
+  {
+    "id": "business-analyst",
+    "title": "Salesforce Business Analyst",
+    "pageTitle": "Salesforce Certified Business Analyst Study Lab",
+    "shortTitle": "Business Analyst",
+    "code": "BA",
+    "path": "certifications/business-analyst.html",
+    "sourceFile": "salesforce_business_analyst_study_lab.html",
+    "description": "Practica escenarios de discovery, stakeholders, procesos, requisitos, user stories y UAT con feedback inmediato.",
+    "heroCopy": "Practica los dominios actuales con escenarios realistas de analisis de negocio en Salesforce. Selecciona tus respuestas para revelar la opcion correcta, una explicacion y un tip de examen.",
+    "reasoning": "Identifica el resultado de negocio, separa evidencia de supuestos y elige la tecnica o artefacto que crea el entendimiento compartido mas claro.",
+    "habits": "Lee cada calificador: first, best, current state, future state, select two y most effective technique suelen determinar la respuesta.",
+    "integrity": "Este lab contiene preguntas originales creadas desde objetivos publicos, documentacion Salesforce y practicas establecidas de analisis de negocio. No reproduce contenido restringido del examen.",
+    "blueprintNote": "El banco contiene 100 preguntas, por lo que el conteo refleja el peso publicado para cada dominio.",
+    "blueprint": [
+      {
+        "label": "Customer Discovery",
+        "weight": 17
+      },
+      {
+        "label": "Collaboration with Stakeholders",
+        "weight": 23
+      },
+      {
+        "label": "Business Process Mapping",
+        "weight": 12
+      },
+      {
+        "label": "Requirements",
+        "weight": 18
+      },
+      {
+        "label": "User Stories",
+        "weight": 18
+      },
+      {
+        "label": "User Acceptance",
+        "weight": 12
+      }
+    ],
+    "resources": [
+      {
+        "title": "Salesforce Business Analyst Credential",
+        "url": "https://trailhead.salesforce.com/credentials/businessanalyst",
+        "description": "Pagina oficial de la credencial y preparacion recomendada."
+      },
+      {
+        "title": "Official Business Analyst Cert Prep",
+        "url": "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep",
+        "description": "Practica, flashcards y enlaces de estudio para los seis dominios."
+      },
+      {
+        "title": "Customer Discovery Review",
+        "url": "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/learn-about-customer-discovery",
+        "description": "Estrategia, estado actual, work streams, cambio y contexto Salesforce."
+      },
+      {
+        "title": "Stakeholder Collaboration Review",
+        "url": "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/reivew-collaboration-with-stakeholders",
+        "description": "Elicitacion, facilitacion, confianza, roadmaps y priorizacion."
+      },
+      {
+        "title": "Business Process Mapping Review",
+        "url": "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/study-up-on-business-process-mapping",
+        "description": "Scope, ownership, governance, capability maps y process maps."
+      },
+      {
+        "title": "User Acceptance Review",
+        "url": "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/explore-user-acceptance",
+        "description": "Planes UAT, testers, scripts, feedback, go/no-go y sign-off."
+      }
+    ],
+    "categoryOrder": [
+      "All",
+      "Customer Discovery",
+      "Collaboration with Stakeholders",
+      "Business Process Mapping",
+      "Requirements",
+      "User Stories",
+      "User Acceptance"
+    ],
+    "questions": [
+      {
+        "id": 1,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "A sponsor says, “We need a new Salesforce app,” but has not described the business problem. What should the business analyst do first?",
+        "options": [
+          "Ask a developer to estimate the app immediately",
+          "Create user stories based only on the sponsor’s preferred features",
+          "Install an AppExchange package before discovery",
+          "Clarify the business goals, current pain points, affected users, and desired outcomes"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Discovery begins by defining the business problem and the outcomes the organization wants to achieve. A requested app is a proposed solution, not a validated need. Understanding goals, pain points, users, and success measures prevents the team from solving the wrong problem.",
+        "tip": "Separate the problem from the proposed solution. In discovery questions, the best first step usually increases shared understanding before design or estimation."
+      },
+      {
+        "id": 2,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "A company wants to improve lead conversion across marketing, inside sales, and field sales. Which discovery artifact best identifies the groups that influence or are affected by the initiative?",
+        "options": [
+          "A stakeholder map",
+          "A deployment runbook",
+          "A test execution report",
+          "A field-level security matrix"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "A stakeholder map identifies people and groups by their interest, influence, impact, and relationship to the initiative. It helps the BA plan interviews, workshops, communication, and decision-making across work streams.",
+        "tip": "Use a stakeholder map to answer who matters, how much influence they have, and how they should be engaged."
+      },
+      {
+        "id": 3,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "Sales managers describe the opportunity approval process differently from sales representatives. What is the best way to establish the current state?",
+        "options": [
+          "Skip the current state and design the future state immediately",
+          "Combine interviews with direct observation and review of actual records or system evidence",
+          "Choose the manager’s description because managers own the process",
+          "Document the process from memory and validate it after go-live"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Interviews reveal perspectives, while observation and system evidence reveal what actually happens. Triangulating sources helps the BA distinguish policy from real behavior, including workarounds and exceptions.",
+        "tip": "When accounts conflict, gather more than opinions. Look for observation, data, records, and other evidence of actual behavior."
+      },
+      {
+        "id": 4,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "During discovery, a BA needs a high-level view of how customers experience onboarding across email, a portal, support calls, and internal handoffs. Which artifact is most useful?",
+        "options": [
+          "A data dictionary",
+          "A deployment checklist",
+          "A customer journey map",
+          "A permission set matrix"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "A journey map visualizes the customer’s end-to-end experience across stages and channels, including actions, emotions, pain points, and backstage interactions. It exposes gaps that a single system screen cannot show.",
+        "tip": "Journey maps follow the experience across time and touchpoints. Process maps focus more directly on operational steps and ownership."
+      },
+      {
+        "id": 5,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "A BA is planning discovery for a global implementation with separate sales, service, data migration, and change-management teams. What should the BA identify early?",
+        "options": [
+          "Only the final production release date",
+          "The color palette for every Lightning page",
+          "A single user story covering the entire program",
+          "Work streams, owners, dependencies, and decision points"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Large initiatives are divided into work streams that have different owners, deliverables, and dependencies. Identifying them early supports coordinated discovery, sequencing, risk management, and governance.",
+        "tip": "For complex programs, think in parallel work streams and explicit dependencies rather than one undifferentiated project plan."
+      },
+      {
+        "id": 6,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "A customer has used Salesforce for eight years and reports slow adoption and inconsistent configuration. Which discovery activity best helps identify platform opportunities and constraints?",
+        "options": [
+          "Review the org’s configuration, usage, data quality, security model, and available health insights",
+          "Assume the newest Salesforce feature will solve the problem",
+          "Interview only the executive sponsor",
+          "Replace all customizations without analysis"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "A current-state assessment should include how Salesforce is configured and used, not only stakeholder opinions. Configuration, adoption, data, automation, security, and org-health information reveal constraints, technical debt, and opportunities.",
+        "tip": "A Salesforce BA needs enough platform awareness to ask what the org already does, where it is constrained, and what can be reused."
+      },
+      {
+        "id": 7,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "A requested feature is scheduled for a future Salesforce release. What should the BA do before adding custom development to the roadmap?",
+        "options": [
+          "Tell users to wait without documenting the impact",
+          "Review official release information and assess timing, fit, and risk with the team",
+          "Ignore release notes because they are only for administrators",
+          "Commit to custom development without comparing options"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Release notes and roadmaps can reveal standard capabilities that affect solution choices. The BA should assess whether the upcoming feature meets the need, when it will be available, and whether waiting or building is the better business decision.",
+        "tip": "Standard platform evolution can change the best solution. Check official release information before creating avoidable customization."
+      },
+      {
+        "id": 8,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "A transformation program has low confidence because employees believe the new process will eliminate their roles. Which discovery concern should be addressed explicitly?",
+        "options": [
+          "Only the sprint velocity target",
+          "Only the deployment method",
+          "Change readiness, stakeholder impacts, communication needs, and adoption risks",
+          "Only the number of custom fields required"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Discovery includes understanding organizational readiness and the human impact of change. Concerns, incentives, communication needs, training, and sponsor support can determine whether a technically correct solution is adopted.",
+        "tip": "A BA discovers both system needs and change impacts. Adoption risk is a business risk, not an afterthought."
+      },
+      {
+        "id": 9,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "An executive asks for a three-year list of major Salesforce capabilities and business outcomes, while the delivery team needs detailed sprint work. Which artifact should the executive receive?",
+        "options": [
+          "The sprint task board",
+          "A defect log",
+          "A test script",
+          "A product or solution roadmap"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "A roadmap communicates strategic direction, major outcomes, sequencing, and time horizons. The backlog and sprint board contain delivery detail, while the roadmap helps leaders understand direction and investment choices.",
+        "tip": "Roadmap equals strategic sequencing. Backlog equals ordered delivery work. Do not confuse the level of detail."
+      },
+      {
+        "id": 10,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "A BA learns that customer service agents copy regulated personal data into free-text fields. What should be documented as part of current-state discovery?",
+        "options": [
+          "The data flow, compliance risk, affected users, and security constraints",
+          "Only the agents’ preferred page layout",
+          "Only the number of cases created each day",
+          "A final solution without involving security stakeholders"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Discovery must capture how data is collected, stored, shared, and protected. Regulated data creates constraints and requires involvement from security, legal, compliance, and technical stakeholders before a future state is approved.",
+        "tip": "When sensitive data appears, widen discovery to include data lineage, access, compliance, retention, and risk owners."
+      },
+      {
+        "id": 11,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "At which point should a BA define measurable success criteria for a new self-service initiative?",
+        "options": [
+          "After every user story is already closed",
+          "During discovery, before the solution is finalized",
+          "Only after production deployment",
+          "Only when UAT fails"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Success criteria connect the initiative to business outcomes and guide prioritization, design, testing, and post-launch measurement. Defining them early helps the team evaluate whether a proposed solution is valuable.",
+        "tip": "Good discovery defines how success will be measured before implementation choices make the goal harder to change."
+      },
+      {
+        "id": 12,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "A sponsor requests “better reporting.” Which question best advances discovery?",
+        "options": [
+          "How many reports can Salesforce technically create?",
+          "Can the team copy every existing spreadsheet into Salesforce?",
+          "Which decisions are difficult today, who makes them, and what information is missing?",
+          "Which dashboard color should be used?"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "“Better reporting” is too vague. The BA should connect reporting needs to decisions, audiences, timing, data sources, and actions. This converts a feature request into an analyzable business need.",
+        "tip": "Ask what decision the information must support. Reports are a means, not the outcome."
+      },
+      {
+        "id": 13,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "A project has a fixed deadline, but discovery reveals that two critical integrations are owned by another department. What should the BA do?",
+        "options": [
+          "Hide the dependency until sprint planning",
+          "Add the integrations to the backlog without an owner",
+          "Assume the other department will deliver on time",
+          "Document the dependency, owner, risk, assumptions, and impact on scope or schedule"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Dependencies discovered early should be made visible and managed. Documenting ownership, timing, assumptions, and impact enables realistic planning and escalation before the dependency becomes a delivery failure.",
+        "tip": "Unknown or unowned dependencies are project risks. Make them explicit rather than silently absorbing them."
+      },
+      {
+        "id": 14,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "The team wants to redesign a case process but cannot agree on which customer segment to prioritize. Which discovery input is most useful?",
+        "options": [
+          "Business strategy, segment value, service goals, and evidence about current pain points",
+          "The loudest stakeholder’s preference",
+          "The most visually appealing prototype",
+          "The feature with the smallest development estimate"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Prioritization should connect to strategy and evidence. Segment importance, business goals, customer impact, volume, cost, and risk provide a defensible basis for defining scope.",
+        "tip": "In discovery, scope should trace to business strategy and evidence—not stakeholder volume or design preference."
+      },
+      {
+        "id": 15,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "A BA is supporting an initiative from idea through release. Which statement best describes the BA’s role across the implementation lifecycle?",
+        "options": [
+          "Stop working once user stories are written",
+          "Continuously connect business outcomes, requirements, stakeholders, solution decisions, testing, and adoption",
+          "Participate only in the first discovery workshop",
+          "Own all technical configuration without collaboration"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "The BA’s responsibilities evolve throughout the lifecycle. The BA supports discovery, analysis, prioritization, clarification, validation, UAT, change readiness, and measurement while acting as a liaison between business and technical teams.",
+        "tip": "The BA role is continuous. Requirements and understanding evolve as the solution moves from discovery to acceptance and adoption."
+      },
+      {
+        "id": 16,
+        "category": "Customer Discovery",
+        "select": 2,
+        "question": "Which two outputs best show that discovery is ready to move into more detailed solution analysis?",
+        "options": [
+          "A complete production deployment package",
+          "Every possible future user story estimated",
+          "An agreed problem statement and measurable business outcomes",
+          "A documented current state with key stakeholders, scope, constraints, and risks"
+        ],
+        "answers": [
+          2,
+          3
+        ],
+        "explanation": "Discovery should establish shared understanding of the problem, desired outcomes, current state, stakeholders, scope, constraints, assumptions, and risks. Detailed solution design can then proceed on a stable foundation.",
+        "tip": "Discovery readiness is about clarity and alignment, not completing every downstream delivery artifact."
+      },
+      {
+        "id": 17,
+        "category": "Customer Discovery",
+        "select": 1,
+        "question": "A BA is told that “Salesforce cannot support” a requested process. What is the best response?",
+        "options": [
+          "Accept the statement without investigation",
+          "Promise custom code immediately",
+          "Remove the requirement from scope without stakeholder discussion",
+          "Clarify the underlying need and collaborate with platform experts to evaluate standard, configurable, integrated, and custom options"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "The BA should understand the business need and facilitate an evidence-based evaluation of solution options. The answer may involve standard features, configuration, process change, integration, or customization, each with tradeoffs.",
+        "tip": "Avoid binary assumptions about platform capability. Reframe the need, then evaluate options and tradeoffs with the right experts."
+      },
+      {
+        "id": 18,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "A project has 40 stakeholders, but only a few can approve funding or block decisions. What should the BA use to tailor engagement?",
+        "options": [
+          "A single communication email for everyone",
+          "A defect severity matrix",
+          "A database schema",
+          "A power-interest or influence-impact stakeholder analysis"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Stakeholder analysis helps determine who needs close management, regular consultation, targeted information, or monitoring. It prevents over-communicating with some groups while missing key decision makers.",
+        "tip": "Engagement should be proportional to influence, interest, impact, and decision authority."
+      },
+      {
+        "id": 19,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "A senior stakeholder insists on a feature that conflicts with user research. How should the BA respond as a trusted advisor?",
+        "options": [
+          "Acknowledge the concern, present evidence and tradeoffs, and facilitate a decision tied to business outcomes",
+          "Reject the request publicly",
+          "Build the feature without discussion",
+          "Remove the research from the project record"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Trusted advisors do not merely agree or disagree. They listen, make evidence visible, explain consequences, and guide stakeholders toward a transparent decision connected to goals and constraints.",
+        "tip": "Influence through evidence, empathy, and tradeoffs—not authority or avoidance."
+      },
+      {
+        "id": 20,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "A BA needs detailed insight into how five specialists perform a complex exception process. Which elicitation technique is most appropriate?",
+        "options": [
+          "A release readiness checklist",
+          "One-on-one interviews combined with observation",
+          "A broad anonymous survey only",
+          "A mass town hall with no follow-up"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Interviews and observation are effective for complex, specialized work because they allow probing questions and reveal tacit knowledge, context, and workarounds that a survey may miss.",
+        "tip": "Choose the elicitation method based on depth, audience size, complexity, and the type of evidence needed."
+      },
+      {
+        "id": 21,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "Marketing and sales disagree about the definition of a qualified lead. Which technique best supports rapid alignment?",
+        "options": [
+          "Let developers choose the definition",
+          "Create two conflicting fields",
+          "A facilitated workshop using shared definitions, examples, and decision rules",
+          "Separate emails with no joint discussion"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "A facilitated workshop lets both groups compare assumptions, examine examples, define terms, and agree on decision rules in real time. The BA manages participation and captures decisions.",
+        "tip": "Use workshops when multiple stakeholders must build shared understanding or resolve interdependent issues."
+      },
+      {
+        "id": 22,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "The BA needs feedback from 500 occasional portal users about the frequency of several pain points. Which technique is most efficient?",
+        "options": [
+          "Five days of observation for every user",
+          "A technical design review",
+          "A sprint retrospective",
+          "A structured survey followed by targeted interviews"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Surveys efficiently gather standardized input from a large audience. Targeted interviews can then explain important patterns or unexpected results.",
+        "tip": "Surveys provide breadth; interviews and observation provide depth. Strong discovery often combines them."
+      },
+      {
+        "id": 23,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "Users describe a process as simple, but data shows repeated corrections and rework. What should the BA do?",
+        "options": [
+          "Observe the process and review examples to uncover hidden steps and exceptions",
+          "Accept the verbal description as final",
+          "Delete the rework data",
+          "Ask only the executive sponsor"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "People may omit habitual or embarrassing workarounds. Observation and artifact review reveal actual steps, exceptions, and causes of rework so the future state addresses the real process.",
+        "tip": "Stated process and actual process can differ. Verify important claims with behavior and evidence."
+      },
+      {
+        "id": 24,
+        "category": "Collaboration with Stakeholders",
+        "select": 2,
+        "question": "During a virtual discovery workshop, participants talk over one another and decisions are unclear. Which two actions should the facilitator take?",
+        "options": [
+          "End the session without documenting outcomes",
+          "Use a visible agenda, working agreements, and structured turn-taking",
+          "Capture decisions, open questions, owners, and next steps in a shared workspace",
+          "Allow the loudest participant to decide everything"
+        ],
+        "answers": [
+          1,
+          2
+        ],
+        "explanation": "Good facilitation creates psychological safety and structure. A visible agenda and participation rules improve discussion, while shared documentation makes decisions and follow-up explicit.",
+        "tip": "Facilitation is both conversation design and decision capture."
+      },
+      {
+        "id": 25,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "A team has documented the current state. What is the best next step toward an agreed future state?",
+        "options": [
+          "Skip stakeholder review and begin development",
+          "Choose the option with the most screens",
+          "Identify root causes and design options, evaluate tradeoffs, and validate the preferred process with stakeholders",
+          "Automatically copy the current state into Salesforce"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Moving to a future state requires understanding what should change and why, generating options, evaluating impact and feasibility, and obtaining agreement. It is not a simple transcription of the current process.",
+        "tip": "Current state tells you what happens. Root cause and design analysis determine what should happen next."
+      },
+      {
+        "id": 26,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "Two departments rank their requests as highest priority. Which approach is most defensible?",
+        "options": [
+          "Prioritize the department with the largest meeting attendance",
+          "Alternate priorities randomly",
+          "Ask the development team to choose without business input",
+          "Use agreed criteria such as business value, risk, urgency, dependencies, effort, and strategic alignment"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Transparent prioritization criteria turn competing opinions into a structured decision. The BA facilitates comparison and documents the rationale and consequences.",
+        "tip": "Prioritization should be repeatable and tied to value and constraints, not influence alone."
+      },
+      {
+        "id": 27,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "A stakeholder says they are “responsible” for a decision, while another says they are the approver. Which artifact helps clarify roles?",
+        "options": [
+          "A RACI matrix",
+          "A journey map",
+          "A data migration workbook",
+          "A test defect log"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "A RACI matrix clarifies who is Responsible, Accountable, Consulted, and Informed for activities or decisions. It reduces ambiguity and duplicated ownership.",
+        "tip": "In RACI, one person should normally be accountable for the outcome, while multiple people may be responsible for work."
+      },
+      {
+        "id": 28,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "Executives need monthly outcome updates, while subject-matter experts need weekly requirement workshops. What should the BA create?",
+        "options": [
+          "A production rollback script",
+          "A stakeholder communication and engagement plan",
+          "One identical meeting for all audiences",
+          "A field mapping document"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "A communication plan defines audiences, information needs, format, frequency, owner, and feedback channels. It keeps each stakeholder group informed at the appropriate level.",
+        "tip": "Tailor content and cadence to the stakeholder. Executives and working teams rarely need the same detail."
+      },
+      {
+        "id": 29,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "In an agile team, who should make the final decision about Product Backlog ordering based on value?",
+        "options": [
+          "Any developer who finishes first",
+          "The UAT tester",
+          "The Product Owner",
+          "The Scrum Master alone"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "The Product Owner is accountable for maximizing product value and ordering the Product Backlog. The BA supports analysis, clarification, and stakeholder alignment but does not replace Product Owner accountability.",
+        "tip": "The BA influences backlog quality; the Product Owner owns backlog ordering and value decisions."
+      },
+      {
+        "id": 30,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "Which event is intended to inspect the product increment with stakeholders and adapt the Product Backlog?",
+        "options": [
+          "Daily Scrum",
+          "Sprint Retrospective",
+          "Backlog archive",
+          "Sprint Review"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "The Sprint Review examines the completed increment with stakeholders and discusses progress, changes, and next priorities. The retrospective focuses on how the team works.",
+        "tip": "Review the product in the Sprint Review. Improve the team’s process in the Retrospective."
+      },
+      {
+        "id": 31,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "The team repeatedly postpones replacing a fragile integration because new features receive higher priority. How should the BA describe the accumulated consequence?",
+        "options": [
+          "Technical debt that creates future cost, risk, and delivery constraints",
+          "A customer journey",
+          "A user acceptance criterion",
+          "A stakeholder persona"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Technical debt represents shortcuts or aging design choices that make future changes harder, riskier, or more expensive. The BA helps make its business impact visible for prioritization.",
+        "tip": "Translate technical debt into business language: reliability, cost, risk, speed, and lost opportunity."
+      },
+      {
+        "id": 32,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "Users resist a new Salesforce process because it removes a spreadsheet they trust. What is the best response?",
+        "options": [
+          "Add more required fields to force compliance",
+          "Understand the underlying concerns, involve users in validation, and plan communication, training, and support",
+          "Disable the spreadsheet without notice",
+          "Tell users adoption is not part of the project"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Resistance often signals unmet needs, loss of control, or insufficient trust. Listening, participation, transparent rationale, training, and support improve readiness and adoption.",
+        "tip": "Do not label resistance as irrational. Treat it as information about change impact and unmet needs."
+      },
+      {
+        "id": 33,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "A steering committee approves the future-state process verbally. What should the BA do next?",
+        "options": [
+          "Ask development to interpret the approval",
+          "Delete earlier versions of the process",
+          "Document the decision, scope, assumptions, and approver in the agreed repository",
+          "Rely on memory"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Formal decision capture provides traceability and prevents later disagreement. The record should identify what was approved, by whom, when, and under which assumptions or conditions.",
+        "tip": "Sign-off is an auditable decision, not merely a positive meeting reaction."
+      },
+      {
+        "id": 34,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "A stakeholder changes a previously approved requirement during development. What should the BA do first?",
+        "options": [
+          "Tell the developer to implement it immediately",
+          "Ignore the request because the requirement was approved",
+          "Replace the original requirement without history",
+          "Assess the reason, impact, dependencies, priority, and change-control path before committing"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Change is expected, but it must be evaluated. The BA clarifies the need, assesses impact, follows governance, and ensures the decision is visible to affected stakeholders.",
+        "tip": "Agile welcomes change; it does not mean unmanaged change."
+      },
+      {
+        "id": 35,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "A distributed team keeps reopening decisions because meeting notes are inconsistent. Which practice will help most?",
+        "options": [
+          "Maintain a shared decision log with rationale, owner, date, and affected artifacts",
+          "Schedule more meetings without notes",
+          "Allow each team to keep private decisions",
+          "Use chat messages as the only permanent record"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "A decision log provides a durable source of truth and links decisions to requirements, risks, and scope. It reduces repeated debate and supports onboarding and auditability.",
+        "tip": "Capture not only what was decided, but why and what it affects."
+      },
+      {
+        "id": 36,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "A technical architect uses platform terminology that business stakeholders do not understand. What should the BA do?",
+        "options": [
+          "Remove technical constraints from the documentation",
+          "Translate the concepts into business impacts and confirm shared understanding in both directions",
+          "Exclude the architect from future meetings",
+          "Ask business stakeholders to learn all technical terms"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "The BA acts as a liaison, ensuring that business needs are understandable to technical teams and technical constraints are understandable to business stakeholders. Translation includes checking comprehension, not merely repeating words.",
+        "tip": "Bridging means translating intent, impact, constraints, and decisions—not acting as a message courier."
+      },
+      {
+        "id": 37,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "A workshop includes executives, managers, and frontline users. Which facilitation approach best reduces hierarchy bias?",
+        "options": [
+          "Exclude frontline users from decisions",
+          "Accept only ideas submitted before the meeting",
+          "Use silent idea generation, round-robin sharing, and anonymous voting where appropriate",
+          "Ask executives to speak first and longest"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Structured participation techniques prevent senior voices from anchoring the discussion and give quieter participants space to contribute. This improves the quality and representativeness of the evidence.",
+        "tip": "Good facilitation deliberately balances participation rather than assuming the room is naturally equal."
+      },
+      {
+        "id": 38,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "A proposed solution requires a Salesforce capability the BA does not fully understand. What should the BA do?",
+        "options": [
+          "Guess based on a previous project",
+          "Promise the feature to stakeholders before validation",
+          "Remove the business need",
+          "Collaborate with administrators, architects, developers, and product documentation to evaluate feasibility and tradeoffs"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "The BA is not expected to make every technical decision alone. The BA brings the right experts together, keeps the business need clear, and ensures solution options are assessed against value, risk, maintainability, and constraints.",
+        "tip": "Know when to involve platform experts. The BA owns clarity and alignment, not every technical answer."
+      },
+      {
+        "id": 39,
+        "category": "Collaboration with Stakeholders",
+        "select": 2,
+        "question": "Which two practices best support stakeholder trust throughout a difficult project?",
+        "options": [
+          "Communicate risks and uncertainty early with evidence and options",
+          "Follow through on commitments and make decisions traceable",
+          "Hide bad news until a solution is complete",
+          "Change priorities without explaining why"
+        ],
+        "answers": [
+          0,
+          1
+        ],
+        "explanation": "Trust grows through transparency, reliability, respectful challenge, and visible decision-making. Stakeholders can handle uncertainty better when they understand the evidence, options, owners, and next steps.",
+        "tip": "Trust is built by consistent behavior over time, especially when the news is uncomfortable."
+      },
+      {
+        "id": 40,
+        "category": "Collaboration with Stakeholders",
+        "select": 1,
+        "question": "A sponsor wants the first release to include every requested capability. What should the BA facilitate?",
+        "options": [
+          "A decision based only on the longest stakeholder title",
+          "A minimum viable scope discussion based on outcomes, risks, dependencies, and learning goals",
+          "Automatic approval of the full list",
+          "Removal of all nonfunctional requirements"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "The BA helps stakeholders distinguish essential outcomes from later enhancements. A smaller, coherent release can reduce risk, deliver value sooner, and generate learning for future roadmap decisions.",
+        "tip": "Minimum viable does not mean random cuts. Preserve an end-to-end outcome that can be validated and used."
+      },
+      {
+        "id": 41,
+        "category": "Business Process Mapping",
+        "select": 1,
+        "question": "Before mapping a complex order-to-cash process, what should the BA define first?",
+        "options": [
+          "Only the process owner’s job title",
+          "The process purpose, start and end points, scope, audience, and level of detail",
+          "Every future Salesforce field",
+          "The final UAT defect threshold"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Clear boundaries prevent a process map from expanding indefinitely. The BA should establish why the map is needed, what triggers the process, where it ends, what is included, and who will use it.",
+        "tip": "Scope the process before diagramming it. Otherwise the map becomes too broad or too detailed to support a decision."
+      },
+      {
+        "id": 42,
+        "category": "Business Process Mapping",
+        "select": 1,
+        "question": "An executive needs a one-page view of major business capabilities, while operations needs detailed task steps. What should the BA do?",
+        "options": [
+          "Use only a database schema",
+          "Create a single user story for the entire process",
+          "Create hierarchical views with a high-level capability map and lower-level process maps",
+          "Give both audiences the most detailed diagram"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Hierarchical mapping lets different audiences navigate from enterprise capabilities to processes, subprocesses, and detailed activities. Each level answers a different question while remaining connected.",
+        "tip": "Match the map level to the audience and decision. High-level maps show what; detailed maps show how."
+      },
+      {
+        "id": 43,
+        "category": "Business Process Mapping",
+        "select": 1,
+        "question": "In Universal Process Notation, which structure most clearly describes an activity?",
+        "options": [
+          "A paragraph containing every exception",
+          "Only a system object name",
+          "A color with no label",
+          "Verb + noun, with the responsible role and supporting information"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "UPN emphasizes simple, understandable activities commonly written as a verb and noun, connected to who performs them and relevant resources or details. The goal is clarity for business stakeholders.",
+        "tip": "Process activity labels should describe action, not departments, systems, or vague nouns alone."
+      },
+      {
+        "id": 44,
+        "category": "Business Process Mapping",
+        "select": 1,
+        "question": "A process includes sales, finance, and legal approvals. Which diagram feature best shows ownership and handoffs?",
+        "options": [
+          "Swimlanes by role or function",
+          "A dashboard gauge",
+          "A data dictionary",
+          "A release calendar"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Swimlanes group activities by responsible role, team, or system. They make ownership, handoffs, delays, and duplicated work visible across organizational boundaries.",
+        "tip": "Use swimlanes when the question is who performs each step and where work changes hands."
+      },
+      {
+        "id": 45,
+        "category": "Business Process Mapping",
+        "select": 1,
+        "question": "The team wants to improve a process. Which order is most appropriate?",
+        "options": [
+          "Map only the happy path after development",
+          "Validate the current state, identify pain points and root causes, then design and validate the future state",
+          "Design the future state first and ignore current behavior",
+          "Build automation before mapping the process"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "A validated current state provides the baseline for improvement. Root-cause analysis then identifies what should change, and the future state can be designed and tested against agreed outcomes and constraints.",
+        "tip": "As-is before to-be is a core BA pattern when the current process is not yet understood."
+      },
+      {
+        "id": 46,
+        "category": "Business Process Mapping",
+        "select": 1,
+        "question": "A process map shows that requests wait three days for one manager even though the review takes five minutes. What has the BA identified?",
+        "options": [
+          "A user story acceptance criterion",
+          "A deployment dependency only",
+          "A bottleneck or queue delay",
+          "A new business capability"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "The manager step constrains flow because work accumulates before a short activity. Process analysis should distinguish processing time from waiting time and explore causes and alternatives.",
+        "tip": "Look for wait states, rework loops, handoffs, and overloaded decision points when analyzing process performance."
+      },
+      {
+        "id": 47,
+        "category": "Business Process Mapping",
+        "select": 1,
+        "question": "A future-state map contains only the normal path, but 30% of cases require exceptions. What should the BA do?",
+        "options": [
+          "Leave exceptions undocumented because they are not the majority",
+          "Create a separate Salesforce org for each exception",
+          "Move every exception to UAT without requirements",
+          "Add decision points, exception paths, triggers, and ownership for those scenarios"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "A process map must represent material variations and exceptions that affect requirements, automation, controls, and user experience. Ignoring common exceptions creates incomplete stories and failed testing.",
+        "tip": "The happy path is not the whole process. Material exceptions belong in analysis and acceptance criteria."
+      },
+      {
+        "id": 48,
+        "category": "Business Process Mapping",
+        "select": 1,
+        "question": "Which statement best distinguishes a capability map from a process map?",
+        "options": [
+          "A capability map shows what the organization must be able to do; a process map shows how work flows to achieve an outcome",
+          "A capability map contains test scripts; a process map contains users",
+          "A capability map is only for developers",
+          "There is no meaningful difference"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Capabilities are stable business abilities such as Manage Cases or Forecast Revenue. Processes describe sequences of activities, decisions, roles, and inputs that deliver outcomes.",
+        "tip": "Capability equals what the business can do. Process equals how the work is performed."
+      },
+      {
+        "id": 49,
+        "category": "Business Process Mapping",
+        "select": 1,
+        "question": "Several teams edit copies of the same future-state diagram and no one knows which is approved. What is the best control?",
+        "options": [
+          "Let every team define its own future state",
+          "Store the map in a shared version-controlled repository with status, owner, and approval history",
+          "Email new copies with different filenames",
+          "Delete all prior versions"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Version control and governance establish a source of truth, preserve history, and show which version is current or approved. This is essential when process maps drive requirements and scope.",
+        "tip": "A shared artifact needs ownership, version history, and status—not informal file naming."
+      },
+      {
+        "id": 50,
+        "category": "Business Process Mapping",
+        "select": 1,
+        "question": "After stakeholders approve a future-state process, a team adds several steps without review. What should the BA do?",
+        "options": [
+          "Update the map secretly",
+          "Remove stakeholder approval from the record",
+          "Apply the agreed governance and change-control process to assess the scope change",
+          "Accept the changes because process maps are informal"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "An approved future state becomes a governed baseline. Changes should be assessed for value, impact, dependencies, requirements, and approval so the process and solution remain aligned.",
+        "tip": "Governance protects an agreed baseline while still allowing controlled change."
+      },
+      {
+        "id": 51,
+        "category": "Business Process Mapping",
+        "select": 1,
+        "question": "A handoff between service and billing causes missing information and repeated emails. Which process improvement question is most useful?",
+        "options": [
+          "Can both teams receive more decorative dashboards?",
+          "Can the missing information be ignored?",
+          "Can the process map remove the billing team?",
+          "Can ownership, required inputs, validation, and the handoff trigger be made explicit or simplified?"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Handoffs fail when ownership, entry criteria, required information, and completion conditions are unclear. The BA should examine whether the handoff can be eliminated, automated, standardized, or better controlled.",
+        "tip": "Every handoff adds delay and risk. Analyze what must be true before work moves to the next owner."
+      },
+      {
+        "id": 52,
+        "category": "Business Process Mapping",
+        "select": 2,
+        "question": "Which two activities best validate that a process map is accurate and usable?",
+        "options": [
+          "Walk through realistic scenarios with people who perform and receive the work",
+          "Compare the map with records, policies, metrics, and observed behavior",
+          "Ask only the map author to approve it",
+          "Add more diagram symbols without stakeholder review"
+        ],
+        "answers": [
+          0,
+          1
+        ],
+        "explanation": "Scenario walkthroughs and evidence help validate sequence, ownership, decisions, exceptions, and outcomes. Process participants can identify missing steps while data and artifacts challenge assumptions.",
+        "tip": "Validate maps with both people and evidence. A polished diagram can still be wrong."
+      },
+      {
+        "id": 53,
+        "category": "Requirements",
+        "select": 1,
+        "question": "A stakeholder states, “We need Salesforce to reduce case resolution time by 20%.” What type of requirement is this primarily?",
+        "options": [
+          "A deployment step",
+          "A business requirement or outcome",
+          "A detailed field specification",
+          "A test defect"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "The statement describes the business outcome the initiative should achieve. Solution and functional requirements will later define what the system and process must do to support that outcome.",
+        "tip": "Business requirements explain why and what outcome. Solution requirements explain what the process or system must do."
+      },
+      {
+        "id": 54,
+        "category": "Requirements",
+        "select": 1,
+        "question": "Which statement is a functional requirement?",
+        "options": [
+          "The project should improve customer trust",
+          "The team should work efficiently",
+          "The system must route cases with Severity = Critical to the escalation queue within one minute",
+          "The page should feel modern"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "A functional requirement describes observable system behavior under defined conditions. It is specific enough to design and test, unlike subjective or strategic statements.",
+        "tip": "Look for trigger, behavior, conditions, and observable result."
+      },
+      {
+        "id": 55,
+        "category": "Requirements",
+        "select": 1,
+        "question": "Which statement is a nonfunctional requirement?",
+        "options": [
+          "Users must be able to create an account",
+          "A manager must approve discounts over 20%",
+          "The system must create a task after a case closes",
+          "Authorized users must see the dashboard within three seconds for 95% of requests"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Nonfunctional requirements define quality attributes or constraints such as performance, security, availability, accessibility, scalability, and compliance.",
+        "tip": "Functional describes what happens. Nonfunctional describes how well, how securely, or under what quality constraint it happens."
+      },
+      {
+        "id": 56,
+        "category": "Requirements",
+        "select": 1,
+        "question": "A requirement has changed three times and affects four user stories and six test cases. Which practice gives the best visibility?",
+        "options": [
+          "Requirements traceability linking the requirement to source, stories, solution components, and tests",
+          "A private notebook",
+          "A screenshot of the latest meeting",
+          "A dashboard color legend"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Traceability shows where a requirement came from, how it is implemented, and how it is validated. It supports impact analysis when requirements change and provides evidence of coverage.",
+        "tip": "Traceability answers: why does this exist, where is it delivered, and how do we know it works?"
+      },
+      {
+        "id": 57,
+        "category": "Requirements",
+        "select": 2,
+        "question": "The release cannot include every requirement. Which two factors should strongly influence prioritization?",
+        "options": [
+          "The number of words in each requirement",
+          "Business value, risk, compliance, urgency, and strategic alignment",
+          "Dependencies, effort, and the ability to deliver a coherent outcome",
+          "The order in which stakeholders emailed requests"
+        ],
+        "answers": [
+          1,
+          2
+        ],
+        "explanation": "Prioritization balances value and risk with feasibility and sequencing. Dependencies and effort matter because a high-value requirement may not be independently deliverable in the planned release.",
+        "tip": "Prioritize using agreed criteria and preserve an end-to-end outcome. Avoid arbitrary ordering."
+      },
+      {
+        "id": 58,
+        "category": "Requirements",
+        "select": 1,
+        "question": "A requirement depends on identity integration that will not be available until the next quarter. What should the BA do?",
+        "options": [
+          "Remove the dependency from documentation",
+          "Assume the integration will arrive early",
+          "Record the dependency and evaluate sequencing, alternatives, risk, and impact on acceptance",
+          "Mark the requirement complete"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Dependencies affect feasibility, schedule, design, and testing. The BA should make them explicit, identify ownership, and help stakeholders decide whether to defer, redesign, or mitigate.",
+        "tip": "A requirement is not independently ready when a critical dependency is unresolved."
+      },
+      {
+        "id": 59,
+        "category": "Requirements",
+        "select": 1,
+        "question": "Which status model best supports a requirement lifecycle?",
+        "options": [
+          "New and old only",
+          "Important and unimportant only",
+          "Red, blue, and green",
+          "Proposed, analyzed, approved, implemented, verified, and retired or superseded"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Lifecycle status communicates maturity and governance. It helps teams know whether a requirement is still being explored, has approval, is delivered, has been validated, or is no longer active.",
+        "tip": "Requirement status should reflect analysis and delivery state, not personal opinion."
+      },
+      {
+        "id": 60,
+        "category": "Requirements",
+        "select": 1,
+        "question": "Where should approved requirements be maintained?",
+        "options": [
+          "In a shared version-controlled repository that preserves history and access",
+          "Only in the BA’s local files",
+          "Only in meeting chat",
+          "Only in the developer’s memory"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "A controlled repository creates a source of truth, supports collaboration and traceability, and preserves changes over time. The exact tool matters less than governance, accessibility, and history.",
+        "tip": "Requirements need a durable source of truth with version history and clear ownership."
+      },
+      {
+        "id": 61,
+        "category": "Requirements",
+        "select": 1,
+        "question": "A new regulation changes an approved requirement. What is the best next step?",
+        "options": [
+          "Delete the original requirement and its history",
+          "Perform impact analysis and follow the agreed change-control and prioritization process",
+          "Reject the change because approval already occurred",
+          "Implement it secretly"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Regulatory changes may be mandatory, but the team still needs to assess scope, dependencies, solution impact, tests, schedule, and communication. Controlled change maintains traceability and alignment.",
+        "tip": "Mandatory does not mean unmanaged. Analyze and document the impact even when the decision is not optional."
+      },
+      {
+        "id": 62,
+        "category": "Requirements",
+        "select": 1,
+        "question": "Users say the current account creation process is “frustrating.” What should the BA do to turn the pain point into requirements?",
+        "options": [
+          "Ask developers to guess the cause",
+          "Write a requirement to make the page nicer",
+          "Identify specific causes, affected users, frequency, impact, and desired outcomes before defining solution behavior",
+          "Translate “frustrating” directly into a custom object"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "A pain point is evidence of a problem but is not yet a well-defined requirement. The BA investigates where and why the frustration occurs and converts findings into measurable needs and behaviors.",
+        "tip": "Do not design from adjectives. Convert vague pain into observable problems and outcomes."
+      },
+      {
+        "id": 63,
+        "category": "Requirements",
+        "select": 1,
+        "question": "Which requirement is best defined?",
+        "options": [
+          "The system should be user friendly",
+          "Reports should be better",
+          "Salesforce should automate everything",
+          "When a high-risk opportunity is submitted, the system must require legal approval before the stage can change to Contracted"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "The requirement identifies a condition, system behavior, control, and observable outcome. It is specific, necessary, feasible to analyze, and testable.",
+        "tip": "Strong requirements are clear, unambiguous, feasible, necessary, prioritized, and verifiable."
+      },
+      {
+        "id": 64,
+        "category": "Requirements",
+        "select": 1,
+        "question": "A data migration requirement says, “Move customer data.” What information is missing?",
+        "options": [
+          "Source, scope, field mapping, quality rules, ownership, volume, timing, security, and reconciliation criteria",
+          "The preferred dashboard theme",
+          "The sprint retrospective date only",
+          "The name of the executive sponsor only"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Data requirements must define what data is in scope, where it comes from, how it maps and transforms, how quality is handled, who owns decisions, and how completeness and accuracy will be validated.",
+        "tip": "Data migration requirements need both transformation rules and acceptance or reconciliation criteria."
+      },
+      {
+        "id": 65,
+        "category": "Requirements",
+        "select": 1,
+        "question": "A requirement allows all support agents to view medical information, but policy allows access only for a specialized team. What should the BA do?",
+        "options": [
+          "Remove security from acceptance testing",
+          "Update the requirement to reflect least-privilege access and involve security or compliance stakeholders",
+          "Ignore policy because the users requested access",
+          "Make the object public read/write"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Requirements must incorporate policy, legal, privacy, and security constraints. The BA should resolve the conflict with accountable stakeholders and document the authorized access model.",
+        "tip": "User preference cannot override compliance. Security and privacy are requirements, not post-build settings."
+      },
+      {
+        "id": 66,
+        "category": "Requirements",
+        "select": 1,
+        "question": "Which statement is an assumption rather than a confirmed requirement?",
+        "options": [
+          "The system must retain audit history for seven years",
+          "Only service managers can close escalated cases",
+          "All regional teams will adopt the same approval process without local exceptions",
+          "Discounts above 25% require CFO approval"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "An assumption is believed to be true for planning but has not been validated. It should be recorded, owned, and tested because a false assumption can change scope and design.",
+        "tip": "Flag assumptions explicitly. Unvalidated assumptions often become hidden risks."
+      },
+      {
+        "id": 67,
+        "category": "Requirements",
+        "select": 1,
+        "question": "The current process cannot support a desired future outcome. Which analysis compares what exists with what is needed?",
+        "options": [
+          "Regression testing",
+          "Role hierarchy analysis",
+          "Sprint burndown",
+          "Gap analysis"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Gap analysis identifies differences between the current and desired future states across process, people, data, technology, policy, and capability. Those gaps drive requirements and roadmap decisions.",
+        "tip": "Current state minus future state equals the gaps the solution and change plan must address."
+      },
+      {
+        "id": 68,
+        "category": "Requirements",
+        "select": 1,
+        "question": "What is the difference between verifying and validating requirements?",
+        "options": [
+          "Verification checks requirement quality and completeness; validation confirms the requirements represent the real business need",
+          "Verification occurs only after production; validation occurs only before discovery",
+          "They are identical terms",
+          "Validation is performed only by developers"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Verification asks whether requirements are written correctly—clear, consistent, complete, feasible, and testable. Validation asks whether they are the right requirements for stakeholders and outcomes.",
+        "tip": "Verify the artifact. Validate the need."
+      },
+      {
+        "id": 69,
+        "category": "Requirements",
+        "select": 1,
+        "question": "A requirement is approved, but the development team cannot determine expected behavior for an exception. What should the BA do?",
+        "options": [
+          "Close the requirement because it was approved",
+          "Clarify the requirement with stakeholders and update the controlled artifact and affected stories",
+          "Tell the team to choose any behavior",
+          "Wait until UAT to discuss it"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Approval does not make ambiguity harmless. The BA should resolve the exception, preserve the decision, and assess the impact on stories, design, tests, and scope.",
+        "tip": "Clarification is ongoing. Never let an approval status prevent correction of ambiguity."
+      },
+      {
+        "id": 70,
+        "category": "Requirements",
+        "select": 2,
+        "question": "Which two conditions indicate a requirement is ready for delivery planning?",
+        "options": [
+          "It contains a preferred solution but no business need",
+          "Stakeholders have not reviewed it",
+          "It has a clear business rationale, owner, priority, scope, and acceptance approach",
+          "Dependencies, assumptions, constraints, and affected processes or data are understood"
+        ],
+        "answers": [
+          2,
+          3
+        ],
+        "explanation": "A ready requirement is understood well enough to estimate, decompose, design, and test. It does not need every implementation detail, but critical ambiguity and dependency risk should be visible.",
+        "tip": "Readiness means sufficient shared understanding—not perfect certainty."
+      },
+      {
+        "id": 71,
+        "category": "User Stories",
+        "select": 1,
+        "question": "Which user story follows the standard role-goal-benefit format?",
+        "options": [
+          "Create an overdue escalation report",
+          "The system shall use a dashboard",
+          "Overdue escalations are important",
+          "As a service manager, I want to view overdue escalations so that I can prioritize intervention"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "The story identifies the user, desired capability, and value. It frames the need without prescribing every implementation detail.",
+        "tip": "A good story states who, what, and why. Implementation details belong in supporting notes when needed."
+      },
+      {
+        "id": 72,
+        "category": "User Stories",
+        "select": 1,
+        "question": "Which quality is represented by the “V” in INVEST?",
+        "options": [
+          "Valuable",
+          "Visible",
+          "Verified",
+          "Versioned"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "INVEST describes good user stories as Independent, Negotiable, Valuable, Estimable, Small, and Testable. Value connects the story to a meaningful outcome for a user or stakeholder.",
+        "tip": "Memorize INVEST, but also understand how each quality improves backlog decisions and delivery."
+      },
+      {
+        "id": 73,
+        "category": "User Stories",
+        "select": 1,
+        "question": "Which acceptance criterion is written in a clear Given-When-Then style?",
+        "options": [
+          "Managers like approvals",
+          "Given an opportunity discount above 20%, when the rep submits for approval, then the request is routed to the regional manager",
+          "The approval should work correctly",
+          "Build a discount flow"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Given-When-Then describes context, action, and observable result. It creates a shared example that supports development and testing.",
+        "tip": "Acceptance criteria should be observable and specific enough that two people reach the same conclusion."
+      },
+      {
+        "id": 74,
+        "category": "User Stories",
+        "select": 1,
+        "question": "What is the primary difference between acceptance criteria and the Definition of Done?",
+        "options": [
+          "Definition of Done replaces all testing",
+          "There is no difference",
+          "Acceptance criteria are story-specific conditions; the Definition of Done is a shared quality standard for completed increments",
+          "Acceptance criteria are only for developers; Definition of Done is only for executives"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Acceptance criteria define what must be true for one story. The Definition of Done applies consistently to work completed by the team, such as review, testing, documentation, and deployment readiness.",
+        "tip": "Story-specific versus team-wide is the key distinction."
+      },
+      {
+        "id": 75,
+        "category": "User Stories",
+        "select": 1,
+        "question": "A story says, “As a user, I want a complete customer 360 platform.” Why is it not ready for a sprint?",
+        "options": [
+          "It contains a user role",
+          "It includes business value",
+          "It has too few technical tasks",
+          "It is too broad and should be decomposed into smaller valuable slices"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "The story represents an epic or outcome that spans many capabilities, users, and dependencies. It should be split into smaller end-to-end stories that can be delivered and validated.",
+        "tip": "Small does not mean a technical layer. Split by workflow, rule, scenario, data set, or user outcome."
+      },
+      {
+        "id": 76,
+        "category": "User Stories",
+        "select": 1,
+        "question": "Which split creates the strongest vertical slice?",
+        "options": [
+          "Allow a sales rep to create and submit one standard discount request end to end",
+          "Build all database fields first",
+          "Build all UI components without logic",
+          "Create all automation for every discount scenario"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "A vertical slice delivers a thin but usable path across the necessary layers. It can be demonstrated and accepted based on user value, unlike horizontal technical work alone.",
+        "tip": "Prefer end-to-end user value over separate UI, data, and automation layers."
+      },
+      {
+        "id": 77,
+        "category": "User Stories",
+        "select": 1,
+        "question": "A team wants to visualize the sequence of user activities and identify a minimum viable release. Which technique is most useful?",
+        "options": [
+          "A database index review",
+          "User story mapping",
+          "A permission set audit",
+          "A release rollback log"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Story mapping organizes activities and stories along the user journey, helping teams see workflow completeness, dependencies, and possible release slices.",
+        "tip": "Story maps connect backlog items to the user’s end-to-end experience and release goals."
+      },
+      {
+        "id": 78,
+        "category": "User Stories",
+        "select": 1,
+        "question": "What is the purpose of backlog refinement?",
+        "options": [
+          "Replace the Sprint Review",
+          "Assign every task months in advance",
+          "Clarify, split, prioritize, estimate, and prepare upcoming work collaboratively",
+          "Approve production deployment"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Backlog refinement improves shared understanding and readiness of future work. It is ongoing and may include clarifying stories, adding criteria, identifying dependencies, and estimating.",
+        "tip": "Refinement is preparation, not a one-time approval gate."
+      },
+      {
+        "id": 79,
+        "category": "User Stories",
+        "select": 1,
+        "question": "Who should accept that a user story meets its agreed business conditions?",
+        "options": [
+          "Any developer working on the story",
+          "Only the Scrum Master",
+          "The database administrator regardless of scope",
+          "The Product Owner or authorized business decision maker"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "The Product Owner is accountable for product value and commonly accepts completed stories against agreed criteria, often informed by stakeholder and tester feedback.",
+        "tip": "The delivery team demonstrates completion; the accountable business role accepts value and criteria."
+      },
+      {
+        "id": 80,
+        "category": "User Stories",
+        "select": 1,
+        "question": "Why should user stories be maintained in a version-controlled repository?",
+        "options": [
+          "To preserve changes, decisions, links, status, and a shared source of truth",
+          "To prevent stakeholders from reading them",
+          "To eliminate the need for conversation",
+          "To hide superseded acceptance criteria"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Version history and traceability show how scope and understanding evolved. A repository supports collaboration, auditability, and impact analysis.",
+        "tip": "A story is a conversation supported by a durable record—not a replacement for conversation."
+      },
+      {
+        "id": 81,
+        "category": "User Stories",
+        "select": 1,
+        "question": "A story contains detailed instructions for exactly which Flow elements a developer must use. What should the BA do?",
+        "options": [
+          "Ask testers to decide the architecture",
+          "Keep the business intent and acceptance conditions clear, and move solution details to appropriate design notes unless they are true constraints",
+          "Add more implementation detail to every story",
+          "Remove the user value"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "User stories should normally express need and value while allowing collaboration on implementation. Necessary technical constraints can be documented, but premature design can reduce better options.",
+        "tip": "Do not confuse a user story with a technical specification. Preserve legitimate constraints without over-prescribing."
+      },
+      {
+        "id": 82,
+        "category": "User Stories",
+        "select": 1,
+        "question": "Story B cannot begin until Story A establishes a required integration. What should the team do?",
+        "options": [
+          "Start both stories and hope the integration appears",
+          "Mark Story B done",
+          "Make the dependency visible and consider sequencing, splitting, or reducing coupling",
+          "Hide the dependency from the backlog"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Dependencies affect ordering, estimation, and sprint risk. The team should expose them and seek ways to reduce or manage them rather than discovering the issue during delivery.",
+        "tip": "Independent is an INVEST goal. When independence is impossible, make the dependency explicit and manage it."
+      },
+      {
+        "id": 83,
+        "category": "User Stories",
+        "select": 1,
+        "question": "Which story is most testable?",
+        "options": [
+          "As a user, I want a better experience",
+          "Improve Salesforce",
+          "Make reports fast enough",
+          "As a sales manager, I want opportunities over $500,000 flagged within one minute so that I can review risk promptly"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "The story identifies a user, outcome, threshold, and timing that can be validated. Vague adjectives do not produce consistent tests.",
+        "tip": "Testability improves when the outcome and boundaries are observable and measurable."
+      },
+      {
+        "id": 84,
+        "category": "User Stories",
+        "select": 1,
+        "question": "A stakeholder requests encryption and auditability but no visible user interaction. How should the need be represented?",
+        "options": [
+          "As a nonfunctional requirement linked to relevant stories and acceptance or compliance criteria",
+          "It should be ignored because it is not a user-facing feature",
+          "Only as a developer task with no traceability",
+          "As a persona"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Not every important need fits naturally into a role-goal-benefit story. Security and compliance can be represented as nonfunctional requirements, constraints, enablers, or criteria linked to affected delivery work.",
+        "tip": "Do not force every quality constraint into an awkward user story. Maintain traceability to the work it governs."
+      },
+      {
+        "id": 85,
+        "category": "User Stories",
+        "select": 1,
+        "question": "A story reads, “As Salesforce, I want to update a record.” What is the main issue?",
+        "options": [
+          "The story is already a test case",
+          "The actor is not a meaningful user or stakeholder and the value is unclear",
+          "The story is too small",
+          "The story contains too much acceptance criteria"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Salesforce is the system, not the beneficiary. A strong story identifies who needs the outcome and why; automation behavior can then be described in criteria or supporting requirements.",
+        "tip": "The role should represent a person or stakeholder perspective with a meaningful goal and value."
+      },
+      {
+        "id": 86,
+        "category": "User Stories",
+        "select": 1,
+        "question": "The team does not understand whether a complex vendor API can support a proposed story. What backlog item can reduce uncertainty?",
+        "options": [
+          "A completed UAT sign-off",
+          "A persona workshop only",
+          "A time-boxed spike with a clear research question and expected output",
+          "A production release"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "A spike is a time-boxed investigation used to learn enough about technology, design, or requirements to make a better decision or estimate. It should produce defined learning, not indefinite exploration.",
+        "tip": "Use a spike to answer a specific uncertainty. Time-box it and define what decision the result will support."
+      },
+      {
+        "id": 87,
+        "category": "User Stories",
+        "select": 1,
+        "question": "Who should estimate user stories in an agile delivery team?",
+        "options": [
+          "The BA alone",
+          "The executive sponsor alone",
+          "The UAT testers after release",
+          "The people who will do the work, using shared understanding of the story"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "The delivery team estimates because its members understand the implementation work, risks, and dependencies. The BA and Product Owner clarify scope and value but should not impose estimates.",
+        "tip": "Those who perform the work estimate it; those who define value prioritize it."
+      },
+      {
+        "id": 88,
+        "category": "User Stories",
+        "select": 2,
+        "question": "Which two characteristics indicate that acceptance criteria are effective?",
+        "options": [
+          "They cover important business rules, boundaries, and exception behavior",
+          "They are clear and observable enough to support development and testing",
+          "They repeat the story title without additional detail",
+          "They prescribe every internal code method"
+        ],
+        "answers": [
+          0,
+          1
+        ],
+        "explanation": "Effective criteria clarify what success means, including rules and material exceptions, while remaining understandable and testable. They guide implementation without unnecessarily dictating architecture.",
+        "tip": "Criteria define outcomes and boundaries. They should reduce ambiguity, not replace technical design."
+      },
+      {
+        "id": 89,
+        "category": "User Acceptance",
+        "select": 1,
+        "question": "What is the primary purpose of User Acceptance Testing?",
+        "options": [
+          "Replace unit and system testing",
+          "Train developers on Salesforce syntax",
+          "Confirm that the solution supports agreed business needs and can be accepted by representative users",
+          "Prove that no software defect can ever exist"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "UAT validates the solution from the business perspective using realistic scenarios and acceptance criteria. It complements technical testing rather than replacing it.",
+        "tip": "Technical testing asks whether the solution works as designed. UAT asks whether it works for the business need."
+      },
+      {
+        "id": 90,
+        "category": "User Acceptance",
+        "select": 1,
+        "question": "Which group makes the strongest UAT testers for a new case process?",
+        "options": [
+          "Only the developers who built the solution",
+          "Only executives who never use the process",
+          "Random users with no process knowledge",
+          "Representative business users who understand the process, including common roles and important variations"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Representative users can judge whether the process supports real work and business outcomes. The tester group should cover relevant roles, regions, scenarios, and authorization levels.",
+        "tip": "Choose testers for process knowledge and representativeness, not convenience alone."
+      },
+      {
+        "id": 91,
+        "category": "User Acceptance",
+        "select": 1,
+        "question": "What should a UAT test script be traced back to?",
+        "options": [
+          "Approved requirements, user stories, acceptance criteria, and business processes",
+          "The developer’s preferred implementation",
+          "Only the project schedule",
+          "The organization chart"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Traceability ensures that UAT covers the agreed business scope and that failures can be linked to specific needs and decisions.",
+        "tip": "Every important requirement should have a clear validation path."
+      },
+      {
+        "id": 92,
+        "category": "User Acceptance",
+        "select": 1,
+        "question": "Why should UAT use realistic data and scenarios?",
+        "options": [
+          "To replace data privacy controls",
+          "To expose business rules, permissions, integrations, exceptions, and usability issues that artificial happy paths may miss",
+          "To make the scripts longer",
+          "To avoid documenting expected results"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Realistic scenarios reveal whether the solution works under the conditions users actually face. Test data must still comply with privacy and security requirements.",
+        "tip": "Realistic does not mean copying sensitive production data without controls."
+      },
+      {
+        "id": 93,
+        "category": "User Acceptance",
+        "select": 1,
+        "question": "A UAT tester reports that a required field label is confusing but the transaction can be completed. How should the issue be handled?",
+        "options": [
+          "Immediately cancel the release without analysis",
+          "Ask the tester to change the label in production",
+          "Log it with evidence, business impact, severity, priority, and an agreed disposition",
+          "Ignore it because it is not a system crash"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "UAT feedback should be captured consistently and triaged. Severity describes impact; priority reflects when the team should act. The decision may be to fix, defer, accept, or clarify.",
+        "tip": "Not every issue blocks release, but every meaningful issue needs a visible decision and rationale."
+      },
+      {
+        "id": 94,
+        "category": "User Acceptance",
+        "select": 2,
+        "question": "Which two items belong in a UAT plan?",
+        "options": [
+          "Test scenarios, data needs, traceability, communication, and sign-off responsibilities",
+          "Only the production deployment time",
+          "Only the names of developers",
+          "Scope, roles, environment, schedule, entry and exit criteria, and defect process"
+        ],
+        "answers": [
+          0,
+          3
+        ],
+        "explanation": "A UAT plan defines how business acceptance will be organized and governed. It covers what will be tested, by whom, where, when, with which data, how issues are handled, and how acceptance is decided.",
+        "tip": "UAT needs planned people, scope, data, environment, evidence, issue handling, and decision criteria."
+      },
+      {
+        "id": 95,
+        "category": "User Acceptance",
+        "select": 1,
+        "question": "A regulated process requires evidence that only authorized roles completed approval tests. What should the BA ensure?",
+        "options": [
+          "The UAT plan captures tester identity, role, results, evidence, and required compliance sign-off",
+          "Anyone can test under an administrator account",
+          "Test results are recorded only verbally",
+          "Compliance is reviewed after production"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Regulated acceptance may require controlled access, traceable execution, evidence retention, segregation of duties, and formal approval. These needs belong in the plan before testing begins.",
+        "tip": "Compliance affects who tests, how evidence is stored, and who can sign off."
+      },
+      {
+        "id": 96,
+        "category": "User Acceptance",
+        "select": 1,
+        "question": "UAT finds a defect that prevents all users from completing a legally required process. What is the best recommendation?",
+        "options": [
+          "Ask users to bypass the legal step",
+          "No-go until the blocking issue is resolved or an approved compliant mitigation exists",
+          "Go live because the schedule is fixed",
+          "Hide the defect from the sponsor"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "A defect that blocks a mandatory process creates unacceptable business and compliance risk. The go/no-go decision should be based on severity, scope, mitigation, residual risk, and accountable approval.",
+        "tip": "A fixed date does not outweigh an unmitigated critical risk."
+      },
+      {
+        "id": 97,
+        "category": "User Acceptance",
+        "select": 1,
+        "question": "UAT is complete and all exit criteria are met. What should happen before release?",
+        "options": [
+          "Let the development team approve on behalf of users",
+          "Start new requirements without closing UAT",
+          "Obtain and record formal stakeholder acceptance or sign-off according to governance",
+          "Delete all test evidence"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Formal acceptance records that authorized stakeholders reviewed results, accepted residual risks, and approved the solution for release. The method should follow organizational governance.",
+        "tip": "Completion of tests and authorization to release are related but distinct decisions."
+      },
+      {
+        "id": 98,
+        "category": "User Acceptance",
+        "select": 1,
+        "question": "How does regression testing differ from UAT?",
+        "options": [
+          "Regression testing is performed only by executives",
+          "UAT replaces all regression testing",
+          "There is no difference",
+          "Regression testing checks that existing functionality still works; UAT validates the solution against business needs"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Regression testing protects existing behavior after change. UAT evaluates whether the delivered solution is acceptable for intended business use. A release may require both.",
+        "tip": "Regression protects what already worked. UAT confirms the new or changed outcome is acceptable."
+      },
+      {
+        "id": 99,
+        "category": "User Acceptance",
+        "select": 1,
+        "question": "The UAT environment contains copied production data with sensitive customer details. What should the BA do?",
+        "options": [
+          "Escalate the risk and ensure masking, access controls, retention, and policy requirements are followed",
+          "Share the data broadly to speed testing",
+          "Export the data to personal devices",
+          "Ignore the issue because the environment is not production"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Nonproduction environments still require appropriate privacy and security controls. UAT planning should specify safe test data, authorized access, and handling requirements.",
+        "tip": "Environment labels do not remove data obligations. Sensitive data remains sensitive outside production."
+      },
+      {
+        "id": 100,
+        "category": "User Acceptance",
+        "select": 2,
+        "question": "Which two conditions are appropriate UAT exit criteria?",
+        "options": [
+          "No future enhancement remains in the backlog",
+          "All planned critical scenarios have been executed with traceable results",
+          "No unresolved defect exceeds the agreed risk threshold and required stakeholders have accepted residual issues",
+          "Every tester reports that the interface is perfect"
+        ],
+        "answers": [
+          1,
+          2
+        ],
+        "explanation": "Exit criteria should be objective and agreed before testing. They commonly address coverage, defect thresholds, evidence, business readiness, and sign-off—not perfection or completion of every future idea.",
+        "tip": "Define exit criteria before UAT so the release decision is not invented under schedule pressure."
+      }
+    ]
   }
 ];

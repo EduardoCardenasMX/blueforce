@@ -6,6 +6,7 @@ const root = process.cwd();
 const sourceFiles = {
   "ux-designer": "salesforce_ux_designer_study_lab(1).html",
   "platform-administrator": "salesforce_platform_administrator_study_lab.html",
+  "business-analyst": "salesforce_business_analyst_study_lab.html",
 };
 
 const metadata = {
@@ -100,6 +101,67 @@ const metadata = {
         title: "Trailblazer Community: Salesforce Admin",
         url: "https://trailhead.salesforce.com/trailblazer-community/topics/admin",
         description: "Consejos de estudio, preguntas y discusion de especialistas.",
+      },
+    ],
+  },
+  "business-analyst": {
+    id: "business-analyst",
+    title: "Salesforce Business Analyst",
+    pageTitle: "Salesforce Certified Business Analyst Study Lab",
+    shortTitle: "Business Analyst",
+    code: "BA",
+    path: "certifications/business-analyst.html",
+    sourceFile: sourceFiles["business-analyst"],
+    description:
+      "Practica escenarios de discovery, stakeholders, procesos, requisitos, user stories y UAT con feedback inmediato.",
+    heroCopy:
+      "Practica los dominios actuales con escenarios realistas de analisis de negocio en Salesforce. Selecciona tus respuestas para revelar la opcion correcta, una explicacion y un tip de examen.",
+    reasoning:
+      "Identifica el resultado de negocio, separa evidencia de supuestos y elige la tecnica o artefacto que crea el entendimiento compartido mas claro.",
+    habits:
+      "Lee cada calificador: first, best, current state, future state, select two y most effective technique suelen determinar la respuesta.",
+    integrity:
+      "Este lab contiene preguntas originales creadas desde objetivos publicos, documentacion Salesforce y practicas establecidas de analisis de negocio. No reproduce contenido restringido del examen.",
+    blueprintNote:
+      "El banco contiene 100 preguntas, por lo que el conteo refleja el peso publicado para cada dominio.",
+    blueprint: [
+      { label: "Customer Discovery", weight: 17 },
+      { label: "Collaboration with Stakeholders", weight: 23 },
+      { label: "Business Process Mapping", weight: 12 },
+      { label: "Requirements", weight: 18 },
+      { label: "User Stories", weight: 18 },
+      { label: "User Acceptance", weight: 12 },
+    ],
+    resources: [
+      {
+        title: "Salesforce Business Analyst Credential",
+        url: "https://trailhead.salesforce.com/credentials/businessanalyst",
+        description: "Pagina oficial de la credencial y preparacion recomendada.",
+      },
+      {
+        title: "Official Business Analyst Cert Prep",
+        url: "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep",
+        description: "Practica, flashcards y enlaces de estudio para los seis dominios.",
+      },
+      {
+        title: "Customer Discovery Review",
+        url: "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/learn-about-customer-discovery",
+        description: "Estrategia, estado actual, work streams, cambio y contexto Salesforce.",
+      },
+      {
+        title: "Stakeholder Collaboration Review",
+        url: "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/reivew-collaboration-with-stakeholders",
+        description: "Elicitacion, facilitacion, confianza, roadmaps y priorizacion.",
+      },
+      {
+        title: "Business Process Mapping Review",
+        url: "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/study-up-on-business-process-mapping",
+        description: "Scope, ownership, governance, capability maps y process maps.",
+      },
+      {
+        title: "User Acceptance Review",
+        url: "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/explore-user-acceptance",
+        description: "Planes UAT, testers, scripts, feedback, go/no-go y sign-off.",
       },
     ],
   },
