@@ -139,12 +139,16 @@
       new URLSearchParams(window.location.search).get("cert");
     const certification = certifications.find((item) => item.id === requestedId);
     if (!certification) {
+      console.warn("BlueForce certification not found.", {
+        requestedId,
+        loadedCertifications: certifications.map((item) => item.id),
+      });
       app.innerHTML = `
         <div class="shell">
           <div class="empty-state">
             <h2>Certificacion no encontrada</h2>
             <p>Regresa a BlueForce para elegir un examen disponible.</p>
-            <a class="btn btn-primary" href="../index.html">Volver al inicio</a>
+            <a class="btn btn-primary" href="../">Volver al inicio</a>
           </div>
         </div>
       `;
@@ -601,8 +605,11 @@
     document.getElementById("blueprintNote").textContent = certification.blueprintNote;
     document.getElementById("reasoningText").textContent = certification.reasoning;
     document.getElementById("habitsText").textContent = certification.habits;
-    document.getElementById("sourceFile").textContent = certification.sourceFile;
-    document.getElementById("sourceFile").href = `../${certification.sourceFile}`;
+    const sourceFileLink = document.getElementById("sourceFile");
+    if (sourceFileLink) {
+      sourceFileLink.textContent = certification.sourceFile;
+      sourceFileLink.href = `../${certification.sourceFile}`;
+    }
 
     document.getElementById("blueprintList").innerHTML = certification.blueprint
       .map((item) => {

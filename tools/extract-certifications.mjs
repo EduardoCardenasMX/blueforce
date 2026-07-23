@@ -16,7 +16,7 @@ const metadata = {
     pageTitle: "Salesforce UX Designer Certification Study Lab",
     shortTitle: "UX Designer",
     code: "UX",
-    path: "certifications/ux-designer.html",
+    path: "certifications/ux-designer",
     sourceFile: sourceFiles["ux-designer"],
     description:
       "Practica los dominios oficiales con preguntas de escenario, retroalimentacion inmediata y tips enfocados en razonamiento de examen.",
@@ -62,7 +62,7 @@ const metadata = {
     pageTitle: "Salesforce Platform Administrator Certification Study Lab",
     shortTitle: "Platform Administrator",
     code: "ADM",
-    path: "certifications/platform-administrator.html",
+    path: "certifications/platform-administrator",
     sourceFile: sourceFiles["platform-administrator"],
     description:
       "Practica escenarios reales de administracion, seguridad, datos, automatizacion y Agentforce con feedback inmediato.",
@@ -110,7 +110,7 @@ const metadata = {
     pageTitle: "Salesforce Certified Business Analyst Study Lab",
     shortTitle: "Business Analyst",
     code: "BA",
-    path: "certifications/business-analyst.html",
+    path: "certifications/business-analyst",
     sourceFile: sourceFiles["business-analyst"],
     description:
       "Practica escenarios de discovery, stakeholders, procesos, requisitos, user stories y UAT con feedback inmediato.",
