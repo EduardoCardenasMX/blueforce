@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive Salesforce Platform UX Designer certification study lab with original exam-aligned practice questions, explanations, and study tips." />
+  <title>Salesforce UX Designer Certification Study Lab</title>
+  <style>
+    :root {
+      --bg: #071426;
+      --surface: #0f2139;
+      --surface-2: #142a46;
+      --surface-3: #1a3453;
+      --text: #f5f9ff;
+      --muted: #b5c5d9;
+      --line: #2a4668;
+      --brand: #2f9cf4;
+      --brand-2: #78c7ff;
+      --success: #45d483;
+      --success-bg: rgba(69, 212, 131, 0.12);
+      --danger: #ff7e8b;
+      --danger-bg: rgba(255, 126, 139, 0.12);
+      --warning: #ffd36a;
+      --shadow: 0 22px 55px rgba(0, 0, 0, 0.28);
+      --radius: 22px;
+      --radius-sm: 14px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% -10%, rgba(47, 156, 244, 0.22), transparent 35%),
+        radial-gradient(circle at 90% 5%, rgba(120, 199, 255, 0.12), transparent 28%),
+        linear-gradient(180deg, #071426 0%, #091a2e 46%, #071426 100%);
+      line-height: 1.55;
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: var(--brand-2); }
+    a:hover { color: white; }
+    :focus-visible { outline: 3px solid var(--warning); outline-offset: 3px; }
+
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: -80px;
+      z-index: 100;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: #06111f;
+      background: var(--warning);
+      font-weight: 800;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: 16px; }
+
+    .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+
+    .hero { padding: 52px 0 28px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+    .hero-copy, .blueprint-panel {
+      border: 1px solid rgba(120, 199, 255, 0.18);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(20, 42, 70, 0.94), rgba(10, 28, 49, 0.96));
+      box-shadow: var(--shadow);
+    }
+    .hero-copy { padding: clamp(28px, 5vw, 54px); position: relative; overflow: hidden; }
+    .hero-copy::after {
+      content: "UX";
+      position: absolute;
+      right: -18px;
+      bottom: -72px;
+      font-size: 210px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -18px;
+      color: rgba(120, 199, 255, 0.055);
+      pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 7px 11px;
+      border: 1px solid rgba(120, 199, 255, 0.25);
+      border-radius: 999px;
+      color: var(--brand-2);
+      background: rgba(47, 156, 244, 0.08);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; max-width: 820px; font-size: clamp(2.15rem, 5vw, 4.8rem); line-height: 0.98; letter-spacing: -0.055em; }
+    .hero-copy p { max-width: 760px; margin: 22px 0 0; color: var(--muted); font-size: 1.05rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+    .btn {
+      min-height: 45px;
+      padding: 11px 17px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      font-weight: 800;
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { color: #06111f; background: linear-gradient(135deg, var(--brand-2), var(--brand)); }
+    .btn-secondary { color: var(--text); border-color: var(--line); background: rgba(255,255,255,0.04); }
+    .btn-danger { color: #ffe9ec; border-color: rgba(255, 126, 139, 0.35); background: rgba(255, 126, 139, 0.08); }
+    .btn:disabled { cursor: not-allowed; opacity: 0.45; transform: none; }
+
+    .blueprint-panel { padding: 24px; }
+    .blueprint-panel h2 { margin: 0 0 6px; font-size: 1.1rem; }
+    .blueprint-panel > p { margin: 0 0 18px; color: var(--muted); font-size: 0.9rem; }
+    .weight-list { display: grid; gap: 12px; }
+    .weight-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+    .weight-label { font-size: 0.86rem; font-weight: 750; }
+    .weight-value { color: var(--brand-2); font-size: 0.82rem; font-weight: 900; }
+    .weight-track { grid-column: 1 / -1; height: 7px; overflow: hidden; border-radius: 999px; background: #071426; }
+    .weight-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--brand), var(--brand-2)); }
+
+    .notice {
+      margin: 22px 0 0;
+      padding: 15px 17px;
+      border: 1px solid rgba(255, 211, 106, 0.25);
+      border-radius: 14px;
+      color: #f8e9bd;
+      background: rgba(255, 211, 106, 0.075);
+      font-size: 0.9rem;
+    }
+
+    .dashboard { padding: 10px 0 56px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; margin-bottom: 18px; }
+    .stat-card { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: rgba(15, 33, 57, 0.9); }
+    .stat-label { color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+    .stat-value { margin-top: 4px; font-size: 1.55rem; font-weight: 900; }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(15, 33, 57, 0.85);
+    }
+    .category-filters { display: flex; flex-wrap: wrap; gap: 8px; flex: 1 1 650px; }
+    .filter-btn {
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: transparent;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+    .filter-btn[aria-pressed="true"] { color: #06111f; border-color: transparent; background: var(--brand-2); }
+
+    .progress-block { margin-bottom: 16px; }
+    .progress-meta { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 8px; color: var(--muted); font-size: 0.86rem; font-weight: 750; }
+    .progress-track { width: 100%; height: 10px; overflow: hidden; border-radius: 999px; background: #06111f; border: 1px solid #19324f; }
+    .progress-fill { width: 0%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--brand), var(--success)); transition: width 0.25s ease; }
+
+    .study-layout { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 18px; align-items: start; }
+    .question-card {
+      min-height: 580px;
+      padding: clamp(22px, 4vw, 38px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(160deg, rgba(20, 42, 70, 0.98), rgba(10, 28, 49, 0.98));
+      box-shadow: var(--shadow);
+    }
+    .question-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
+    .category-badge { display: inline-flex; padding: 7px 11px; border-radius: 999px; color: var(--brand-2); background: rgba(47, 156, 244, 0.11); font-size: 0.78rem; font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase; }
+    .bookmark-btn { width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 12px; color: var(--muted); background: rgba(255,255,255,0.03); font-size: 1.15rem; }
+    .bookmark-btn.active { color: var(--warning); border-color: rgba(255,211,106,0.42); background: rgba(255,211,106,0.08); }
+    .question-number { margin: 22px 0 8px; color: var(--muted); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+    .question-card h2 { margin: 0; font-size: clamp(1.35rem, 3vw, 2rem); line-height: 1.27; letter-spacing: -0.02em; }
+    .option-list { display: grid; gap: 11px; margin-top: 28px; }
+    .option-btn {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 13px;
+      align-items: center;
+      width: 100%;
+      min-height: 60px;
+      padding: 12px 15px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      color: var(--text);
+      background: rgba(4, 17, 32, 0.36);
+      text-align: left;
+      transition: border-color .15s ease, background .15s ease, transform .15s ease;
+    }
+    .option-btn:hover:not(:disabled) { border-color: var(--brand); background: rgba(47, 156, 244, 0.08); transform: translateY(-1px); }
+    .option-key { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; color: var(--brand-2); background: rgba(47,156,244,0.12); font-weight: 900; }
+    .option-btn.correct { border-color: rgba(69,212,131,0.75); background: var(--success-bg); }
+    .option-btn.correct .option-key { color: #061b10; background: var(--success); }
+    .option-btn.incorrect { border-color: rgba(255,126,139,0.75); background: var(--danger-bg); }
+    .option-btn.incorrect .option-key { color: #2a060b; background: var(--danger); }
+    .option-btn.dimmed { opacity: 0.56; }
+
+    .feedback {
+      display: none;
+      margin-top: 24px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(4, 17, 32, 0.46);
+    }
+    .feedback.visible { display: block; animation: rise .2s ease-out; }
+    @keyframes rise { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+    .feedback-status { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; font-weight: 900; }
+    .feedback-status.correct-text { color: var(--success); }
+    .feedback-status.incorrect-text { color: var(--danger); }
+    .feedback h3 { margin: 16px 0 7px; font-size: 0.86rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--brand-2); }
+    .feedback p { margin: 0; color: #d7e3f0; }
+    .tip-box { margin-top: 14px; padding: 13px 15px; border-left: 4px solid var(--warning); border-radius: 8px; color: #faeac0; background: rgba(255,211,106,0.07); }
+
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-row .btn { min-width: 120px; }
+
+    .side-panel { position: sticky; top: 16px; display: grid; gap: 14px; }
+    .side-card { padding: 19px; border: 1px solid var(--line); border-radius: 17px; background: rgba(15,33,57,0.92); }
+    .side-card h3 { margin: 0 0 8px; font-size: 1rem; }
+    .side-card p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+    .side-card .btn { width: 100%; margin-top: 10px; }
+    .shortcut-list { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; color: var(--muted); font-size: 0.84rem; }
+    kbd { display: inline-grid; place-items: center; min-width: 27px; padding: 2px 6px; border: 1px solid #426388; border-bottom-width: 2px; border-radius: 6px; color: white; background: #0a1b2f; font-size: 0.76rem; font-weight: 800; }
+
+    .resources { padding: 0 0 64px; }
+    .resources-card { padding: clamp(24px, 4vw, 38px); border: 1px solid var(--line); border-radius: var(--radius); background: rgba(15,33,57,0.9); }
+    .resources-card h2 { margin-top: 0; }
+    .resource-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+    .resource-link { display: block; padding: 15px; border: 1px solid var(--line); border-radius: 13px; text-decoration: none; background: rgba(4,17,32,0.32); }
+    .resource-link strong { display: block; color: white; }
+    .resource-link span { display: block; margin-top: 3px; color: var(--muted); font-size: 0.83rem; }
+    .footer-note { margin-top: 20px; color: var(--muted); font-size: 0.82rem; }
+
+    .empty-state { padding: 70px 20px; text-align: center; }
+    .empty-state h2 { margin-bottom: 8px; }
+    .empty-state p { color: var(--muted); }
+
+    @media (max-width: 900px) {
+      .hero-grid, .study-layout { grid-template-columns: 1fr; }
+      .side-panel { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 20px, 1180px); }
+      .hero { padding-top: 20px; }
+      .hero-copy { padding: 28px 22px; }
+      .hero-copy::after { display: none; }
+      .stats-grid, .side-panel, .resource-grid { grid-template-columns: 1fr; }
+      .question-card { min-height: auto; padding: 22px 17px; }
+      .nav-row { flex-wrap: wrap; }
+      .nav-row .btn { flex: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#study">Skip to study question</a>
+
+  <header class="hero">
+    <div class="shell hero-grid">
+      <section class="hero-copy" aria-labelledby="page-title">
+        <div class="eyebrow">100 original, exam-aligned questions</div>
+        <h1 id="page-title">Salesforce UX Designer Certification Study Lab</h1>
+        <p>Study the official exam domains through scenario-based question cards. Choose an answer to instantly reveal the correct option, a practical explanation, and an exam-focused reasoning tip.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="startBtn">Start Studying</button>
+          <button class="btn btn-secondary" id="shuffleBtn">Shuffle Questions</button>
+        </div>
+        <div class="notice"><strong>Integrity note:</strong> These are original practice questions built from public study objectives and documentation. They are not leaked or memorized certification exam items. The live exam may include multi-select questions, while this study lab uses single-answer cards for faster feedback.</div>
+      </section>
+
+      <aside class="blueprint-panel" aria-label="Official exam blueprint">
+        <h2>Official Exam Blueprint</h2>
+        <p>Question distribution in this lab closely mirrors Salesforce's published weighting.</p>
+        <div class="weight-list">
+          <div class="weight-row"><span class="weight-label">Declarative Design</span><span class="weight-value">27%</span><div class="weight-track"><div class="weight-fill" style="width:100%"></div></div></div>
+          <div class="weight-row"><span class="weight-label">SLDS</span><span class="weight-value">21%</span><div class="weight-track"><div class="weight-fill" style="width:78%"></div></div></div>
+          <div class="weight-row"><span class="weight-label">UX Fundamentals</span><span class="weight-value">16%</span><div class="weight-track"><div class="weight-fill" style="width:59%"></div></div></div>
+          <div class="weight-row"><span class="weight-label">Discovery</span><span class="weight-value">13%</span><div class="weight-track"><div class="weight-fill" style="width:48%"></div></div></div>
+          <div class="weight-row"><span class="weight-label">Human-Centered Design</span><span class="weight-value">12%</span><div class="weight-track"><div class="weight-fill" style="width:44%"></div></div></div>
+          <div class="weight-row"><span class="weight-label">Testing</span><span class="weight-value">11%</span><div class="weight-track"><div class="weight-fill" style="width:41%"></div></div></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="dashboard" id="study" aria-labelledby="study-heading">
+      <div class="shell">
+        <h2 id="study-heading" style="position:absolute;left:-9999px;">Interactive study questions</h2>
+
+        <div class="stats-grid" aria-label="Study statistics">
+          <div class="stat-card"><div class="stat-label">Answered</div><div class="stat-value" id="answeredStat">0 / 100</div></div>
+          <div class="stat-card"><div class="stat-label">Correct</div><div class="stat-value" id="correctStat">0</div></div>
+          <div class="stat-card"><div class="stat-label">Accuracy</div><div class="stat-value" id="accuracyStat">—</div></div>
+          <div class="stat-card"><div class="stat-label">Bookmarked</div><div class="stat-value" id="bookmarkStat">0</div></div>
+        </div>
+
+        <div class="toolbar" aria-label="Question filters">
+          <div class="category-filters" id="categoryFilters"></div>
+          <button class="btn btn-secondary" id="reviewWrongBtn">Review Wrong</button>
+          <button class="btn btn-secondary" id="reviewBookmarksBtn">Bookmarks</button>
+        </div>
+
+        <div class="progress-block" aria-label="Study progress">
+          <div class="progress-meta"><span id="progressLabel">0 of 100 answered</span><span id="modeLabel">All Questions</span></div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+
+        <div class="study-layout">
+          <article class="question-card" id="questionCard" aria-live="polite"></article>
+
+          <aside class="side-panel">
+            <div class="side-card">
+              <h3>How to reason</h3>
+              <p>Identify the user's goal first, then choose the most native, accessible, and maintainable Salesforce solution that meets it.</p>
+            </div>
+            <div class="side-card">
+              <h3>Study controls</h3>
+              <button class="btn btn-secondary" id="unansweredBtn">Jump to Unanswered</button>
+              <button class="btn btn-danger" id="resetBtn">Reset Progress</button>
+            </div>
+            <div class="side-card">
+              <h3>Keyboard shortcuts</h3>
+              <ul class="shortcut-list">
+                <li><kbd>1</kbd>–<kbd>4</kbd> choose an option</li>
+                <li><kbd>N</kbd> next question</li>
+                <li><kbd>P</kbd> previous question</li>
+                <li><kbd>B</kbd> bookmark question</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="resources" aria-labelledby="resources-heading">
+      <div class="shell resources-card">
+        <h2 id="resources-heading">Trusted Study Sources</h2>
+        <p style="color:var(--muted);max-width:820px;">The question bank is synthesized from the official Salesforce exam-prep outline, Salesforce product documentation, accessibility standards, and recurring study gaps discussed in specialist community resources.</p>
+        <div class="resource-grid">
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/credentials/userexperiencedesigner"><strong>Salesforce UX Designer Credential</strong><span>Official credential and recommended preparation.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/content/learn/modules/ux-designer-certification-prep"><strong>Official UX Designer Cert Prep</strong><span>Six exam domains, scenarios, flashcards, and related badges.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/content/learn/modules/ux-designer-certification-prep/review-declarative-design"><strong>Declarative Design Review</strong><span>Objects, pages, Dynamic Forms, Path, utility bar, and guidance.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/content/learn/modules/ux-designer-certification-prep/explore-salesforce-lightning-design-system"><strong>SLDS Exam Review</strong><span>Design system principles, grid, icons, tokens, components, and contrast.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://developer.salesforce.com/docs/platform/lwc/guide/create-components-css-slds1-slds2.html"><strong>SLDS 1 and SLDS 2 Comparison</strong><span>Current guidance on tokens, global styling hooks, and compatibility.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://www.w3.org/WAI/standards-guidelines/wcag/"><strong>W3C WCAG Overview</strong><span>Authoritative web accessibility principles and standards.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/trailblazer-community/groups/0F94S000000GyVmSAK"><strong>Trailblazer UX Designer Group</strong><span>Specialist community discussions and common study trouble spots.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://www.salesforceben.com/salesforce-user-experience-ux-designer-certification-guide-tips/"><strong>Salesforce Ben Certification Guide</strong><span>Independent study perspective and domain-level preparation advice.</span></a>
+        </div>
+        <p class="footer-note">Blueprint and linked guidance reviewed July 22, 2026. Salesforce can revise certification content; verify the official exam guide before scheduling your test.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const questions = [
+      {
+        "id": 1,
+        "category": "Discovery",
+        "question": "A sales team reports that creating an opportunity takes too long, but stakeholders cannot agree on where the problem occurs. What should the UX designer do first?",
+        "options": [
+          "Redesign the opportunity page immediately",
+          "Observe representative users completing the task and conduct contextual interviews",
+          "Create a dashboard showing opportunity volume",
+          "Replace the standard Opportunity object with a custom object"
+        ],
+        "answer": 1,
+        "explanation": "Direct observation and contextual interviews reveal the actual workflow, workarounds, interruptions, and environmental constraints. The complaint describes a symptom, not a verified cause. Redesigning before research risks optimizing the wrong step.",
+        "tip": "When the problem is vague, choose evidence-gathering before solution-building. Look for answers that let you see real behavior, not only stated preferences."
+      },
+      {
+        "id": 2,
+        "category": "Discovery",
+        "question": "What is the primary purpose of a heuristic evaluation?",
+        "options": [
+          "Measure production performance under heavy load",
+          "Have experts inspect an interface against established usability principles",
+          "Calculate the financial return of a design",
+          "Replace all end-user research"
+        ],
+        "answer": 1,
+        "explanation": "A heuristic evaluation is an expert review that identifies likely usability problems by comparing an interface with recognized principles. It is fast and useful, but it does not replace validation with real users.",
+        "tip": "Heuristic evaluation means expert inspection. Usability testing means representative users attempting realistic tasks."
+      },
+      {
+        "id": 3,
+        "category": "Discovery",
+        "question": "Users are abandoning a new case intake flow. Which activity best supports root-cause analysis before redesign?",
+        "options": [
+          "Ask stakeholders to vote on a new color palette",
+          "Use the Five Whys with evidence from analytics, interviews, and observed failures",
+          "Add more required fields so the data is complete",
+          "Copy the flow used by another company"
+        ],
+        "answer": 1,
+        "explanation": "Root-cause analysis repeatedly tests why the failure occurs and uses evidence to move beyond surface symptoms. Combining behavioral data with qualitative research reduces the chance of accepting a stakeholder assumption as the cause.",
+        "tip": "A strong root-cause answer connects a structured method with evidence. Avoid options that jump straight to a feature."
+      },
+      {
+        "id": 4,
+        "category": "Discovery",
+        "question": "A complex service process uses internal terminology that customers do not understand. What is the best content strategy?",
+        "options": [
+          "Keep the terminology because it matches the database field names",
+          "Use plain language, consistent labels, and progressive disclosure for technical detail",
+          "Display every possible definition on the first screen",
+          "Use icons without text to reduce reading"
+        ],
+        "answer": 1,
+        "explanation": "Content should support the user's mental model. Plain language and consistent labels reduce cognitive load, while progressive disclosure keeps advanced detail available without overwhelming the primary task.",
+        "tip": "Good content strategy prioritizes user comprehension over internal system vocabulary."
+      },
+      {
+        "id": 5,
+        "category": "Discovery",
+        "question": "Which information makes a persona most useful for Salesforce solution design?",
+        "options": [
+          "A fictional name and stock photo only",
+          "Job goals, behaviors, pain points, context, and evidence from research",
+          "The designer's assumptions about an average user",
+          "Only age, location, and department"
+        ],
+        "answer": 1,
+        "explanation": "A useful persona represents research-backed patterns that affect design decisions: goals, behaviors, environment, constraints, and pain points. Demographics alone rarely explain how someone works in Salesforce.",
+        "tip": "Personas are decision tools, not decorative profiles. Look for behavioral and task-based evidence."
+      },
+      {
+        "id": 6,
+        "category": "Discovery",
+        "question": "Before reorganizing a Lightning app's information architecture, what should the designer understand about the Salesforce data model?",
+        "options": [
+          "Only the app's logo and brand colors",
+          "Objects, fields, relationships, record ownership, and how users move between related data",
+          "The JavaScript framework used by every component",
+          "Only the number of licenses purchased"
+        ],
+        "answer": 1,
+        "explanation": "Information architecture must reflect how business information is structured and connected. Understanding objects and relationships helps the designer create navigation and page structures that match the user's work.",
+        "tip": "In Salesforce, UX and data architecture are closely linked. A navigation decision can expose or hide important record relationships."
+      },
+      {
+        "id": 7,
+        "category": "UX Fundamentals",
+        "question": "A service agent repeatedly switches between three pages to resolve one case. Which design principle should guide the redesign?",
+        "options": [
+          "Increase decorative imagery",
+          "Reduce context switching by placing task-critical information and actions in the flow of work",
+          "Use a different font on each page",
+          "Require the agent to memorize record IDs"
+        ],
+        "answer": 1,
+        "explanation": "Bringing related information and actions together reduces navigation cost, memory load, and error risk. The experience should support the user's end-to-end task rather than mirror organizational silos.",
+        "tip": "Follow the task, not the org chart. The best answer usually reduces steps, memory, and unnecessary movement."
+      },
+      {
+        "id": 8,
+        "category": "UX Fundamentals",
+        "question": "What does responsive design primarily accomplish?",
+        "options": [
+          "It creates a separate database for every device",
+          "It adapts layout and content presentation to different viewport sizes and capabilities",
+          "It guarantees identical pixel placement on every screen",
+          "It removes the need for mobile testing"
+        ],
+        "answer": 1,
+        "explanation": "Responsive design allows layouts to reorganize and scale for different screen sizes. It does not require identical presentation, and it still needs testing across devices and input methods.",
+        "tip": "Responsive does not mean identical. It means usable and appropriately adapted across contexts."
+      },
+      {
+        "id": 9,
+        "category": "UX Fundamentals",
+        "question": "When optimizing a Salesforce task for mobile, what should the designer prioritize?",
+        "options": [
+          "Every desktop field and action on the first screen",
+          "The user's most important on-the-go tasks, touch-friendly controls, and progressive disclosure",
+          "Hover-only interactions",
+          "Dense multi-column tables"
+        ],
+        "answer": 1,
+        "explanation": "Mobile design should focus on high-value tasks in the mobile context, reduce visual density, and support touch. Less frequent details can remain available through progressive disclosure.",
+        "tip": "Ask what the user must accomplish while mobile, not how to shrink the desktop page."
+      },
+      {
+        "id": 10,
+        "category": "UX Fundamentals",
+        "question": "A status is shown only by red or green text. What is the most accessible improvement?",
+        "options": [
+          "Use brighter red and green",
+          "Add a text label or icon with an accessible name in addition to color",
+          "Make the text smaller",
+          "Remove the status entirely"
+        ],
+        "answer": 1,
+        "explanation": "Color should not be the only way to communicate meaning. A text label or appropriately labeled icon allows users with color-vision differences and assistive technology to understand the status.",
+        "tip": "Whenever an option says 'color alone,' treat it as an accessibility warning."
+      },
+      {
+        "id": 11,
+        "category": "UX Fundamentals",
+        "question": "Which combination most directly creates clear visual hierarchy on a record page?",
+        "options": [
+          "Random font styles and equal spacing",
+          "Meaningful grouping, spacing, alignment, size, and contrast",
+          "More borders around every field",
+          "All content displayed at the same visual weight"
+        ],
+        "answer": 1,
+        "explanation": "Visual hierarchy uses grouping and differences in emphasis to communicate order and importance. When everything has equal weight, users must work harder to decide where to look and what to do.",
+        "tip": "Hierarchy is about relationships and priority, not decoration."
+      },
+      {
+        "id": 12,
+        "category": "UX Fundamentals",
+        "question": "A company's brand color does not provide sufficient contrast for body text. What should the designer do?",
+        "options": [
+          "Use it anyway because branding overrides accessibility",
+          "Choose an accessible brand-approved variation or reserve the color for non-text accents",
+          "Place the text over a patterned image",
+          "Reduce the font weight"
+        ],
+        "answer": 1,
+        "explanation": "Brand expression must operate within accessibility requirements. Designers can use an accessible tonal variation, adjust the background, or apply the color to decorative elements rather than essential text.",
+        "tip": "Accessibility is a design constraint, not an optional layer added after branding."
+      },
+      {
+        "id": 13,
+        "category": "UX Fundamentals",
+        "question": "During early concept exploration, why is a low-fidelity prototype often preferable?",
+        "options": [
+          "It proves the solution is technically complete",
+          "It enables fast, inexpensive feedback before the team becomes attached to visual details",
+          "It eliminates the need for later testing",
+          "It accurately measures production load time"
+        ],
+        "answer": 1,
+        "explanation": "Low-fidelity prototypes make structure and flow easy to change. Participants and stakeholders are also more likely to critique the concept instead of focusing on polished colors and typography.",
+        "tip": "Match prototype fidelity to the question you need to answer. Early uncertainty usually calls for lower fidelity."
+      },
+      {
+        "id": 14,
+        "category": "UX Fundamentals",
+        "question": "What is the best way to present a validation error in a multi-field form?",
+        "options": [
+          "Show a red border with no text",
+          "Provide a clear summary and place specific, actionable messages next to the affected fields",
+          "Clear all entered data",
+          "Wait until the user leaves the application"
+        ],
+        "answer": 1,
+        "explanation": "Accessible error handling identifies what went wrong, where it happened, and how to correct it. Inline messages reduce search effort, while a summary helps users understand the overall state.",
+        "tip": "A good error message is perceivable, specific, and actionable."
+      },
+      {
+        "id": 15,
+        "category": "Human-Centered Design",
+        "question": "Which artifact best visualizes a user's stages, actions, thoughts, emotions, pain points, and opportunities across an end-to-end experience?",
+        "options": [
+          "Entity-relationship diagram",
+          "Journey map",
+          "Release calendar",
+          "Permission set matrix"
+        ],
+        "answer": 1,
+        "explanation": "A journey map shows the experience over time from the user's perspective. It helps teams identify emotional highs and lows, gaps between touchpoints, and moments where design can improve the relationship.",
+        "tip": "Journey map equals the user's experience over time. Service blueprint adds operational layers behind that experience."
+      },
+      {
+        "id": 16,
+        "category": "Human-Centered Design",
+        "question": "What does a service blueprint add beyond a basic customer journey map?",
+        "options": [
+          "Only brand colors",
+          "Frontstage interactions, backstage activities, supporting processes, and dependencies",
+          "A list of Salesforce certification vouchers",
+          "Only database storage limits"
+        ],
+        "answer": 1,
+        "explanation": "A service blueprint connects the visible customer experience to the people, processes, systems, and policies that make it possible. It is especially useful when failures span multiple teams or channels.",
+        "tip": "Think 'journey plus operations.'"
+      },
+      {
+        "id": 17,
+        "category": "Human-Centered Design",
+        "question": "Which approach best demonstrates inclusive design?",
+        "options": [
+          "Design for an imagined average user and test at launch",
+          "Include people with diverse abilities and contexts throughout research, design, and testing",
+          "Create one solution only for permanent visual disabilities",
+          "Treat accessibility as a compliance review after development"
+        ],
+        "answer": 1,
+        "explanation": "Inclusive design involves diverse participants early and repeatedly. It considers permanent, temporary, and situational barriers instead of assuming one 'average' user represents everyone.",
+        "tip": "Inclusive design is a continuous practice, not a final checklist."
+      },
+      {
+        "id": 18,
+        "category": "Human-Centered Design",
+        "question": "Which set contains the four Salesforce Relationship Design mindsets?",
+        "options": [
+          "Speed, scale, profit, control",
+          "Compassion, courage, intention, reciprocity",
+          "Research, code, launch, maintain",
+          "Discover, define, develop, deliver"
+        ],
+        "answer": 1,
+        "explanation": "Salesforce describes the Relationship Design mindsets as compassion, courage, intention, and reciprocity. Together they encourage meaningful, ethical, and lasting value exchange among people, organizations, and communities.",
+        "tip": "Remember the mindsets as human qualities that strengthen long-term relationships, not project phases."
+      },
+      {
+        "id": 19,
+        "category": "Human-Centered Design",
+        "question": "A proposed feature is desirable to users and technically feasible, but it has no sustainable business model. Which human-centered design criterion is missing?",
+        "options": [
+          "Viability",
+          "Legibility",
+          "Fidelity",
+          "Findability"
+        ],
+        "answer": 0,
+        "explanation": "Human-centered design seeks the intersection of desirability, feasibility, and viability. Viability asks whether the solution can work sustainably for the organization or business model.",
+        "tip": "Desirable = people need it. Feasible = it can be built. Viable = the organization can sustain it."
+      },
+      {
+        "id": 20,
+        "category": "Human-Centered Design",
+        "question": "What is the strongest way to apply reciprocity during solution design?",
+        "options": [
+          "Collect user feedback once and never follow up",
+          "Co-create with users, return value, and keep the feedback relationship active over time",
+          "Hide design constraints from stakeholders",
+          "Prioritize company value while ignoring user outcomes"
+        ],
+        "answer": 1,
+        "explanation": "Reciprocity recognizes that relationships require two-way value exchange. Co-creation and ongoing feedback help the organization remain relevant while giving participants meaningful influence and benefit.",
+        "tip": "Reciprocity is not one-way data collection; it is continuing exchange and shared value."
+      },
+      {
+        "id": 21,
+        "category": "Declarative Design",
+        "question": "A company needs to track organizations it sells to. The standard Account object already supports the required process. What is the best design choice?",
+        "options": [
+          "Create a custom Company object to make the org unique",
+          "Use and configure the standard Account object",
+          "Store each organization in a text field on User",
+          "Create a separate Salesforce org for every customer"
+        ],
+        "answer": 1,
+        "explanation": "Use standard objects when they fit the business concept. Standard objects integrate naturally with platform features, reporting, relationships, and future Salesforce capabilities, reducing maintenance and user confusion.",
+        "tip": "Prefer native capabilities unless a verified requirement cannot be met. Custom does not automatically mean better UX."
+      },
+      {
+        "id": 22,
+        "category": "Declarative Design",
+        "question": "A child record must always belong to a parent, inherit ownership and sharing, and support roll-up summary fields on the parent. Which relationship is most appropriate?",
+        "options": [
+          "External lookup",
+          "Master-detail relationship",
+          "Unrelated text field",
+          "Many-to-many relationship without a junction object"
+        ],
+        "answer": 1,
+        "explanation": "A master-detail relationship tightly couples the child to the parent, supports inherited ownership and sharing, and enables roll-up summary fields. A lookup relationship is looser and does not provide all of these behaviors.",
+        "tip": "Master-detail means strong dependency. Lookup means a more independent relationship."
+      },
+      {
+        "id": 23,
+        "category": "Declarative Design",
+        "question": "A designer needs to change which fields and actions appear for different users, while another requirement changes the component arrangement on the Lightning page. Which tools are most relevant?",
+        "options": [
+          "Page layouts for fields/actions and Lightning App Builder for page components",
+          "Only Data Loader",
+          "Only Schema Builder",
+          "Email templates and dashboards"
+        ],
+        "answer": 0,
+        "explanation": "Page layouts influence record details and available actions, often by profile or record type. Lightning App Builder controls the structure and components of Lightning pages. The two tools solve related but different presentation needs.",
+        "tip": "Page layout = record fields and actions. Lightning App Builder = the page canvas and components."
+      },
+      {
+        "id": 24,
+        "category": "Declarative Design",
+        "question": "What is a primary UX advantage of Dynamic Forms?",
+        "options": [
+          "They automatically migrate every custom component to mobile",
+          "They let admins place fields and field sections as components and apply visibility rules",
+          "They replace object permissions",
+          "They remove the need for a data model"
+        ],
+        "answer": 1,
+        "explanation": "Dynamic Forms provide more granular control over field placement and visibility on supported Lightning record pages. This supports progressive disclosure and role- or record-specific experiences without creating many page layouts.",
+        "tip": "Dynamic Forms improve presentation logic; they do not replace security."
+      },
+      {
+        "id": 25,
+        "category": "Declarative Design",
+        "question": "A sales manager wants representatives to see deal stages, important fields, and stage-specific coaching. Which Salesforce feature best fits?",
+        "options": [
+          "Path with key fields and Guidance for Success",
+          "Recycle Bin",
+          "Chatter feed tracking only",
+          "A static image uploaded to Files"
+        ],
+        "answer": 0,
+        "explanation": "Path visually represents stages and can show key fields plus Guidance for Success at each stage. It supports process clarity and just-in-time coaching in the context of the record.",
+        "tip": "When the scenario mentions stages plus coaching, think Path."
+      },
+      {
+        "id": 26,
+        "category": "Declarative Design",
+        "question": "Users need quick access to Notes and History while working anywhere inside a Lightning app. What should the designer configure?",
+        "options": [
+          "A utility bar",
+          "A new custom object for every note",
+          "A different home page for each record",
+          "A validation rule"
+        ],
+        "answer": 0,
+        "explanation": "The utility bar provides persistent access to common productivity tools in a fixed footer. Utilities open in docked panels so users can maintain context while working in the app.",
+        "tip": "Persistent, app-level productivity tools point to the utility bar."
+      },
+      {
+        "id": 27,
+        "category": "Declarative Design",
+        "question": "Which statement correctly distinguishes App Manager from Lightning App Builder?",
+        "options": [
+          "App Manager configures apps, navigation, and branding; Lightning App Builder creates and arranges Lightning pages",
+          "They are identical tools with different names",
+          "App Manager creates only reports; Lightning App Builder creates users",
+          "Lightning App Builder manages licenses; App Manager writes Apex"
+        ],
+        "answer": 0,
+        "explanation": "App Manager is used to create and configure Lightning apps, including branding and navigation. Lightning App Builder is the visual tool for composing app pages, home pages, and record pages from components.",
+        "tip": "App Manager defines the container and navigation. App Builder defines the pages inside the experience."
+      },
+      {
+        "id": 28,
+        "category": "Declarative Design",
+        "question": "An executive needs a visual summary of pipeline metrics sourced from several reports. What is the most appropriate declarative feature?",
+        "options": [
+          "Dashboard",
+          "Page layout",
+          "Permission set",
+          "Path"
+        ],
+        "answer": 0,
+        "explanation": "Dashboards present visual components based on source reports. They are appropriate when users need at-a-glance monitoring and comparisons rather than row-level data entry.",
+        "tip": "Reports organize and analyze data; dashboards visualize report results."
+      },
+      {
+        "id": 29,
+        "category": "Declarative Design",
+        "question": "A new feature requires a hands-on, multi-step tour that points users through a sequence of actions. Which in-app guidance component is best?",
+        "options": [
+          "Walkthrough",
+          "Field-level help",
+          "Dashboard filter",
+          "Compact layout"
+        ],
+        "answer": 0,
+        "explanation": "A walkthrough is an interactive sequence designed to guide users through onboarding or feature adoption steps. A prompt is better for a focused message, while field-level help explains an individual field.",
+        "tip": "Sequence of guided steps = walkthrough. One contextual message = prompt."
+      },
+      {
+        "id": 30,
+        "category": "Declarative Design",
+        "question": "A product team wants to announce a new feature on the exact page where users can try it. Which declarative engagement component is the best starting point?",
+        "options": [
+          "A targeted prompt",
+          "A master-detail relationship",
+          "A sharing rule",
+          "An outbound message"
+        ],
+        "answer": 0,
+        "explanation": "A targeted prompt can call attention to a relevant feature or action in context. It is well suited to feature discovery, announcements, and just-in-time guidance on a specific page.",
+        "tip": "When the message should appear in context and drive one action, choose a prompt."
+      },
+      {
+        "id": 31,
+        "category": "Declarative Design",
+        "question": "Users repeatedly misunderstand what a custom field means. The explanation is short and specific to that field. What is the simplest appropriate solution?",
+        "options": [
+          "Field-level help",
+          "A five-step walkthrough",
+          "A new dashboard",
+          "A custom mobile app"
+        ],
+        "answer": 0,
+        "explanation": "Field-level help explains the purpose and function of a standard or custom field at the point of use. It avoids forcing users to leave their workflow to search for documentation.",
+        "tip": "Use the smallest guidance mechanism that solves the problem."
+      },
+      {
+        "id": 32,
+        "category": "Declarative Design",
+        "question": "A user should be able to create a new task from many places in Salesforce without navigating to a specific record first. Which feature is most appropriate?",
+        "options": [
+          "Global action",
+          "Related list filter",
+          "Record type",
+          "Report chart"
+        ],
+        "answer": 0,
+        "explanation": "Global actions are available in broadly accessible interface locations and support actions that are not dependent on a particular record context. They reduce navigation for common cross-app tasks.",
+        "tip": "Record-specific action needs a record context. Global action is designed for broad access."
+      },
+      {
+        "id": 33,
+        "category": "Declarative Design",
+        "question": "A company wants its Lightning experience to use approved logos, colors, and page background styling without custom code. What should the designer evaluate first?",
+        "options": [
+          "Themes and Branding",
+          "Apex triggers",
+          "Data export",
+          "Duplicate rules"
+        ],
+        "answer": 0,
+        "explanation": "Themes and Branding provides declarative control over core visual identity elements in Lightning Experience. It is the native starting point before considering more expensive custom development.",
+        "tip": "For global, declarative brand expression, start with Themes and Branding."
+      },
+      {
+        "id": 34,
+        "category": "Testing",
+        "question": "Which usability-test task is written most effectively?",
+        "options": [
+          "Click the blue New Contact button and complete the form",
+          "You have just met a new customer. Add their contact information so your team can follow up",
+          "Tell us why our design is easy to use",
+          "Explore the application and do anything you like"
+        ],
+        "answer": 1,
+        "explanation": "A good task describes a realistic goal without revealing the interface steps or preferred answer. This lets the designer observe whether users can discover and complete the task naturally.",
+        "tip": "Task scenarios describe intent, not clicks. Avoid leading users through the interface."
+      },
+      {
+        "id": 35,
+        "category": "Testing",
+        "question": "When is A/B testing most appropriate?",
+        "options": [
+          "When comparing two defined design variants against a measurable outcome",
+          "When the team has no hypothesis or metric",
+          "When testing a completely nonfunctional sketch for technical performance",
+          "When interviewing one stakeholder about strategy"
+        ],
+        "answer": 0,
+        "explanation": "A/B testing compares variants under controlled conditions and measures a target behavior or outcome. It works best when the team has a clear hypothesis, enough traffic or participants, and a meaningful metric.",
+        "tip": "A/B testing answers 'which variant performs better on this metric?' It does not explain every reason why."
+      },
+      {
+        "id": 36,
+        "category": "Testing",
+        "question": "A designer wants to validate whether users can find topics in a proposed navigation hierarchy before visual design is complete. Which method is best?",
+        "options": [
+          "Tree testing",
+          "Color-contrast audit",
+          "Load testing",
+          "Code review"
+        ],
+        "answer": 0,
+        "explanation": "Tree testing evaluates findability within a text-based hierarchy, separating information architecture from visual presentation. It helps identify confusing labels and misplaced content early.",
+        "tip": "Card sorting helps create categories; tree testing evaluates whether users can find items in the resulting hierarchy."
+      },
+      {
+        "id": 37,
+        "category": "Testing",
+        "question": "Why establish a usability benchmark before redesigning a high-volume task?",
+        "options": [
+          "To guarantee every user will like the new design",
+          "To compare measures such as completion rate, time, errors, and satisfaction before and after changes",
+          "To avoid speaking with users",
+          "To select brand colors"
+        ],
+        "answer": 1,
+        "explanation": "A benchmark provides a baseline for evaluating whether the redesign improved measurable outcomes. It turns 'the new experience feels better' into evidence that can support decisions.",
+        "tip": "A benchmark is a before-state measurement used for comparison."
+      },
+      {
+        "id": 38,
+        "category": "Testing",
+        "question": "A researcher believes a new flow is better and asks only questions that support that belief. Which risk is most evident?",
+        "options": [
+          "Confirmation bias",
+          "Responsive design",
+          "Progressive disclosure",
+          "Data normalization"
+        ],
+        "answer": 0,
+        "explanation": "Confirmation bias leads people to seek or interpret evidence that supports an existing belief. Neutral questions, predefined success criteria, diverse participants, and review by others can reduce this risk.",
+        "tip": "Watch for wording that reveals the researcher's preferred answer."
+      },
+      {
+        "id": 39,
+        "category": "SLDS",
+        "question": "What is the primary value of Salesforce Lightning Design System?",
+        "options": [
+          "It replaces the Salesforce data model",
+          "It provides reusable patterns, components, guidance, and design foundations for consistent Salesforce experiences",
+          "It is only a library of company logos",
+          "It automatically writes every business requirement"
+        ],
+        "answer": 1,
+        "explanation": "SLDS helps teams create experiences that are consistent with Salesforce through shared patterns, components, visual foundations, and guidance. Reuse improves quality, accessibility, and delivery efficiency.",
+        "tip": "A design system is more than a component library; it also includes standards, principles, and documentation."
+      },
+      {
+        "id": 40,
+        "category": "SLDS",
+        "question": "A standard Lightning base component already meets the functional requirement. What should the team generally do?",
+        "options": [
+          "Rebuild it from scratch for uniqueness",
+          "Use the base component and its supported configuration",
+          "Copy its internal rendered HTML and override every class",
+          "Replace it with an image"
+        ],
+        "answer": 1,
+        "explanation": "Base components provide supported behavior, accessibility, interaction patterns, and alignment with Salesforce. Rebuilding a standard component creates unnecessary maintenance and can introduce accessibility defects.",
+        "tip": "Prefer supported platform components before custom code."
+      },
+      {
+        "id": 41,
+        "category": "SLDS",
+        "question": "Which statement best describes a design token?",
+        "options": [
+          "A named entity that stores a visual design value such as color, spacing, or typography",
+          "A user authentication credential",
+          "A database record ID",
+          "A test script for a flow"
+        ],
+        "answer": 0,
+        "explanation": "Design tokens store named visual attributes so design decisions can be reused consistently. Current Salesforce guidance favors global styling hooks where possible for cross-version theming, especially when preparing for SLDS 2.",
+        "tip": "Token = named design value. Styling hook = CSS custom property used to customize supported styling."
+      },
+      {
+        "id": 42,
+        "category": "SLDS",
+        "question": "A team wants component styling to remain compatible across SLDS 1 and SLDS 2. Which current approach is generally preferred?",
+        "options": [
+          "Hardcode colors in every component",
+          "Use supported global styling hooks where possible",
+          "Override internal classes of base components",
+          "Depend only on legacy design tokens"
+        ],
+        "answer": 1,
+        "explanation": "Salesforce recommends global styling hooks as the more future-compatible approach. Legacy design tokens are associated with SLDS 1 themes and are not supported in SLDS 2 themes.",
+        "tip": "For current platform compatibility, think supported hooks, not internal overrides or hardcoded values."
+      },
+      {
+        "id": 43,
+        "category": "SLDS",
+        "question": "What is the main purpose of the SLDS grid system?",
+        "options": [
+          "Create responsive page layouts using a consistent column and sizing structure",
+          "Encrypt Salesforce records",
+          "Define user permissions",
+          "Schedule reports"
+        ],
+        "answer": 0,
+        "explanation": "The grid system supports responsive, structured layouts using predictable sizing and alignment. It helps content reflow across screen sizes while maintaining consistent spacing and proportions.",
+        "tip": "Grid questions are usually about responsive layout, alignment, and structure."
+      },
+      {
+        "id": 44,
+        "category": "SLDS",
+        "question": "A utility icon communicates an important action. What additional accessibility support is required?",
+        "options": [
+          "Rely on the icon shape alone",
+          "Provide a clear accessible name or assistive text and an adequate target size",
+          "Make it visible only on hover",
+          "Use the same icon for unrelated actions"
+        ],
+        "answer": 1,
+        "explanation": "Icons must have a programmatically available name when they communicate meaning or trigger an action. Adequate target size and consistent use also improve operability and comprehension.",
+        "tip": "An icon's visual meaning is not automatically available to a screen reader."
+      },
+      {
+        "id": 45,
+        "category": "SLDS",
+        "question": "Which treatment best supports keyboard users?",
+        "options": [
+          "Remove focus outlines for a cleaner appearance",
+          "Provide a visible focus indicator and a logical focus order",
+          "Require a mouse for all controls",
+          "Move focus unpredictably after every click"
+        ],
+        "answer": 1,
+        "explanation": "Keyboard users need to know which element is active and move through controls in a meaningful sequence. Focus should remain visible and should only move programmatically when the interaction clearly requires it.",
+        "tip": "Never trade away visible focus for aesthetics."
+      },
+      {
+        "id": 46,
+        "category": "SLDS",
+        "question": "What does an SLDS component blueprint primarily provide?",
+        "options": [
+          "A finished business process with organization-specific logic",
+          "Recommended markup structure, classes, variants, states, and usage guidance",
+          "A Salesforce license",
+          "A replacement for user research"
+        ],
+        "answer": 1,
+        "explanation": "A blueprint documents the structure and styling conventions for a component pattern. Teams still need to implement behavior, data, accessibility details, and business logic appropriate to their context.",
+        "tip": "Blueprints guide implementation; they are not complete applications."
+      },
+      {
+        "id": 47,
+        "category": "SLDS",
+        "question": "A developer wants to restyle a Lightning base component by targeting its internal rendered classes. What is the best guidance?",
+        "options": [
+          "Do it because internal markup never changes",
+          "Avoid internal class overrides; use documented variants, utility classes, or supported styling hooks",
+          "Use an exact class-string selector",
+          "Modify Salesforce's source code"
+        ],
+        "answer": 1,
+        "explanation": "Internal markup and classes of base components are implementation details and can change. Salesforce identifies direct SLDS class overrides and dependence on rendered markup as styling anti-patterns.",
+        "tip": "Supported extension points are stable; internal implementation details are not."
+      },
+      {
+        "id": 48,
+        "category": "SLDS",
+        "question": "A custom interface uses a different icon style, spacing scale, and button behavior on every page. Which design-system action provides the greatest long-term value?",
+        "options": [
+          "Continue adding one-off exceptions",
+          "Standardize reusable patterns and components, document decisions, and govern contributions",
+          "Hide the inconsistencies with animation",
+          "Create more unrelated color palettes"
+        ],
+        "answer": 1,
+        "explanation": "A design system creates value through reuse and governance. Standard patterns reduce cognitive load for users and duplicated effort for teams, while documentation and contribution rules help the system remain coherent over time.",
+        "tip": "The long-term answer is usually systematic reuse and governance, not another isolated fix."
+      },
+      {
+        "id": 49,
+        "category": "Discovery",
+        "question": "Interviews reveal several possible usability problems, but the team needs to understand how common each problem is across 2,000 users. What should the designer do next?",
+        "options": [
+          "Choose the problem mentioned by the most senior stakeholder",
+          "Build every requested feature",
+          "Run a structured survey with a representative sample",
+          "Replace interviews with a brand workshop"
+        ],
+        "answer": 2,
+        "explanation": "Interviews are strong for discovering themes and understanding why problems occur. A structured survey can then quantify how widespread those themes are across a larger representative population.",
+        "tip": "Use qualitative research to discover and explain; use quantitative research to measure prevalence or magnitude."
+      },
+      {
+        "id": 50,
+        "category": "Discovery",
+        "question": "Sales, service, and compliance stakeholders disagree about the goals of a new onboarding experience. Which artifact should the designer create first to clarify influence, needs, and decision ownership?",
+        "options": [
+          "A production dashboard",
+          "A stakeholder map",
+          "A color-contrast matrix",
+          "A component blueprint"
+        ],
+        "answer": 1,
+        "explanation": "A stakeholder map identifies who is affected, who has influence, what each group needs, and where decision authority sits. This makes conflicts visible before the team commits to a solution.",
+        "tip": "When the challenge is alignment among people, choose a stakeholder or decision-mapping activity before interface design."
+      },
+      {
+        "id": 51,
+        "category": "Discovery",
+        "question": "Analytics show that users abandon a flow on step three. What additional research would best explain why they leave?",
+        "options": [
+          "Increase the sample size of the same analytics report only",
+          "Change the company logo",
+          "Remove step three without investigation",
+          "Observe users attempting the flow and ask neutral follow-up questions"
+        ],
+        "answer": 3,
+        "explanation": "Analytics reveal where behavior occurs, but direct observation and neutral interviews help explain the motivations, confusion, missing information, or environmental constraints behind that behavior.",
+        "tip": "Behavioral data often tells you what and where; qualitative research helps reveal why."
+      },
+      {
+        "id": 52,
+        "category": "Discovery",
+        "question": "A help center contains duplicate, outdated, and inconsistently labeled articles. Which discovery activity should precede a new content structure?",
+        "options": [
+          "Perform a content inventory and audit",
+          "Add more navigation levels immediately",
+          "Convert every article into a video",
+          "Rename database objects"
+        ],
+        "answer": 0,
+        "explanation": "A content inventory documents what exists, while an audit evaluates accuracy, duplication, ownership, usefulness, and gaps. The findings provide evidence for consolidation and a clearer information architecture.",
+        "tip": "Before reorganizing content, understand the current content set and its quality."
+      },
+      {
+        "id": 53,
+        "category": "Discovery",
+        "question": "A designer is planning an experience that shows accounts, contacts, cases, and assets together. What should be clarified during discovery?",
+        "options": [
+          "Only the preferred button color",
+          "The designer's personal navigation habits",
+          "The relationships among the objects and which records users need in each task",
+          "The maximum number of animations per page"
+        ],
+        "answer": 2,
+        "explanation": "Salesforce experiences depend on the underlying data model. Understanding object relationships and task-specific information needs helps the designer present connected data without creating misleading or redundant structures.",
+        "tip": "When a scenario names several Salesforce records, examine data relationships before choosing the page structure."
+      },
+      {
+        "id": 54,
+        "category": "Discovery",
+        "question": "Which interview question is least likely to lead a participant?",
+        "options": [
+          "Wouldn't a guided wizard make this easier?",
+          "Tell me about the last time you created a case",
+          "Do you agree that the current page is confusing?",
+          "Which of our two proposed solutions do you prefer?"
+        ],
+        "answer": 1,
+        "explanation": "Asking about a recent real experience encourages concrete evidence without implying a preferred answer. The other questions introduce assumptions or constrain the participant to solutions chosen by the team.",
+        "tip": "Ask about past behavior and specific examples rather than asking users to confirm your idea."
+      },
+      {
+        "id": 55,
+        "category": "Discovery",
+        "question": "Research participants describe a slow approval process, but observation shows that most delay occurs while they search for missing information. What should the problem statement emphasize?",
+        "options": [
+          "The participants' first explanation without qualification",
+          "A predetermined need for custom code",
+          "The number of stakeholders in the meeting",
+          "The evidence-based information-finding barrier"
+        ],
+        "answer": 3,
+        "explanation": "A useful problem statement reflects the validated user need and context. Observation has identified a more specific barrier than the initial description, so the team should frame the problem around finding required information.",
+        "tip": "Separate the user's reported symptom from the root cause supported by evidence."
+      },
+      {
+        "id": 56,
+        "category": "UX Fundamentals",
+        "question": "A record page contains many elements with equal visual emphasis. Users struggle to identify what to do first. What should the designer improve?",
+        "options": [
+          "Visual hierarchy using size, position, spacing, and emphasis",
+          "The number of decorative icons",
+          "The database storage limit",
+          "The user's profile permissions"
+        ],
+        "answer": 0,
+        "explanation": "Visual hierarchy guides attention by making primary information and actions more prominent than supporting content. Size, placement, grouping, spacing, and contrast should communicate importance consistently.",
+        "tip": "When users cannot tell what matters first, think hierarchy rather than adding more content."
+      },
+      {
+        "id": 57,
+        "category": "UX Fundamentals",
+        "question": "A status is communicated only by changing a field from green to red. What is the main accessibility problem?",
+        "options": [
+          "The status uses too few database fields",
+          "The page contains no animation",
+          "Color is being used as the only cue",
+          "The colors are part of the corporate brand"
+        ],
+        "answer": 2,
+        "explanation": "Users with color-vision differences or nonvisual access may not perceive the change. Add text, an icon with an accessible name, or another redundant cue while maintaining sufficient contrast.",
+        "tip": "Never rely on color alone to communicate meaning, state, or required action."
+      },
+      {
+        "id": 58,
+        "category": "UX Fundamentals",
+        "question": "A form shows validation errors only after submission and lists them at the top without identifying the fields. What improvement best supports recovery?",
+        "options": [
+          "Clear the entire form after each error",
+          "Place clear error messages near the affected fields and preserve entered data",
+          "Use a generic message that says Invalid",
+          "Hide required-field indicators"
+        ],
+        "answer": 1,
+        "explanation": "Specific, field-level feedback helps users locate and correct problems efficiently. Preserving their input prevents unnecessary rework and frustration.",
+        "tip": "Good error handling explains what happened, where it happened, and how to fix it."
+      },
+      {
+        "id": 59,
+        "category": "UX Fundamentals",
+        "question": "Which design best follows recognition rather than recall?",
+        "options": [
+          "Require users to remember record IDs",
+          "Hide actions until users enter an undocumented command",
+          "Use unlabeled icons for every task",
+          "Show recently used records and clearly labeled choices"
+        ],
+        "answer": 3,
+        "explanation": "Recognition reduces memory demand by making relevant choices and context visible. Requiring users to remember identifiers or hidden commands increases cognitive load and error risk.",
+        "tip": "Prefer visible choices, examples, defaults, and context over memorization."
+      },
+      {
+        "id": 60,
+        "category": "UX Fundamentals",
+        "question": "A desktop experience reveals important instructions only when the pointer hovers over an icon. Why is this unsuitable for a mobile-first design?",
+        "options": [
+          "Touch devices do not provide a reliable hover interaction",
+          "Mobile devices cannot display icons",
+          "Responsive pages cannot include instructions",
+          "Salesforce Mobile supports only text fields"
+        ],
+        "answer": 0,
+        "explanation": "Hover is not consistently available on touch devices and may also be inaccessible to keyboard users. Important information should be discoverable through visible text or an operable control.",
+        "tip": "Do not make critical content depend on hover. Design for touch, keyboard, and assistive technology."
+      },
+      {
+        "id": 61,
+        "category": "UX Fundamentals",
+        "question": "A user clicks Save, but the interface appears unchanged for several seconds. Which UX principle is missing?",
+        "options": [
+          "Data normalization",
+          "Stakeholder mapping",
+          "Timely system feedback",
+          "Brand differentiation"
+        ],
+        "answer": 2,
+        "explanation": "The interface should acknowledge the action with a loading state, disabled control, progress indicator, or confirmation. Feedback reassures users that the system received the request and helps prevent duplicate actions.",
+        "tip": "Every meaningful user action should produce a clear and timely response from the system."
+      },
+      {
+        "id": 62,
+        "category": "UX Fundamentals",
+        "question": "Marketing requests a highly branded Salesforce experience. Which approach best balances brand identity and usability?",
+        "options": [
+          "Replace every standard control with an unfamiliar custom interaction",
+          "Apply brand elements consistently while preserving familiar interaction patterns, readability, and accessibility",
+          "Use brand colors regardless of contrast",
+          "Remove labels so the interface looks minimal"
+        ],
+        "answer": 1,
+        "explanation": "Brand expression should reinforce trust and identity without making common tasks harder. Familiar patterns, sufficient contrast, clear labels, and consistency remain more important than visual novelty.",
+        "tip": "Branding should support the experience, not override established usability and accessibility needs."
+      },
+      {
+        "id": 63,
+        "category": "UX Fundamentals",
+        "question": "A page displays 30 fields in one uninterrupted column. Which change most directly improves scanning?",
+        "options": [
+          "Add a different background color to every field",
+          "Remove all whitespace",
+          "Repeat the same field in multiple sections",
+          "Group related fields under clear headings and reveal secondary information progressively"
+        ],
+        "answer": 3,
+        "explanation": "Chunking related information and using progressive disclosure creates meaningful structure, reduces perceived complexity, and helps users locate the fields relevant to their current task.",
+        "tip": "To reduce cognitive load, group, prioritize, and progressively disclose rather than merely shrinking content."
+      },
+      {
+        "id": 64,
+        "category": "Human-Centered Design",
+        "question": "What should a journey map normally show in addition to process steps?",
+        "options": [
+          "User goals, touchpoints, emotions, pain points, and opportunities over time",
+          "Only the Salesforce object API names",
+          "Only the final screen layout",
+          "A list of developers assigned to the project"
+        ],
+        "answer": 0,
+        "explanation": "A journey map visualizes the experience across time, including what users try to accomplish, where interactions occur, how they feel, and where the organization can improve the experience.",
+        "tip": "Journey maps connect stages with the human experience, not just an internal workflow."
+      },
+      {
+        "id": 65,
+        "category": "Human-Centered Design",
+        "question": "A team needs to understand how customer-facing support interactions depend on agents, policies, and backend systems. Which artifact is most appropriate?",
+        "options": [
+          "A mood board",
+          "A database backup",
+          "A service blueprint",
+          "A typography scale"
+        ],
+        "answer": 2,
+        "explanation": "A service blueprint connects customer actions and frontstage interactions with backstage people, processes, systems, and support activities. It exposes operational dependencies behind the experience.",
+        "tip": "Journey map focuses on the user's experience; service blueprint adds the organizational machinery that delivers it."
+      },
+      {
+        "id": 66,
+        "category": "Human-Centered Design",
+        "question": "Which action best reflects relationship design?",
+        "options": [
+          "Maximize clicks regardless of user outcomes",
+          "Design interactions that build trust, reciprocity, transparency, and long-term value for all participants",
+          "Treat every interaction as an isolated screen",
+          "Hide how customer data will be used"
+        ],
+        "answer": 1,
+        "explanation": "Relationship design considers the quality and sustainability of relationships among people, organizations, communities, and systems. Trust and mutual value are central outcomes.",
+        "tip": "Look beyond task completion to the long-term relationship created by the experience."
+      },
+      {
+        "id": 67,
+        "category": "Human-Centered Design",
+        "question": "A research plan includes only experienced desktop users even though the product serves new mobile users and people using assistive technology. What should the designer do?",
+        "options": [
+          "Continue because expert users are faster to recruit",
+          "Ask stakeholders to imagine the excluded users",
+          "Remove accessibility requirements",
+          "Recruit participants that represent the full range of relevant contexts and abilities"
+        ],
+        "answer": 3,
+        "explanation": "Inclusive design requires involving people whose abilities, environments, devices, and experience levels reflect the real audience. Excluding them creates blind spots that can become systemic barriers.",
+        "tip": "Design with excluded or underserved users, not only for an imagined average user."
+      },
+      {
+        "id": 68,
+        "category": "Human-Centered Design",
+        "question": "During prototyping, users repeatedly misunderstand the same interaction. What is the most human-centered response?",
+        "options": [
+          "Revisit the assumptions, revise the prototype, and test again",
+          "Train users to accept the original design",
+          "Ignore the finding because development has not started",
+          "Ask only the project sponsor to approve it"
+        ],
+        "answer": 0,
+        "explanation": "Human-centered design is iterative. Repeated misunderstanding is evidence that the concept or interaction needs revision, followed by another round of validation.",
+        "tip": "Testing is not a final gate; it feeds the next design iteration."
+      },
+      {
+        "id": 69,
+        "category": "Human-Centered Design",
+        "question": "A consent dialog makes Accept prominent and hides Decline behind several steps. Which ethical concern is most relevant?",
+        "options": [
+          "The interface uses progressive disclosure correctly",
+          "The experience has too much whitespace",
+          "The design manipulates choice through a dark pattern",
+          "The data model needs a master-detail relationship"
+        ],
+        "answer": 2,
+        "explanation": "A dark pattern steers users toward an outcome that may not align with their interests or informed choice. Ethical design presents meaningful options transparently and with comparable clarity.",
+        "tip": "A choice is not truly informed when the interface intentionally makes one option difficult to find or select."
+      },
+      {
+        "id": 70,
+        "category": "Declarative Design",
+        "question": "A company needs to track a new business entity that does not fit Accounts, Contacts, Opportunities, Cases, or another standard object. What is the most appropriate declarative approach?",
+        "options": [
+          "Rename an unrelated standard object",
+          "Create a custom object with the required fields and relationships",
+          "Store every value in a single text field",
+          "Create a dashboard without storing records"
+        ],
+        "answer": 1,
+        "explanation": "A custom object is appropriate when a distinct business entity needs its own records, fields, relationships, security, and user experience. Standard objects should be used when their purpose matches the requirement.",
+        "tip": "Use standard objects for their intended business concepts; use a custom object for a genuinely new entity."
+      },
+      {
+        "id": 71,
+        "category": "Declarative Design",
+        "question": "Two sales processes need different opportunity stages, page layouts, and picklist values. Which configuration best supports this?",
+        "options": [
+          "A single page layout for every user",
+          "A dashboard filter",
+          "A utility bar item",
+          "Record types combined with sales processes and assigned page layouts"
+        ],
+        "answer": 3,
+        "explanation": "Record types can present different business processes, picklist values, and page layouts to different groups. This supports meaningful variation without creating separate objects.",
+        "tip": "When the same object needs different processes and presentations, think record types plus layouts."
+      },
+      {
+        "id": 72,
+        "category": "Declarative Design",
+        "question": "A field should appear on an opportunity record only when the deal type is Partner. Which feature should the designer recommend?",
+        "options": [
+          "Dynamic Forms field visibility rules",
+          "A separate dashboard",
+          "A custom login page",
+          "A new standard object"
+        ],
+        "answer": 0,
+        "explanation": "Dynamic Forms can place fields and sections as individual components and control their visibility based on record data, user attributes, or other supported criteria.",
+        "tip": "Use Dynamic Forms when the requirement is conditional field or section visibility on supported record pages."
+      },
+      {
+        "id": 73,
+        "category": "Declarative Design",
+        "question": "Users need an object-specific workspace that changes according to the record they are viewing. What should be configured in Lightning App Builder?",
+        "options": [
+          "A login flow",
+          "A report folder",
+          "A Lightning record page",
+          "A global value set"
+        ],
+        "answer": 2,
+        "explanation": "A Lightning record page defines the component-based experience for a specific object record. It can be assigned by app, record type, and profile as supported.",
+        "tip": "Record page = one record's workspace; app page = standalone custom page; home page = Lightning home experience."
+      },
+      {
+        "id": 74,
+        "category": "Declarative Design",
+        "question": "Sales representatives need stage-specific guidance and key fields while moving opportunities through a defined process. Which feature is best?",
+        "options": [
+          "Themes and Branding",
+          "Path",
+          "A joined report",
+          "A custom tab containing a static image"
+        ],
+        "answer": 1,
+        "explanation": "Path highlights the current stage, key fields, and guidance for success. It supports users through a sequence tied to a picklist such as Opportunity Stage.",
+        "tip": "When the requirement mentions stages, key fields, and guidance, Path is a strong candidate."
+      },
+      {
+        "id": 75,
+        "category": "Declarative Design",
+        "question": "Service agents need constant access to notes and history while moving between records in a Lightning app. Which global app feature can reduce navigation?",
+        "options": [
+          "Record type",
+          "Validation rule",
+          "Compact layout",
+          "Utility bar"
+        ],
+        "answer": 3,
+        "explanation": "The utility bar gives users persistent access to productivity tools within a Lightning app, reducing the need to leave their current context.",
+        "tip": "Utility bar items are persistent app-level tools, not record-specific page sections."
+      },
+      {
+        "id": 76,
+        "category": "Declarative Design",
+        "question": "A new feature is available to a small group of users, and the team wants a contextual message pointing to the feature the first time they encounter it. What should the designer consider?",
+        "options": [
+          "A targeted in-app guidance prompt",
+          "A new custom object",
+          "A public dashboard",
+          "A duplicate rule"
+        ],
+        "answer": 0,
+        "explanation": "In-app guidance can deliver contextual prompts or walkthroughs to targeted users at relevant locations. It is suited to onboarding, feature discovery, and adoption support.",
+        "tip": "Choose in-app guidance when users need contextual learning inside the product."
+      },
+      {
+        "id": 77,
+        "category": "Declarative Design",
+        "question": "Executives need a visual summary of pipeline value, win rate, and performance trends. Which declarative solution is most appropriate?",
+        "options": [
+          "A page layout with every opportunity field",
+          "A utility icon",
+          "Reports feeding dashboard components",
+          "A custom object with no records"
+        ],
+        "answer": 2,
+        "explanation": "Reports organize and aggregate record data, while dashboards present selected metrics visually. Together they support monitoring and decision-making without requiring users to inspect individual records.",
+        "tip": "Reports answer detailed data questions; dashboards surface key metrics and trends at a glance."
+      },
+      {
+        "id": 78,
+        "category": "Declarative Design",
+        "question": "Which configuration controls the fields shown in a record's highlights panel in Lightning Experience?",
+        "options": [
+          "The report type",
+          "The compact layout assigned to the record type",
+          "The utility bar",
+          "The app's navigation style"
+        ],
+        "answer": 1,
+        "explanation": "The highlights panel uses the primary compact layout to display key record fields. Selecting concise, decision-relevant fields improves scanning.",
+        "tip": "Page layout controls broader record detail; compact layout supplies key fields for the highlights panel and mobile record header."
+      },
+      {
+        "id": 79,
+        "category": "Declarative Design",
+        "question": "Users need to create the same type of related record from several places in Salesforce. Which feature provides a broadly accessible creation action?",
+        "options": [
+          "A field history report",
+          "A record type description",
+          "A theme",
+          "A global action"
+        ],
+        "answer": 3,
+        "explanation": "Global actions can be available from multiple locations and can create records or perform other supported actions without requiring users to begin on a specific parent record.",
+        "tip": "Global actions are broadly accessible; object-specific actions depend on the current record context."
+      },
+      {
+        "id": 80,
+        "category": "Declarative Design",
+        "question": "A sales manager wants representatives to view opportunities grouped by stage and move records between stages visually. Which standard feature best fits?",
+        "options": [
+          "Kanban view for an appropriate list view",
+          "A static HTML page",
+          "Themes and Branding",
+          "A compact layout"
+        ],
+        "answer": 0,
+        "explanation": "Kanban provides a visual representation of records grouped by a selected field and can support moving records between columns when the configuration and permissions allow it.",
+        "tip": "Kanban is useful for visually managing records across stages or statuses."
+      },
+      {
+        "id": 81,
+        "category": "Declarative Design",
+        "question": "Agents need a preconfigured action on the Case record that opens a short form with only the fields required to escalate the case. What should be used?",
+        "options": [
+          "A new home page",
+          "A dashboard subscription",
+          "An object-specific quick action",
+          "A navigation menu label"
+        ],
+        "answer": 2,
+        "explanation": "An object-specific quick action can provide a focused form and maintain the context of the current record. Limiting the action layout to necessary fields makes the task faster and clearer.",
+        "tip": "Quick actions support focused, contextual tasks without exposing the entire record edit experience."
+      },
+      {
+        "id": 82,
+        "category": "Declarative Design",
+        "question": "A record page is cluttered because several long related lists push critical information far below the fold. What is the best declarative redesign?",
+        "options": [
+          "Add every available related list",
+          "Prioritize key related data and organize secondary content with tabs, accordions, or appropriate related-list components",
+          "Remove all section labels",
+          "Use a different font for each relationship"
+        ],
+        "answer": 1,
+        "explanation": "Component-based organization and prioritization reduce scrolling while preserving access to supporting information. The page should reflect task importance rather than display every relationship equally.",
+        "tip": "Use tabs and progressive disclosure to manage secondary record information, but keep critical content visible."
+      },
+      {
+        "id": 83,
+        "category": "Declarative Design",
+        "question": "A process requires users to complete several guided screens, make decisions, and create records without custom code. Which tool is most appropriate?",
+        "options": [
+          "A static dashboard",
+          "A compact layout",
+          "A theme",
+          "A Screen Flow"
+        ],
+        "answer": 3,
+        "explanation": "Screen Flows can guide users through multi-step interactions, collect input, apply logic, and perform data actions declaratively. They are suitable when a focused wizard improves task completion.",
+        "tip": "When users need a guided multi-step process with logic and data updates, consider Screen Flow."
+      },
+      {
+        "id": 84,
+        "category": "Testing",
+        "question": "During a moderated usability test, what is the main value of asking participants to think aloud?",
+        "options": [
+          "It reveals expectations, interpretations, and decision points while they attempt tasks",
+          "It guarantees statistically significant results",
+          "It replaces observation",
+          "It teaches participants the correct workflow"
+        ],
+        "answer": 0,
+        "explanation": "Think-aloud comments provide insight into the participant's mental model and moments of uncertainty. The moderator should avoid leading or turning the session into training.",
+        "tip": "Listen for reasoning while still prioritizing observed behavior over explanations alone."
+      },
+      {
+        "id": 85,
+        "category": "Testing",
+        "question": "When is a focus group more useful than an individual usability test?",
+        "options": [
+          "When measuring whether one person can complete a task without help",
+          "When checking keyboard focus order",
+          "When exploring attitudes, language, and reactions generated through group discussion",
+          "When validating server response time"
+        ],
+        "answer": 2,
+        "explanation": "Focus groups are suited to discussing perceptions, beliefs, and concepts. They are not ideal for measuring individual task performance because group dynamics can influence responses.",
+        "tip": "Focus group = discussion and attitudes; usability test = individual behavior while completing tasks."
+      },
+      {
+        "id": 86,
+        "category": "Testing",
+        "question": "A team wants early feedback on the sequence and labels of a new flow before investing in visual polish. Which prototype is most efficient?",
+        "options": [
+          "A fully integrated production build",
+          "A low-fidelity clickable prototype",
+          "A final brand campaign",
+          "A performance test script"
+        ],
+        "answer": 1,
+        "explanation": "Low-fidelity prototypes are fast to create and change, making them appropriate for validating structure, task flow, and terminology before expensive implementation or visual refinement.",
+        "tip": "Match prototype fidelity to the question you need to answer. Do not build more than necessary."
+      },
+      {
+        "id": 87,
+        "category": "Testing",
+        "question": "Which participant group gives the strongest evidence for testing a new mobile case workflow?",
+        "options": [
+          "Only members of the design team",
+          "Any available employees regardless of role",
+          "Only the executive sponsor",
+          "Representative case users who perform the workflow in relevant mobile contexts"
+        ],
+        "answer": 3,
+        "explanation": "Participants should reflect the target users' responsibilities, experience levels, devices, environments, and access needs. Convenience samples can miss important barriers.",
+        "tip": "Recruit for behavior and context, not merely availability."
+      },
+      {
+        "id": 88,
+        "category": "Testing",
+        "question": "An automated accessibility scan reports no errors. What should the team conclude?",
+        "options": [
+          "Automated checks should be supplemented with manual keyboard, screen-reader, visual, and user testing",
+          "The experience is fully accessible",
+          "Accessibility testing is complete for every disability",
+          "Usability testing is unnecessary"
+        ],
+        "answer": 0,
+        "explanation": "Automated tools detect only certain rule-based issues. Manual inspection and testing with assistive technologies and people with disabilities are necessary to evaluate interaction, meaning, focus behavior, and real usability.",
+        "tip": "Automated accessibility testing is valuable but never complete on its own."
+      },
+      {
+        "id": 89,
+        "category": "Testing",
+        "question": "A test produces 25 findings. How should the team prioritize design changes?",
+        "options": [
+          "Fix findings in alphabetical order",
+          "Implement only comments from the most senior participant",
+          "Consider severity, frequency, task impact, accessibility risk, and effort",
+          "Ignore issues that occur before launch"
+        ],
+        "answer": 2,
+        "explanation": "Prioritization should reflect how seriously an issue blocks users, how often it occurs, who is affected, and the consequences for critical tasks and accessibility, balanced with implementation effort.",
+        "tip": "Do not treat every observation as equally important; prioritize by user and business impact."
+      },
+      {
+        "id": 90,
+        "category": "SLDS",
+        "question": "A designer needs implementation guidance for a standard component pattern, including anatomy, states, variants, and accessibility notes. Where should the designer look first?",
+        "options": [
+          "An unrelated custom stylesheet",
+          "The relevant SLDS component documentation and blueprint",
+          "A database schema diagram",
+          "A report subscription"
+        ],
+        "answer": 1,
+        "explanation": "SLDS documentation describes supported component patterns, structure, usage, variants, states, and accessibility expectations. Starting there promotes consistency and maintainability.",
+        "tip": "Use design-system documentation before inventing a new pattern."
+      },
+      {
+        "id": 91,
+        "category": "SLDS",
+        "question": "A dialog contains Save, Save and New, Cancel, Delete, and Help buttons with identical emphasis. What should the designer do?",
+        "options": [
+          "Make every button a brand button",
+          "Remove all button labels",
+          "Use icons with no accessible names",
+          "Establish a clear action hierarchy with one primary action and appropriate neutral or destructive treatments"
+        ],
+        "answer": 3,
+        "explanation": "Button emphasis should communicate priority and risk. A clear primary action, neutral secondary actions, and an appropriate destructive treatment reduce ambiguity and accidental actions.",
+        "tip": "Too many primary buttons eliminate hierarchy. Emphasis should match importance and consequence."
+      },
+      {
+        "id": 92,
+        "category": "SLDS",
+        "question": "A custom component needs standard margin, alignment, and text-treatment adjustments. What should the developer prefer before writing custom CSS?",
+        "options": [
+          "Supported SLDS utility classes",
+          "Selectors targeting internal base-component markup",
+          "Inline styles on every element",
+          "A duplicate component for each spacing variation"
+        ],
+        "answer": 0,
+        "explanation": "SLDS utility classes provide supported, consistent adjustments for common layout, spacing, alignment, and text needs. They reduce custom CSS and help the component stay aligned with the design system.",
+        "tip": "Use documented utilities for common adjustments; reserve custom CSS for needs the system does not support."
+      },
+      {
+        "id": 93,
+        "category": "SLDS",
+        "question": "Which SLDS icon category is generally intended for common interface actions such as search, settings, close, or refresh?",
+        "options": [
+          "Standard object icons",
+          "Doctype icons",
+          "Utility icons",
+          "Custom object icons"
+        ],
+        "answer": 2,
+        "explanation": "Utility icons represent common actions and interface concepts. Standard, custom, and doctype icons primarily identify records, object types, or file types.",
+        "tip": "Choose icons by semantic purpose, not visual preference. Utility icons usually represent generic UI actions."
+      },
+      {
+        "id": 94,
+        "category": "SLDS",
+        "question": "A status badge uses low-contrast text and color alone to distinguish success from failure. Which revision is best?",
+        "options": [
+          "Increase saturation only",
+          "Use sufficient contrast and pair color with clear text or another semantic cue",
+          "Remove the status label",
+          "Animate the badge continuously"
+        ],
+        "answer": 1,
+        "explanation": "Accessible status communication requires readable contrast and redundant meaning that does not depend solely on color. Clear text also improves comprehension for all users.",
+        "tip": "Contrast and non-color cues solve different accessibility problems; use both."
+      },
+      {
+        "id": 95,
+        "category": "SLDS",
+        "question": "When a modal opens, where should keyboard focus generally move?",
+        "options": [
+          "To the browser address bar",
+          "Behind the modal",
+          "To a random page element",
+          "Into the modal at an appropriate element, while focus remains contained until the modal closes"
+        ],
+        "answer": 3,
+        "explanation": "A modal should move focus into its active context, maintain a logical focus sequence within it, support closing by keyboard, and return focus appropriately when dismissed.",
+        "tip": "Focus management must follow the user's interaction context, especially for dialogs and overlays."
+      },
+      {
+        "id": 96,
+        "category": "SLDS",
+        "question": "A two-column component should become one column on small screens. Which SLDS capability is designed for this?",
+        "options": [
+          "Responsive grid sizing and breakpoint classes",
+          "Record ownership rules",
+          "Duplicate management",
+          "Report bucketing"
+        ],
+        "answer": 0,
+        "explanation": "The SLDS grid and responsive sizing utilities allow columns to change width or stack at defined viewport ranges while retaining consistent layout behavior.",
+        "tip": "Use the grid for responsive structure rather than hardcoded pixel positioning."
+      },
+      {
+        "id": 97,
+        "category": "SLDS",
+        "question": "A component has no data because the user has not created any records yet. What should an effective empty state provide?",
+        "options": [
+          "A blank white region",
+          "A technical stack trace",
+          "A concise explanation and a relevant next action when one is available",
+          "A disabled page with no guidance"
+        ],
+        "answer": 2,
+        "explanation": "An empty state should explain why content is absent and help users move forward, such as creating the first record or adjusting a filter. It should remain concise and relevant.",
+        "tip": "Empty states are part of the product experience, not missing design."
+      },
+      {
+        "id": 98,
+        "category": "SLDS",
+        "question": "A form control has visible text nearby, but the text is not programmatically associated with the input. What is the best fix?",
+        "options": [
+          "Rely on placeholder text only",
+          "Use a correctly associated label and connect error or help text with supported accessible markup",
+          "Use color to imply the field name",
+          "Remove the visible text"
+        ],
+        "answer": 1,
+        "explanation": "Programmatic label association enables assistive technology to announce the field's purpose. Supported relationships for help and error text provide necessary context when the field receives focus.",
+        "tip": "Visual proximity does not create an accessible name; labels and relationships must exist in the markup."
+      },
+      {
+        "id": 99,
+        "category": "SLDS",
+        "question": "A team needs to customize a supported component's appearance without depending on its internal DOM. Which approach is most appropriate when available?",
+        "options": [
+          "Target undocumented internal classes",
+          "Copy the rendered HTML into the application",
+          "Use global !important rules",
+          "Use documented styling hooks or supported component variants"
+        ],
+        "answer": 3,
+        "explanation": "Supported styling hooks and variants are intended extension points. Internal markup can change between releases, so selectors that depend on it are fragile and can break accessibility or visual consistency.",
+        "tip": "Customize through public contracts, not implementation details."
+      },
+      {
+        "id": 100,
+        "category": "SLDS",
+        "question": "Several product teams propose new versions of the same pattern. What design-system governance practice best prevents fragmentation?",
+        "options": [
+          "Define contribution criteria, review proposals, document decisions, and maintain a shared canonical pattern",
+          "Allow every team to publish an unrelated version",
+          "Remove all documentation",
+          "Freeze the system so no improvement is possible"
+        ],
+        "answer": 0,
+        "explanation": "Governance provides a transparent process for evaluating needs, consolidating duplicates, documenting rationale, and evolving shared patterns without losing consistency.",
+        "tip": "A healthy design system balances consistency with a governed path for change."
+      }
+    ]
+
+    const categoryOrder = ["All", "Discovery", "UX Fundamentals", "Human-Centered Design", "Declarative Design", "Testing", "SLDS"];
+    const STORAGE_KEY = "sf-ux-study-lab-v1";
+
+    let state = {
+      answers: {},
+      bookmarks: [],
+      order: questions.map(q => q.id),
+      filter: "All",
+      specialMode: null,
+      currentIndex: 0
+    };
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (saved && typeof saved === "object") {
+          state = {
+            ...state,
+            ...saved,
+            order: Array.isArray(saved.order) && saved.order.length === questions.length ? saved.order : questions.map(q => q.id),
+            bookmarks: Array.isArray(saved.bookmarks) ? saved.bookmarks : []
+          };
+        }
+      } catch (error) {
+        console.warn("Could not restore saved study progress.", error);
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (error) {
+        console.warn("Could not save study progress in this browser context.", error);
+      }
+    }
+
+    function questionById(id) { return questions.find(q => q.id === id); }
+
+    function getVisibleQuestions() {
+      const ordered = state.order.map(questionById).filter(Boolean);
+      if (state.specialMode === "wrong") {
+        return ordered.filter(q => state.answers[q.id] && !state.answers[q.id].correct);
+      }
+      if (state.specialMode === "bookmarks") {
+        return ordered.filter(q => state.bookmarks.includes(q.id));
+      }
+      if (state.specialMode === "unanswered") {
+        return ordered.filter(q => !state.answers[q.id]);
+      }
+      if (state.filter === "All") return ordered;
+      return ordered.filter(q => q.category === state.filter);
+    }
+
+    function renderFilters() {
+      const container = document.getElementById("categoryFilters");
+      container.innerHTML = categoryOrder.map(category => `
+        <button class="filter-btn" data-category="${category}" aria-pressed="${state.specialMode === null && state.filter === category}">${category}</button>
+      `).join("");
+      container.querySelectorAll("button").forEach(button => {
+        button.addEventListener("click", () => {
+          state.filter = button.dataset.category;
+          state.specialMode = null;
+          state.currentIndex = 0;
+          saveState();
+          render();
+        });
+      });
+    }
+
+    function renderStats() {
+      const answered = Object.keys(state.answers).length;
+      const correct = Object.values(state.answers).filter(a => a.correct).length;
+      const accuracy = answered ? Math.round((correct / answered) * 100) : null;
+      document.getElementById("answeredStat").textContent = `${answered} / ${questions.length}`;
+      document.getElementById("correctStat").textContent = correct;
+      document.getElementById("accuracyStat").textContent = accuracy === null ? "—" : `${accuracy}%`;
+      document.getElementById("bookmarkStat").textContent = state.bookmarks.length;
+      document.getElementById("progressLabel").textContent = `${answered} of ${questions.length} answered`;
+      document.getElementById("progressFill").style.width = `${(answered / questions.length) * 100}%`;
+
+      const mode = state.specialMode === "wrong" ? "Review Wrong Answers"
+        : state.specialMode === "bookmarks" ? "Bookmarked Questions"
+        : state.specialMode === "unanswered" ? "Unanswered Questions"
+        : state.filter === "All" ? "All Questions" : state.filter;
+      document.getElementById("modeLabel").textContent = mode;
+    }
+
+    function renderQuestion() {
+      const card = document.getElementById("questionCard");
+      const visible = getVisibleQuestions();
+      if (!visible.length) {
+        card.innerHTML = `
+          <div class="empty-state">
+            <div style="font-size:2.4rem">✓</div>
+            <h2>No questions in this view</h2>
+            <p>${state.specialMode === "wrong" ? "You do not have any wrong answers to review." : state.specialMode === "bookmarks" ? "Bookmark questions to build a custom review set." : "You have answered every question in this view."}</p>
+            <button class="btn btn-primary" id="returnAllBtn">Return to All Questions</button>
+          </div>`;
+        document.getElementById("returnAllBtn").addEventListener("click", () => {
+          state.filter = "All";
+          state.specialMode = null;
+          state.currentIndex = 0;
+          saveState();
+          render();
+        });
+        return;
+      }
+
+      if (state.currentIndex >= visible.length) state.currentIndex = visible.length - 1;
+      if (state.currentIndex < 0) state.currentIndex = 0;
+
+      const q = visible[state.currentIndex];
+      const answerRecord = state.answers[q.id];
+      const isBookmarked = state.bookmarks.includes(q.id);
+      const letters = ["A", "B", "C", "D"];
+
+      const optionsHtml = q.options.map((option, index) => {
+        let classes = "option-btn";
+        if (answerRecord) {
+          if (index === q.answer) classes += " correct";
+          else if (index === answerRecord.selected && !answerRecord.correct) classes += " incorrect";
+          else classes += " dimmed";
+        }
+        return `<button class="${classes}" data-option="${index}" ${answerRecord ? "disabled" : ""}>
+          <span class="option-key">${letters[index]}</span><span>${option}</span>
+        </button>`;
+      }).join("");
+
+      const feedbackHtml = answerRecord ? `
+        <div class="feedback visible">
+          <div class="feedback-status ${answerRecord.correct ? "correct-text" : "incorrect-text"}">${answerRecord.correct ? "✓ Correct" : "✕ Not quite"}</div>
+          <h3>Correct answer</h3>
+          <p><strong>${letters[q.answer]}. ${q.options[q.answer]}</strong></p>
+          <h3>Why this is correct</h3>
+          <p>${q.explanation}</p>
+          <div class="tip-box"><strong>Exam reasoning tip:</strong> ${q.tip}</div>
+        </div>` : "";
+
+      card.innerHTML = `
+        <div class="question-top">
+          <span class="category-badge">${q.category}</span>
+          <button class="bookmark-btn ${isBookmarked ? "active" : ""}" id="bookmarkBtn" aria-label="${isBookmarked ? "Remove bookmark" : "Bookmark question"}" aria-pressed="${isBookmarked}">★</button>
+        </div>
+        <div class="question-number">Question ${state.currentIndex + 1} of ${visible.length} · Bank ID ${q.id}</div>
+        <h2>${q.question}</h2>
+        <div class="option-list">${optionsHtml}</div>
+        ${feedbackHtml}
+        <div class="nav-row">
+          <button class="btn btn-secondary" id="prevBtn" ${state.currentIndex === 0 ? "disabled" : ""}>Previous</button>
+          <button class="btn btn-primary" id="nextBtn" ${state.currentIndex === visible.length - 1 ? "disabled" : ""}>Next</button>
+        </div>`;
+
+      card.querySelectorAll(".option-btn").forEach(button => {
+        button.addEventListener("click", () => selectAnswer(q, Number(button.dataset.option)));
+      });
+      document.getElementById("bookmarkBtn").addEventListener("click", () => toggleBookmark(q.id));
+      document.getElementById("prevBtn").addEventListener("click", previousQuestion);
+      document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+    }
+
+    function selectAnswer(question, selected) {
+      if (state.answers[question.id]) return;
+      state.answers[question.id] = { selected, correct: selected === question.answer };
+      saveState();
+      render();
+    }
+
+    function toggleBookmark(id) {
+      if (state.bookmarks.includes(id)) state.bookmarks = state.bookmarks.filter(item => item !== id);
+      else state.bookmarks.push(id);
+      saveState();
+      render();
+    }
+
+    function nextQuestion() {
+      const visible = getVisibleQuestions();
+      if (state.currentIndex < visible.length - 1) {
+        state.currentIndex += 1;
+        saveState();
+        renderQuestion();
+        document.getElementById("questionCard").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function previousQuestion() {
+      if (state.currentIndex > 0) {
+        state.currentIndex -= 1;
+        saveState();
+        renderQuestion();
+        document.getElementById("questionCard").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function shuffleQuestions() {
+      const shuffled = [...state.order];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      state.order = shuffled;
+      state.currentIndex = 0;
+      saveState();
+      render();
+      document.getElementById("study").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function setSpecialMode(mode) {
+      state.specialMode = mode;
+      state.currentIndex = 0;
+      saveState();
+      render();
+    }
+
+    function resetProgress() {
+      const confirmed = window.confirm("Reset all answers, bookmarks, and question order?");
+      if (!confirmed) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch (error) { console.warn("Could not clear saved progress.", error); }
+      state = {
+        answers: {}, bookmarks: [], order: questions.map(q => q.id), filter: "All", specialMode: null, currentIndex: 0
+      };
+      render();
+    }
+
+    function render() {
+      renderFilters();
+      renderStats();
+      renderQuestion();
+    }
+
+    document.getElementById("startBtn").addEventListener("click", () => document.getElementById("study").scrollIntoView({ behavior: "smooth" }));
+    document.getElementById("shuffleBtn").addEventListener("click", shuffleQuestions);
+    document.getElementById("reviewWrongBtn").addEventListener("click", () => setSpecialMode("wrong"));
+    document.getElementById("reviewBookmarksBtn").addEventListener("click", () => setSpecialMode("bookmarks"));
+    document.getElementById("unansweredBtn").addEventListener("click", () => setSpecialMode("unanswered"));
+    document.getElementById("resetBtn").addEventListener("click", resetProgress);
+
+    document.addEventListener("keydown", (event) => {
+      if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return;
+      const visible = getVisibleQuestions();
+      const q = visible[state.currentIndex];
+      if (!q) return;
+      if (["1", "2", "3", "4"].includes(event.key) && !state.answers[q.id]) {
+        const index = Number(event.key) - 1;
+        if (index < q.options.length) selectAnswer(q, index);
+      } else if (event.key.toLowerCase() === "n") nextQuestion();
+      else if (event.key.toLowerCase() === "p") previousQuestion();
+      else if (event.key.toLowerCase() === "b") toggleBookmark(q.id);
+    });
+
+    loadState();
+    render();
+  </script>
+</body>
+</html>

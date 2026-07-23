@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Practica dinamica para Salesforce Platform Administrator con feedback inmediato, tips de examen y progreso local." />
+  <title>Salesforce Platform Administrator | BlueForce</title>
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body data-certification="platform-administrator">
+  <a class="skip-link" href="#study">Saltar a pregunta</a>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand-lockup" href="../index.html" aria-label="BlueForce home">
+        <span class="brand-mark">BF</span>
+        <span>BlueForce</span>
+      </a>
+      <nav class="topbar-nav" aria-label="Navegacion principal">
+        <a href="../index.html">Inicio</a>
+        <a href="../index.html#certifications">Certificaciones</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="examApp">
+    <section class="exam-hero" aria-labelledby="pageTitle">
+      <div class="shell hero-grid">
+        <section class="hero-copy">
+          <div class="eyebrow" id="examEyebrow">Preguntas originales</div>
+          <h1 id="pageTitle">Salesforce Platform Administrator Certification Study Lab</h1>
+          <p id="heroCopy"></p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="startBtn">Empezar practica</button>
+            <button class="btn btn-secondary" id="shuffleBtn">Mezclar preguntas</button>
+          </div>
+          <div class="notice"><strong>Nota de integridad:</strong> <span id="integrityNote"></span></div>
+        </section>
+
+        <aside class="blueprint-panel" aria-label="Blueprint oficial">
+          <h2>Blueprint oficial</h2>
+          <p id="blueprintNote"></p>
+          <div class="weight-list" id="blueprintList"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="dashboard" id="study" aria-labelledby="studyHeading">
+      <div class="shell">
+        <h2 id="studyHeading" style="position:absolute;left:-9999px;">Preguntas interactivas</h2>
+
+        <div class="stats-grid" aria-label="Estadisticas de estudio">
+          <div class="stat-card"><div class="stat-label">Respondidas</div><div class="stat-value" id="answeredStat">0</div></div>
+          <div class="stat-card"><div class="stat-label">Correctas</div><div class="stat-value" id="correctStat">0</div></div>
+          <div class="stat-card"><div class="stat-label">Precision</div><div class="stat-value" id="accuracyStat">0%</div></div>
+          <div class="stat-card"><div class="stat-label">Errores</div><div class="stat-value" id="wrongStat">0</div></div>
+          <div class="stat-card"><div class="stat-label">Marcadas</div><div class="stat-value" id="bookmarkStat">0</div></div>
+        </div>
+
+        <div class="toolbar" aria-label="Filtros de preguntas">
+          <div class="category-filters" id="categoryFilters"></div>
+          <button class="btn btn-secondary" id="reviewWrongBtn">Repasar errores</button>
+          <button class="btn btn-secondary" id="reviewBookmarksBtn">Marcadas</button>
+        </div>
+
+        <div class="progress-block" aria-label="Progreso de estudio">
+          <div class="progress-meta"><span id="progressLabel">0 respondidas</span><span id="modeLabel">Todas</span></div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+
+        <div class="study-layout">
+          <article class="question-card" id="questionCard" aria-live="polite"></article>
+
+          <aside class="side-panel">
+            <div class="side-card">
+              <h3>Como razonar</h3>
+              <p id="reasoningText"></p>
+            </div>
+            <div class="side-card">
+              <h3>Habitos de examen</h3>
+              <p id="habitsText"></p>
+            </div>
+            <div class="side-card">
+              <h3>Controles</h3>
+              <button class="btn btn-secondary" id="unansweredBtn">Ir a pendientes</button>
+              <button class="btn btn-danger" id="resetBtn">Reiniciar progreso</button>
+            </div>
+            <div class="side-card">
+              <h3>Atajos</h3>
+              <ul class="shortcut-list">
+                <li><kbd>1</kbd>-<kbd>6</kbd> elegir opciones</li>
+                <li><kbd>Enter</kbd> enviar multi-select</li>
+                <li><kbd>N</kbd> siguiente</li>
+                <li><kbd>P</kbd> anterior</li>
+                <li><kbd>B</kbd> marcar</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="resources" aria-labelledby="resourcesHeading">
+      <div class="shell resources-card">
+        <h2 id="resourcesHeading">Fuentes de estudio</h2>
+        <p style="color:var(--muted);max-width:860px;">El banco fue importado desde la guia HTML original y queda conectado a fuentes publicas para consulta adicional.</p>
+        <div class="resource-grid" id="resourceGrid"></div>
+        <p class="footer-note">Archivo base: <a id="sourceFile" href="../salesforce_platform_administrator_study_lab.html"></a></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/data/certifications.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive Salesforce Certified Platform Administrator study lab with 52 original exam-aligned practice questions, explanations, and study tips." />
+  <title>Salesforce Platform Administrator Certification Study Lab</title>
+  <style>
+    :root {
+      --bg: #071426;
+      --surface: #0f2139;
+      --surface-2: #142a46;
+      --surface-3: #1a3453;
+      --text: #f5f9ff;
+      --muted: #b5c5d9;
+      --line: #2a4668;
+      --brand: #2f9cf4;
+      --brand-2: #78c7ff;
+      --success: #45d483;
+      --success-bg: rgba(69, 212, 131, 0.12);
+      --danger: #ff7e8b;
+      --danger-bg: rgba(255, 126, 139, 0.12);
+      --warning: #ffd36a;
+      --shadow: 0 22px 55px rgba(0, 0, 0, 0.28);
+      --radius: 22px;
+      --radius-sm: 14px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% -10%, rgba(47, 156, 244, 0.22), transparent 35%),
+        radial-gradient(circle at 90% 5%, rgba(120, 199, 255, 0.12), transparent 28%),
+        linear-gradient(180deg, #071426 0%, #091a2e 46%, #071426 100%);
+      line-height: 1.55;
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: var(--brand-2); }
+    a:hover { color: white; }
+    :focus-visible { outline: 3px solid var(--warning); outline-offset: 3px; }
+
+    .skip-link {
+      position: fixed; left: 16px; top: -80px; z-index: 100;
+      padding: 10px 14px; border-radius: 10px; color: #06111f;
+      background: var(--warning); font-weight: 800; transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: 16px; }
+    .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+
+    .hero { padding: 52px 0 28px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr); gap: 24px; align-items: stretch; }
+    .hero-copy, .blueprint-panel {
+      border: 1px solid rgba(120, 199, 255, 0.18); border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(20, 42, 70, 0.94), rgba(10, 28, 49, 0.96)); box-shadow: var(--shadow);
+    }
+    .hero-copy { padding: clamp(28px, 5vw, 54px); position: relative; overflow: hidden; }
+    .hero-copy::after {
+      content: "ADM"; position: absolute; right: -18px; bottom: -58px; font-size: 170px;
+      line-height: 1; font-weight: 900; letter-spacing: -16px; color: rgba(120, 199, 255, 0.05); pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; padding: 7px 11px;
+      border: 1px solid rgba(120, 199, 255, 0.25); border-radius: 999px; color: var(--brand-2);
+      background: rgba(47, 156, 244, 0.08); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    h1 { margin: 0; max-width: 850px; font-size: clamp(2.05rem, 4.8vw, 4.6rem); line-height: 1; letter-spacing: -0.052em; }
+    .hero-copy p { max-width: 780px; margin: 22px 0 0; color: var(--muted); font-size: 1.05rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+    .btn {
+      min-height: 45px; padding: 11px 17px; border: 1px solid transparent; border-radius: 12px;
+      font-weight: 800; transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { color: #06111f; background: linear-gradient(135deg, var(--brand-2), var(--brand)); }
+    .btn-secondary { color: var(--text); border-color: var(--line); background: rgba(255,255,255,0.04); }
+    .btn-danger { color: #ffe9ec; border-color: rgba(255, 126, 139, 0.35); background: rgba(255, 126, 139, 0.08); }
+    .btn:disabled { cursor: not-allowed; opacity: 0.45; transform: none; }
+
+    .blueprint-panel { padding: 24px; }
+    .blueprint-panel h2 { margin: 0 0 6px; font-size: 1.1rem; }
+    .blueprint-panel > p { margin: 0 0 18px; color: var(--muted); font-size: 0.9rem; }
+    .weight-list { display: grid; gap: 10px; }
+    .weight-row { display: grid; grid-template-columns: 1fr auto; gap: 7px; align-items: center; }
+    .weight-label { font-size: 0.82rem; font-weight: 750; }
+    .weight-value { color: var(--brand-2); font-size: 0.8rem; font-weight: 900; }
+    .weight-track { grid-column: 1 / -1; height: 6px; overflow: hidden; border-radius: 999px; background: #071426; }
+    .weight-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--brand), var(--brand-2)); }
+
+    .notice {
+      margin: 22px 0 0; padding: 15px 17px; border: 1px solid rgba(255, 211, 106, 0.25);
+      border-radius: 14px; color: #f8e9bd; background: rgba(255, 211, 106, 0.075); font-size: 0.9rem;
+    }
+
+    .dashboard { padding: 10px 0 56px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; margin-bottom: 18px; }
+    .stat-card { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: rgba(15, 33, 57, 0.9); }
+    .stat-label { color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+    .stat-value { margin-top: 4px; font-size: 1.55rem; font-weight: 900; }
+
+    .toolbar {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 16px; padding: 14px;
+      border: 1px solid var(--line); border-radius: 16px; background: rgba(15, 33, 57, 0.85);
+    }
+    .category-filters { display: flex; flex-wrap: wrap; gap: 8px; flex: 1 1 760px; }
+    .filter-btn {
+      min-height: 38px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px;
+      color: var(--muted); background: transparent; font-size: 0.8rem; font-weight: 800;
+    }
+    .filter-btn[aria-pressed="true"] { color: #06111f; border-color: transparent; background: var(--brand-2); }
+
+    .progress-block { margin-bottom: 16px; }
+    .progress-meta { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 8px; color: var(--muted); font-size: 0.86rem; font-weight: 750; }
+    .progress-track { width: 100%; height: 10px; overflow: hidden; border-radius: 999px; background: #06111f; border: 1px solid #19324f; }
+    .progress-fill { width: 0%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--brand), var(--success)); transition: width 0.25s ease; }
+
+    .study-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
+    .question-card {
+      min-height: 610px; padding: clamp(22px, 4vw, 38px); border: 1px solid var(--line); border-radius: var(--radius);
+      background: linear-gradient(160deg, rgba(20, 42, 70, 0.98), rgba(10, 28, 49, 0.98)); box-shadow: var(--shadow);
+    }
+    .question-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .category-badge, .selection-badge {
+      display: inline-flex; padding: 7px 11px; border-radius: 999px; font-size: 0.76rem; font-weight: 900; letter-spacing: 0.045em; text-transform: uppercase;
+    }
+    .category-badge { color: var(--brand-2); background: rgba(47, 156, 244, 0.11); }
+    .selection-badge { color: #faeac0; background: rgba(255,211,106,0.09); }
+    .bookmark-btn { width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 12px; color: var(--muted); background: rgba(255,255,255,0.03); font-size: 1.15rem; }
+    .bookmark-btn.active { color: var(--warning); border-color: rgba(255,211,106,0.42); background: rgba(255,211,106,0.08); }
+    .question-number { margin: 22px 0 8px; color: var(--muted); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+    .question-card h2 { margin: 0; font-size: clamp(1.3rem, 2.8vw, 1.95rem); line-height: 1.3; letter-spacing: -0.02em; }
+    .option-list { display: grid; gap: 11px; margin-top: 27px; }
+    .option-btn {
+      display: grid; grid-template-columns: 36px 1fr 24px; gap: 13px; align-items: center; width: 100%; min-height: 60px;
+      padding: 12px 15px; border: 1px solid var(--line); border-radius: 14px; color: var(--text);
+      background: rgba(4, 17, 32, 0.36); text-align: left; transition: border-color .15s ease, background .15s ease, transform .15s ease;
+    }
+    .option-btn:hover:not(:disabled) { border-color: var(--brand); background: rgba(47, 156, 244, 0.08); transform: translateY(-1px); }
+    .option-key { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; color: var(--brand-2); background: rgba(47,156,244,0.12); font-weight: 900; }
+    .option-check { color: transparent; font-weight: 900; text-align: center; }
+    .option-btn.selected { border-color: var(--brand-2); background: rgba(47,156,244,0.12); }
+    .option-btn.selected .option-check { color: var(--brand-2); }
+    .option-btn.correct { border-color: rgba(69,212,131,0.75); background: var(--success-bg); }
+    .option-btn.correct .option-key { color: #061b10; background: var(--success); }
+    .option-btn.correct .option-check { color: var(--success); }
+    .option-btn.incorrect { border-color: rgba(255,126,139,0.75); background: var(--danger-bg); }
+    .option-btn.incorrect .option-key { color: #2a060b; background: var(--danger); }
+    .option-btn.incorrect .option-check { color: var(--danger); }
+    .option-btn.dimmed { opacity: 0.56; }
+
+    .answer-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; }
+    .selection-count { color: var(--muted); font-size: 0.86rem; font-weight: 750; }
+
+    .feedback {
+      display: none; margin-top: 24px; padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: rgba(4, 17, 32, 0.46);
+    }
+    .feedback.visible { display: block; animation: rise .2s ease-out; }
+    @keyframes rise { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+    .feedback-status { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; font-weight: 900; }
+    .feedback-status.correct-text { color: var(--success); }
+    .feedback-status.incorrect-text { color: var(--danger); }
+    .feedback h3 { margin: 16px 0 7px; font-size: 0.86rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--brand-2); }
+    .feedback p { margin: 0; color: #d7e3f0; }
+    .tip-box { margin-top: 14px; padding: 13px 15px; border-left: 4px solid var(--warning); border-radius: 8px; color: #faeac0; background: rgba(255,211,106,0.07); }
+
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-row .btn { min-width: 120px; }
+    .side-panel { position: sticky; top: 16px; display: grid; gap: 14px; }
+    .side-card { padding: 19px; border: 1px solid var(--line); border-radius: 17px; background: rgba(15,33,57,0.92); }
+    .side-card h3 { margin: 0 0 8px; font-size: 1rem; }
+    .side-card p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+    .side-card .btn { width: 100%; margin-top: 10px; }
+    .shortcut-list { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; color: var(--muted); font-size: 0.84rem; }
+    kbd { display: inline-grid; place-items: center; min-width: 27px; padding: 2px 6px; border: 1px solid #426388; border-bottom-width: 2px; border-radius: 6px; color: white; background: #0a1b2f; font-size: 0.76rem; font-weight: 800; }
+
+    .resources { padding: 0 0 64px; }
+    .resources-card { padding: clamp(24px, 4vw, 38px); border: 1px solid var(--line); border-radius: var(--radius); background: rgba(15,33,57,0.9); }
+    .resources-card h2 { margin-top: 0; }
+    .resource-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+    .resource-link { display: block; padding: 15px; border: 1px solid var(--line); border-radius: 13px; text-decoration: none; background: rgba(4,17,32,0.32); }
+    .resource-link strong { display: block; color: white; }
+    .resource-link span { display: block; margin-top: 3px; color: var(--muted); font-size: 0.83rem; }
+    .footer-note { margin-top: 20px; color: var(--muted); font-size: 0.82rem; }
+    .empty-state { padding: 70px 20px; text-align: center; }
+    .empty-state h2 { margin-bottom: 8px; }
+    .empty-state p { color: var(--muted); }
+
+    @media (max-width: 900px) {
+      .hero-grid, .study-layout { grid-template-columns: 1fr; }
+      .side-panel { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 20px, 1180px); }
+      .hero { padding-top: 20px; }
+      .hero-copy { padding: 28px 22px; }
+      .hero-copy::after { display: none; }
+      .stats-grid, .side-panel, .resource-grid { grid-template-columns: 1fr; }
+      .question-card { min-height: auto; padding: 22px 17px; }
+      .nav-row, .answer-actions { flex-wrap: wrap; }
+      .nav-row .btn, .answer-actions .btn { flex: 1; }
+      .option-btn { grid-template-columns: 32px 1fr 20px; gap: 10px; padding: 11px 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#study">Skip to study question</a>
+
+  <header class="hero">
+    <div class="shell hero-grid">
+      <section class="hero-copy" aria-labelledby="page-title">
+        <div class="eyebrow">52 original, exam-aligned questions</div>
+        <h1 id="page-title">Salesforce Platform Administrator Certification Study Lab</h1>
+        <p>Practice the current exam domains through realistic administrator scenarios. Select your answer to reveal the correct choice, a practical explanation, and an exam-focused reasoning tip.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="startBtn">Start Studying</button>
+          <button class="btn btn-secondary" id="shuffleBtn">Shuffle Questions</button>
+        </div>
+        <div class="notice"><strong>Integrity note:</strong> This lab contains original practice questions created from public Salesforce objectives and documentation. It does not reproduce leaked, memorized, or restricted exam content. Single-answer cards reveal feedback immediately; multi-select cards require you to choose the requested number and submit.</div>
+      </section>
+
+      <aside class="blueprint-panel" aria-label="Official exam blueprint">
+        <h2>Official Exam Blueprint</h2>
+        <p>The bank contains 52 questions distributed closely to Salesforce's published domain weighting.</p>
+        <div class="weight-list">
+          <div class="weight-row"><span class="weight-label">Configuration and Setup</span><span class="weight-value">15%</span><div class="weight-track"><div class="weight-fill" style="width:88%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Object Manager and Lightning App Builder</span><span class="weight-value">15%</span><div class="weight-track"><div class="weight-fill" style="width:88%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Sales and Marketing Applications</span><span class="weight-value">10%</span><div class="weight-track"><div class="weight-fill" style="width:59%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Service and Support Applications</span><span class="weight-value">10%</span><div class="weight-track"><div class="weight-fill" style="width:59%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Productivity and Collaboration</span><span class="weight-value">10%</span><div class="weight-track"><div class="weight-fill" style="width:59%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Data and Analytics Management</span><span class="weight-value">17%</span><div class="weight-track"><div class="weight-fill" style="width:100%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Automation</span><span class="weight-value">15%</span><div class="weight-track"><div class="weight-fill" style="width:88%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Agentforce</span><span class="weight-value">8%</span><div class="weight-track"><div class="weight-fill" style="width:47%"></div></div></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="dashboard" id="study" aria-labelledby="study-heading">
+      <div class="shell">
+        <h2 id="study-heading" style="position:absolute;left:-9999px;">Interactive study questions</h2>
+
+        <div class="stats-grid" aria-label="Study statistics">
+          <div class="stat-card"><div class="stat-label">Answered</div><div class="stat-value" id="answeredStat">0 / 52</div></div>
+          <div class="stat-card"><div class="stat-label">Correct</div><div class="stat-value" id="correctStat">0</div></div>
+          <div class="stat-card"><div class="stat-label">Accuracy</div><div class="stat-value" id="accuracyStat">—</div></div>
+          <div class="stat-card"><div class="stat-label">Bookmarked</div><div class="stat-value" id="bookmarkStat">0</div></div>
+        </div>
+
+        <div class="toolbar" aria-label="Question filters">
+          <div class="category-filters" id="categoryFilters"></div>
+          <button class="btn btn-secondary" id="reviewWrongBtn">Review Wrong</button>
+          <button class="btn btn-secondary" id="reviewBookmarksBtn">Bookmarks</button>
+        </div>
+
+        <div class="progress-block" aria-label="Study progress">
+          <div class="progress-meta"><span id="progressLabel">0 of 52 answered</span><span id="modeLabel">All Questions</span></div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+
+        <div class="study-layout">
+          <article class="question-card" id="questionCard" aria-live="polite"></article>
+
+          <aside class="side-panel">
+            <div class="side-card">
+              <h3>How to reason</h3>
+              <p>Separate permissions from record sharing, identify the object and business process involved, then choose the most native and maintainable Salesforce capability.</p>
+            </div>
+            <div class="side-card">
+              <h3>Exam habits</h3>
+              <p>Read every qualifier: “best,” “most efficient,” “without code,” “select two,” and “based on record ownership” often determine the answer.</p>
+            </div>
+            <div class="side-card">
+              <h3>Study controls</h3>
+              <button class="btn btn-secondary" id="unansweredBtn">Jump to Unanswered</button>
+              <button class="btn btn-danger" id="resetBtn">Reset Progress</button>
+            </div>
+            <div class="side-card">
+              <h3>Keyboard shortcuts</h3>
+              <ul class="shortcut-list">
+                <li><kbd>1</kbd>–<kbd>4</kbd> select options</li>
+                <li><kbd>Enter</kbd> submit multi-select</li>
+                <li><kbd>N</kbd> next question</li>
+                <li><kbd>P</kbd> previous question</li>
+                <li><kbd>B</kbd> bookmark question</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="resources" aria-labelledby="resources-heading">
+      <div class="shell resources-card">
+        <h2 id="resources-heading">Trusted Study Sources</h2>
+        <p style="color:var(--muted);max-width:860px;">The question bank is synthesized from the current official exam blueprint, Salesforce certification-prep modules, product documentation, and study themes discussed in the Salesforce Trailblazer Community. Community discussions were used to identify areas learners find difficult—not to copy exam questions.</p>
+        <div class="resource-grid">
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/credentials/administrator"><strong>Platform Administrator Credential</strong><span>Official credential page and recommended preparation.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://help.salesforce.com/s/articleView?id=005298966&amp;language=en_US&amp;type=1"><strong>Official Platform Administrator Exam Guide</strong><span>Target audience, exam objectives, and official preparation guidance.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/content/learn/trails/administrator-certification-prep"><strong>Administrator Certification Prep Trail</strong><span>Official scenarios and flashcards across the exam domains.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/content/learn/modules/administrator-certification-prep-setup-and-objects"><strong>Configuration, Setup, and Objects</strong><span>Security, user setup, object architecture, relationships, and page configuration.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/content/learn/modules/administrator-certification-prep-applications-activities-and-mobile"><strong>Applications and Activities</strong><span>Sales, service, productivity, mobile, collaboration, and AgentExchange.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/content/learn/modules/administrator-certification-prep-security-and-data-management"><strong>Data and Automation</strong><span>Data tools, reporting, dashboards, Flow, and approval processes.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/users/strailhead/trailmixes/prepare-for-your-salesforce-administrator-credential"><strong>Official Administrator Trailmix</strong><span>Curated hands-on learning, including current Agentforce resources.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/trailblazer-community/topics/admin"><strong>Trailblazer Community: Salesforce Admin</strong><span>Specialist questions, study advice, and peer discussion.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/content/learn/modules/introduction-to-agent-builder"><strong>Introduction to Agentforce Builder</strong><span>Current agent-building concepts, testing, customization, and observability.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://help.salesforce.com/s/articleView?id=ai.agent_parent_data.htm&amp;language=en_US&amp;type=5"><strong>Ground Agentforce in Your Data</strong><span>Official guidance on Data Libraries and trusted grounding.</span></a>
+        </div>
+        <p class="footer-note"><strong>Current terminology note:</strong> Salesforce Help began referring to agent “topics” as “subagents” in the new Agentforce Builder in 2026. Some Trailhead modules and exam-prep discussions may still use the earlier term, so this lab shows both where useful.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const questions = [{"id": 1, "category": "Configuration and Setup", "select": 1, "question": "Two sales users have the same profile, but only one of them should be allowed to export reports. What should the administrator use?", "options": ["Create a second role", "Assign a permission set to the individual user", "Change the organization-wide defaults", "Create a sharing rule"], "answers": [1], "explanation": "A permission set grants additional permissions to selected users without changing the baseline access provided by their profile. Roles and sharing settings control record visibility, not system permissions such as exporting reports.", "tip": "Profiles provide the baseline. Permission sets add exceptions. Sharing tools answer a different question: which records can the user see?"}, {"id": 2, "category": "Configuration and Setup", "select": 1, "question": "Opportunity organization-wide defaults are Private. Sales managers must automatically see opportunities owned by users below them. Which feature provides this access?", "options": ["Role hierarchy", "Permission set group", "Login IP ranges", "Field-level security"], "answers": [0], "explanation": "The role hierarchy can open record access upward so managers can see records owned by users below them when organization-wide defaults are restrictive. Permission sets and field-level security control permissions, not hierarchical record visibility.", "tip": "Think of record access as layers: organization-wide defaults establish the floor, then role hierarchy, sharing rules, teams, and manual sharing can open access."}, {"id": 3, "category": "Configuration and Setup", "select": 1, "question": "All high-value accounts in the Healthcare industry must be shared read-only with a cross-functional public group. What is the most maintainable solution?", "options": ["A criteria-based sharing rule", "A new profile", "A compact layout", "A validation rule"], "answers": [0], "explanation": "A criteria-based sharing rule automatically shares records that meet field-based conditions with roles, roles and subordinates, or public groups. It is designed for repeatable record access beyond the organization-wide defaults.", "tip": "When access depends on record values rather than ownership, look for a criteria-based sharing rule."}, {"id": 4, "category": "Configuration and Setup", "select": 1, "question": "Users with a specific profile must be completely blocked from logging in outside the corporate network. Which setting should the administrator configure?", "options": ["Network Access trusted IP ranges", "Profile login IP ranges", "Session timeout", "A sharing rule"], "answers": [1], "explanation": "Login IP ranges on a profile restrict where users assigned to that profile can log in. Network Access trusted IP ranges reduce identity verification challenges but do not by themselves block login from other locations.", "tip": "Trusted IP ranges reduce verification. Profile login IP ranges enforce a hard login restriction."}, {"id": 5, "category": "Configuration and Setup", "select": 2, "question": "An employee leaves unexpectedly. Which two actions best protect the org while preserving ownership and history?", "options": ["Freeze the user immediately", "Delete the user record", "Transfer important records and then deactivate the user", "Change every record to Public Read/Write"], "answers": [0, 2], "explanation": "Freezing blocks login immediately while the administrator resolves dependencies. Salesforce users are normally deactivated rather than deleted, and their records can be transferred before deactivation so history remains intact.", "tip": "Freeze is immediate containment. Deactivate is the durable state. Users are preserved for audit history rather than deleted."}, {"id": 6, "category": "Configuration and Setup", "select": 1, "question": "A user in France needs French date formats and number separators, while the rest of the org uses United States formatting. What should be changed?", "options": ["The user's locale", "The organization's fiscal year", "The user's role", "The account currency"], "answers": [0], "explanation": "A user's locale controls the display format for dates, times, names, addresses, numbers, and currencies. It does not alter record access or the organization's fiscal structure.", "tip": "Locale is presentation. Language controls translated labels. Time zone controls displayed time. Currency settings control monetary values."}, {"id": 7, "category": "Configuration and Setup", "select": 1, "question": "A company's fiscal year begins on February 1 and follows normal calendar months. Which configuration is appropriate?", "options": ["A standard fiscal year with February as the start month", "A custom fiscal year using 4-4-5 periods", "A custom object for fiscal periods", "A user-level locale change"], "answers": [0], "explanation": "A standard fiscal year can begin in any month while retaining normal calendar months. Custom fiscal years are intended for nonstandard structures such as 4-4-5 accounting periods.", "tip": "A different starting month does not automatically require a custom fiscal year."}, {"id": 8, "category": "Configuration and Setup", "select": 1, "question": "A regional operations lead should reset passwords and manage users only in one department without receiving full System Administrator access. What should be configured?", "options": ["Delegated administration", "A territory model", "A dashboard running user", "A queue"], "answers": [0], "explanation": "Delegated administration allows selected non-admin users to perform limited administrative tasks for specified users, roles, and custom objects. It follows least-privilege principles without granting unrestricted Setup access.", "tip": "When someone needs a narrow slice of administrative responsibility, consider delegated administration before a powerful profile."}, {"id": 9, "category": "Object Manager and Lightning App Builder", "select": 1, "question": "An account must display the sum of Amount from all related custom Invoice records. Which relationship supports a native roll-up summary field?", "options": ["Lookup relationship", "Master-detail relationship", "External lookup relationship", "Indirect lookup relationship"], "answers": [1], "explanation": "Native roll-up summary fields operate across a master-detail relationship and are created on the master record. They can count, sum, and calculate minimum or maximum values from related detail records.", "tip": "Native roll-up summary usually signals master-detail. A plain lookup does not provide native roll-ups."}, {"id": 10, "category": "Object Manager and Lightning App Builder", "select": 1, "question": "Students can enroll in many Courses, and each Course can have many Students. How should this many-to-many relationship be modeled?", "options": ["A junction object with two master-detail relationships", "A single formula field", "Two unrelated custom objects", "A hierarchy custom setting"], "answers": [0], "explanation": "A junction object represents the association between two objects and normally uses two master-detail relationships. Each junction record connects one Student to one Course, allowing many records on both sides.", "tip": "Many-to-many in Salesforce usually means a junction object between the two primary objects."}, {"id": 11, "category": "Object Manager and Lightning App Builder", "select": 2, "question": "Two opportunity teams use different stage values and need different page layouts. Which two configurations work together to provide this experience?", "options": ["Sales processes", "Record types", "Public groups", "Sharing rules"], "answers": [0, 1], "explanation": "A sales process controls the Opportunity Stage values available to a business process. Record types connect users to the appropriate business process, picklist values, and page layout assignment.", "tip": "Business processes control selected standard picklists. Record types package the process, picklist choices, and page layout experience."}, {"id": 12, "category": "Object Manager and Lightning App Builder", "select": 1, "question": "A field should appear on a Lightning record page only when the High Priority checkbox is selected. What should the administrator use?", "options": ["Dynamic Forms field visibility", "A role hierarchy", "A report filter", "A lead assignment rule"], "answers": [0], "explanation": "Dynamic Forms lets administrators place fields and field sections as components and apply visibility rules based on record data, user attributes, or device form factor.", "tip": "Conditional field visibility on a Lightning page points to Dynamic Forms, not a traditional page layout alone."}, {"id": 13, "category": "Object Manager and Lightning App Builder", "select": 2, "question": "Which two statements correctly distinguish page layouts from Lightning record pages?", "options": ["Page layouts control fields, related lists, and many actions available for a record", "Lightning App Builder controls page regions and component placement", "Page layouts determine organization-wide defaults", "Lightning pages replace field-level security"], "answers": [0, 1], "explanation": "Page layouts control much of the record detail configuration, including fields, buttons, actions, and related lists. Lightning App Builder controls the composition of the Lightning page, such as tabs, regions, components, and conditional visibility. Neither overrides security.", "tip": "Page layout answers 'what record elements are available?' Lightning App Builder answers 'how are components arranged and shown?'"}, {"id": 14, "category": "Object Manager and Lightning App Builder", "select": 1, "question": "A formula on Opportunity must display the parent Account's Industry value. Which formula capability should be used?", "options": ["A cross-object formula referencing the parent Account", "A roll-up summary on Opportunity", "A summary formula in a report only", "A workflow outbound message"], "answers": [0], "explanation": "A cross-object formula on a child record can reference fields from a related parent record. A roll-up summary works in the opposite direction by aggregating detail records onto a master.", "tip": "Cross-object formula pulls a parent value down. Roll-up summary aggregates child values up."}, {"id": 15, "category": "Object Manager and Lightning App Builder", "select": 1, "question": "A child record must be allowed to exist without a parent and must retain its own owner and sharing behavior. Which relationship is most appropriate?", "options": ["Lookup relationship", "Master-detail relationship", "Many-to-many relationship only", "Self relationship is required"], "answers": [0], "explanation": "A lookup relationship is loosely coupled: the child can generally exist independently and retains its own ownership and sharing. In master-detail, the detail record depends on the master and inherits key behavior.", "tip": "Independent lifecycle and ownership usually indicate lookup. Tight dependency and inherited behavior indicate master-detail."}, {"id": 16, "category": "Object Manager and Lightning App Builder", "select": 1, "question": "An administrator removes a custom field and later learns that users still need its historical data. What should the administrator check first?", "options": ["The Deleted Fields area in Object Manager", "The role hierarchy", "The campaign influence settings", "The AppExchange listing"], "answers": [0], "explanation": "Deleted custom fields are placed in the object's Deleted Fields area for a limited recovery period. Restoring the field can also restore its stored data, although dependencies and formulas should be reviewed.", "tip": "Deleting a custom field is not always immediately permanent, but recovery is time-limited and dependencies matter."}, {"id": 17, "category": "Sales and Marketing Applications", "select": 1, "question": "What records can Salesforce create during a standard lead conversion?", "options": ["An account, a contact, and optionally an opportunity", "Only a campaign and a case", "A quote and an order only", "A user and a public group"], "answers": [0], "explanation": "Lead conversion creates or associates an Account and Contact and can optionally create an Opportunity. The original lead becomes converted and is no longer worked as an open lead.", "tip": "Lead conversion transforms a prospect into core sales records: Account, Contact, and optionally Opportunity."}, {"id": 18, "category": "Sales and Marketing Applications", "select": 1, "question": "Marketing wants to distinguish campaign members who were Sent, Responded, Attended, or No Show for each campaign. What should be configured?", "options": ["Campaign member statuses", "Opportunity forecast categories", "Case statuses", "Account teams"], "answers": [0], "explanation": "Campaign member statuses track how leads and contacts progress within a specific campaign. Administrators can define the relevant status values and indicate which statuses count as responses.", "tip": "Campaign member status describes a person's participation in one campaign, not their general lead or contact status."}, {"id": 19, "category": "Sales and Marketing Applications", "select": 1, "question": "A company sells products at different prices to retail and wholesale customers. Which Salesforce features should support this requirement?", "options": ["Multiple price books with products and price book entries", "Multiple role hierarchies", "Two recycle bins", "Case escalation rules"], "answers": [0], "explanation": "Products define what is sold, while price books and price book entries define the available prices. Opportunities can use the appropriate price book and include products as opportunity line items.", "tip": "Product is the item. Price book entry connects a product to a price in a specific price book."}, {"id": 20, "category": "Sales and Marketing Applications", "select": 1, "question": "Different business units need different Opportunity Stage values and sales paths. Which configuration should the administrator use?", "options": ["Sales processes assigned through opportunity record types", "Case queues", "Account sharing rules only", "Dashboard filters"], "answers": [0], "explanation": "Sales processes define which Opportunity Stage values are available. Opportunity record types connect the appropriate sales process and page layout to each business unit or user group.", "tip": "For standard sales stages, remember the pair: sales process plus record type."}, {"id": 21, "category": "Sales and Marketing Applications", "select": 3, "question": "A public website must capture leads, route them by country, and immediately send an appropriate confirmation email. Which three features should be used?", "options": ["Web-to-Lead", "An active lead assignment rule", "A lead auto-response rule", "A case escalation rule"], "answers": [0, 1, 2], "explanation": "Web-to-Lead captures submitted form data as leads. Lead assignment rules route the records, and auto-response rules send an immediate email based on record criteria. Case escalation rules apply to cases, not leads.", "tip": "Separate the flow into capture, routing, and response. Salesforce often provides a dedicated feature for each step."}, {"id": 22, "category": "Service and Support Applications", "select": 1, "question": "Customers should submit support requests through a form on the company's website. Which standard capability should the administrator use?", "options": ["Web-to-Case", "Web-to-Lead", "Email-to-Case", "Opportunity teams"], "answers": [0], "explanation": "Web-to-Case generates HTML that captures website submissions as Case records. It is designed for support requests rather than sales prospects.", "tip": "Website support request equals Web-to-Case. Website prospect capture equals Web-to-Lead."}, {"id": 23, "category": "Service and Support Applications", "select": 1, "question": "Support emails sent to help@company.com must automatically create cases in Salesforce. Which feature is designed for this?", "options": ["Email-to-Case", "Chatter email notifications", "Mass Email", "Campaign email"], "answers": [0], "explanation": "Email-to-Case converts inbound support emails into Case records and preserves the conversation information needed by service agents.", "tip": "Inbound support mailbox to Case is Email-to-Case."}, {"id": 24, "category": "Service and Support Applications", "select": 1, "question": "New cases should be routed to different queues according to product family and customer tier. What should the administrator configure?", "options": ["A case assignment rule", "A validation rule", "A dashboard subscription", "A compact layout"], "answers": [0], "explanation": "Case assignment rules evaluate criteria and assign new or edited cases to users or queues. Queues help groups of agents own and claim work.", "tip": "Assignment rules answer 'who should own this new record?'"}, {"id": 25, "category": "Service and Support Applications", "select": 1, "question": "A high-priority case must be reassigned and the support manager notified if it remains open for four hours. Which feature should be used?", "options": ["A case escalation rule", "A lead assignment rule", "A duplicate rule", "A campaign hierarchy"], "answers": [0], "explanation": "Case escalation rules monitor case age against defined criteria and can reassign cases and send notifications when escalation times are reached.", "tip": "Escalation is time-based service management. Assignment is initial routing."}, {"id": 26, "category": "Service and Support Applications", "select": 2, "question": "A company wants one approved knowledge base for internal agents and selected articles for customers in an Experience Cloud site. Which two capabilities are central to the solution?", "options": ["Salesforce Knowledge", "Appropriate audience and visibility configuration for articles", "Opportunity splits", "Lead queues"], "answers": [0, 1], "explanation": "Salesforce Knowledge manages reusable support content. Article visibility, publication status, channels, and site access determine which audiences can find each article.", "tip": "Knowledge is the content system; visibility and publication settings determine who can consume the content."}, {"id": 27, "category": "Productivity and Collaboration", "select": 1, "question": "A salesperson must remember to call a customer next Tuesday, but no meeting time has been agreed. Which activity should be created?", "options": ["A task", "An event", "A campaign", "A case"], "answers": [0], "explanation": "A task represents work to complete and can have a due date without reserving a specific time. An event represents a scheduled calendar occurrence with a start and end time.", "tip": "Task means to-do. Event means scheduled time on a calendar."}, {"id": 28, "category": "Productivity and Collaboration", "select": 1, "question": "A confidential project team needs a Chatter group that nonmembers cannot find in list views or search results. Which group type is appropriate?", "options": ["Unlisted group", "Public group", "Private group", "Case queue"], "answers": [0], "explanation": "An unlisted Chatter group provides greater privacy than a private group because nonmembers cannot find it in list views, feeds, or search results. Private groups protect posts and files but can still expose limited group details to nonmembers.", "tip": "Private protects the content; unlisted also hides the group from discovery by nonmembers."}, {"id": 29, "category": "Productivity and Collaboration", "select": 1, "question": "Which layout determines the key fields shown in the highlights area of a record in the Salesforce mobile app?", "options": ["Compact layout", "Home page layout", "Search layout only", "Report layout"], "answers": [0], "explanation": "Compact layouts identify the most important fields for a record and influence the highlights panel in Lightning Experience and mobile record headers.", "tip": "Compact layout means concise, high-priority record information—especially important on mobile."}, {"id": 30, "category": "Productivity and Collaboration", "select": 2, "question": "Which two items are normally represented in Salesforce activity management?", "options": ["Tasks", "Events", "Profiles", "Permission set groups"], "answers": [0, 1], "explanation": "Tasks and events are the core activity records used to track work and scheduled interactions. Profiles and permission set groups are security configuration records.", "tip": "Activity management centers on work performed and interactions scheduled."}, {"id": 31, "category": "Productivity and Collaboration", "select": 1, "question": "An administrator wants to extend Salesforce with a prebuilt agent, app, or service offered by a partner. Where should the administrator look first?", "options": ["AgentExchange", "Recycle Bin", "Schema Builder", "Role hierarchy"], "answers": [0], "explanation": "AgentExchange is Salesforce's marketplace for discovering partner-built agents, actions, apps, and related services. Administrators should still evaluate security, permissions, licensing, and fit before installation.", "tip": "Marketplace questions now distinguish AgentExchange for agentic solutions from traditional configuration tools."}, {"id": 32, "category": "Data and Analytics Management", "select": 1, "question": "A business user must import 20,000 new Contacts from a CSV file through a guided interface and does not need an automated process. Which tool is the best fit?", "options": ["Data Import Wizard", "Data Loader command line", "A dashboard", "Mass Transfer Records"], "answers": [0], "explanation": "Data Import Wizard provides a browser-based guided process for supported standard and custom objects and is well suited to smaller, one-time imports. Data Loader is better for larger volumes, broader object support, or repeatable operations.", "tip": "Wizard means guided and smaller-scale. Data Loader means larger, more flexible, and better for repeatable operations."}, {"id": 33, "category": "Data and Analytics Management", "select": 1, "question": "An integration must update 1.5 million records every night. Which data tool is most appropriate?", "options": ["Data Loader or an API-based integration", "Data Import Wizard", "A list view inline edit", "A manual merge"], "answers": [0], "explanation": "High-volume, repeatable data operations should use Data Loader or an API-based integration. The Data Import Wizard is intended for smaller, guided imports and is not an enterprise-scale scheduled integration tool.", "tip": "Volume plus repeatability usually moves the answer away from the browser wizard and toward Data Loader or APIs."}, {"id": 34, "category": "Data and Analytics Management", "select": 2, "question": "An external billing system sends records with its own unique customer identifier. Which two choices best support inserting new records and updating existing ones without using Salesforce record IDs?", "options": ["Mark a field as an External ID", "Use an upsert operation", "Create a dashboard filter", "Use a compact layout"], "answers": [0, 1], "explanation": "An External ID stores the identifier from another system. Upsert uses an ID or external ID to update a matching record or insert a new record when no match exists.", "tip": "External ID identifies the record across systems; upsert combines update and insert behavior."}, {"id": 35, "category": "Data and Analytics Management", "select": 2, "question": "A company wants Salesforce to identify possible duplicate Contacts and block users from saving exact duplicates. Which two features should be configured?", "options": ["A matching rule", "A duplicate rule", "A role hierarchy", "A dashboard running user"], "answers": [0, 1], "explanation": "A matching rule defines how records are compared. A duplicate rule decides what happens when a potential duplicate is found, such as allowing with an alert or blocking the save.", "tip": "Matching rule finds the match. Duplicate rule controls the response."}, {"id": 36, "category": "Data and Analytics Management", "select": 1, "question": "Users must not save a Closed Won opportunity when the Amount is blank. What is the most direct declarative solution?", "options": ["A validation rule", "A sharing rule", "A compact layout", "A report subscription"], "answers": [0], "explanation": "A validation rule evaluates record data during save and prevents the save when the formula returns true. It also displays an error message explaining how the user should correct the record.", "tip": "When the requirement is 'do not allow this record to save,' validation rule is usually the first answer to evaluate."}, {"id": 37, "category": "Data and Analytics Management", "select": 1, "question": "What does a report type primarily determine?", "options": ["Which records and object relationships are available to the report", "Which users can log in", "Which automation runs first", "Which currency the organization uses"], "answers": [0], "explanation": "A report type defines the primary object and the related object relationships and fields that a report can use. Record-level visibility still depends on the viewer's access.", "tip": "Report type defines the report's data model, not the user's security."}, {"id": 38, "category": "Data and Analytics Management", "select": 1, "question": "Regional managers should open the same dashboard but see data according to their own record access. Which dashboard capability should be used?", "options": ["A dynamic dashboard", "A dashboard with a fixed running user", "A public list view", "A compact layout"], "answers": [0], "explanation": "A dynamic dashboard runs as the logged-in viewer, allowing one dashboard to present data based on each person's access. A dashboard with a fixed running user shows data according to that selected user.", "tip": "Dynamic dashboard means 'run as the viewer.'"}, {"id": 39, "category": "Data and Analytics Management", "select": 1, "question": "Executives should all see the same company-wide metrics regardless of their individual record access. What is the usual dashboard configuration?", "options": ["Use an appropriate fixed running user", "Use a dynamic dashboard", "Give every executive Modify All Data", "Change all organization-wide defaults to Public Read/Write"], "answers": [0], "explanation": "A dashboard with a fixed running user displays data according to that user's access. The running user should have the appropriate visibility, without broadly weakening security for everyone else.", "tip": "Same data for every viewer points to a fixed running user. Personalized data points to a dynamic dashboard."}, {"id": 40, "category": "Data and Analytics Management", "select": 2, "question": "A user can open a report folder but sees fewer records than a colleague in the same report. Which two principles explain this behavior?", "options": ["Folder access controls access to the report definition", "Report results respect the viewer's underlying record access", "Folder sharing automatically grants access to every record", "Report filters override organization-wide defaults"], "answers": [0, 1], "explanation": "Report folder sharing determines who can view or manage the report asset. The records returned by the report still respect object permissions and record-level sharing for the person running it.", "tip": "Access to a report is not the same as access to every record the report could query."}, {"id": 41, "category": "Automation", "select": 1, "question": "A field on the record being saved must be updated before the record is committed, and no related records need to be created. Which automation is generally most efficient?", "options": ["A before-save record-triggered flow", "An approval process", "A scheduled flow", "A dashboard refresh"], "answers": [0], "explanation": "Before-save record-triggered flows are optimized for updating fields on the same record before it is saved. They avoid an additional database update and are often called fast field updates.", "tip": "Same record, before save, field update only: think before-save flow."}, {"id": 42, "category": "Automation", "select": 1, "question": "After an opportunity becomes Closed Won, Salesforce must create a related onboarding task. Which automation is appropriate?", "options": ["An after-save record-triggered flow", "A before-save flow", "A validation rule", "A matching rule"], "answers": [0], "explanation": "Creating a related record requires an after-save flow because the original record must already exist in the database. Before-save flows are limited to fast updates on the triggering record.", "tip": "Create or update related records after the original save: use an after-save path."}, {"id": 43, "category": "Automation", "select": 1, "question": "Users need a guided, multi-screen wizard that collects information and then creates several records. Which tool should the administrator use?", "options": ["A screen flow", "A validation rule", "A sharing rule", "A compact layout"], "answers": [0], "explanation": "A screen flow provides interactive screens, conditional logic, and record operations. It can be launched from Lightning pages, actions, utility bars, Experience sites, and other supported surfaces.", "tip": "User interaction plus guided steps almost always points to a screen flow."}, {"id": 44, "category": "Automation", "select": 1, "question": "Every night, Salesforce must find open opportunities that have not been updated in 30 days and create follow-up tasks. Which automation fits best?", "options": ["A schedule-triggered flow", "A before-save flow", "A validation rule", "A login flow"], "answers": [0], "explanation": "A schedule-triggered flow runs at a defined time and can query records that meet criteria, making it appropriate for recurring batch-style business checks.", "tip": "No user save event, recurring time-based scan: schedule-triggered flow."}, {"id": 45, "category": "Automation", "select": 1, "question": "Discount requests above 25% must be submitted to a manager, lock the record during review, and support approve or reject outcomes. Which feature is designed for this?", "options": ["An approval process", "A duplicate rule", "A sharing rule", "A dashboard filter"], "answers": [0], "explanation": "Approval processes route records to approvers and support submission actions, record locking, approval actions, rejection actions, and recall behavior.", "tip": "Formal human approval, record locking, and approve/reject outcomes point to an approval process."}, {"id": 46, "category": "Automation", "select": 1, "question": "A flow calls an external action that can fail. What should the administrator add to handle the error gracefully?", "options": ["A fault path", "A new role", "A report type", "A campaign member status"], "answers": [0], "explanation": "A fault path captures errors from flow elements so the flow can log the problem, notify an administrator, or present a useful message instead of failing without context.", "tip": "Production-ready flows need error handling, especially around record operations, subflows, and external actions."}, {"id": 47, "category": "Automation", "select": 2, "question": "A record-triggered flow should run only when Status changes from any other value to Closed. Which two design choices are most important?", "options": ["Use entry conditions for Status = Closed", "Check that the field changed or run only when the record is updated to meet the condition", "Run the flow on every record access", "Remove all start conditions"], "answers": [0, 1], "explanation": "Strong start conditions reduce unnecessary flow interviews. The flow should require the target value and ensure the record has transitioned into that state rather than executing on every unrelated update.", "tip": "Use the Start element to prevent work, not merely a Decision element after the flow has already launched."}, {"id": 48, "category": "Automation", "select": 1, "question": "Several record-triggered flows run on Opportunity, and their sequence matters. Which capability helps the administrator review and control their order?", "options": ["Flow Trigger Explorer and trigger order", "Schema Builder and field history", "Dashboard subscriptions", "Campaign hierarchy"], "answers": [0], "explanation": "Flow Trigger Explorer provides a consolidated view of record-triggered flows for an object and lets administrators understand and manage trigger order where supported.", "tip": "When multiple flows compete on one object, think orchestration and trigger order rather than relying on creation dates."}, {"id": 49, "category": "Agentforce", "select": 3, "question": "Which three elements define the work an Agentforce agent can handle and how it handles it?", "options": ["Subagents or topics that group jobs", "Instructions that guide behavior", "Actions that perform specific tasks", "Dashboard color palettes"], "answers": [0, 1, 2], "explanation": "Agentforce organizes work into subagents—called topics in earlier learning materials—with instructions and available actions. Actions can invoke tools such as flows, prompt templates, or Apex depending on the implementation.", "tip": "Remember the structure: scope the job, guide the behavior, perform the task. Be familiar with both 'topics' and the newer 'subagents' terminology."}, {"id": 50, "category": "Agentforce", "select": 1, "question": "An agent gives generic answers because it is not using the company's approved policy documents. What should the administrator configure to ground responses in trusted content?", "options": ["An Agentforce Data Library", "A role hierarchy", "A compact layout", "A campaign hierarchy"], "answers": [0], "explanation": "Agentforce Data Library indexes supported knowledge, files, fields, or web sources so generative AI responses can be grounded in approved business information rather than relying only on general model knowledge.", "tip": "Grounding improves relevance and trust by giving the agent an approved source of business context."}, {"id": 51, "category": "Agentforce", "select": 1, "question": "An agent should access only the records and actions required for its job. Which security approach is best?", "options": ["Use a dedicated agent user and least-privilege permissions", "Grant Modify All Data to every user", "Set all organization-wide defaults to Public Read/Write", "Disable field-level security"], "answers": [0], "explanation": "Agentforce security should follow least privilege. A dedicated agent user or execution context should receive only the permissions needed for its approved use cases, while sharing and field security remain part of the control model.", "tip": "AI does not replace Salesforce security. Design agent access with the same least-privilege discipline used for human users and integrations."}, {"id": 52, "category": "Agentforce", "select": 2, "question": "Before activating an agent for employees, which two steps best help an administrator validate and improve its behavior?", "options": ["Test realistic requests in Preview and inspect the execution details", "Review agent analytics, sessions, or observability data", "Skip testing because standard actions are always correct", "Give the agent unrestricted access to simplify troubleshooting"], "answers": [0, 1], "explanation": "Preview testing reveals how the agent interprets requests and which instructions, subagents, and actions it uses. Observability and analytics help administrators identify adoption, quality, and performance issues after controlled rollout.", "tip": "Treat an agent as an operational system: test before release, observe after release, and refine continuously."}];
+    const categoryOrder = ["All", "Configuration and Setup", "Object Manager and Lightning App Builder", "Sales and Marketing Applications", "Service and Support Applications", "Productivity and Collaboration", "Data and Analytics Management", "Automation", "Agentforce"];
+    const STORAGE_KEY = "sfPlatformAdminStudyLabV1";
+    const letters = ["A", "B", "C", "D", "E", "F"];
+
+    let state = {
+      answers: {},
+      bookmarks: [],
+      order: questions.map(q => q.id),
+      filter: "All",
+      specialMode: null,
+      currentIndex: 0,
+      drafts: {}
+    };
+
+    function sameSet(a, b) {
+      if (a.length !== b.length) return false;
+      const aa = [...a].sort((x,y) => x-y);
+      const bb = [...b].sort((x,y) => x-y);
+      return aa.every((value, index) => value === bb[index]);
+    }
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (!saved || typeof saved !== "object") return;
+        const validIds = new Set(questions.map(q => q.id));
+        state.answers = saved.answers && typeof saved.answers === "object" ? saved.answers : {};
+        state.bookmarks = Array.isArray(saved.bookmarks) ? saved.bookmarks.filter(id => validIds.has(id)) : [];
+        state.order = Array.isArray(saved.order) && saved.order.length === questions.length && saved.order.every(id => validIds.has(id)) ? saved.order : questions.map(q => q.id);
+        state.filter = categoryOrder.includes(saved.filter) ? saved.filter : "All";
+        state.specialMode = [null, "wrong", "bookmarks", "unanswered"].includes(saved.specialMode) ? saved.specialMode : null;
+        state.currentIndex = Number.isInteger(saved.currentIndex) ? saved.currentIndex : 0;
+        state.drafts = saved.drafts && typeof saved.drafts === "object" ? saved.drafts : {};
+      } catch (error) {
+        console.warn("Could not restore saved study progress.", error);
+      }
+    }
+
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+      catch (error) { console.warn("Could not save study progress in this browser context.", error); }
+    }
+
+    function questionById(id) { return questions.find(q => q.id === id); }
+
+    function getVisibleQuestions() {
+      const ordered = state.order.map(questionById).filter(Boolean);
+      if (state.specialMode === "wrong") return ordered.filter(q => state.answers[q.id] && !state.answers[q.id].correct);
+      if (state.specialMode === "bookmarks") return ordered.filter(q => state.bookmarks.includes(q.id));
+      if (state.specialMode === "unanswered") return ordered.filter(q => !state.answers[q.id]);
+      if (state.filter === "All") return ordered;
+      return ordered.filter(q => q.category === state.filter);
+    }
+
+    function renderFilters() {
+      const container = document.getElementById("categoryFilters");
+      container.innerHTML = categoryOrder.map(category => `
+        <button class="filter-btn" data-category="${category}" aria-pressed="${state.specialMode === null && state.filter === category}">${category}</button>
+      `).join("");
+      container.querySelectorAll("button").forEach(button => {
+        button.addEventListener("click", () => {
+          state.filter = button.dataset.category;
+          state.specialMode = null;
+          state.currentIndex = 0;
+          saveState();
+          render();
+        });
+      });
+    }
+
+    function renderStats() {
+      const answered = Object.keys(state.answers).length;
+      const correct = Object.values(state.answers).filter(a => a.correct).length;
+      const accuracy = answered ? Math.round((correct / answered) * 100) : null;
+      document.getElementById("answeredStat").textContent = `${answered} / ${questions.length}`;
+      document.getElementById("correctStat").textContent = correct;
+      document.getElementById("accuracyStat").textContent = accuracy === null ? "—" : `${accuracy}%`;
+      document.getElementById("bookmarkStat").textContent = state.bookmarks.length;
+      document.getElementById("progressLabel").textContent = `${answered} of ${questions.length} answered`;
+      document.getElementById("progressFill").style.width = `${(answered / questions.length) * 100}%`;
+      const mode = state.specialMode === "wrong" ? "Review Wrong Answers"
+        : state.specialMode === "bookmarks" ? "Bookmarked Questions"
+        : state.specialMode === "unanswered" ? "Unanswered Questions"
+        : state.filter === "All" ? "All Questions" : state.filter;
+      document.getElementById("modeLabel").textContent = mode;
+    }
+
+    function renderQuestion() {
+      const card = document.getElementById("questionCard");
+      const visible = getVisibleQuestions();
+      if (!visible.length) {
+        card.innerHTML = `
+          <div class="empty-state">
+            <div style="font-size:2.4rem">✓</div>
+            <h2>No questions in this view</h2>
+            <p>${state.specialMode === "wrong" ? "You do not have any wrong answers to review." : state.specialMode === "bookmarks" ? "Bookmark questions to build a custom review set." : "You have answered every question in this view."}</p>
+            <button class="btn btn-primary" id="returnAllBtn">Return to All Questions</button>
+          </div>`;
+        document.getElementById("returnAllBtn").addEventListener("click", () => {
+          state.filter = "All"; state.specialMode = null; state.currentIndex = 0; saveState(); render();
+        });
+        return;
+      }
+
+      if (state.currentIndex >= visible.length) state.currentIndex = visible.length - 1;
+      if (state.currentIndex < 0) state.currentIndex = 0;
+
+      const q = visible[state.currentIndex];
+      const answerRecord = state.answers[q.id];
+      const isBookmarked = state.bookmarks.includes(q.id);
+      const draft = Array.isArray(state.drafts[q.id]) ? state.drafts[q.id] : [];
+
+      const optionsHtml = q.options.map((option, index) => {
+        let classes = "option-btn";
+        const selected = draft.includes(index);
+        if (!answerRecord && selected) classes += " selected";
+        if (answerRecord) {
+          const isCorrectOption = q.answers.includes(index);
+          const wasSelected = answerRecord.selected.includes(index);
+          if (isCorrectOption) classes += " correct";
+          else if (wasSelected) classes += " incorrect";
+          else classes += " dimmed";
+        }
+        return `<button class="${classes}" data-option="${index}" ${answerRecord ? "disabled" : ""} aria-pressed="${!answerRecord && selected}">
+          <span class="option-key">${letters[index]}</span><span>${option}</span><span class="option-check">✓</span>
+        </button>`;
+      }).join("");
+
+      const correctAnswerText = q.answers.map(index => `${letters[index]}. ${q.options[index]}`).join("<br>");
+      const feedbackHtml = answerRecord ? `
+        <div class="feedback visible">
+          <div class="feedback-status ${answerRecord.correct ? "correct-text" : "incorrect-text"}">${answerRecord.correct ? "✓ Correct" : "✕ Not quite"}</div>
+          <h3>Correct answer${q.select > 1 ? "s" : ""}</h3>
+          <p><strong>${correctAnswerText}</strong></p>
+          <h3>Why this is correct</h3>
+          <p>${q.explanation}</p>
+          <div class="tip-box"><strong>Exam reasoning tip:</strong> ${q.tip}</div>
+        </div>` : "";
+
+      const multiActions = !answerRecord && q.select > 1 ? `
+        <div class="answer-actions">
+          <span class="selection-count">Selected ${draft.length} of ${q.select}</span>
+          <button class="btn btn-primary" id="submitAnswerBtn" ${draft.length !== q.select ? "disabled" : ""}>Check Answer</button>
+        </div>` : "";
+
+      card.innerHTML = `
+        <div class="question-top">
+          <div class="badge-row">
+            <span class="category-badge">${q.category}</span>
+            <span class="selection-badge">${q.select === 1 ? "Select one" : `Select ${q.select}`}</span>
+          </div>
+          <button class="bookmark-btn ${isBookmarked ? "active" : ""}" id="bookmarkBtn" aria-label="${isBookmarked ? "Remove bookmark" : "Bookmark question"}" aria-pressed="${isBookmarked}">★</button>
+        </div>
+        <div class="question-number">Question ${state.currentIndex + 1} of ${visible.length} · Bank ID ${q.id}</div>
+        <h2>${q.question}</h2>
+        <div class="option-list">${optionsHtml}</div>
+        ${multiActions}
+        ${feedbackHtml}
+        <div class="nav-row">
+          <button class="btn btn-secondary" id="prevBtn" ${state.currentIndex === 0 ? "disabled" : ""}>Previous</button>
+          <button class="btn btn-primary" id="nextBtn" ${state.currentIndex === visible.length - 1 ? "disabled" : ""}>Next</button>
+        </div>`;
+
+      card.querySelectorAll(".option-btn").forEach(button => {
+        button.addEventListener("click", () => selectOption(q, Number(button.dataset.option)));
+      });
+      if (q.select > 1 && !answerRecord) document.getElementById("submitAnswerBtn").addEventListener("click", () => submitAnswer(q));
+      document.getElementById("bookmarkBtn").addEventListener("click", () => toggleBookmark(q.id));
+      document.getElementById("prevBtn").addEventListener("click", previousQuestion);
+      document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+    }
+
+    function selectOption(question, selected) {
+      if (state.answers[question.id]) return;
+      if (question.select === 1) {
+        state.answers[question.id] = { selected: [selected], correct: sameSet([selected], question.answers) };
+        delete state.drafts[question.id];
+      } else {
+        const draft = Array.isArray(state.drafts[question.id]) ? [...state.drafts[question.id]] : [];
+        const existing = draft.indexOf(selected);
+        if (existing >= 0) draft.splice(existing, 1);
+        else if (draft.length < question.select) draft.push(selected);
+        state.drafts[question.id] = draft;
+      }
+      saveState();
+      render();
+    }
+
+    function submitAnswer(question) {
+      if (state.answers[question.id]) return;
+      const draft = Array.isArray(state.drafts[question.id]) ? state.drafts[question.id] : [];
+      if (draft.length !== question.select) return;
+      state.answers[question.id] = { selected: [...draft], correct: sameSet(draft, question.answers) };
+      delete state.drafts[question.id];
+      saveState();
+      render();
+    }
+
+    function toggleBookmark(id) {
+      if (state.bookmarks.includes(id)) state.bookmarks = state.bookmarks.filter(item => item !== id);
+      else state.bookmarks.push(id);
+      saveState(); render();
+    }
+
+    function nextQuestion() {
+      const visible = getVisibleQuestions();
+      if (state.currentIndex < visible.length - 1) {
+        state.currentIndex += 1; saveState(); renderQuestion();
+        document.getElementById("questionCard").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function previousQuestion() {
+      if (state.currentIndex > 0) {
+        state.currentIndex -= 1; saveState(); renderQuestion();
+        document.getElementById("questionCard").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function shuffleQuestions() {
+      const shuffled = [...state.order];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      state.order = shuffled; state.currentIndex = 0; saveState(); render();
+      document.getElementById("study").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function setSpecialMode(mode) { state.specialMode = mode; state.currentIndex = 0; saveState(); render(); }
+
+    function resetProgress() {
+      if (!window.confirm("Reset all answers, bookmarks, draft selections, and question order?")) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch (error) { console.warn("Could not clear saved progress.", error); }
+      state = { answers: {}, bookmarks: [], order: questions.map(q => q.id), filter: "All", specialMode: null, currentIndex: 0, drafts: {} };
+      render();
+    }
+
+    function render() { renderFilters(); renderStats(); renderQuestion(); }
+
+    document.getElementById("startBtn").addEventListener("click", () => document.getElementById("study").scrollIntoView({ behavior: "smooth" }));
+    document.getElementById("shuffleBtn").addEventListener("click", shuffleQuestions);
+    document.getElementById("reviewWrongBtn").addEventListener("click", () => setSpecialMode("wrong"));
+    document.getElementById("reviewBookmarksBtn").addEventListener("click", () => setSpecialMode("bookmarks"));
+    document.getElementById("unansweredBtn").addEventListener("click", () => setSpecialMode("unanswered"));
+    document.getElementById("resetBtn").addEventListener("click", resetProgress);
+
+    document.addEventListener("keydown", (event) => {
+      if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return;
+      const visible = getVisibleQuestions();
+      const q = visible[state.currentIndex];
+      if (!q) return;
+      if (["1", "2", "3", "4"].includes(event.key) && !state.answers[q.id]) {
+        const index = Number(event.key) - 1;
+        if (index < q.options.length) selectOption(q, index);
+      } else if (event.key === "Enter" && q.select > 1 && !state.answers[q.id]) submitAnswer(q);
+      else if (event.key.toLowerCase() === "n") nextQuestion();
+      else if (event.key.toLowerCase() === "p") previousQuestion();
+      else if (event.key.toLowerCase() === "b") toggleBookmark(q.id);
+    });
+
+    loadState();
+    render();
+  </script>
+</body>
+</html>

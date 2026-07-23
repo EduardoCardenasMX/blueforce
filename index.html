@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BlueForce ofrece examenes de practica dinamicos para preparar certificaciones Salesforce con feedback inmediato y progreso local." />
+  <title>BlueForce | Practica para certificaciones Salesforce</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#certifications">Saltar a certificaciones</a>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand-lockup" href="index.html" aria-label="BlueForce home">
+        <span class="brand-mark">BF</span>
+        <span>BlueForce</span>
+      </a>
+      <nav class="topbar-nav" aria-label="Navegacion principal">
+        <a href="#certifications">Certificaciones</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="home-title">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Salesforce practice labs</div>
+          <h1 id="home-title">Prepara tu certificacion con practica guiada.</h1>
+          <p>BlueForce convierte bancos de preguntas en sesiones dinamicas: responde, recibe feedback inmediato, revisa errores y retoma tu avance desde este navegador.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#certifications">Elegir examen</a>
+            <a class="btn btn-secondary" href="certifications/platform-administrator.html">Continuar Admin</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Resumen de BlueForce">
+          <img class="hero-preview" src="assets/img/blueforce-practice-preview.png" alt="Vista previa de un dashboard de practica con preguntas, progreso y feedback" />
+          <div class="hero-panel-grid">
+            <div class="mini-metric">
+              <div class="mini-label">Certificaciones</div>
+              <div class="mini-value" id="certCount">0</div>
+            </div>
+            <div class="mini-metric">
+              <div class="mini-label">Preguntas</div>
+              <div class="mini-value" id="questionCount">0</div>
+            </div>
+            <div class="mini-metric">
+              <div class="mini-label">Respondidas</div>
+              <div class="mini-value" id="globalProgress">0 / 0</div>
+            </div>
+            <div class="mini-metric">
+              <div class="mini-label">Precision</div>
+              <div class="mini-value" id="globalAccuracy">0%</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="certifications" id="certifications" aria-labelledby="certifications-title">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Examenes disponibles</div>
+            <h2 id="certifications-title">Elige una certificacion</h2>
+          </div>
+          <p>Cada examen guarda su progreso por separado y permite repasar preguntas incorrectas, marcadas o pendientes.</p>
+        </div>
+        <div class="cert-grid" id="certificationGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/data/certifications.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
