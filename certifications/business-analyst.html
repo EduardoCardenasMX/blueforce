@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HEQC283GWW"></script>
@@ -12,12 +12,12 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Practica dinamica para Salesforce Business Analyst con feedback inmediato, tips de examen y progreso local." />
+  <meta name="description" content="Dynamic Salesforce Business Analyst practice with instant feedback, exam tips, and local progress tracking." />
   <title>Salesforce Business Analyst | BlueForce</title>
   <link rel="stylesheet" href="../assets/css/styles.css" />
 </head>
 <body data-certification="business-analyst">
-  <a class="skip-link" href="#study">Saltar a pregunta</a>
+  <a class="skip-link" href="#study">Skip to question</a>
 
   <header class="topbar">
     <div class="shell topbar-inner">
@@ -25,9 +25,9 @@
         <span class="brand-mark">BF</span>
         <span>BlueForce</span>
       </a>
-      <nav class="topbar-nav" aria-label="Navegacion principal">
-        <a href="../">Inicio</a>
-        <a href="../#certifications">Certificaciones</a>
+      <nav class="topbar-nav" aria-label="Main navigation">
+        <a href="../">Home</a>
+        <a href="../#certifications">Certifications</a>
       </nav>
     </div>
   </header>
@@ -36,18 +36,18 @@
     <section class="exam-hero" aria-labelledby="pageTitle">
       <div class="shell hero-grid">
         <section class="hero-copy">
-          <div class="eyebrow" id="examEyebrow">Preguntas originales</div>
+          <div class="eyebrow" id="examEyebrow">Original questions</div>
           <h1 id="pageTitle">Salesforce Certified Business Analyst Study Lab</h1>
           <p id="heroCopy"></p>
           <div class="hero-actions">
-            <button class="btn btn-primary" id="startBtn">Empezar practica</button>
-            <button class="btn btn-secondary" id="shuffleBtn">Mezclar preguntas</button>
+            <button class="btn btn-primary" id="startBtn">Start Practice</button>
+            <button class="btn btn-secondary" id="shuffleBtn">Shuffle Questions</button>
           </div>
-          <div class="notice"><strong>Nota de integridad:</strong> <span id="integrityNote"></span></div>
+          <div class="notice"><strong>Integrity note:</strong> <span id="integrityNote"></span></div>
         </section>
 
-        <aside class="blueprint-panel" aria-label="Blueprint oficial">
-          <h2>Blueprint oficial</h2>
+        <aside class="blueprint-panel" aria-label="Official blueprint">
+          <h2>Official Blueprint</h2>
           <p id="blueprintNote"></p>
           <div class="weight-list" id="blueprintList"></div>
         </aside>
@@ -56,24 +56,24 @@
 
     <section class="dashboard" id="study" aria-labelledby="studyHeading">
       <div class="shell">
-        <h2 id="studyHeading" style="position:absolute;left:-9999px;">Preguntas interactivas</h2>
+        <h2 id="studyHeading" style="position:absolute;left:-9999px;">Interactive questions</h2>
 
-        <div class="stats-grid" aria-label="Estadisticas de estudio">
-          <div class="stat-card"><div class="stat-label">Respondidas</div><div class="stat-value" id="answeredStat">0</div></div>
-          <div class="stat-card"><div class="stat-label">Correctas</div><div class="stat-value" id="correctStat">0</div></div>
-          <div class="stat-card"><div class="stat-label">Precision</div><div class="stat-value" id="accuracyStat">0%</div></div>
-          <div class="stat-card"><div class="stat-label">Errores</div><div class="stat-value" id="wrongStat">0</div></div>
-          <div class="stat-card"><div class="stat-label">Marcadas</div><div class="stat-value" id="bookmarkStat">0</div></div>
+        <div class="stats-grid" aria-label="Study statistics">
+          <div class="stat-card"><div class="stat-label">Answered</div><div class="stat-value" id="answeredStat">0</div></div>
+          <div class="stat-card"><div class="stat-label">Correct</div><div class="stat-value" id="correctStat">0</div></div>
+          <div class="stat-card"><div class="stat-label">Accuracy</div><div class="stat-value" id="accuracyStat">0%</div></div>
+          <div class="stat-card"><div class="stat-label">Missed</div><div class="stat-value" id="wrongStat">0</div></div>
+          <div class="stat-card"><div class="stat-label">Bookmarked</div><div class="stat-value" id="bookmarkStat">0</div></div>
         </div>
 
-        <div class="toolbar" aria-label="Filtros de preguntas">
+        <div class="toolbar" aria-label="Question filters">
           <div class="category-filters" id="categoryFilters"></div>
-          <button class="btn btn-secondary" id="reviewWrongBtn">Repasar errores</button>
-          <button class="btn btn-secondary" id="reviewBookmarksBtn">Marcadas</button>
+          <button class="btn btn-secondary" id="reviewWrongBtn">Review Missed</button>
+          <button class="btn btn-secondary" id="reviewBookmarksBtn">Bookmarked</button>
         </div>
 
-        <div class="progress-block" aria-label="Progreso de estudio">
-          <div class="progress-meta"><span id="progressLabel">0 respondidas</span><span id="modeLabel">Todas</span></div>
+        <div class="progress-block" aria-label="Study progress">
+          <div class="progress-meta"><span id="progressLabel">0 answered</span><span id="modeLabel">All</span></div>
           <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
         </div>
 
@@ -82,26 +82,26 @@
 
           <aside class="side-panel">
             <div class="side-card">
-              <h3>Como razonar</h3>
+              <h3>How to Reason</h3>
               <p id="reasoningText"></p>
             </div>
             <div class="side-card">
-              <h3>Habitos de examen</h3>
+              <h3>Exam Habits</h3>
               <p id="habitsText"></p>
             </div>
             <div class="side-card">
-              <h3>Controles</h3>
-              <button class="btn btn-secondary" id="unansweredBtn">Ir a pendientes</button>
-              <button class="btn btn-danger" id="resetBtn">Reiniciar progreso</button>
+              <h3>Controls</h3>
+              <button class="btn btn-secondary" id="unansweredBtn">Go to Unanswered</button>
+              <button class="btn btn-danger" id="resetBtn">Reset Progress</button>
             </div>
             <div class="side-card">
-              <h3>Atajos</h3>
+              <h3>Shortcuts</h3>
               <ul class="shortcut-list">
-                <li><kbd>1</kbd>-<kbd>6</kbd> elegir opciones</li>
-                <li><kbd>Enter</kbd> enviar multi-select</li>
-                <li><kbd>N</kbd> siguiente</li>
-                <li><kbd>P</kbd> anterior</li>
-                <li><kbd>B</kbd> marcar</li>
+                <li><kbd>1</kbd>-<kbd>6</kbd> choose options</li>
+                <li><kbd>Enter</kbd> submit multi-select</li>
+                <li><kbd>N</kbd> next</li>
+                <li><kbd>P</kbd> previous</li>
+                <li><kbd>B</kbd> bookmark</li>
               </ul>
             </div>
           </aside>
@@ -111,14 +111,14 @@
 
     <section class="resources" aria-labelledby="resourcesHeading">
       <div class="shell resources-card">
-        <h2 id="resourcesHeading">Fuentes de estudio</h2>
-        <p style="color:var(--muted);max-width:860px;">El banco fue importado desde la guia HTML original y queda conectado a fuentes publicas para consulta adicional.</p>
+        <h2 id="resourcesHeading">Study Resources</h2>
+        <p style="color:var(--muted);max-width:860px;">This question bank was imported from the original HTML guide and connects to public resources for additional review.</p>
         <div class="resource-grid" id="resourceGrid"></div>
       </div>
     </section>
   </main>
 
-  <script src="../assets/data/certifications.js?v=20260722-options"></script>
-  <script src="../assets/js/app.js?v=20260722-options"></script>
+  <script src="../assets/data/certifications.js?v=20260722-english"></script>
+  <script src="../assets/js/app.js?v=20260722-english"></script>
 </body>
 </html>

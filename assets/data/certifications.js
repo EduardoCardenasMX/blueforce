@@ -9,12 +9,12 @@ window.BLUEFORCE_CERTIFICATIONS = [
     "code": "UX",
     "path": "certifications/ux-designer",
     "sourceFile": "salesforce_ux_designer_study_lab(1).html",
-    "description": "Practica los dominios oficiales con preguntas de escenario, retroalimentacion inmediata y tips enfocados en razonamiento de examen.",
-    "heroCopy": "Estudia los dominios oficiales con tarjetas basadas en escenarios. Elige una respuesta para ver la opcion correcta, una explicacion practica y un tip de razonamiento.",
-    "reasoning": "Identifica primero el objetivo del usuario, despues elige la solucion Salesforce mas nativa, accesible y mantenible que lo cumpla.",
-    "habits": "Compara cada opcion contra evidencia de usuario, accesibilidad, SLDS y configuracion declarativa antes de decidir.",
-    "integrity": "Estas son preguntas originales creadas a partir de objetivos publicos y documentacion. No son preguntas filtradas ni memorizadas del examen real.",
-    "blueprintNote": "La distribucion se alinea con el peso publicado para los dominios del examen.",
+    "description": "Practice the official domains with scenario-based questions, instant feedback, and exam-focused reasoning tips.",
+    "heroCopy": "Study the official domains with scenario-based cards. Choose an answer to reveal the correct option, a practical explanation, and a reasoning tip.",
+    "reasoning": "Identify the user's goal first, then choose the most native, accessible, and maintainable Salesforce solution that meets it.",
+    "habits": "Compare each option against user evidence, accessibility, SLDS, and declarative configuration before deciding.",
+    "integrity": "These are original questions created from public objectives and documentation. They are not leaked or memorized real exam questions.",
+    "blueprintNote": "The distribution aligns with the published weighting for the exam domains.",
     "blueprint": [
       {
         "label": "Declarative Design",
@@ -45,17 +45,17 @@ window.BLUEFORCE_CERTIFICATIONS = [
       {
         "title": "Salesforce UX Designer Credential",
         "url": "https://trailhead.salesforce.com/credentials/userexperiencedesigner",
-        "description": "Pagina oficial de la credencial y preparacion recomendada."
+        "description": "Official credential page and recommended preparation."
       },
       {
         "title": "Official UX Designer Cert Prep",
         "url": "https://trailhead.salesforce.com/content/learn/modules/ux-designer-certification-prep",
-        "description": "Dominios, escenarios, flashcards y modulos relacionados."
+        "description": "Domains, scenarios, flashcards, and related modules."
       },
       {
         "title": "W3C WCAG Overview",
         "url": "https://www.w3.org/WAI/standards-guidelines/wcag/",
-        "description": "Principios y estandares de accesibilidad web."
+        "description": "Web accessibility principles and standards."
       }
     ],
     "categoryOrder": [
@@ -1778,12 +1778,12 @@ window.BLUEFORCE_CERTIFICATIONS = [
     "code": "ADM",
     "path": "certifications/platform-administrator",
     "sourceFile": "salesforce_platform_administrator_study_lab.html",
-    "description": "Practica escenarios reales de administracion, seguridad, datos, automatizacion y Agentforce con feedback inmediato.",
-    "heroCopy": "Practica los dominios actuales con escenarios realistas de administrador. Selecciona tus respuestas para revelar la opcion correcta, una explicacion y un tip de examen.",
-    "reasoning": "Separa permisos de sharing, identifica el objeto y proceso de negocio, y despues elige la capacidad Salesforce mas nativa y mantenible.",
-    "habits": "Lee cada calificador: best, most efficient, without code, select two y based on record ownership suelen cambiar la respuesta.",
-    "integrity": "Este lab contiene preguntas originales creadas desde objetivos publicos y documentacion Salesforce. No reproduce contenido restringido del examen.",
-    "blueprintNote": "El banco contiene preguntas distribuidas cerca del peso publicado para cada dominio.",
+    "description": "Practice realistic administration, security, data, automation, and Agentforce scenarios with instant feedback.",
+    "heroCopy": "Practice current domains through realistic administrator scenarios. Select your answers to reveal the correct option, an explanation, and an exam tip.",
+    "reasoning": "Separate permissions from sharing, identify the object and business process, then choose the most native and maintainable Salesforce capability.",
+    "habits": "Read every qualifier: best, most efficient, without code, select two, and based on record ownership often change the answer.",
+    "integrity": "This lab contains original questions created from public objectives and Salesforce documentation. It does not reproduce restricted exam content.",
+    "blueprintNote": "The bank contains questions distributed close to the published weighting for each domain.",
     "blueprint": [
       {
         "label": "Configuration and Setup",
@@ -1822,17 +1822,17 @@ window.BLUEFORCE_CERTIFICATIONS = [
       {
         "title": "Platform Administrator Credential",
         "url": "https://trailhead.salesforce.com/credentials/administrator",
-        "description": "Pagina oficial de la credencial y preparacion recomendada."
+        "description": "Official credential page and recommended preparation."
       },
       {
         "title": "Administrator Certification Prep Trail",
         "url": "https://trailhead.salesforce.com/content/learn/trails/administrator-certification-prep",
-        "description": "Trail oficial de preparacion para dominios del examen."
+        "description": "Official preparation trail for the exam domains."
       },
       {
         "title": "Trailblazer Community: Salesforce Admin",
         "url": "https://trailhead.salesforce.com/trailblazer-community/topics/admin",
-        "description": "Consejos de estudio, preguntas y discusion de especialistas."
+        "description": "Study advice, questions, and specialist discussion."
       }
     ],
     "categoryOrder": [
@@ -2744,6 +2744,826 @@ window.BLUEFORCE_CERTIFICATIONS = [
         ],
         "explanation": "Preview testing reveals how the agent interprets requests and which instructions, subagents, and actions it uses. Observability and analytics help administrators identify adoption, quality, and performance issues after controlled rollout.",
         "tip": "Treat an agent as an operational system: test before release, observe after release, and refine continuously."
+      },
+      {
+        "id": 53,
+        "category": "Configuration and Setup",
+        "select": 1,
+        "question": "A Salary field must be hidden from most users but visible to selected HR specialists in the user interface, reports, and API access. What is the best configuration?",
+        "options": [
+          "Place the field in a collapsed Lightning page section",
+          "Remove the field from the standard page layout only",
+          "Set field-level security to hidden and grant access through an HR permission set",
+          "Create a private sharing rule for Salary records"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Field-level security controls whether a user can see or edit a field across Salesforce surfaces, including reports and API access. A permission set can grant the selected HR specialists access without changing the baseline profile for everyone else. Page layouts affect presentation but do not securely hide a field everywhere.",
+        "tip": "For sensitive fields, start with field-level security. Page layouts improve usability; they are not a security boundary."
+      },
+      {
+        "id": 54,
+        "category": "Configuration and Setup",
+        "select": 1,
+        "question": "A permission set group gives contractors the correct collection of permissions except that they must not delete Opportunities. What should the administrator use?",
+        "options": [
+          "A new organization-wide default",
+          "A muting permission set in the permission set group",
+          "A criteria-based sharing rule",
+          "A role below the sales team"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "A muting permission set suppresses selected permissions that are otherwise granted by permission sets inside the same permission set group. It lets the administrator reuse the group while removing an unwanted permission for that assignment model.",
+        "tip": "Permission set groups bundle access. Muting permission sets subtract selected permissions from that bundle."
+      },
+      {
+        "id": 55,
+        "category": "Configuration and Setup",
+        "select": 1,
+        "question": "A user reports that every login attempt fails, but the administrator does not know whether the cause is an IP restriction, invalid password, or another authentication error. Where should the administrator investigate first?",
+        "options": [
+          "Login History",
+          "The Recycle Bin",
+          "The role hierarchy",
+          "The Setup Audit Trail"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Login History records login attempts and status information that can reveal errors related to credentials, restrictions, and authentication. The Setup Audit Trail tracks configuration changes, not individual login outcomes.",
+        "tip": "Troubleshoot authentication with Login History; troubleshoot configuration changes with Setup Audit Trail."
+      },
+      {
+        "id": 56,
+        "category": "Configuration and Setup",
+        "select": 1,
+        "question": "Customer service users must be prevented from accessing Salesforce outside their approved weekly work schedule. Which profile setting should the administrator configure?",
+        "options": [
+          "Password history",
+          "Session timeout",
+          "Default record type",
+          "Login hours"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Login hours on a profile define the days and times when assigned users can access Salesforce. Session timeout controls inactivity after login and does not define an approved weekly schedule.",
+        "tip": "Login hours answer when a user can log in. Login IP ranges answer where the user can log in."
+      },
+      {
+        "id": 57,
+        "category": "Configuration and Setup",
+        "select": 1,
+        "question": "Internal Account access is Public Read Only, but external Experience Cloud users must have more restrictive default access. What should the administrator configure?",
+        "options": [
+          "A second role hierarchy for external users",
+          "A dashboard running user",
+          "Default External Access in organization-wide defaults",
+          "A compact layout for the site"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Default External Access lets an organization define more restrictive organization-wide defaults for external users than for internal users. Additional sharing can then open only the external access that the business requires.",
+        "tip": "External users often need a lower access floor. Use external organization-wide defaults before adding targeted sharing."
+      },
+      {
+        "id": 58,
+        "category": "Configuration and Setup",
+        "select": 1,
+        "question": "A support manager must read, edit, transfer, and delete every Case regardless of sharing, but should not receive unrestricted access to other objects. Which permission is most appropriate?",
+        "options": [
+          "View All on Case",
+          "Modify All on Case",
+          "View Setup and Configuration",
+          "Modify All Data"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Modify All on the Case object grants full access to all Case records regardless of sharing while keeping the permission scoped to that object. View All does not grant edit or delete access, and Modify All Data is much broader than required.",
+        "tip": "View All and Modify All bypass record sharing for one object. View All Data and Modify All Data apply across the org."
+      },
+      {
+        "id": 59,
+        "category": "Configuration and Setup",
+        "select": 1,
+        "question": "A team needs a sandbox for user acceptance testing that includes configuration plus a representative subset of production records. Which sandbox type is the best fit?",
+        "options": [
+          "Partial Copy sandbox",
+          "Developer sandbox",
+          "Scratch org only",
+          "Developer Pro sandbox"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "A Partial Copy sandbox includes metadata and a selected subset of production data based on a sandbox template, which makes it suitable for realistic user acceptance testing without requiring a complete production copy.",
+        "tip": "Developer sandboxes are mainly configuration and development environments. Partial Copy adds selected production data; Full copies all supported production data."
+      },
+      {
+        "id": 60,
+        "category": "Object Manager and Lightning App Builder",
+        "select": 1,
+        "question": "A custom Compliance Code must be required whenever a record is created through the UI, API, import tools, or automation. How should the administrator enforce this?",
+        "options": [
+          "Create a private sharing rule",
+          "Mark the field required on one page layout",
+          "Add the field to the highlights panel",
+          "Mark the field required at the field definition"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "A universally required custom field is enforced at the schema level across supported record creation methods. A page-layout requirement affects users working through that assigned layout but is not a universal data requirement for API or automation operations.",
+        "tip": "Use field-definition required for universal enforcement. Use page-layout required when the requirement varies by user experience."
+      },
+      {
+        "id": 61,
+        "category": "Object Manager and Lightning App Builder",
+        "select": 2,
+        "question": "Which two field types can serve as the controlling field for a dependent picklist?",
+        "options": [
+          "Picklist",
+          "Long Text Area",
+          "Multi-select picklist",
+          "Checkbox"
+        ],
+        "answers": [
+          0,
+          3
+        ],
+        "explanation": "A checkbox or a standard or custom picklist can control the available values in a dependent picklist. Multi-select picklists can be dependent fields but cannot serve as controlling fields.",
+        "tip": "Controlling fields narrow choices. Remember: checkbox or picklist can control; multi-select cannot control."
+      },
+      {
+        "id": 62,
+        "category": "Object Manager and Lightning App Builder",
+        "select": 2,
+        "question": "Which two attributes determine the page layout a user receives for a record?",
+        "options": [
+          "The user's dashboard folder access",
+          "The user's profile",
+          "The record owner's role",
+          "The record's record type"
+        ],
+        "answers": [
+          1,
+          3
+        ],
+        "explanation": "Page layout assignments are configured by the combination of profile and record type. Roles and report-folder permissions do not select a record's page layout.",
+        "tip": "Record type controls the business variation; profile plus record type determines the assigned page layout."
+      },
+      {
+        "id": 63,
+        "category": "Object Manager and Lightning App Builder",
+        "select": 1,
+        "question": "Users want Account search results to display Industry and Customer Priority as columns. Which configuration should the administrator modify?",
+        "options": [
+          "The Account support process",
+          "The Account organization-wide default",
+          "The role hierarchy",
+          "Search layouts for Account"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Search layouts control the fields and actions presented in search results and certain lookup or list experiences for an object. They do not change record access.",
+        "tip": "When the requirement concerns columns in search results, think search layouts rather than page layouts."
+      },
+      {
+        "id": 64,
+        "category": "Object Manager and Lightning App Builder",
+        "select": 1,
+        "question": "A Lightning record-page action should appear only when an Opportunity is in the Negotiation stage. What should the administrator use?",
+        "options": [
+          "Dynamic Actions with a visibility filter",
+          "A sharing rule",
+          "A validation rule",
+          "A report chart"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Dynamic Actions let administrators control the visibility of actions on Lightning record pages based on record fields and other supported criteria. A validation rule can block a save but does not conditionally display an action.",
+        "tip": "Dynamic Forms conditionally show fields and sections. Dynamic Actions conditionally show actions."
+      },
+      {
+        "id": 65,
+        "category": "Object Manager and Lightning App Builder",
+        "select": 1,
+        "question": "What normally happens to detail records when their master record is deleted in a master-detail relationship?",
+        "options": [
+          "The detail records become independent",
+          "The detail records are deleted through cascade delete",
+          "The detail records are automatically reassigned",
+          "The relationship converts to a lookup"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Master-detail establishes strong ownership and lifecycle dependency. Deleting the master normally deletes its detail records as part of cascade delete, subject to platform behavior and restore considerations.",
+        "tip": "Master-detail means inherited ownership, inherited sharing, and dependent lifecycle."
+      },
+      {
+        "id": 66,
+        "category": "Object Manager and Lightning App Builder",
+        "select": 1,
+        "question": "When users select an Account on a custom Project record, they should see only Accounts whose Status is Active. Which feature should the administrator configure?",
+        "options": [
+          "A roll-up summary field",
+          "A campaign hierarchy",
+          "A lookup filter",
+          "A compact layout"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "A lookup filter restricts or recommends the records available in a lookup based on defined criteria. It is the native way to limit parent-record choices such as showing only active Accounts.",
+        "tip": "Use lookup filters to control which records are valid choices in a relationship field."
+      },
+      {
+        "id": 67,
+        "category": "Sales and Marketing Applications",
+        "select": 1,
+        "question": "New leads must be routed to different queues by country and company size. Which configuration provides ordered routing criteria?",
+        "options": [
+          "A case escalation rule",
+          "An opportunity team",
+          "A campaign hierarchy",
+          "A lead assignment rule with rule entries"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Lead assignment rules evaluate ordered rule entries and assign matching leads to users or queues. The rule-entry order matters because Salesforce processes the criteria in sequence.",
+        "tip": "Routing new leads by field values points to a lead assignment rule."
+      },
+      {
+        "id": 68,
+        "category": "Sales and Marketing Applications",
+        "select": 1,
+        "question": "Several people at a customer influence one Opportunity, and sales leadership wants to record each person's role in the buying decision. What should be used?",
+        "options": [
+          "Opportunity contact roles",
+          "Campaign member statuses",
+          "Case teams",
+          "Account teams"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Opportunity contact roles connect Contacts to an Opportunity and describe how each person influences the deal, such as decision maker, evaluator, or executive sponsor.",
+        "tip": "Opportunity ownership tracks the seller. Contact roles track the customer-side people involved in the deal."
+      },
+      {
+        "id": 69,
+        "category": "Sales and Marketing Applications",
+        "select": 1,
+        "question": "Sales leadership wants an Opportunity Stage to carry a specific default probability and forecast category. Where is this association configured?",
+        "options": [
+          "In the dashboard folder",
+          "On the Opportunity Stage picklist value",
+          "In the account sharing rule",
+          "On the campaign member status"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Opportunity Stage values are configured with associated probability and forecast category information. Sales processes then determine which stage values are available for particular record types.",
+        "tip": "Stage is more than a label: it is tied to probability and forecasting behavior."
+      },
+      {
+        "id": 70,
+        "category": "Sales and Marketing Applications",
+        "select": 1,
+        "question": "An administrator is adding a Product to a custom wholesale price book, but the product has never been priced before. What must normally be created first?",
+        "options": [
+          "A campaign member record",
+          "An opportunity split",
+          "A standard price in the Standard Price Book",
+          "A lead conversion process"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "A product normally needs an active standard price before it can be added to a custom price book with another price. The Standard Price Book establishes the product's standard price-book entry.",
+        "tip": "Products become sellable through price-book entries. Standard price usually comes before custom price-book pricing."
+      },
+      {
+        "id": 71,
+        "category": "Sales and Marketing Applications",
+        "select": 1,
+        "question": "Marketing runs separate email, webinar, and event campaigns for one annual initiative and wants aggregate statistics across them. What should the administrator configure?",
+        "options": [
+          "An account team",
+          "A sales process",
+          "A campaign hierarchy",
+          "A support process"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "A campaign hierarchy relates campaigns under a parent initiative and provides roll-up statistics that help marketers analyze the combined performance of the related campaigns.",
+        "tip": "Use campaign hierarchy for parent initiatives and aggregated campaign performance."
+      },
+      {
+        "id": 72,
+        "category": "Service and Support Applications",
+        "select": 1,
+        "question": "Customers should receive different acknowledgement emails when cases are created, based on the case origin and product. Which feature should the administrator configure?",
+        "options": [
+          "A matching rule",
+          "A case auto-response rule",
+          "A role hierarchy",
+          "A dashboard subscription"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Case auto-response rules send email responses to the person who submitted a case and can select different email templates through ordered rule entries.",
+        "tip": "Assignment rules route the case internally. Auto-response rules acknowledge the customer externally."
+      },
+      {
+        "id": 73,
+        "category": "Service and Support Applications",
+        "select": 2,
+        "question": "Two support teams need different Case Status values and different page layouts. Which two configurations should work together?",
+        "options": [
+          "Record types",
+          "Public groups",
+          "Escalation actions",
+          "Support processes"
+        ],
+        "answers": [
+          0,
+          3
+        ],
+        "explanation": "A support process defines the Case Status values available to a process. Record types connect the appropriate support process, picklist values, and page layout to the relevant users.",
+        "tip": "For Cases, the business process that controls Status values is the support process."
+      },
+      {
+        "id": 74,
+        "category": "Service and Support Applications",
+        "select": 1,
+        "question": "A complex Case regularly requires an account manager, technical specialist, and legal reviewer, each with a defined role and record access. What should be configured?",
+        "options": [
+          "A territory model",
+          "A forecast category",
+          "A campaign hierarchy",
+          "A case team"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Case teams let multiple users collaborate on a Case with defined team roles and access levels. Predefined case teams can make recurring team compositions easier to add.",
+        "tip": "Use teams when several people need explicit collaborative roles on one record."
+      },
+      {
+        "id": 75,
+        "category": "Service and Support Applications",
+        "select": 1,
+        "question": "Unassigned billing Cases should wait in a shared work pool until an available support user accepts ownership. Which Salesforce feature is appropriate?",
+        "options": [
+          "A queue",
+          "A permission set group",
+          "A campaign",
+          "A compact layout"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "A queue can own supported records such as Cases until a queue member takes ownership. This creates a shared work pool for teams rather than assigning every record immediately to an individual.",
+        "tip": "Queues own work waiting for a person. Public groups are primarily collections used for sharing and other access configurations."
+      },
+      {
+        "id": 76,
+        "category": "Service and Support Applications",
+        "select": 1,
+        "question": "Premium customers are promised a first response within two hours and a resolution within eight hours. Which capability is designed to track these service commitments?",
+        "options": [
+          "Lead assignment rules",
+          "Entitlement processes with milestones",
+          "Campaign influence",
+          "Opportunity splits"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Entitlement processes and milestones model support terms and time-dependent service targets such as first response and resolution deadlines.",
+        "tip": "SLAs and timed support commitments point to entitlements and milestones."
+      },
+      {
+        "id": 77,
+        "category": "Productivity and Collaboration",
+        "select": 1,
+        "question": "A salesperson schedules a customer demonstration for Thursday from 3:00 PM to 4:00 PM. Which activity should be created?",
+        "options": [
+          "An event",
+          "A campaign",
+          "A task",
+          "A case"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "An event represents a scheduled activity with a start and end time, such as a meeting or demonstration. A task represents work to complete, often without a reserved time block.",
+        "tip": "Task means to-do. Event means scheduled time on a calendar."
+      },
+      {
+        "id": 78,
+        "category": "Productivity and Collaboration",
+        "select": 1,
+        "question": "From an Account record, users need an action that creates a new Contact and automatically relates it to that Account. Which action type is the best fit?",
+        "options": [
+          "A sharing rule",
+          "A global action with no context",
+          "A dashboard filter",
+          "An object-specific quick action"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "An object-specific create-record action launched from an Account can automatically relate the new record to the current Account. Global actions are not inherently tied to the record from which a user is working.",
+        "tip": "Object-specific actions carry record context. Global actions are available broadly and do not automatically inherit a parent record."
+      },
+      {
+        "id": 79,
+        "category": "Productivity and Collaboration",
+        "select": 1,
+        "question": "Sales users want to view Opportunities as cards grouped by Stage and drag cards between stages. Which list-view display should they use?",
+        "options": [
+          "Schema Builder",
+          "Joined report",
+          "Kanban view",
+          "Calendar view"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Kanban view displays records as cards grouped by a picklist field and supports visual movement between groups where the underlying field can be updated.",
+        "tip": "Cards grouped by a picklist value and moved visually point to Kanban."
+      },
+      {
+        "id": 80,
+        "category": "Productivity and Collaboration",
+        "select": 1,
+        "question": "Users want selected field changes on Opportunity to appear automatically in the record's Chatter feed. What must the administrator enable?",
+        "options": [
+          "A dashboard running user",
+          "A sandbox template",
+          "Feed tracking for Opportunity and the selected fields",
+          "A lead assignment rule"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Feed tracking publishes changes to selected fields in the record feed, making important updates visible to users who collaborate through Chatter.",
+        "tip": "Chatter does not automatically publish every field change. Enable feed tracking and choose the fields that matter."
+      },
+      {
+        "id": 81,
+        "category": "Productivity and Collaboration",
+        "select": 1,
+        "question": "A user repeatedly opens the same dashboard, list view, and Account record and wants quick personal access without changing the app for everyone. Which feature should the user use?",
+        "options": [
+          "Organization-wide defaults",
+          "Campaign influence",
+          "Delegated administration",
+          "Favorites"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Favorites provide personal shortcuts to frequently used Salesforce records, lists, dashboards, and other supported items. They do not change navigation or access for other users.",
+        "tip": "Favorites are personal navigation shortcuts, not an administrator-controlled security or sharing feature."
+      },
+      {
+        "id": 82,
+        "category": "Data and Analytics Management",
+        "select": 1,
+        "question": "An organization wants a recurring downloadable backup of Salesforce data without building an integration. Which native capability should the administrator schedule?",
+        "options": [
+          "Data Export service",
+          "Schema Builder",
+          "Flow Trigger Explorer",
+          "Data Import Wizard"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "The Data Export service can create export files for backup on a scheduled or manual basis, subject to edition and frequency availability. Import tools are designed to load data rather than produce a broad backup.",
+        "tip": "For native periodic backup files, think Data Export. For large operational imports or updates, think Data Loader."
+      },
+      {
+        "id": 83,
+        "category": "Data and Analytics Management",
+        "select": 1,
+        "question": "A report must show Accounts that do not have any related Opportunities. Which report feature is most appropriate?",
+        "options": [
+          "A dashboard filter",
+          "A cross filter for Accounts without Opportunities",
+          "A bucket field",
+          "A row-level formula"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Cross filters include or exclude parent records based on the existence of related child records. An Accounts without Opportunities cross filter directly answers this relationship question.",
+        "tip": "Use cross filters for 'with' or 'without' related-record questions."
+      },
+      {
+        "id": 84,
+        "category": "Data and Analytics Management",
+        "select": 1,
+        "question": "A report must summarize Opportunity Amount by both sales region across rows and fiscal quarter across columns. Which report format should be used?",
+        "options": [
+          "Tabular",
+          "Summary",
+          "Matrix",
+          "Joined only"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "A matrix report groups data by both rows and columns, making it appropriate for comparing aggregates such as region by fiscal quarter. A summary report groups rows but not columns.",
+        "tip": "One grouping direction is summary. Two grouping directions—rows and columns—is matrix."
+      },
+      {
+        "id": 85,
+        "category": "Data and Analytics Management",
+        "select": 1,
+        "question": "A business analyst wants to group Opportunity Amount into Small, Medium, and Large ranges in one report without adding a field to the object. What should be used?",
+        "options": [
+          "A compact layout",
+          "A lookup filter",
+          "A record type",
+          "A bucket field"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "A bucket field categorizes report values into administrator-defined groups without creating a new field on the underlying object. The categorization exists within the report.",
+        "tip": "Temporary report-only categories point to bucket fields."
+      },
+      {
+        "id": 86,
+        "category": "Data and Analytics Management",
+        "select": 1,
+        "question": "A report should calculate the number of days each open Case has existed and display the result on every report row. Which feature should be used?",
+        "options": [
+          "A row-level formula",
+          "A custom summary formula",
+          "A sharing rule",
+          "A dashboard component"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "A row-level formula performs a calculation for each individual record displayed in a report. Summary formulas operate on aggregated values at group or report level.",
+        "tip": "Per record equals row-level formula. Aggregate calculation equals summary formula."
+      },
+      {
+        "id": 87,
+        "category": "Data and Analytics Management",
+        "select": 1,
+        "question": "A grouped Opportunity report needs to calculate win rate for each sales region using summarized record counts. Which feature is appropriate?",
+        "options": [
+          "A lookup relationship",
+          "A custom summary formula",
+          "A search layout",
+          "A validation rule"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "A custom summary formula calculates values from report aggregates and can display results at selected grouping levels, such as a regional win rate.",
+        "tip": "When the formula uses summarized totals or counts, use a custom summary formula."
+      },
+      {
+        "id": 88,
+        "category": "Data and Analytics Management",
+        "select": 1,
+        "question": "Executives want one dashboard where they can switch the displayed metrics between North, South, East, and West. What should the administrator add?",
+        "options": [
+          "A permission set license",
+          "A role hierarchy branch",
+          "A dashboard filter",
+          "A duplicate rule"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "A dashboard filter lets viewers select a value that filters multiple compatible dashboard components, reducing the need to maintain separate dashboards for each region.",
+        "tip": "Dashboard filters create reusable views; they do not grant access to records the viewer cannot otherwise see."
+      },
+      {
+        "id": 89,
+        "category": "Data and Analytics Management",
+        "select": 1,
+        "question": "A manager wants an email only when a report meets defined conditions, such as more than 20 overdue Cases. Which capability should be used?",
+        "options": [
+          "Create a compact layout",
+          "Create an account team",
+          "Enable field history tracking",
+          "Subscribe to the report and set conditions"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Report subscriptions can deliver report results on a schedule and can use conditions so notifications are sent only when specified thresholds or criteria are met.",
+        "tip": "A report subscription is for scheduled or conditional report delivery; a dashboard subscription delivers dashboard snapshots."
+      },
+      {
+        "id": 90,
+        "category": "Automation",
+        "select": 1,
+        "question": "When a Contract is activated, Salesforce must send a reminder 30 days before the Contract End Date. Which Flow capability is designed for this?",
+        "options": [
+          "A matching rule",
+          "A scheduled path in an after-save record-triggered flow",
+          "A before-save flow with no scheduled path",
+          "A validation rule"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "A scheduled path can run a branch of an after-save record-triggered flow at a time calculated from a date or date-time field on the triggering record.",
+        "tip": "Time relative to a record date points to a scheduled path. A recurring scan of many records points to a schedule-triggered flow."
+      },
+      {
+        "id": 91,
+        "category": "Automation",
+        "select": 1,
+        "question": "Several flows need to use the same address-normalization logic. What is the most maintainable declarative design?",
+        "options": [
+          "Build reusable logic in an autolaunched flow and call it as a subflow",
+          "Use a role hierarchy",
+          "Copy the elements into every flow",
+          "Create a separate dashboard for each flow"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "A reusable autolaunched flow can encapsulate shared logic and be called through a Subflow element. This reduces duplication and makes future updates easier to manage consistently.",
+        "tip": "Repeated flow logic is a signal to modularize with subflows."
+      },
+      {
+        "id": 92,
+        "category": "Automation",
+        "select": 1,
+        "question": "A process requires reusable background automation with no user screens and will be called by another flow. Which flow type should be created?",
+        "options": [
+          "Login flow",
+          "Survey flow",
+          "Screen flow",
+          "Autolaunched flow with no trigger"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "An autolaunched flow with no trigger runs without screens and can expose input and output variables for invocation by another flow or supported automation context.",
+        "tip": "No screens plus reusable callable logic points to an autolaunched flow."
+      },
+      {
+        "id": 93,
+        "category": "Automation",
+        "select": 1,
+        "question": "A flow must follow different paths for Gold, Silver, and Bronze customers. Which element should evaluate the conditions and route the flow?",
+        "options": [
+          "Assignment",
+          "Loop",
+          "Decision",
+          "Pause"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "A Decision element evaluates conditions and directs the flow through different outcomes. Assignment changes variable values, Loop iterates through a collection, and Pause suspends an interview until a later event or time.",
+        "tip": "Decision is the flow equivalent of branching logic: if this, follow that outcome."
+      },
+      {
+        "id": 94,
+        "category": "Automation",
+        "select": 1,
+        "question": "After an Opportunity is saved, a flow must perform an external callout without delaying the original record transaction. Which path is most appropriate when supported?",
+        "options": [
+          "A validation-rule error path",
+          "A Run Asynchronously path in an after-save record-triggered flow",
+          "A duplicate-rule path",
+          "A before-save path"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "A Run Asynchronously path executes after the original transaction is committed and is appropriate for work such as supported external callouts that should not hold up the record save.",
+        "tip": "Before-save is for fast same-record updates. Asynchronous after-save work is separated from the original transaction."
+      },
+      {
+        "id": 95,
+        "category": "Automation",
+        "select": 1,
+        "question": "An administrator wants to debug a flow against realistic records but prevent the debug run from permanently changing data. Which option should be enabled?",
+        "options": [
+          "Rollback mode",
+          "Field history tracking",
+          "Manual sharing",
+          "Campaign influence"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Rollback mode lets supported flow debug runs execute database operations and then roll them back, helping administrators test behavior without retaining the resulting record changes.",
+        "tip": "Debug first, activate later. Use rollback when you need realistic execution without persistent test data changes."
+      },
+      {
+        "id": 96,
+        "category": "Automation",
+        "select": 1,
+        "question": "A manager who normally approves discount requests will be unavailable for two weeks. Which user setting can route approval requests to another person during the absence?",
+        "options": [
+          "Dashboard Running User",
+          "Forecast Manager",
+          "Default Opportunity Team",
+          "Delegated Approver"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "A delegated approver can act on approval requests for another user when the approval process and user configuration allow delegation. This is different from delegated administration, which grants limited Setup responsibilities.",
+        "tip": "Delegated approver handles approvals. Delegated administrator handles selected administrative tasks."
+      },
+      {
+        "id": 97,
+        "category": "Agentforce",
+        "select": 1,
+        "question": "An Agentforce agent must update a Case using deterministic declarative business logic that already exists in Salesforce. Which implementation is appropriate?",
+        "options": [
+          "Use only a Data Library with no action",
+          "Create a campaign hierarchy",
+          "Expose an autolaunched flow as a custom agent action",
+          "Add the Case fields to a dashboard"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "A custom agent action can reference an autolaunched flow so the agent can execute controlled Salesforce business logic. A Data Library grounds informational responses but does not by itself perform a transactional record update.",
+        "tip": "Use grounding for trusted knowledge. Use actions for work the agent must perform."
+      },
+      {
+        "id": 98,
+        "category": "Agentforce",
+        "select": 1,
+        "question": "An agent frequently selects the wrong action when two actions have similar purposes. What should the administrator improve first?",
+        "options": [
+          "The fiscal year start month",
+          "The action names and instructions that explain what each action does and when to use it",
+          "The role hierarchy depth",
+          "The dashboard color palette"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "The reasoning engine uses action names, descriptions, instructions, and input and output information to decide which action fits a request. Clear, distinct instructions improve predictable action selection.",
+        "tip": "For agent behavior, precise instructions are configuration—not decoration. State purpose, conditions, boundaries, and expected inputs clearly."
+      },
+      {
+        "id": 99,
+        "category": "Agentforce",
+        "select": 2,
+        "question": "Which two design choices correctly match an Agentforce requirement to the appropriate capability?",
+        "options": [
+          "Use a compact layout to train the reasoning engine",
+          "Use a custom action to execute a controlled record update",
+          "Use a campaign hierarchy to enforce agent permissions",
+          "Use a Data Library to ground answers in approved policy content"
+        ],
+        "answers": [
+          1,
+          3
+        ],
+        "explanation": "Data Libraries provide trusted business context for grounded responses. Agent actions invoke platform functionality such as flows, Apex, external services, or prompt templates to complete tasks. Layouts and campaign structures do not replace these capabilities.",
+        "tip": "Ask whether the agent needs to know something or do something. Knowledge suggests grounding; execution suggests an action."
+      },
+      {
+        "id": 100,
+        "category": "Agentforce",
+        "select": 1,
+        "question": "A customer asks an Agentforce service agent to resolve a sensitive issue that falls outside the agent's approved scope. What is the best design?",
+        "options": [
+          "Define a guardrail and escalation path to a human representative",
+          "Hide the conversation from service users",
+          "Give the agent unrestricted permissions",
+          "Instruct the agent to guess the most likely resolution"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Clear scope boundaries and human escalation are core guardrails for situations the agent should not handle autonomously. The agent should transfer or route the interaction rather than invent an answer or expand its permissions.",
+        "tip": "A trustworthy agent knows when to act, when not to act, and when to escalate."
       }
     ]
   },
@@ -2755,12 +3575,12 @@ window.BLUEFORCE_CERTIFICATIONS = [
     "code": "BA",
     "path": "certifications/business-analyst",
     "sourceFile": "salesforce_business_analyst_study_lab.html",
-    "description": "Practica escenarios de discovery, stakeholders, procesos, requisitos, user stories y UAT con feedback inmediato.",
-    "heroCopy": "Practica los dominios actuales con escenarios realistas de analisis de negocio en Salesforce. Selecciona tus respuestas para revelar la opcion correcta, una explicacion y un tip de examen.",
-    "reasoning": "Identifica el resultado de negocio, separa evidencia de supuestos y elige la tecnica o artefacto que crea el entendimiento compartido mas claro.",
-    "habits": "Lee cada calificador: first, best, current state, future state, select two y most effective technique suelen determinar la respuesta.",
-    "integrity": "Este lab contiene preguntas originales creadas desde objetivos publicos, documentacion Salesforce y practicas establecidas de analisis de negocio. No reproduce contenido restringido del examen.",
-    "blueprintNote": "El banco contiene 100 preguntas, por lo que el conteo refleja el peso publicado para cada dominio.",
+    "description": "Practice discovery, stakeholder, process, requirements, user story, and UAT scenarios with instant feedback.",
+    "heroCopy": "Practice current domains through realistic Salesforce business analysis scenarios. Select your answers to reveal the correct option, an explanation, and an exam tip.",
+    "reasoning": "Identify the business outcome, separate evidence from assumptions, and choose the technique or artifact that creates the clearest shared understanding.",
+    "habits": "Read every qualifier: first, best, current state, future state, select two, and most effective technique often determine the answer.",
+    "integrity": "This lab contains original questions created from public objectives, Salesforce documentation, and established business analysis practices. It does not reproduce restricted exam content.",
+    "blueprintNote": "The bank contains 100 questions, so the count reflects the published weighting for each domain.",
     "blueprint": [
       {
         "label": "Customer Discovery",
@@ -2791,32 +3611,32 @@ window.BLUEFORCE_CERTIFICATIONS = [
       {
         "title": "Salesforce Business Analyst Credential",
         "url": "https://trailhead.salesforce.com/credentials/businessanalyst",
-        "description": "Pagina oficial de la credencial y preparacion recomendada."
+        "description": "Official credential page and recommended preparation."
       },
       {
         "title": "Official Business Analyst Cert Prep",
         "url": "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep",
-        "description": "Practica, flashcards y enlaces de estudio para los seis dominios."
+        "description": "Practice, flashcards, and study links for the six domains."
       },
       {
         "title": "Customer Discovery Review",
         "url": "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/learn-about-customer-discovery",
-        "description": "Estrategia, estado actual, work streams, cambio y contexto Salesforce."
+        "description": "Strategy, current state, work streams, change, and Salesforce context."
       },
       {
         "title": "Stakeholder Collaboration Review",
         "url": "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/reivew-collaboration-with-stakeholders",
-        "description": "Elicitacion, facilitacion, confianza, roadmaps y priorizacion."
+        "description": "Elicitation, facilitation, trust, roadmaps, and prioritization."
       },
       {
         "title": "Business Process Mapping Review",
         "url": "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/study-up-on-business-process-mapping",
-        "description": "Scope, ownership, governance, capability maps y process maps."
+        "description": "Scope, ownership, governance, capability maps, and process maps."
       },
       {
         "title": "User Acceptance Review",
         "url": "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/explore-user-acceptance",
-        "description": "Planes UAT, testers, scripts, feedback, go/no-go y sign-off."
+        "description": "UAT plans, testers, scripts, feedback, go/no-go, and sign-off."
       }
     ],
     "categoryOrder": [

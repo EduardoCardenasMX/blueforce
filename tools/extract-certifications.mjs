@@ -19,17 +19,17 @@ const metadata = {
     path: "certifications/ux-designer",
     sourceFile: sourceFiles["ux-designer"],
     description:
-      "Practica los dominios oficiales con preguntas de escenario, retroalimentacion inmediata y tips enfocados en razonamiento de examen.",
+      "Practice the official domains with scenario-based questions, instant feedback, and exam-focused reasoning tips.",
     heroCopy:
-      "Estudia los dominios oficiales con tarjetas basadas en escenarios. Elige una respuesta para ver la opcion correcta, una explicacion practica y un tip de razonamiento.",
+      "Study the official domains with scenario-based cards. Choose an answer to reveal the correct option, a practical explanation, and a reasoning tip.",
     reasoning:
-      "Identifica primero el objetivo del usuario, despues elige la solucion Salesforce mas nativa, accesible y mantenible que lo cumpla.",
+      "Identify the user's goal first, then choose the most native, accessible, and maintainable Salesforce solution that meets it.",
     habits:
-      "Compara cada opcion contra evidencia de usuario, accesibilidad, SLDS y configuracion declarativa antes de decidir.",
+      "Compare each option against user evidence, accessibility, SLDS, and declarative configuration before deciding.",
     integrity:
-      "Estas son preguntas originales creadas a partir de objetivos publicos y documentacion. No son preguntas filtradas ni memorizadas del examen real.",
+      "These are original questions created from public objectives and documentation. They are not leaked or memorized real exam questions.",
     blueprintNote:
-      "La distribucion se alinea con el peso publicado para los dominios del examen.",
+      "The distribution aligns with the published weighting for the exam domains.",
     blueprint: [
       { label: "Declarative Design", weight: 27 },
       { label: "SLDS", weight: 21 },
@@ -42,17 +42,17 @@ const metadata = {
       {
         title: "Salesforce UX Designer Credential",
         url: "https://trailhead.salesforce.com/credentials/userexperiencedesigner",
-        description: "Pagina oficial de la credencial y preparacion recomendada.",
+        description: "Official credential page and recommended preparation.",
       },
       {
         title: "Official UX Designer Cert Prep",
         url: "https://trailhead.salesforce.com/content/learn/modules/ux-designer-certification-prep",
-        description: "Dominios, escenarios, flashcards y modulos relacionados.",
+        description: "Domains, scenarios, flashcards, and related modules.",
       },
       {
         title: "W3C WCAG Overview",
         url: "https://www.w3.org/WAI/standards-guidelines/wcag/",
-        description: "Principios y estandares de accesibilidad web.",
+        description: "Web accessibility principles and standards.",
       },
     ],
   },
@@ -65,17 +65,17 @@ const metadata = {
     path: "certifications/platform-administrator",
     sourceFile: sourceFiles["platform-administrator"],
     description:
-      "Practica escenarios reales de administracion, seguridad, datos, automatizacion y Agentforce con feedback inmediato.",
+      "Practice realistic administration, security, data, automation, and Agentforce scenarios with instant feedback.",
     heroCopy:
-      "Practica los dominios actuales con escenarios realistas de administrador. Selecciona tus respuestas para revelar la opcion correcta, una explicacion y un tip de examen.",
+      "Practice current domains through realistic administrator scenarios. Select your answers to reveal the correct option, an explanation, and an exam tip.",
     reasoning:
-      "Separa permisos de sharing, identifica el objeto y proceso de negocio, y despues elige la capacidad Salesforce mas nativa y mantenible.",
+      "Separate permissions from sharing, identify the object and business process, then choose the most native and maintainable Salesforce capability.",
     habits:
-      "Lee cada calificador: best, most efficient, without code, select two y based on record ownership suelen cambiar la respuesta.",
+      "Read every qualifier: best, most efficient, without code, select two, and based on record ownership often change the answer.",
     integrity:
-      "Este lab contiene preguntas originales creadas desde objetivos publicos y documentacion Salesforce. No reproduce contenido restringido del examen.",
+      "This lab contains original questions created from public objectives and Salesforce documentation. It does not reproduce restricted exam content.",
     blueprintNote:
-      "El banco contiene preguntas distribuidas cerca del peso publicado para cada dominio.",
+      "The bank contains questions distributed close to the published weighting for each domain.",
     blueprint: [
       { label: "Configuration and Setup", weight: 15 },
       { label: "Object Manager and Lightning App Builder", weight: 15 },
@@ -90,17 +90,17 @@ const metadata = {
       {
         title: "Platform Administrator Credential",
         url: "https://trailhead.salesforce.com/credentials/administrator",
-        description: "Pagina oficial de la credencial y preparacion recomendada.",
+        description: "Official credential page and recommended preparation.",
       },
       {
         title: "Administrator Certification Prep Trail",
         url: "https://trailhead.salesforce.com/content/learn/trails/administrator-certification-prep",
-        description: "Trail oficial de preparacion para dominios del examen.",
+        description: "Official preparation trail for the exam domains.",
       },
       {
         title: "Trailblazer Community: Salesforce Admin",
         url: "https://trailhead.salesforce.com/trailblazer-community/topics/admin",
-        description: "Consejos de estudio, preguntas y discusion de especialistas.",
+        description: "Study advice, questions, and specialist discussion.",
       },
     ],
   },
@@ -113,17 +113,17 @@ const metadata = {
     path: "certifications/business-analyst",
     sourceFile: sourceFiles["business-analyst"],
     description:
-      "Practica escenarios de discovery, stakeholders, procesos, requisitos, user stories y UAT con feedback inmediato.",
+      "Practice discovery, stakeholder, process, requirements, user story, and UAT scenarios with instant feedback.",
     heroCopy:
-      "Practica los dominios actuales con escenarios realistas de analisis de negocio en Salesforce. Selecciona tus respuestas para revelar la opcion correcta, una explicacion y un tip de examen.",
+      "Practice current domains through realistic Salesforce business analysis scenarios. Select your answers to reveal the correct option, an explanation, and an exam tip.",
     reasoning:
-      "Identifica el resultado de negocio, separa evidencia de supuestos y elige la tecnica o artefacto que crea el entendimiento compartido mas claro.",
+      "Identify the business outcome, separate evidence from assumptions, and choose the technique or artifact that creates the clearest shared understanding.",
     habits:
-      "Lee cada calificador: first, best, current state, future state, select two y most effective technique suelen determinar la respuesta.",
+      "Read every qualifier: first, best, current state, future state, select two, and most effective technique often determine the answer.",
     integrity:
-      "Este lab contiene preguntas originales creadas desde objetivos publicos, documentacion Salesforce y practicas establecidas de analisis de negocio. No reproduce contenido restringido del examen.",
+      "This lab contains original questions created from public objectives, Salesforce documentation, and established business analysis practices. It does not reproduce restricted exam content.",
     blueprintNote:
-      "El banco contiene 100 preguntas, por lo que el conteo refleja el peso publicado para cada dominio.",
+      "The bank contains 100 questions, so the count reflects the published weighting for each domain.",
     blueprint: [
       { label: "Customer Discovery", weight: 17 },
       { label: "Collaboration with Stakeholders", weight: 23 },
@@ -136,32 +136,32 @@ const metadata = {
       {
         title: "Salesforce Business Analyst Credential",
         url: "https://trailhead.salesforce.com/credentials/businessanalyst",
-        description: "Pagina oficial de la credencial y preparacion recomendada.",
+        description: "Official credential page and recommended preparation.",
       },
       {
         title: "Official Business Analyst Cert Prep",
         url: "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep",
-        description: "Practica, flashcards y enlaces de estudio para los seis dominios.",
+        description: "Practice, flashcards, and study links for the six domains.",
       },
       {
         title: "Customer Discovery Review",
         url: "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/learn-about-customer-discovery",
-        description: "Estrategia, estado actual, work streams, cambio y contexto Salesforce.",
+        description: "Strategy, current state, work streams, change, and Salesforce context.",
       },
       {
         title: "Stakeholder Collaboration Review",
         url: "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/reivew-collaboration-with-stakeholders",
-        description: "Elicitacion, facilitacion, confianza, roadmaps y priorizacion.",
+        description: "Elicitation, facilitation, trust, roadmaps, and prioritization.",
       },
       {
         title: "Business Process Mapping Review",
         url: "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/study-up-on-business-process-mapping",
-        description: "Scope, ownership, governance, capability maps y process maps.",
+        description: "Scope, ownership, governance, capability maps, and process maps.",
       },
       {
         title: "User Acceptance Review",
         url: "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/explore-user-acceptance",
-        description: "Planes UAT, testers, scripts, feedback, go/no-go y sign-off.",
+        description: "UAT plans, testers, scripts, feedback, go/no-go, and sign-off.",
       },
     ],
   },

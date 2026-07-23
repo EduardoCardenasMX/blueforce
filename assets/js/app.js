@@ -99,7 +99,7 @@
           <article class="cert-card">
             <div class="cert-top">
               <div>
-                <div class="eyebrow">${certification.questions.length} preguntas</div>
+                <div class="eyebrow">${certification.questions.length} questions</div>
                 <h3>${escapeHtml(certification.title)}</h3>
                 <p>${escapeHtml(certification.description)}</p>
               </div>
@@ -107,13 +107,13 @@
             </div>
             <div>
               <div class="cert-meta">
-                <span class="pill">${progress.answered} respondidas</span>
-                <span class="pill">${progress.correct} correctas</span>
-                <span class="pill">${unanswered} pendientes</span>
+                <span class="pill">${progress.answered} answered</span>
+                <span class="pill">${progress.correct} correct</span>
+                <span class="pill">${unanswered} unanswered</span>
               </div>
               <div class="progress-block" style="margin-top:16px">
                 <div class="progress-meta">
-                  <span>Progreso local</span>
+                  <span>Local progress</span>
                   <span>${progress.percent}%</span>
                 </div>
                 <div class="progress-track">
@@ -122,8 +122,8 @@
               </div>
             </div>
             <div class="home-actions">
-              <a class="btn btn-primary" href="${escapeHtml(certification.path)}">${progress.answered ? "Retomar" : "Empezar"}</a>
-              <a class="btn btn-secondary" href="${escapeHtml(certification.path)}#study">Practicar</a>
+              <a class="btn btn-primary" href="${escapeHtml(certification.path)}">${progress.answered ? "Resume" : "Start"}</a>
+              <a class="btn btn-secondary" href="${escapeHtml(certification.path)}#study">Practice</a>
             </div>
           </article>
         `;
@@ -147,9 +147,9 @@
       app.innerHTML = `
         <div class="shell">
           <div class="empty-state">
-            <h2>Certificacion no encontrada</h2>
-            <p>Regresa a BlueForce para elegir un examen disponible.</p>
-            <a class="btn btn-primary" href="../">Volver al inicio</a>
+            <h2>Certification Not Found</h2>
+            <p>Return to BlueForce to choose an available exam.</p>
+            <a class="btn btn-primary" href="../">Back to Home</a>
           </div>
         </div>
       `;
@@ -264,10 +264,10 @@
     }
 
     function modeLabel() {
-      if (state.specialMode === "wrong") return "Repaso de errores";
-      if (state.specialMode === "bookmarks") return "Marcadas";
-      if (state.specialMode === "unanswered") return "Pendientes";
-      return state.filter === "All" ? "Todas las preguntas" : state.filter;
+      if (state.specialMode === "wrong") return "Missed Review";
+      if (state.specialMode === "bookmarks") return "Bookmarked";
+      if (state.specialMode === "unanswered") return "Unanswered";
+      return state.filter === "All" ? "All Questions" : state.filter;
     }
 
     function renderFilters() {
@@ -276,7 +276,7 @@
       container.innerHTML = certification.categoryOrder
         .map((category) => {
           const isActive = !state.specialMode && state.filter === category;
-          const label = category === "All" ? "Todas" : category;
+          const label = category === "All" ? "All" : category;
           return `<button class="filter-btn" data-category="${escapeHtml(category)}" aria-pressed="${isActive}">${escapeHtml(label)}</button>`;
         })
         .join("");
@@ -305,7 +305,7 @@
       document.getElementById("accuracyStat").textContent = accuracy === null ? "0%" : `${accuracy}%`;
       document.getElementById("bookmarkStat").textContent = state.bookmarks.length;
       document.getElementById("wrongStat").textContent = wrong;
-      document.getElementById("progressLabel").textContent = `${answered} de ${total} respondidas`;
+      document.getElementById("progressLabel").textContent = `${answered} of ${total} answered`;
       document.getElementById("modeLabel").textContent = modeLabel();
       document.getElementById("progressFill").style.width = `${pct}%`;
     }
@@ -319,15 +319,15 @@
       if (!visible.length && !heldQuestion) {
         const message =
           state.specialMode === "wrong"
-            ? "No tienes respuestas incorrectas por repasar."
+            ? "You do not have any missed questions to review."
             : state.specialMode === "bookmarks"
-              ? "Marca preguntas para crear tu lista de repaso."
-              : "Ya respondiste todas las preguntas en esta vista.";
+              ? "Bookmark questions to build your review list."
+              : "You have answered every question in this view.";
         card.innerHTML = `
           <div class="empty-state">
-            <h2>No hay preguntas en esta vista</h2>
+            <h2>No Questions in This View</h2>
             <p>${message}</p>
-            <button class="btn btn-primary" id="returnAllBtn">Ver todas</button>
+            <button class="btn btn-primary" id="returnAllBtn">View All</button>
           </div>
         `;
         document.getElementById("returnAllBtn").addEventListener("click", () => {
@@ -346,8 +346,8 @@
       const draft = Array.isArray(state.drafts[question.id]) ? state.drafts[question.id] : [];
       const selectedCount = answerRecord ? answerRecord.selected.length : draft.length;
       const questionPosition = heldQuestion
-        ? `Pregunta respondida - Banco ${question.id}`
-        : `Pregunta ${state.currentIndex + 1} de ${visible.length} - Banco ${question.id}`;
+        ? `Answered Question - Bank ${question.id}`
+        : `Question ${state.currentIndex + 1} of ${visible.length} - Bank ${question.id}`;
       const previousDisabled = heldQuestion ? state.currentIndex === 0 : state.currentIndex === 0;
       const nextDisabled = heldQuestion
         ? visible.length <= state.currentIndex
@@ -383,11 +383,11 @@
         ? `
           <div class="feedback visible">
             <div class="feedback-status ${answerRecord.correct ? "correct-text" : "incorrect-text"}">
-              ${answerRecord.correct ? "Correcto" : "Incorrecto"}
+              ${answerRecord.correct ? "Correct" : "Incorrect"}
             </div>
-            <h3>Respuesta correcta${question.select > 1 ? "s" : ""}</h3>
+            <h3>Correct Answer${question.select > 1 ? "s" : ""}</h3>
             <p><strong>${correctAnswerText}</strong></p>
-            <h3>Por que es correcta</h3>
+            <h3>Why This Is Correct</h3>
             <p>${escapeHtml(question.explanation)}</p>
             <div class="tip-box"><strong>Exam tip:</strong> ${escapeHtml(question.tip)}</div>
           </div>
@@ -398,8 +398,8 @@
         !answerRecord && question.select > 1
           ? `
             <div class="answer-actions">
-              <span class="selection-count">${selectedCount} de ${question.select} seleccionadas</span>
-              <button class="btn btn-primary" id="submitAnswerBtn" ${selectedCount === question.select ? "" : "disabled"}>Enviar respuesta</button>
+              <span class="selection-count">${selectedCount} of ${question.select} selected</span>
+              <button class="btn btn-primary" id="submitAnswerBtn" ${selectedCount === question.select ? "" : "disabled"}>Submit Answer</button>
             </div>
           `
           : "";
@@ -408,9 +408,9 @@
         <div class="question-top">
           <div class="badge-row">
             <span class="category-badge">${escapeHtml(question.category)}</span>
-            ${question.select > 1 ? `<span class="selection-badge">Selecciona ${question.select}</span>` : ""}
+            ${question.select > 1 ? `<span class="selection-badge">Select ${question.select}</span>` : ""}
           </div>
-          <button class="bookmark-btn ${isBookmarked ? "active" : ""}" id="bookmarkBtn" aria-label="Marcar pregunta" title="Marcar pregunta">B</button>
+          <button class="bookmark-btn ${isBookmarked ? "active" : ""}" id="bookmarkBtn" aria-label="Bookmark question" title="Bookmark question">B</button>
         </div>
         <div class="question-number">${questionPosition}</div>
         <h2>${escapeHtml(question.question)}</h2>
@@ -418,8 +418,8 @@
         ${multiActions}
         ${feedbackHtml}
         <div class="nav-row">
-          <button class="btn btn-secondary" id="prevBtn" ${previousDisabled ? "disabled" : ""}>Anterior</button>
-          <button class="btn btn-secondary" id="nextBtn" ${nextDisabled ? "disabled" : ""}>Siguiente</button>
+          <button class="btn btn-secondary" id="prevBtn" ${previousDisabled ? "disabled" : ""}>Previous</button>
+          <button class="btn btn-secondary" id="nextBtn" ${nextDisabled ? "disabled" : ""}>Next</button>
         </div>
       `;
 
@@ -535,7 +535,7 @@
     }
 
     function resetProgress() {
-      if (!window.confirm("Quieres reiniciar respuestas, marcadores y orden de preguntas?")) {
+      if (!window.confirm("Reset answers, bookmarks, and question order?")) {
         return;
       }
       try {
@@ -599,7 +599,7 @@
   function hydrateExamShell(certification) {
     const total = certification.questions.length;
     const maxWeight = Math.max(...certification.blueprint.map((item) => item.weight));
-    document.getElementById("examEyebrow").textContent = `${total} preguntas originales`;
+    document.getElementById("examEyebrow").textContent = `${total} original questions`;
     document.getElementById("pageTitle").textContent = certification.pageTitle;
     document.getElementById("heroCopy").textContent = certification.heroCopy;
     document.getElementById("integrityNote").textContent = certification.integrity;
