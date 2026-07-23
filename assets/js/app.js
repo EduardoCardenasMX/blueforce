@@ -167,6 +167,7 @@
       specialMode: null,
       currentIndex: 0,
       drafts: {},
+      pendingFeedbackQuestionId: null,
     };
 
     function loadState() {
@@ -199,6 +200,13 @@
                 Object.entries(saved.drafts).filter(([id]) => validIds.has(Number(id))),
               )
             : {},
+        pendingFeedbackQuestionId:
+          Number.isInteger(saved.pendingFeedbackQuestionId) &&
+          validIds.has(saved.pendingFeedbackQuestionId) &&
+          saved.answers &&
+          saved.answers[saved.pendingFeedbackQuestionId]
+            ? saved.pendingFeedbackQuestionId
+            : null,
       };
     }
 
@@ -223,6 +231,23 @@
       return state.filter === "All"
         ? ordered
         : ordered.filter((question) => question.category === state.filter);
+    }
+
+    function getHeldFeedbackQuestion() {
+      if (!state.pendingFeedbackQuestionId) return null;
+      const question = questionById.get(state.pendingFeedbackQuestionId);
+      if (!question || !state.answers[question.id]) {
+        state.pendingFeedbackQuestionId = null;
+        return null;
+      }
+      return question;
+    }
+
+    function getCurrentQuestion() {
+      const heldQuestion = getHeldFeedbackQuestion();
+      if (heldQuestion) return heldQuestion;
+      const visible = getVisibleQuestions();
+      return visible[state.currentIndex] || null;
     }
 
     function clampIndex() {
@@ -255,6 +280,7 @@
           state.filter = button.dataset.category;
           state.specialMode = null;
           state.currentIndex = 0;
+          state.pendingFeedbackQuestionId = null;
           saveState();
           render();
         });
@@ -283,8 +309,9 @@
       const card = document.getElementById("questionCard");
       const visible = getVisibleQuestions();
       clampIndex();
+      const heldQuestion = getHeldFeedbackQuestion();
 
-      if (!visible.length) {
+      if (!visible.length && !heldQuestion) {
         const message =
           state.specialMode === "wrong"
             ? "No tienes respuestas incorrectas por repasar."
@@ -308,11 +335,18 @@
         return;
       }
 
-      const question = visible[state.currentIndex];
+      const question = heldQuestion || visible[state.currentIndex];
       const answerRecord = state.answers[question.id];
       const isBookmarked = state.bookmarks.includes(question.id);
       const draft = Array.isArray(state.drafts[question.id]) ? state.drafts[question.id] : [];
       const selectedCount = answerRecord ? answerRecord.selected.length : draft.length;
+      const questionPosition = heldQuestion
+        ? `Pregunta respondida - Banco ${question.id}`
+        : `Pregunta ${state.currentIndex + 1} de ${visible.length} - Banco ${question.id}`;
+      const previousDisabled = heldQuestion ? state.currentIndex === 0 : state.currentIndex === 0;
+      const nextDisabled = heldQuestion
+        ? visible.length <= state.currentIndex
+        : state.currentIndex === visible.length - 1;
 
       const optionsHtml = question.options
         .map((option, index) => {
@@ -373,14 +407,14 @@
           </div>
           <button class="bookmark-btn ${isBookmarked ? "active" : ""}" id="bookmarkBtn" aria-label="Marcar pregunta" title="Marcar pregunta">B</button>
         </div>
-        <div class="question-number">Pregunta ${state.currentIndex + 1} de ${visible.length} - Banco ${question.id}</div>
+        <div class="question-number">${questionPosition}</div>
         <h2>${escapeHtml(question.question)}</h2>
         <div class="option-list">${optionsHtml}</div>
         ${multiActions}
         ${feedbackHtml}
         <div class="nav-row">
-          <button class="btn btn-secondary" id="prevBtn" ${state.currentIndex === 0 ? "disabled" : ""}>Anterior</button>
-          <button class="btn btn-secondary" id="nextBtn" ${state.currentIndex === visible.length - 1 ? "disabled" : ""}>Siguiente</button>
+          <button class="btn btn-secondary" id="prevBtn" ${previousDisabled ? "disabled" : ""}>Anterior</button>
+          <button class="btn btn-secondary" id="nextBtn" ${nextDisabled ? "disabled" : ""}>Siguiente</button>
         </div>
       `;
 
@@ -402,6 +436,8 @@
           correct: sameSet([selected], question.answers),
         };
         delete state.drafts[question.id];
+        state.pendingFeedbackQuestionId =
+          state.specialMode === "unanswered" ? question.id : null;
       } else {
         const draft = Array.isArray(state.drafts[question.id])
           ? [...state.drafts[question.id]]
@@ -426,6 +462,8 @@
         correct: sameSet(draft, question.answers),
       };
       delete state.drafts[question.id];
+      state.pendingFeedbackQuestionId =
+        state.specialMode === "unanswered" ? question.id : null;
       saveState();
       render();
     }
@@ -441,11 +479,18 @@
     function setSpecialMode(mode) {
       state.specialMode = mode;
       state.currentIndex = 0;
+      state.pendingFeedbackQuestionId = null;
       saveState();
       render();
     }
 
     function nextQuestion() {
+      if (getHeldFeedbackQuestion()) {
+        state.pendingFeedbackQuestionId = null;
+        saveState();
+        render();
+        return;
+      }
       const visible = getVisibleQuestions();
       if (state.currentIndex < visible.length - 1) {
         state.currentIndex += 1;
@@ -456,6 +501,13 @@
     }
 
     function previousQuestion() {
+      if (getHeldFeedbackQuestion()) {
+        state.pendingFeedbackQuestionId = null;
+        if (state.currentIndex > 0) state.currentIndex -= 1;
+        saveState();
+        render();
+        return;
+      }
       if (state.currentIndex > 0) {
         state.currentIndex -= 1;
         saveState();
@@ -472,6 +524,7 @@
       }
       state.order = shuffled;
       state.currentIndex = 0;
+      state.pendingFeedbackQuestionId = null;
       saveState();
       render();
     }
@@ -493,6 +546,7 @@
         specialMode: null,
         currentIndex: 0,
         drafts: {},
+        pendingFeedbackQuestionId: null,
       };
       render();
     }
@@ -517,8 +571,7 @@
     document.getElementById("resetBtn").addEventListener("click", resetProgress);
 
     document.addEventListener("keydown", (event) => {
-      const visible = getVisibleQuestions();
-      const question = visible[state.currentIndex];
+      const question = getCurrentQuestion();
       if (!question) return;
       const activeTag = document.activeElement ? document.activeElement.tagName : "";
       if (["INPUT", "TEXTAREA", "SELECT"].includes(activeTag)) return;
