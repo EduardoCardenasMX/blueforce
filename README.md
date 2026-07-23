@@ -30,3 +30,5 @@ node tools/extract-certifications.mjs
 4. Crea una pagina en `certifications/nueva-certificacion.html` usando una de las paginas actuales como base y cambiando `data-certification`. En `metadata.path`, usa la URL limpia, por ejemplo `certifications/nueva-certificacion`.
 
 El progreso queda guardado en `localStorage`, separado por `id` de certificacion.
+
+El extractor tambien reordena las opciones de forma deterministica y recalcula las respuestas correctas para evitar patrones como que la respuesta correcta sea casi siempre la opcion A. Si cambias esa logica, incrementa `progressVersion` en `assets/js/app.js` para no mezclar progreso guardado contra indices de opciones anteriores.

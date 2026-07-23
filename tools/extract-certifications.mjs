@@ -179,16 +179,82 @@ function extractConst(source, name, nextConstName) {
   return Function(`"use strict"; return (${expression});`)();
 }
 
-function normalizeQuestions(questions) {
+function hashString(value) {
+  let hash = 2166136261;
+  for (const char of value) {
+    hash ^= char.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+function seededShuffle(values, seed) {
+  const shuffled = [...values];
+  let state = hashString(seed);
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    state = Math.imul(state ^ (state >>> 15), 2246822507) >>> 0;
+    const swap = state % (index + 1);
+    [shuffled[index], shuffled[swap]] = [shuffled[swap], shuffled[index]];
+  }
+  return shuffled;
+}
+
+function chooseBalancedSlot(counts, optionCount, seed) {
+  return Array.from({ length: optionCount }, (_, index) => index).sort((a, b) => {
+    const countDifference = (counts[a] || 0) - (counts[b] || 0);
+    if (countDifference) return countDifference;
+    return hashString(`${seed}:${a}`) - hashString(`${seed}:${b}`);
+  })[0];
+}
+
+function reorderOptions(question, answers, targetSlotCounts, seed) {
+  const optionIndexes = question.options.map((_, index) => index);
+  if (answers.length === 1) {
+    const targetSlot = chooseBalancedSlot(targetSlotCounts, question.options.length, seed);
+    const [correctIndex] = answers;
+    const wrongIndexes = seededShuffle(
+      optionIndexes.filter((index) => index !== correctIndex),
+      `${seed}:wrong`,
+    );
+    const availableSlots = optionIndexes.filter((index) => index !== targetSlot);
+    const originalIndexByNewSlot = [];
+    originalIndexByNewSlot[targetSlot] = correctIndex;
+    availableSlots.forEach((slot, index) => {
+      originalIndexByNewSlot[slot] = wrongIndexes[index];
+    });
+    targetSlotCounts[targetSlot] = (targetSlotCounts[targetSlot] || 0) + 1;
+    return {
+      options: originalIndexByNewSlot.map((index) => question.options[index]),
+      answers: [targetSlot],
+    };
+  }
+
+  const originalIndexByNewSlot = seededShuffle(optionIndexes, `${seed}:multi`);
+  return {
+    options: originalIndexByNewSlot.map((index) => question.options[index]),
+    answers: originalIndexByNewSlot
+      .map((originalIndex, newIndex) => (answers.includes(originalIndex) ? newIndex : null))
+      .filter((index) => index !== null),
+  };
+}
+
+function normalizeQuestions(certificationId, questions) {
+  const targetSlotCounts = {};
   return questions.map((question) => {
     const answers = Array.isArray(question.answers) ? question.answers : [question.answer];
+    const reordered = reorderOptions(
+      question,
+      answers,
+      targetSlotCounts,
+      `${certificationId}:${question.id}`,
+    );
     return {
       id: question.id,
       category: question.category,
       select: Number(question.select || answers.length || 1),
       question: question.question,
-      options: question.options,
-      answers,
+      options: reordered.options,
+      answers: reordered.answers,
       explanation: question.explanation,
       tip: question.tip,
     };
@@ -197,7 +263,7 @@ function normalizeQuestions(questions) {
 
 const certifications = Object.entries(sourceFiles).map(([id, file]) => {
   const source = fs.readFileSync(path.join(root, file), "utf8");
-  const questions = normalizeQuestions(extractConst(source, "questions", "categoryOrder"));
+  const questions = normalizeQuestions(id, extractConst(source, "questions", "categoryOrder"));
   const categoryOrder = extractConst(source, "categoryOrder", "STORAGE_KEY");
   return {
     ...metadata[id],

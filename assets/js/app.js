@@ -1,6 +1,7 @@
 (function () {
   const letters = ["A", "B", "C", "D", "E", "F"];
   const specialModes = [null, "wrong", "bookmarks", "unanswered"];
+  const progressVersion = "v2";
   const certifications = window.BLUEFORCE_CERTIFICATIONS || [];
 
   function escapeHtml(value) {
@@ -13,7 +14,7 @@
   }
 
   function storageKey(certification) {
-    return `blueforce-study-progress-${certification.id}-v1`;
+    return `blueforce-study-progress-${certification.id}-${progressVersion}`;
   }
 
   function readProgress(certification) {
