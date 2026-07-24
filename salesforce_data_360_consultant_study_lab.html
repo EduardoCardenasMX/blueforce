@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive Salesforce Certified Data 360 Consultant study lab with 100 advanced, original, exam-aligned practice questions, explanations, and consultant reasoning tips." />
+  <title>Salesforce Certified Data 360 Consultant Study Lab</title>
+  <style>
+    :root {
+      --bg: #071426;
+      --surface: #0f2139;
+      --surface-2: #142a46;
+      --surface-3: #1a3453;
+      --text: #f5f9ff;
+      --muted: #b5c5d9;
+      --line: #2a4668;
+      --brand: #2f9cf4;
+      --brand-2: #78c7ff;
+      --success: #45d483;
+      --success-bg: rgba(69, 212, 131, 0.12);
+      --danger: #ff7e8b;
+      --danger-bg: rgba(255, 126, 139, 0.12);
+      --warning: #ffd36a;
+      --shadow: 0 22px 55px rgba(0, 0, 0, 0.28);
+      --radius: 22px;
+      --radius-sm: 14px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% -10%, rgba(47, 156, 244, 0.22), transparent 35%),
+        radial-gradient(circle at 90% 5%, rgba(120, 199, 255, 0.12), transparent 28%),
+        linear-gradient(180deg, #071426 0%, #091a2e 46%, #071426 100%);
+      line-height: 1.55;
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: var(--brand-2); }
+    a:hover { color: white; }
+    :focus-visible { outline: 3px solid var(--warning); outline-offset: 3px; }
+
+    .skip-link {
+      position: fixed; left: 16px; top: -80px; z-index: 100;
+      padding: 10px 14px; border-radius: 10px; color: #06111f;
+      background: var(--warning); font-weight: 800; transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: 16px; }
+    .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+
+    .hero { padding: 52px 0 28px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr); gap: 24px; align-items: stretch; }
+    .hero-copy, .blueprint-panel {
+      border: 1px solid rgba(120, 199, 255, 0.18); border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(20, 42, 70, 0.94), rgba(10, 28, 49, 0.96)); box-shadow: var(--shadow);
+    }
+    .hero-copy { padding: clamp(28px, 5vw, 54px); position: relative; overflow: hidden; }
+    .hero-copy::after {
+      content: "D360"; position: absolute; right: -18px; bottom: -58px; font-size: 170px;
+      line-height: 1; font-weight: 900; letter-spacing: -16px; color: rgba(120, 199, 255, 0.05); pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; padding: 7px 11px;
+      border: 1px solid rgba(120, 199, 255, 0.25); border-radius: 999px; color: var(--brand-2);
+      background: rgba(47, 156, 244, 0.08); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    h1 { margin: 0; max-width: 850px; font-size: clamp(2.05rem, 4.8vw, 4.6rem); line-height: 1; letter-spacing: -0.052em; }
+    .hero-copy p { max-width: 780px; margin: 22px 0 0; color: var(--muted); font-size: 1.05rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+    .btn {
+      min-height: 45px; padding: 11px 17px; border: 1px solid transparent; border-radius: 12px;
+      font-weight: 800; transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { color: #06111f; background: linear-gradient(135deg, var(--brand-2), var(--brand)); }
+    .btn-secondary { color: var(--text); border-color: var(--line); background: rgba(255,255,255,0.04); }
+    .btn-danger { color: #ffe9ec; border-color: rgba(255, 126, 139, 0.35); background: rgba(255, 126, 139, 0.08); }
+    .btn:disabled { cursor: not-allowed; opacity: 0.45; transform: none; }
+
+    .blueprint-panel { padding: 24px; }
+    .blueprint-panel h2 { margin: 0 0 6px; font-size: 1.1rem; }
+    .blueprint-panel > p { margin: 0 0 18px; color: var(--muted); font-size: 0.9rem; }
+    .weight-list { display: grid; gap: 10px; }
+    .weight-row { display: grid; grid-template-columns: 1fr auto; gap: 7px; align-items: center; }
+    .weight-label { font-size: 0.82rem; font-weight: 750; }
+    .weight-value { color: var(--brand-2); font-size: 0.8rem; font-weight: 900; }
+    .weight-track { grid-column: 1 / -1; height: 6px; overflow: hidden; border-radius: 999px; background: #071426; }
+    .weight-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--brand), var(--brand-2)); }
+
+    .notice {
+      margin: 22px 0 0; padding: 15px 17px; border: 1px solid rgba(255, 211, 106, 0.25);
+      border-radius: 14px; color: #f8e9bd; background: rgba(255, 211, 106, 0.075); font-size: 0.9rem;
+    }
+
+    .dashboard { padding: 10px 0 56px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; margin-bottom: 18px; }
+    .stat-card { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: rgba(15, 33, 57, 0.9); }
+    .stat-label { color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+    .stat-value { margin-top: 4px; font-size: 1.55rem; font-weight: 900; }
+
+    .toolbar {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 16px; padding: 14px;
+      border: 1px solid var(--line); border-radius: 16px; background: rgba(15, 33, 57, 0.85);
+    }
+    .category-filters { display: flex; flex-wrap: wrap; gap: 8px; flex: 1 1 760px; }
+    .filter-btn {
+      min-height: 38px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px;
+      color: var(--muted); background: transparent; font-size: 0.8rem; font-weight: 800;
+    }
+    .filter-btn[aria-pressed="true"] { color: #06111f; border-color: transparent; background: var(--brand-2); }
+
+    .progress-block { margin-bottom: 16px; }
+    .progress-meta { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 8px; color: var(--muted); font-size: 0.86rem; font-weight: 750; }
+    .progress-track { width: 100%; height: 10px; overflow: hidden; border-radius: 999px; background: #06111f; border: 1px solid #19324f; }
+    .progress-fill { width: 0%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--brand), var(--success)); transition: width 0.25s ease; }
+
+    .study-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
+    .question-card {
+      min-height: 610px; padding: clamp(22px, 4vw, 38px); border: 1px solid var(--line); border-radius: var(--radius);
+      background: linear-gradient(160deg, rgba(20, 42, 70, 0.98), rgba(10, 28, 49, 0.98)); box-shadow: var(--shadow);
+    }
+    .question-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .category-badge, .selection-badge {
+      display: inline-flex; padding: 7px 11px; border-radius: 999px; font-size: 0.76rem; font-weight: 900; letter-spacing: 0.045em; text-transform: uppercase;
+    }
+    .category-badge { color: var(--brand-2); background: rgba(47, 156, 244, 0.11); }
+    .selection-badge { color: #faeac0; background: rgba(255,211,106,0.09); }
+    .bookmark-btn { width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 12px; color: var(--muted); background: rgba(255,255,255,0.03); font-size: 1.15rem; }
+    .bookmark-btn.active { color: var(--warning); border-color: rgba(255,211,106,0.42); background: rgba(255,211,106,0.08); }
+    .question-number { margin: 22px 0 8px; color: var(--muted); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+    .question-card h2 { margin: 0; font-size: clamp(1.3rem, 2.8vw, 1.95rem); line-height: 1.3; letter-spacing: -0.02em; }
+    .option-list { display: grid; gap: 11px; margin-top: 27px; }
+    .option-btn {
+      display: grid; grid-template-columns: 36px 1fr 24px; gap: 13px; align-items: center; width: 100%; min-height: 60px;
+      padding: 12px 15px; border: 1px solid var(--line); border-radius: 14px; color: var(--text);
+      background: rgba(4, 17, 32, 0.36); text-align: left; transition: border-color .15s ease, background .15s ease, transform .15s ease;
+    }
+    .option-btn:hover:not(:disabled) { border-color: var(--brand); background: rgba(47, 156, 244, 0.08); transform: translateY(-1px); }
+    .option-key { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; color: var(--brand-2); background: rgba(47,156,244,0.12); font-weight: 900; }
+    .option-check { color: transparent; font-weight: 900; text-align: center; }
+    .option-btn.selected { border-color: var(--brand-2); background: rgba(47,156,244,0.12); }
+    .option-btn.selected .option-check { color: var(--brand-2); }
+    .option-btn.correct { border-color: rgba(69,212,131,0.75); background: var(--success-bg); }
+    .option-btn.correct .option-key { color: #061b10; background: var(--success); }
+    .option-btn.correct .option-check { color: var(--success); }
+    .option-btn.incorrect { border-color: rgba(255,126,139,0.75); background: var(--danger-bg); }
+    .option-btn.incorrect .option-key { color: #2a060b; background: var(--danger); }
+    .option-btn.incorrect .option-check { color: var(--danger); }
+    .option-btn.dimmed { opacity: 0.56; }
+
+    .answer-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; }
+    .selection-count { color: var(--muted); font-size: 0.86rem; font-weight: 750; }
+
+    .feedback {
+      display: none; margin-top: 24px; padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: rgba(4, 17, 32, 0.46);
+    }
+    .feedback.visible { display: block; animation: rise .2s ease-out; }
+    @keyframes rise { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+    .feedback-status { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; font-weight: 900; }
+    .feedback-status.correct-text { color: var(--success); }
+    .feedback-status.incorrect-text { color: var(--danger); }
+    .feedback h3 { margin: 16px 0 7px; font-size: 0.86rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--brand-2); }
+    .feedback p { margin: 0; color: #d7e3f0; }
+    .tip-box { margin-top: 14px; padding: 13px 15px; border-left: 4px solid var(--warning); border-radius: 8px; color: #faeac0; background: rgba(255,211,106,0.07); }
+
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-row .btn { min-width: 120px; }
+    .side-panel { position: sticky; top: 16px; display: grid; gap: 14px; }
+    .side-card { padding: 19px; border: 1px solid var(--line); border-radius: 17px; background: rgba(15,33,57,0.92); }
+    .side-card h3 { margin: 0 0 8px; font-size: 1rem; }
+    .side-card p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+    .side-card .btn { width: 100%; margin-top: 10px; }
+    .shortcut-list { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; color: var(--muted); font-size: 0.84rem; }
+    kbd { display: inline-grid; place-items: center; min-width: 27px; padding: 2px 6px; border: 1px solid #426388; border-bottom-width: 2px; border-radius: 6px; color: white; background: #0a1b2f; font-size: 0.76rem; font-weight: 800; }
+
+    .resources { padding: 0 0 64px; }
+    .resources-card { padding: clamp(24px, 4vw, 38px); border: 1px solid var(--line); border-radius: var(--radius); background: rgba(15,33,57,0.9); }
+    .resources-card h2 { margin-top: 0; }
+    .resource-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+    .resource-link { display: block; padding: 15px; border: 1px solid var(--line); border-radius: 13px; text-decoration: none; background: rgba(4,17,32,0.32); }
+    .resource-link strong { display: block; color: white; }
+    .resource-link span { display: block; margin-top: 3px; color: var(--muted); font-size: 0.83rem; }
+    .footer-note { margin-top: 20px; color: var(--muted); font-size: 0.82rem; }
+    .empty-state { padding: 70px 20px; text-align: center; }
+    .empty-state h2 { margin-bottom: 8px; }
+    .empty-state p { color: var(--muted); }
+
+    @media (max-width: 900px) {
+      .hero-grid, .study-layout { grid-template-columns: 1fr; }
+      .side-panel { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 20px, 1180px); }
+      .hero { padding-top: 20px; }
+      .hero-copy { padding: 28px 22px; }
+      .hero-copy::after { display: none; }
+      .stats-grid, .side-panel, .resource-grid { grid-template-columns: 1fr; }
+      .question-card { min-height: auto; padding: 22px 17px; }
+      .nav-row, .answer-actions { flex-wrap: wrap; }
+      .nav-row .btn, .answer-actions .btn { flex: 1; }
+      .option-btn { grid-template-columns: 32px 1fr 20px; gap: 10px; padding: 11px 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#study">Skip to study question</a>
+
+  <header class="hero">
+    <div class="shell hero-grid">
+      <section class="hero-copy" aria-labelledby="page-title">
+        <div class="eyebrow">100 original, exam-aligned questions</div>
+        <h1 id="page-title">Salesforce Certified Data 360 Consultant Study Lab</h1>
+        <p>Practice the Spring ’26 exam domains through advanced consulting scenarios covering solution positioning, governance, data spaces, ingestion, Zero Copy, modeling, identity resolution, insights, AI grounding, segmentation, activation, and Flow. Select your answer to reveal the correct choice, a detailed explanation, and an exam-focused reasoning tip.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="startBtn">Start Studying</button>
+          <button class="btn btn-secondary" id="shuffleBtn">Shuffle Questions</button>
+        </div>
+        <div class="notice"><strong>Current-name note:</strong> Salesforce Certified Data 360 Consultant was previously named Salesforce Certified Data Cloud Consultant. This lab uses the current Data 360 terminology and Spring ’26 blueprint. <strong>Integrity:</strong> Every question is original and based on public Salesforce documentation—not exam dumps or restricted content. Single-answer cards reveal feedback immediately; multi-select cards require you to choose the requested number and submit.</div>
+      </section>
+
+      <aside class="blueprint-panel" aria-label="Official exam blueprint">
+        <h2>Official Exam Blueprint</h2>
+        <p>The bank contains 100 questions distributed exactly according to Salesforce's published domain weighting.</p>
+        <div class="weight-list">
+<div class="weight-row"><span class="weight-label">Solution Positioning</span><span class="weight-value">14%</span><div class="weight-track"><div class="weight-fill" style="width:70%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Data 360 Setup and Administration</span><span class="weight-value">13%</span><div class="weight-track"><div class="weight-fill" style="width:65%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Data Source Connection and Ingestion</span><span class="weight-value">18%</span><div class="weight-track"><div class="weight-fill" style="width:90%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Harmonization and Unification</span><span class="weight-value">17%</span><div class="weight-track"><div class="weight-fill" style="width:85%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Data Enhancements, Sharing, and Analysis</span><span class="weight-value">18%</span><div class="weight-track"><div class="weight-fill" style="width:90%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Data Activations and Utilization</span><span class="weight-value">20%</span><div class="weight-track"><div class="weight-fill" style="width:100%"></div></div></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="dashboard" id="study" aria-labelledby="study-heading">
+      <div class="shell">
+        <h2 id="study-heading" style="position:absolute;left:-9999px;">Interactive study questions</h2>
+
+        <div class="stats-grid" aria-label="Study statistics">
+          <div class="stat-card"><div class="stat-label">Answered</div><div class="stat-value" id="answeredStat">0 / 100</div></div>
+          <div class="stat-card"><div class="stat-label">Correct</div><div class="stat-value" id="correctStat">0</div></div>
+          <div class="stat-card"><div class="stat-label">Accuracy</div><div class="stat-value" id="accuracyStat">—</div></div>
+          <div class="stat-card"><div class="stat-label">Bookmarked</div><div class="stat-value" id="bookmarkStat">0</div></div>
+        </div>
+
+        <div class="toolbar" aria-label="Question filters">
+          <div class="category-filters" id="categoryFilters"></div>
+          <button class="btn btn-secondary" id="reviewWrongBtn">Review Wrong</button>
+          <button class="btn btn-secondary" id="reviewBookmarksBtn">Bookmarks</button>
+        </div>
+
+        <div class="progress-block" aria-label="Study progress">
+          <div class="progress-meta"><span id="progressLabel">0 of 100 answered</span><span id="modeLabel">All Questions</span></div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+
+        <div class="study-layout">
+          <article class="question-card" id="questionCard" aria-live="polite"></article>
+
+          <aside class="side-panel">
+            <div class="side-card">
+              <h3>How to reason</h3>
+              <p>Trace the full data lifecycle: business purpose, source and latency, DLO, transformation, DMO mapping, identity, insight, segment, activation, governance, and consumption. Choose the option that fixes the earliest root cause and remains secure and maintainable.</p>
+            </div>
+            <div class="side-card">
+              <h3>Exam habits</h3>
+              <p>Several answers may sound technically possible. Watch for grain, stable keys, relationship paths, consent freshness, false matches, destination identifiers, and end-to-end latency. “Real time” and “more data” are not automatically the best design.</p>
+            </div>
+            <div class="side-card">
+              <h3>Study controls</h3>
+              <button class="btn btn-secondary" id="unansweredBtn">Jump to Unanswered</button>
+              <button class="btn btn-danger" id="resetBtn">Reset Progress</button>
+            </div>
+            <div class="side-card">
+              <h3>Keyboard shortcuts</h3>
+              <ul class="shortcut-list">
+                <li><kbd>1</kbd>–<kbd>4</kbd> select options</li>
+                <li><kbd>Enter</kbd> submit multi-select</li>
+                <li><kbd>N</kbd> next question</li>
+                <li><kbd>P</kbd> previous question</li>
+                <li><kbd>B</kbd> bookmark question</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="resources" aria-labelledby="resources-heading">
+      <div class="shell resources-card">
+        <h2 id="resources-heading">Trusted Study Sources</h2>
+        <p style="color:var(--muted);max-width:900px;">This bank contains original questions synthesized from the current official Salesforce exam guide, Trailhead credential preparation, Salesforce Help, and Salesforce architecture and product documentation. It does not reproduce exam dumps, memorized questions, or restricted certification content.</p>
+        <div class="resource-grid">
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/credentials/data360consultant"><strong>Data 360 Consultant Credential</strong><span>Official credential page using the current certification name.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://help.salesforce.com/s/articleView?id=005298940&amp;language=en_US&amp;type=1"><strong>Official Data 360 Consultant Exam Guide</strong><span>Spring ’26 objectives, exam details, and current domain weighting.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/content/learn/trails/prepare-for-your-salesforce-data-360-consultant-exam"><strong>Official Certification Preparation Trail</strong><span>Salesforce-curated learning across setup, ingestion, unification, insights, and activation.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://help.salesforce.com/s/articleView?id=data.c360_a_data_cloud.htm&amp;language=en_US&amp;type=5"><strong>About Salesforce Data 360</strong><span>Official product concepts, capabilities, and terminology.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://developer.salesforce.com/docs/data/data-cloud-int/guide/c360-a-data-cloud-integrations.html"><strong>Data 360 Integration Guide</strong><span>Connectors, ingestion, APIs, Zero Copy, and outbound integration patterns.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://developer.salesforce.com/docs/data/data-cloud-dmo-mapping/guide/c360dm-model-data.html"><strong>Data 360 Data Modeling Guide</strong><span>DLOs, DMOs, standard mappings, relationships, and the Customer 360 Data Model.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://help.salesforce.com/s/articleView?id=data.c360_a_identity_resolution_unify_source_profiles.htm&amp;language=en_US&amp;type=5"><strong>Identity Resolution</strong><span>Official guidance for matching source profiles and creating unified profiles.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://help.salesforce.com/s/articleView?id=data.c360_a_segments.htm&amp;language=en_US&amp;type=5"><strong>Segmentation in Data 360</strong><span>Official segmentation concepts, building, publishing, and audience refinement.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://developer.salesforce.com/docs/data/data-cloud-query-guide/guide/query-guide-get-started.html"><strong>Data 360 Query Guide</strong><span>Query APIs, profile access, calculated insights, and data graph retrieval.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://architect.salesforce.com/docs/architect/fundamentals/guide/data-360-architecture.html"><strong>Data 360 Architecture</strong><span>Salesforce architecture guidance for batch, streaming, real-time, multi-org, AI, and governance patterns.</span></a>
+        </div>
+        <p class="footer-note"><strong>Study note:</strong> Data 360 consultant questions frequently test dependencies. The strongest answer usually connects the business purpose to the correct data grain, stable identifiers, governed modeling, identity quality, required latency, destination contract, and operational monitoring—not merely the newest feature.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const questions = [{"id":1,"category":"Solution Positioning","select":1,"question":"A retailer has customer data in Commerce, Service, loyalty, and a cloud warehouse. Executives ask whether Data 360 should replace every source system. What is the best consultant response?","options":["Yes. Data 360 should become the transaction system for every business process.","No. Data 360 connects, harmonizes, unifies, analyzes, and activates data while source systems can remain systems of record.","Yes. Data 360 is primarily a relational database replacement.","No. Data 360 can use only data created inside Salesforce CRM."],"answers":[1],"explanation":"Data 360 is an enterprise data platform that creates a usable, unified data layer across systems. It does not require replacing operational systems of record, and it is not limited to CRM-originated data.","tip":"Separate the system that records a transaction from the platform that harmonizes and activates data across systems."},{"id":2,"category":"Solution Positioning","select":1,"question":"A company wants to launch an AI service assistant, but customer identity and entitlement data are inconsistent across systems. What should the consultant position as the first Data 360 value?","options":["Train a public language model on confidential customer records.","Generate responses before improving the underlying data.","Move all service agents into one role hierarchy.","Create a governed, unified customer context that can ground AI responses and actions."],"answers":[3],"explanation":"Predictive and generative AI depend on relevant, trustworthy context. Data 360 can connect and unify customer and entitlement data so AI experiences are grounded in governed enterprise information rather than incomplete fragments.","tip":"When AI quality is the goal, look first at identity, context, permissions, and data quality—not only the model."},{"id":3,"category":"Solution Positioning","select":2,"question":"Which two use cases are strong initial candidates for Data 360? Select two.","options":["Replace source-system accounting controls with a text prompt.","Activate a high-intent audience based on recent behavior and purchase history.","Unify customer identities across CRM, commerce, and support to personalize service.","Use Data 360 as a spreadsheet formatting tool."],"answers":[1,2],"explanation":"Identity unification and cross-channel activation are core Data 360 use cases. Replacing financial transaction controls or formatting spreadsheets does not match the platform’s purpose.","tip":"A good first use case combines fragmented data, a valuable decision or action, measurable outcomes, and achievable governance."},{"id":4,"category":"Solution Positioning","select":1,"question":"A sponsor proposes “implement a 360-degree customer view” but cannot identify who will use it or what decision will improve. What should the consultant do first?","options":["Create identity rules before reviewing source data.","Define prioritized business use cases, users, decisions, success measures, and required data.","Purchase the maximum credit capacity immediately.","Configure every available connector."],"answers":[1],"explanation":"A broad platform vision must be translated into measurable use cases. The selected decisions and actions determine required data, latency, identity, insight, and activation design; configuring first risks expensive unused work.","tip":"Start with business outcome and action, then work backward to data and platform design."},{"id":5,"category":"Solution Positioning","select":1,"question":"A marketing team says every use case must be sub-second real time. Most campaigns are planned weekly, but abandoned-cart recovery must occur within minutes. What is the best recommendation?","options":["Match latency to each use case and reserve real-time capabilities for time-sensitive moments.","Reject all use cases that are not real time.","Use batch processing for abandoned-cart recovery even when the business requirement is immediate.","Use the fastest option for every workload regardless of value or cost."],"answers":[0],"explanation":"Latency should be driven by the business moment. Weekly planning can use batch refreshes, while abandoned-cart intervention may justify streaming ingestion, real-time profiles, or event-driven actions. Applying real time everywhere can increase complexity and consumption without added value.","tip":"“Real time” is not automatically better; ask how quickly the decision loses value."},{"id":6,"category":"Solution Positioning","select":1,"question":"A healthcare organization wants to ingest every available attribute because it may be useful later. What principle should guide the consultant?","options":["Collect all data indefinitely because storage is the only concern.","Use AI to infer protected attributes without governance review.","Make sensitive attributes available to all segment builders.","Apply purpose limitation, data minimization, consent, retention, and access requirements."],"answers":[3],"explanation":"Ethical data use requires collecting and using data for legitimate, defined purposes with appropriate consent, minimization, retention, protection, and accountability. “More data” can increase privacy and trust risk without increasing value.","tip":"For governance questions, choose the option that limits data to a justified purpose and preserves customer rights."},{"id":7,"category":"Solution Positioning","select":1,"question":"A CFO asks why Data 360 consumption should be included in solution design. What is the strongest answer?","options":["Credits are unrelated to architecture.","Only the number of Salesforce users affects Data 360 cost.","Ingestion, processing, segmentation, activation, and other services can consume capacity, so design and monitoring affect cost and scale.","Consumption cannot be observed after implementation."],"answers":[2],"explanation":"Data 360 services consume credits or entitlements based on the work performed. Architects should estimate volumes and frequencies, choose appropriate processing patterns, and monitor usage so a solution remains sustainable.","tip":"Treat consumption as a nonfunctional requirement alongside security, latency, reliability, and maintainability."},{"id":8,"category":"Solution Positioning","select":1,"question":"A manufacturer wants a unified profile only because a competitor announced one. Which discovery approach best supports responsible positioning?","options":["Promise that Data 360 eliminates all duplicates automatically.","Begin with a full enterprise rollout before validating a use case.","Identify business friction, affected users, data gaps, expected value, and measurable outcomes.","Copy the competitor’s architecture."],"answers":[2],"explanation":"Consultative positioning connects capabilities to customer problems and measurable value. Competitive pressure may create urgency, but it does not define the right data, identity, or activation design.","tip":"Avoid capability-first selling; show how the platform changes a specific decision or customer experience."},{"id":9,"category":"Solution Positioning","select":2,"question":"Which two statements correctly distinguish structured and unstructured data in Data 360 scenarios? Select two.","options":["Structured data commonly follows defined fields and records, such as orders or contacts.","Structured data never requires governance.","Unstructured data can include documents, transcripts, and knowledge content used for search or grounding.","Unstructured data cannot contribute to AI experiences."],"answers":[0,2],"explanation":"Orders and contacts are typical structured records with defined schemas. Documents and transcripts are unstructured content that can support retrieval and grounded AI. Both forms require governance and can contribute to intelligent experiences.","tip":"Identify the shape of the data, then choose the ingestion, modeling, search, and governance pattern that fits it."},{"id":10,"category":"Solution Positioning","select":1,"question":"A customer asks for a single customer view but has no stable identifiers across sources. What risk should the consultant explain?","options":["Identity resolution can always guarantee perfect matches without usable identifiers.","The only risk is dashboard color selection.","Poor identifiers and source quality can cause missed matches or false merges, so identity design and stewardship are critical.","Data 360 will delete every duplicate source record."],"answers":[2],"explanation":"Unification quality depends on available identifiers, normalization, matching criteria, and reconciliation rules. Weak data may under-match or over-match, so testing and stewardship are essential.","tip":"A “single view” is an outcome of data and identity design, not a switch that makes ambiguous records certain."},{"id":11,"category":"Solution Positioning","select":1,"question":"A company wants to use customer data for a new personalization purpose that was not included when consent was collected. What should the consultant recommend?","options":["Hide the new use case from customers.","Export the data to avoid platform policies.","Assume existing consent covers every future use.","Review legal and governance requirements, purpose compatibility, consent, and suppression before activation."],"answers":[3],"explanation":"A new purpose can require renewed consent, a compatible lawful basis, or updated governance controls. Data activation should respect consent, preferences, policy, and applicable regulation rather than bypass them.","tip":"Consent is not merely a field to ingest; it is a rule that must shape segmentation and activation behavior."},{"id":12,"category":"Solution Positioning","select":1,"question":"During an executive presentation, which statement best describes the Data 360 lifecycle?","options":["Connect and ingest data, harmonize and unify it, derive insights, then segment and activate it in business workflows.","Activate anonymous data before defining identity or governance.","Replace every source application, then begin discovery.","Create reports first, then decide whether data exists."],"answers":[0],"explanation":"The platform lifecycle moves from connecting data through preparation and modeling, into identity and insights, and finally to utilization and activation. Governance and monitoring apply throughout rather than only at the end.","tip":"Use the lifecycle to trace dependencies: an activation is only as reliable as its ingestion, modeling, identity, and governance foundation."},{"id":13,"category":"Solution Positioning","select":1,"question":"A brand wants to improve loyalty retention. Which proposed success measure is most useful for an initial Data 360 use case?","options":["Number of meetings held.","Number of objects created.","Total fields ingested regardless of use.","Reduction in at-risk member churn or increase in re-engagement compared with a baseline."],"answers":[3],"explanation":"A success measure should connect the platform implementation to a business outcome. Object and field counts are implementation activity metrics, not evidence that the customer experience or retention improved.","tip":"Define baseline, target population, intervention, and outcome before building the data pipeline."},{"id":14,"category":"Solution Positioning","select":1,"question":"A client requests a full-enterprise implementation as the first release, although source ownership and data quality are unknown. What is the most appropriate consultant recommendation?","options":["Use a phased roadmap with a valuable bounded use case, foundational governance, and learning checkpoints.","Avoid stakeholder involvement until production.","Commit to all sources and activations at once.","Define identity rules using guessed source schemas."],"answers":[0],"explanation":"A phased implementation reduces risk and creates evidence for later scale. A bounded use case allows the team to validate ownership, quality, identity, consumption, and adoption before expanding.","tip":"The best consultant answer usually balances near-term value with a foundation that can scale."},{"id":15,"category":"Data 360 Setup and Administration","select":1,"question":"A data engineer can open Salesforce Setup but cannot create or manage Data 360 data streams. What should an administrator verify first?","options":["The user has the appropriate Data 360 permission sets and required permissions.","The user owns every Account record.","The org-wide default for Opportunities is Public Read/Write.","The user has a Chatter profile photo."],"answers":[0],"explanation":"Access to Data 360 capabilities is controlled through licenses, permission sets, and feature-specific permissions. General Salesforce Setup access or CRM record ownership does not automatically grant Data 360 administration privileges.","tip":"Troubleshoot access from entitlement and permission to object or feature—not from unrelated CRM sharing settings."},{"id":16,"category":"Data 360 Setup and Administration","select":1,"question":"A global company must isolate regional data and let teams work only with their own approved objects and processes inside one Data 360 instance. Which capability should the consultant evaluate?","options":["Email folders","Lead queues","Opportunity teams","Data spaces"],"answers":[3],"explanation":"Data spaces partition Data 360 data and metadata for organizational, regional, brand, or regulatory boundaries. They help control which components and records are available within a workspace.","tip":"Use data spaces when the requirement is logical isolation within Data 360, not merely CRM record collaboration."},{"id":17,"category":"Data 360 Setup and Administration","select":1,"question":"A team selected the first data space when creating a query and cannot find the required DMO. What is the most likely corrective action?","options":["Recreate the DMO in every space.","Change the user’s locale.","Use the data space where the DMO and related components are available.","Make all CRM records public."],"answers":[2],"explanation":"Data 360 components are scoped to data spaces. If the workspace uses the wrong space, the expected DMO may not be visible even though it exists elsewhere.","tip":"When an object mysteriously disappears, check context and scope before rebuilding it."},{"id":18,"category":"Data 360 Setup and Administration","select":2,"question":"Which two practices support a governed development lifecycle for Data 360? Select two.","options":["Validate configuration in a Data 360 sandbox before production deployment.","Build every change directly in production.","Document changes only after an incident.","Package supported metadata in data kits or packages for consistent movement."],"answers":[0,3],"explanation":"Sandbox validation and supported packaging mechanisms reduce deployment risk and improve repeatability. Direct production configuration and missing documentation make rollback, testing, and governance harder.","tip":"Choose repeatable, testable movement of metadata rather than manual production recreation."},{"id":19,"category":"Data 360 Setup and Administration","select":1,"question":"A consulting team needs to distribute a reusable set of Data 360 components across customer environments. Which feature is most relevant?","options":["Data kits and packaging","Case escalation rules","Forecast types","Opportunity splits"],"answers":[0],"explanation":"Data kits and packaging support building and sharing reusable Data 360 functionality and metadata. The other options are unrelated CRM capabilities.","tip":"For reusable Data 360 solution assets, think packageable metadata rather than screenshots and manual steps."},{"id":20,"category":"Data 360 Setup and Administration","select":1,"question":"A company uses separate Salesforce orgs for service and sales but wants one Data 360 strategy without copying all data into each org. Which architecture should the consultant explore?","options":["Use public groups to transfer data.","Data 360 One with a home org and companion org connections.","Merge the orgs without discovery.","Duplicate every record nightly into every org."],"answers":[1],"explanation":"Data 360 One can extend Data 360 capabilities across Salesforce orgs through a home org and companion orgs, allowing data and enrichments to be used across the landscape without unnecessary duplication.","tip":"Multi-org requirements should trigger an architecture discussion about home, companion, access, and data movement—not immediate duplication."},{"id":21,"category":"Data 360 Setup and Administration","select":1,"question":"An administrator suspects a segment is consuming far more capacity than planned. Where should the team review current Data 360 service consumption?","options":["The Email Deliverability page only.","The Opportunity Kanban view.","The Recycle Bin.","The Data Services Consumption information in Digital Wallet."],"answers":[3],"explanation":"Digital Wallet provides visibility into relevant Data 360 consumption, including services such as segmentation and activation. Monitoring supports forecasting, anomaly detection, and design optimization.","tip":"Operational governance includes watching consumption trends, not only checking whether jobs succeeded."},{"id":22,"category":"Data 360 Setup and Administration","select":1,"question":"A governance lead wants sensitive fields classified and governed consistently. What should the consultant recommend?","options":["Rely only on field names to communicate sensitivity.","Remove data ownership from the project.","Allow every user to export all fields.","Use Data 360 governance capabilities such as tags, classifications, and policies tied to requirements."],"answers":[3],"explanation":"Tags, classifications, and policies help translate governance requirements into platform behavior and stewardship. Naming conventions alone do not enforce purpose, access, retention, or usage expectations.","tip":"Governance should be represented in metadata and controls, not only in a policy document."},{"id":23,"category":"Data 360 Setup and Administration","select":1,"question":"A source feed completed successfully, but a business user says a customer profile is missing expected attributes. Which tool is most useful for examining the individual profile and related source records?","options":["Forecasts","Schema Builder for Apex classes","Profile Explorer","Campaign Influence"],"answers":[2],"explanation":"Profile Explorer helps inspect unified profiles, source records, and related information for diagnostic purposes. It is more appropriate than unrelated CRM sales tools.","tip":"Choose the diagnostic view closest to the failing layer: stream, data object, identity output, profile, segment, or activation."},{"id":24,"category":"Data 360 Setup and Administration","select":1,"question":"An administrator needs to inspect records in a DLO or DMO to validate mapping results. Which tool is designed for this task?","options":["Forecast Manager","Web-to-Lead","Data Explorer","Path"],"answers":[2],"explanation":"Data Explorer allows practitioners to inspect and query data objects in Data 360. It is useful for validating ingested values and mapped model data before troubleshooting downstream identity or segmentation.","tip":"Validate data at each layer rather than diagnosing everything from the final activation."},{"id":25,"category":"Data 360 Setup and Administration","select":2,"question":"Which two items should be confirmed before moving a Data 360 solution between environments? Select two.","options":["That no testing is required because metadata is portable.","Environment-specific connections, credentials, permissions, and post-deployment validation.","That production users can edit the package during deployment.","Dependencies and supported metadata included in the package or data kit."],"answers":[1,3],"explanation":"Portable metadata still has dependencies and environment-specific setup. Teams must validate connections, permissions, sequencing, and results after deployment; packaging does not eliminate testing.","tip":"Deployment success means the configured business flow works in the target environment, not merely that metadata installed."},{"id":26,"category":"Data 360 Setup and Administration","select":1,"question":"A customer has strict data-residency requirements for a new region. What should the consultant include in the architecture assessment?","options":["The appropriate Hyperforce region, residency obligations, migration implications, and connection testing.","Removing encryption requirements.","A promise that all regions are identical without validation.","Only the user interface language."],"answers":[0],"explanation":"Regional deployment can affect residency, latency, compliance, availability, and migration planning. Connections and downstream processes should be tested after any regional move or deployment.","tip":"Data location is an architecture and compliance decision, not a cosmetic org setting."},{"id":27,"category":"Data 360 Setup and Administration","select":1,"question":"A nightly process starts failing after a schema change in the source. What is the best first troubleshooting sequence?","options":["Review job status and errors, inspect the changed schema and mappings, validate affected data, then retest downstream dependencies.","Delete all unified profiles immediately.","Change identity matching rules without inspecting ingestion.","Ignore the failure until the next release."],"answers":[0],"explanation":"The team should diagnose the failing layer and confirm what changed before modifying downstream logic. Job errors, schemas, mappings, and sample data provide evidence for a targeted fix.","tip":"Troubleshoot from upstream to downstream: connection, ingestion, transformation, mapping, identity, insight, segment, activation."},{"id":28,"category":"Data Source Connection and Ingestion","select":1,"question":"A source system sends customer records to Data 360 through a configured connector. Which object represents the raw ingested table before the data is mapped into the Customer 360 model?","options":["Unified Individual","Calculated Insight","Data Lake Object (DLO)","Activation Target"],"answers":[2],"explanation":"A data stream ingests source data into a Data Lake Object, which preserves the source-shaped data. The DLO is then mapped to one or more Data Model Objects for harmonized use.","tip":"Remember the flow: source and data stream → DLO → DMO → identity, insights, segments, and activation."},{"id":29,"category":"Data Source Connection and Ingestion","select":1,"question":"A consultant must connect a supported cloud storage platform using native credentials and ingest files on a schedule. What should be configured first?","options":["An opportunity record type.","An identity resolution ruleset before any data exists.","A connection for the provider, followed by a data stream based on that connection.","A segment activation target."],"answers":[2],"explanation":"The connection establishes authenticated access to the source. A data stream then defines what data is ingested and how it enters Data 360. Identity and activation depend on the data being available first.","tip":"Do not skip lifecycle dependencies: connect and ingest before unifying or activating."},{"id":30,"category":"Data Source Connection and Ingestion","select":1,"question":"A loyalty balance changes infrequently and is used in a monthly planning segment. Which ingestion pattern is usually most appropriate?","options":["A scheduled batch ingestion aligned to the required freshness.","Manual screenshots of the source system.","Sub-second streaming for every record regardless of value.","No ingestion because the source is external."],"answers":[0],"explanation":"A batch pattern can satisfy low-frequency freshness requirements with less complexity and consumption than real-time ingestion. The pattern should match the use case rather than defaulting to the fastest technology.","tip":"Ask how stale the data can be before the business action becomes wrong or too late."},{"id":31,"category":"Data Source Connection and Ingestion","select":1,"question":"An ecommerce team needs to react to cart abandonment within minutes. Events are created continuously at high volume. Which design is most aligned to the requirement?","options":["Streaming or real-time ingestion for the relevant events, with downstream real-time processing where required.","An annual full refresh.","A monthly CSV upload.","A manually maintained Account checkbox."],"answers":[0],"explanation":"Time-sensitive behavioral events call for streaming or real-time ingestion and an architecture that preserves the required latency through identity, insight, segment, or data-action steps.","tip":"A real-time source alone does not guarantee a real-time outcome; inspect latency across the full pipeline."},{"id":32,"category":"Data Source Connection and Ingestion","select":2,"question":"Which two factors should determine whether to use batch or streaming ingestion? Select two.","options":["The consultant’s favorite connector.","Whether the dashboard uses a dark theme.","Source capabilities, reliability, cost, and downstream processing needs.","Required business latency and event volume."],"answers":[2,3],"explanation":"Latency, volume, source support, reliability, consumption, and downstream requirements all affect ingestion design. Personal preference and visual styling do not.","tip":"Choose an ingestion pattern from service-level needs and constraints, not from novelty."},{"id":33,"category":"Data Source Connection and Ingestion","select":1,"question":"Two source systems both use customer ID 1001, but the IDs refer to different people. What should the consultant use to prevent key collisions?","options":["A random opportunity number.","One default value for every record.","Fully qualified keys that include source context.","A shared unqualified numeric key."],"answers":[2],"explanation":"A fully qualified key combines the source or key qualifier with the source identifier so identical local IDs from different systems remain distinct. This protects relationships and identity logic from accidental collisions.","tip":"A key is only unique inside the boundary that defines it; preserve that boundary when data is combined."},{"id":34,"category":"Data Source Connection and Ingestion","select":1,"question":"A source adds a new required field and changes a timestamp from ISO format to free text. What should the team do before resuming production ingestion?","options":["Modify segment logic only.","Delete the source connection permanently.","Assume Data 360 will infer every change without risk.","Assess schema drift, update the data stream or transformations and mappings, test sample records, and validate downstream impact."],"answers":[3],"explanation":"Schema changes can break parsing, mapping, transformations, identity, and insights. The team should deliberately update and test the affected pipeline rather than allowing silent quality degradation.","tip":"Treat source contracts as governed interfaces; schema drift is a change that requires impact analysis."},{"id":35,"category":"Data Source Connection and Ingestion","select":1,"question":"A warehouse team does not want customer tables copied into Data 360 but wants them available for supported Data 360 use cases. Which capability should the consultant evaluate?","options":["Opportunity cloning.","A nightly export to email attachments.","Zero Copy data federation or sharing.","Lead assignment rules."],"answers":[2],"explanation":"Zero Copy capabilities can make external warehouse data available without traditional replication, subject to supported platforms, objects, permissions, and use-case limitations. This can reduce movement while preserving access to governed data.","tip":"Zero copy changes where data is stored and queried; it does not remove the need for modeling, permissions, performance planning, or governance."},{"id":36,"category":"Data Source Connection and Ingestion","select":2,"question":"Which two considerations are important when choosing Zero Copy instead of copied ingestion? Select two.","options":["Performance, data freshness, governance, availability, and cost across both platforms.","Whether the source table has a colorful name.","Supported provider, object, query, and feature capabilities for the intended use case.","The assumption that zero copy supports every feature identically."],"answers":[0,2],"explanation":"Zero Copy designs must be validated against supported capabilities and nonfunctional requirements. Federation does not guarantee identical behavior to locally stored data, and both systems remain part of the operational architecture.","tip":"Evaluate zero copy as an architecture tradeoff, not as a universal replacement for ingestion."},{"id":37,"category":"Data Source Connection and Ingestion","select":1,"question":"An ingested file contains first and last name in one field, inconsistent casing, and whitespace. The values must be standardized before mapping. Which capability is most appropriate for simple row-level preparation?","options":["An activation target.","A forecast adjustment.","A transformation that cleans and derives fields before or during harmonization.","An opportunity split."],"answers":[2],"explanation":"Data transformations can normalize, derive, and prepare source values so they map consistently into the model. Activation and sales features do not perform ingestion cleansing.","tip":"Clean data as early as practical, but preserve raw source values when auditability or reprocessing is important."},{"id":38,"category":"Data Source Connection and Ingestion","select":1,"question":"A transformation must join several large datasets, aggregate transactions by customer, and run on a schedule. Which option best fits?","options":["A validation rule on Opportunity.","A manual profile edit.","A batch data transform designed for complex scheduled processing.","A page layout formula."],"answers":[2],"explanation":"Batch data transforms support scheduled, complex preparation across larger datasets, including joins and aggregations. Row-level display logic or CRM validation cannot replace data-pipeline processing.","tip":"Match transformation technology to complexity, data volume, latency, and reuse requirements."},{"id":39,"category":"Data Source Connection and Ingestion","select":1,"question":"A company needs to standardize incoming event values as they arrive so a near-real-time downstream action sees the normalized data. Which capability should be considered?","options":["A report subscription.","A campaign hierarchy.","A yearly batch transform only.","Streaming data transforms."],"answers":[3],"explanation":"Streaming transforms prepare data in motion and are suited to low-latency event pipelines. A yearly batch or reporting tool would not meet the freshness requirement.","tip":"If the action is real time, every upstream preparation step must preserve that latency."},{"id":40,"category":"Data Source Connection and Ingestion","select":1,"question":"A team creates a data stream but later discovers that the selected primary key is not stable and can change when a customer updates an email address. What is the main risk?","options":["Users will lose Chatter access.","Forecast categories will disappear.","The org logo may change.","Records and relationships may be duplicated, overwritten, or misidentified across refreshes."],"answers":[3],"explanation":"A source key should be stable and uniquely identify the source record. A mutable email address is often a poor primary key because changes can create new records or break relationships.","tip":"Do not confuse a matching attribute with a durable source-system record key."},{"id":41,"category":"Data Source Connection and Ingestion","select":1,"question":"A source sends only changed records after the initial load. What should the consultant verify to make incremental ingestion reliable?","options":["That identity rules ignore source keys.","That every record is resent as a full file regardless of design.","The source’s change tracking or watermark behavior, stable keys, delete handling, and refresh semantics.","Only the number of page layouts."],"answers":[2],"explanation":"Incremental ingestion depends on accurately identifying inserts, updates, and sometimes deletes. Stable keys, timestamps or change tokens, and clear source semantics are necessary to avoid gaps or duplicates.","tip":"Ask how the pipeline knows what changed—and how it knows a record was removed."},{"id":42,"category":"Data Source Connection and Ingestion","select":2,"question":"A data stream shows completed status, but a DMO contains unexpected nulls. Which two checks are most useful? Select two.","options":["Change the final activation schedule first.","Review field mappings, data types, transformations, and relationship keys.","Inspect source values and the DLO to confirm ingestion.","Rebuild all segments before examining the data."],"answers":[1,2],"explanation":"The DLO shows whether the source values arrived; mappings and transformations explain how they became DMO fields. Downstream activation and segments cannot correct an upstream null without fixing the data path.","tip":"Use layer-by-layer evidence to locate the first point where the value becomes wrong."},{"id":43,"category":"Data Source Connection and Ingestion","select":1,"question":"A company must ingest customer records through a custom application that can call APIs but has no native connector. What should the consultant evaluate?","options":["A dashboard filter as the transport mechanism.","Manual entry by sales representatives.","Supported ingestion APIs and an authenticated integration design.","Opportunity contact roles."],"answers":[2],"explanation":"Data 360 provides ingestion API patterns for custom and real-time integrations. The design must include authentication, schema, keys, error handling, retries, monitoring, and volume considerations.","tip":"A connector is only one ingestion mechanism; custom APIs still require an explicit operational contract."},{"id":44,"category":"Data Source Connection and Ingestion","select":1,"question":"An event pipeline occasionally sends the same event more than once. What should the integration design address?","options":["A different dashboard color.","Idempotency or deduplication using stable event identifiers and appropriate processing rules.","Removal of all source timestamps.","Creation of duplicate DMOs."],"answers":[1],"explanation":"Distributed event systems can redeliver messages. Stable event IDs and idempotent processing help prevent duplicated transactions, insights, or actions.","tip":"Assume retries can happen; design so replaying the same event does not create a new business outcome."},{"id":45,"category":"Data Source Connection and Ingestion","select":1,"question":"A source contains both profile attributes and billions of behavioral events. What is the best modeling and ingestion approach?","options":["Use one mutable email address as the key for every event.","Discard event timestamps.","Treat profiles and events according to their distinct grain, keys, relationships, volume, and latency requirements.","Flatten every event into one field on the Individual record."],"answers":[2],"explanation":"Profile and engagement data represent different entities and grains. Preserving event-level records with proper relationships supports aggregation, segmentation, and temporal analysis without bloating the profile object.","tip":"Always identify the grain: what does one row represent, and how does it relate to the customer?"},{"id":46,"category":"Harmonization and Unification","select":1,"question":"A DLO contains source-specific customer fields. What must happen before those fields can participate consistently in identity resolution and segmentation across sources?","options":["Map them to appropriate Data Model Objects and relationships.","Activate the DLO directly to every destination.","Convert the DLO into an Opportunity.","Delete the source key."],"answers":[0],"explanation":"Mapping source-shaped DLO fields into the harmonized Customer 360 data model gives them shared meaning and relationships. Identity resolution and cross-source use depend on that semantic layer.","tip":"Ingestion makes data available; mapping makes data comparable and usable across sources."},{"id":47,"category":"Harmonization and Unification","select":1,"question":"A custom vehicle policy object has been mapped successfully, but marketers cannot use it when building an Individual-based segment. What is the most likely issue?","options":["Every custom DMO must be converted into a lead.","The policy object needs an Opportunity Stage.","The custom DMO is not related through the data model to Individual or the segment’s starting object.","The marketer needs to change the org currency."],"answers":[2],"explanation":"Segment Builder relies on modeled relationships from the selected starting object. A custom DMO can exist and contain data but remain unavailable if no valid relationship path connects it to Individual.","tip":"A table being present is not enough; downstream tools need a modeled relationship path."},{"id":48,"category":"Harmonization and Unification","select":1,"question":"Which statement best describes a Data Model Object (DMO)?","options":["A destination used only for advertising.","A harmonized semantic object used to represent business entities and relationships in Data 360.","A raw file that has not been ingested.","The connector credentials for a source."],"answers":[1],"explanation":"DMOs provide a common business model for data from different sources. They are distinct from source connections, activation targets, and raw files.","tip":"DLOs preserve source shape; DMOs express shared business meaning."},{"id":49,"category":"Harmonization and Unification","select":1,"question":"A company has CRM contacts, loyalty members, and ecommerce profiles for the same people. What is the purpose of identity resolution?","options":["Guarantee that every similar name is the same person.","Match source records that represent the same person and create unified profile outputs according to rules.","Replace all source identifiers with one random number.","Delete the original source records from their systems."],"answers":[1],"explanation":"Identity resolution evaluates source records using configured matching and reconciliation rules and creates unified entities while retaining lineage to source records. It does not alter external systems or guarantee certainty when data is ambiguous.","tip":"Identity resolution links and reconciles; it does not erase source truth."},{"id":50,"category":"Harmonization and Unification","select":1,"question":"A ruleset matches records only when normalized email is exactly equal. What type of matching is this?","options":["Territory matching.","Random matching.","Forecast matching.","Deterministic matching."],"answers":[3],"explanation":"An exact equality rule on a normalized identifier is deterministic. Probabilistic or fuzzy approaches tolerate variation and use broader evidence, subject to supported capabilities and risk.","tip":"Exact identifiers increase precision, but normalization and source quality still matter."},{"id":51,"category":"Harmonization and Unification","select":1,"question":"A customer wants to match “Katherine Smith” with “Kathy Smith” when address and phone also align. What should the consultant consider?","options":["Removing address and phone from the model.","Merging every record with the same last name.","A carefully tested fuzzy or approximate matching strategy using multiple attributes.","An exact email rule only, even when email is missing."],"answers":[2],"explanation":"Name variation may require fuzzy matching supported by additional evidence such as phone or address. The rule should be evaluated for false positives and false negatives rather than merging on a weak attribute alone.","tip":"The weaker one attribute is, the more corroborating evidence you need."},{"id":52,"category":"Harmonization and Unification","select":2,"question":"Which two outcomes can result from poorly tuned identity rules? Select two.","options":["False negatives that leave the same person split across profiles.","Guaranteed elimination of all data quality issues.","Automatic improvement of every source record.","False positives that merge different people."],"answers":[0,3],"explanation":"Overly broad rules can over-match, while overly strict rules can under-match. Identity tuning balances precision and recall using representative test data and business risk.","tip":"Always test both kinds of error: who was merged incorrectly, and who should have merged but did not?"},{"id":53,"category":"Harmonization and Unification","select":1,"question":"Two matched source records disagree on the customer’s preferred language. What controls which value appears on the unified profile?","options":["Opportunity probability.","Reconciliation rules such as source priority, recency, or other supported selection logic.","The dashboard running user.","The order in which users open the records."],"answers":[1],"explanation":"Matching determines which records belong together; reconciliation determines which attribute values represent the unified profile. Source reliability, recency, and business rules should guide that decision.","tip":"Do not confuse “are these the same entity?” with “which value should win?”"},{"id":54,"category":"Harmonization and Unification","select":1,"question":"A billing system is authoritative for legal name, while a loyalty system is authoritative for communication preference. What is the best reconciliation strategy?","options":["Remove source lineage.","Use the oldest value for all attributes.","Define field-level reconciliation based on the trusted source for each attribute.","Choose one source as authoritative for every field regardless of quality."],"answers":[2],"explanation":"Authority often varies by attribute. Field-level reconciliation can preserve the best value for each purpose while maintaining source lineage and auditability.","tip":"“Golden record” does not mean one source wins every field."},{"id":55,"category":"Harmonization and Unification","select":1,"question":"A source record changes after an identity ruleset has run. What must happen for unified outputs to reflect the change?","options":["The relevant data and identity processes must refresh or rerun according to their configured schedule or trigger.","A sales representative must convert a lead.","The source record must be deleted.","Nothing; unified profiles never change."],"answers":[0],"explanation":"Unified outputs depend on current source data and identity processing. Freshness is governed by ingestion, transformation, and identity schedules or real-time capabilities.","tip":"Trace freshness through every dependency; a current source does not imply a current unified profile."},{"id":56,"category":"Harmonization and Unification","select":1,"question":"An identity ruleset produces far fewer unified profiles than expected, and unrelated households appear merged. What should the consultant investigate first?","options":["Whether every user has a sales quota.","Whether the activation target is paused.","Overly broad matching criteria, normalization, blocking logic, and weak shared identifiers.","Whether the page layout has enough sections."],"answers":[2],"explanation":"Too few unified profiles can indicate overmatching. The team should inspect which source records clustered together and test the matching attributes and thresholds against known examples.","tip":"When counts shift dramatically, inspect record clusters—not only the aggregate count."},{"id":57,"category":"Harmonization and Unification","select":1,"question":"A company wants household-level personalization as well as person-level personalization. What should the data model include?","options":["Only opportunity products.","One Unified Individual for the entire household.","A single text field containing every household member.","Separate modeled entities and relationships for individuals, households, and their memberships."],"answers":[3],"explanation":"A household and a person are different entities with a many-member relationship. Modeling them separately preserves person identity while enabling household analysis and activation.","tip":"Do not merge entities merely because the business wants to analyze them together."},{"id":58,"category":"Harmonization and Unification","select":1,"question":"A consultant maps a transaction amount to a text field in a custom DMO. Later, the team cannot aggregate it reliably. What was the design error?","options":["The selected data type did not reflect the business meaning and intended calculations.","The source needed a campaign hierarchy.","Transactions cannot be modeled in Data 360.","The field should have been a profile photo."],"answers":[0],"explanation":"Data types affect validation, transformation, aggregation, and downstream usability. Numeric business measures should use appropriate numeric types and precision.","tip":"Model for meaning and downstream operations, not merely for successful ingestion."},{"id":59,"category":"Harmonization and Unification","select":2,"question":"Which two design practices improve data model maintainability? Select two.","options":["Reuse appropriate standard Customer 360 DMOs when they fit the business meaning.","Ignore relationship cardinality.","Create a new custom object for every source field.","Create custom DMOs only when requirements are not represented adequately by the standard model."],"answers":[0,3],"explanation":"Standard DMOs improve semantic consistency and compatibility with platform features. Custom modeling is appropriate for genuine business concepts not covered by the standard model, but unnecessary customization increases complexity.","tip":"Prefer the common model where it fits; extend deliberately where it does not."},{"id":60,"category":"Harmonization and Unification","select":1,"question":"A customer has multiple email addresses and phone numbers per person. What modeling approach is most appropriate?","options":["Keep only the first value and discard the rest.","Use related contact point entities rather than flattening all values into the Individual record.","Create one Individual for each phone number.","Store all values in an unsearchable note."],"answers":[1],"explanation":"Contact points are separate, repeatable entities related to an individual. This model preserves multiple values, usage types, quality, consent, and source lineage.","tip":"When an attribute can occur many times, model it as a related entity rather than numbered columns."},{"id":61,"category":"Harmonization and Unification","select":1,"question":"Anonymous website activity should later connect to a known customer after login. What design is required?","options":["Create an opportunity for every page view.","Use the same random identifier for all visitors.","Delete anonymous events when login occurs.","Preserve identifiers and relationships that allow anonymous and known profiles or events to be linked under governed identity rules."],"answers":[3],"explanation":"The architecture must retain anonymous identifiers, known identifiers, event relationships, and identity transitions so behavior can be associated when sufficient evidence becomes available.","tip":"Anonymous-to-known is an identity journey; plan the identifiers before the moment of recognition."},{"id":62,"category":"Harmonization and Unification","select":1,"question":"A team changes identity matching logic in production without comparing before-and-after clusters. What is the main governance risk?","options":["The org theme may reset.","All source systems will automatically shut down.","Unnoticed false merges or splits can alter profiles, segments, insights, and downstream actions.","Forecast categories will become unavailable."],"answers":[2],"explanation":"Identity changes can have wide downstream impact. Teams should test representative records, compare metrics and clusters, document approvals, and monitor activations after deployment.","tip":"Treat identity rules like production business logic with regression testing and change control."},{"id":63,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"A retailer wants each unified customer profile to show lifetime revenue based on all related orders. Which capability is most appropriate?","options":["A lead assignment rule.","A calculated insight that aggregates order values by customer.","An opportunity split.","A page layout section."],"answers":[1],"explanation":"Calculated insights derive reusable measures and dimensions from Data 360 data, including aggregations such as lifetime revenue. Sales assignment and page configuration do not calculate cross-source metrics.","tip":"When the requirement is a reusable metric over related records, think calculated insight."},{"id":64,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"A service team needs to know whether a customer placed three failed orders in the last ten minutes. The response must update immediately. Which capability should the consultant evaluate?","options":["A real-time or streaming insight over the incoming events.","A manual Account note.","A monthly calculated insight only.","A static report exported weekly."],"answers":[0],"explanation":"A time-sensitive rolling event pattern requires real-time processing rather than a scheduled batch aggregation. The exact feature choice depends on supported real-time insight and data graph capabilities.","tip":"Choose insight latency from the decision window, not from the convenience of a nightly schedule."},{"id":65,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"A calculated insight returns inflated purchase totals. Investigation shows the query joins customers to orders and order items without controlling grain. What is the likely cause?","options":["A many-to-many or one-to-many join multiplied rows before aggregation.","The source connection uses OAuth.","The identity ruleset is paused.","The user has too few dashboards."],"answers":[0],"explanation":"Joining multiple one-to-many relationships can duplicate the same order amount across item rows. The calculation should aggregate at the correct grain or restructure the joins to prevent double counting.","tip":"Before trusting a metric, state the grain of every input and the grain of the output."},{"id":66,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"A sales representative needs Data 360 lifetime value and churn risk visible on the Salesforce Account record. What should the consultant consider?","options":["Data 360 enrichments that write or surface selected insights in the CRM experience.","Changing the Account owner.","A separate spreadsheet sent monthly.","A campaign member status."],"answers":[0],"explanation":"Data 360 enrichments can bring unified attributes and insights into Salesforce CRM so users can act in their existing workflow. The design should respect security, refresh, and storage implications.","tip":"Put the insight where the decision occurs; do not force users to leave the workflow unnecessarily."},{"id":67,"category":"Data Enhancements, Sharing, and Analysis","select":2,"question":"Which two questions should be answered before enriching CRM records with Data 360 values? Select two.","options":["What freshness, security, failure handling, and overwrite behavior are required?","How can all field-level security be bypassed?","Which record and field should receive or display the value, and how will it be matched?","Which user has the most followers?"],"answers":[0,2],"explanation":"Enrichment requires a reliable relationship to the target record and explicit decisions about refresh, access, write behavior, ownership, and recovery. Bypassing security is not acceptable.","tip":"Enrichment is an integration contract, not merely a field mapping."},{"id":68,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"Executives want dashboards based on unified profiles, segment membership, and calculated insights. Which capability supports this within the Data 360 analytics experience?","options":["Email-to-Case.","Territory forecasts.","Lead conversion.","Data 360 reports and dashboards over supported data objects and measures."],"answers":[3],"explanation":"Data 360 reporting can expose unified data and insights for analysis. The team should design reportable objects, access, filters, freshness, and metric definitions before building dashboards.","tip":"A dashboard is only trustworthy when the underlying metric definition, grain, and refresh are clear."},{"id":69,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"Two analysts report different customer counts because one counts source Individuals and the other counts Unified Individuals. What should the consultant do?","options":["Hide both dashboards.","Change the source primary keys.","Average the two numbers.","Define the business metric and document which object, identity state, filters, and time frame it uses."],"answers":[3],"explanation":"Source records and unified entities answer different questions. A governed semantic definition should specify whether the metric represents source profiles, known people, unified people, households, or another grain.","tip":"Disagreements often come from different grains, not bad arithmetic."},{"id":70,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"A data science team has an approved external model and wants predictions available in Data 360. What should the consultant evaluate?","options":["Copying predictions into free-text notes with no lineage.","Using opportunity stages as model weights.","Turning off model evaluation.","Supported model integration or Model Builder options, inputs, outputs, governance, and monitoring."],"answers":[3],"explanation":"Data 360 can support predictive model use through supported AI tooling and integrations. The solution must govern input data, output meaning, refresh, performance, bias, lineage, and action thresholds.","tip":"A prediction is a governed data product; define how it is produced, interpreted, monitored, and used."},{"id":71,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"A churn model produces a score from 0 to 1, but service agents do not know what action to take. What is missing from the solution?","options":["More decimal places only.","A business interpretation, thresholds, reason factors where available, and an action playbook.","A new source system.","A duplicate identity ruleset."],"answers":[1],"explanation":"A model score creates value only when users understand its meaning and can take an appropriate action. Thresholds, explanations, and playbooks turn prediction into a managed decision.","tip":"Do not stop at prediction; design the decision and feedback loop."},{"id":72,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"A generative AI assistant should answer questions from approved policy documents and current customer context. Which design is strongest?","options":["Ask the model to rely on memory without enterprise data.","Ground generation with authorized unstructured content and relevant structured Data 360 context, while preserving citations and access controls.","Make every confidential document public.","Remove source references to make answers shorter."],"answers":[1],"explanation":"Grounding combines trusted enterprise content and customer context so responses are more relevant and verifiable. Retrieval and generation must enforce access and provide traceability rather than expose restricted material.","tip":"For grounded AI, evaluate relevance, recency, permission, source traceability, and fallback behavior."},{"id":73,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"A knowledge article was updated, but an AI answer still uses the previous version. What should the consultant investigate?","options":["Opportunity stage probabilities.","Ingestion or indexing freshness, retrieval filters, versioning, caching, and grounding source selection.","Lead queues.","Forecast adjustments."],"answers":[1],"explanation":"Stale generated answers often originate in the retrieval pipeline rather than the language model itself. The team should trace content ingestion, indexing, search, filters, and cache behavior.","tip":"Troubleshoot RAG as a pipeline: source → ingestion → indexing → retrieval → prompt → response."},{"id":74,"category":"Data Enhancements, Sharing, and Analysis","select":2,"question":"Which two practices improve trust in an AI solution using Data 360? Select two.","options":["Hide that content was generated.","Use every available attribute regardless of purpose.","Evaluate quality, bias, privacy, security, and outcomes on representative scenarios.","Keep human review or deterministic controls for high-impact actions."],"answers":[2,3],"explanation":"Responsible AI requires representative evaluation, privacy and security, transparency, monitoring, and appropriate human or deterministic control. Indiscriminate data use and concealment undermine trust.","tip":"The higher the impact and irreversibility, the stronger the validation and oversight should be."},{"id":75,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"A unified profile dashboard must be shared with another Salesforce org without copying every underlying source table. What should the consultant evaluate?","options":["A lead autoresponse rule.","Supported Data 360 One, sharing, enrichment, or cross-org access patterns for the required data product.","A public spreadsheet link.","Changing every record owner."],"answers":[1],"explanation":"Data 360 supports multi-org and sharing patterns that can expose governed data or enrichments where needed. The architecture should minimize duplication while preserving access, lineage, performance, and residency requirements.","tip":"Share the smallest useful governed data product rather than replicating everything by default."},{"id":76,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"A team builds a data graph to support low-latency access to customer context. What is the primary design benefit?","options":["Predefine and optimize connected data needed for repeated queries and real-time experiences.","Remove the need for relationships.","Replace all source systems.","Guarantee that every query is free."],"answers":[0],"explanation":"Data graphs organize related modeled data for efficient retrieval in supported real-time and activation scenarios. They depend on correct data modeling and do not eliminate source, cost, or governance considerations.","tip":"Use a data graph for a purposeful connected view, not as a substitute for modeling discipline."},{"id":77,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"A data graph omits recent orders even though the order DMO is current. What should the consultant check?","options":["The user’s email signature.","Opportunity contact roles.","Graph configuration, included relationships and fields, refresh or publish state, keys, and query context.","The Account page layout only."],"answers":[2],"explanation":"The graph may not include the relationship path, field, or current published definition needed to retrieve the orders. The team should verify graph scope and keys before blaming the source data.","tip":"A current object does not guarantee every derived data product is current or correctly configured."},{"id":78,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"A predictive model has high overall accuracy but misses most high-value customers who actually churn. What should the consultant conclude?","options":["High-value customers should be removed from evaluation.","The model is automatically acceptable.","The score should be hidden from governance.","Overall accuracy is insufficient; evaluate class-specific metrics, business cost, segment performance, and decision thresholds."],"answers":[3],"explanation":"Aggregate accuracy can conceal poor recall or precision for the population that matters most. Model evaluation should reflect business impact, imbalance, fairness, and threshold tradeoffs.","tip":"Choose evaluation metrics from the cost of errors, not from the easiest headline number."},{"id":79,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"An analyst wants to compare campaign response among unified customer segments over time. What data design is required?","options":["A text note on each campaign.","A different identity ruleset for every report run.","Only the current segment count with no history.","Consistent segment and response definitions, temporal fields, join paths, and a governed reporting grain."],"answers":[3],"explanation":"Trend analysis requires consistent definitions and time-aware data. Current-state membership alone cannot answer historical response unless snapshots or event history preserve the necessary context.","tip":"Ask whether the metric is current state or historical state; the data model must support the distinction."},{"id":80,"category":"Data Enhancements, Sharing, and Analysis","select":1,"question":"A customer wants generated product recommendations to use sensitive health attributes because they improve conversion. What should the consultant do?","options":["Use the attributes secretly because conversion is higher.","Assume model output removes privacy obligations.","Require legal, ethical, consent, purpose, bias, and harm review before using those attributes, and choose safer alternatives when appropriate.","Make the attributes visible to every user."],"answers":[2],"explanation":"Sensitive attributes can create significant privacy, discrimination, and trust risks. A consultant must apply governance and ethical principles, not optimize conversion without considering rights and harm.","tip":"A technically predictive feature is not automatically an acceptable feature."},{"id":81,"category":"Data Activations and Utilization","select":1,"question":"A marketer needs an audience of unified customers who purchased in the last 30 days and have opted in to email. Which capability should be used?","options":["A forecast hierarchy.","Lead conversion.","Opportunity splits.","Segment Builder using modeled purchase and consent data."],"answers":[3],"explanation":"Segment Builder creates audiences from Data 360 data and relationships. The segment should include consent and suppression criteria so downstream activation respects customer preferences.","tip":"A valid audience is not just eligible by behavior; it must also be eligible by policy and consent."},{"id":82,"category":"Data Activations and Utilization","select":1,"question":"A segment starts from Individual but cannot access order items even though they were ingested. What should the consultant check first?","options":["The case escalation rule.","The opportunity sales process.","The company fiscal year.","The relationship path from Individual through the relevant DMOs and the selected data space."],"answers":[3],"explanation":"Segment Builder can traverse data that is modeled and available in the current data space. Missing relationships or wrong scope commonly explain unavailable attributes.","tip":"When segmentation cannot see data, inspect model path and space before recreating the data."},{"id":83,"category":"Data Activations and Utilization","select":1,"question":"A segment count is much larger than expected because customers with multiple qualifying orders appear multiple times in an intermediate result. What should the consultant review?","options":["The segment grain, relationship cardinality, aggregation, and distinct Individual logic.","The Account owner role.","The user’s locale.","The number of dashboards."],"answers":[0],"explanation":"One-to-many relationships can multiply rows during evaluation. The segment must ultimately resolve membership at the intended entity grain, often Unified Individual, using appropriate aggregation or existence logic.","tip":"Count entities, not joined rows; always know what one result represents."},{"id":84,"category":"Data Activations and Utilization","select":2,"question":"Which two practices reduce accidental outreach to ineligible customers? Select two.","options":["Exclude governance fields to simplify the segment.","Include consent, preference, suppression, and regulatory eligibility in audience logic.","Assume the destination will correct every upstream mistake.","Validate activation mappings and destination suppression behavior before launch."],"answers":[1,3],"explanation":"Eligibility should be enforced in the audience and verified in the destination. Relying on one layer without testing can expose customers to unwanted or unlawful communication.","tip":"Use defense in depth for consent: governed source, segment logic, activation mapping, and destination enforcement."},{"id":85,"category":"Data Activations and Utilization","select":1,"question":"A company wants to prevent customers from receiving more than three promotional messages in seven days across campaigns. Which capability should the consultant evaluate?","options":["Lead queues.","Communication capping rules.","Forecast categories.","Opportunity validation rules."],"answers":[1],"explanation":"Communication capping helps control contact frequency, reduce fatigue, and manage consumption or campaign pressure. The design should define channel, time window, priority, and exception behavior.","tip":"Eligibility answers “can we contact?”; capping also asks “should we contact again now?”"},{"id":86,"category":"Data Activations and Utilization","select":1,"question":"A segment is created successfully but no records are sent to the advertising platform. What additional configuration is required?","options":["An Account sharing rule only.","A lead conversion process.","An activation target and activation with required mappings, credentials, schedule, and publish state.","A new identity object for the destination."],"answers":[2],"explanation":"A segment defines membership; an activation publishes the audience to a configured destination. Connections, activation target, mappings, identifiers, schedule, and permissions must all be valid.","tip":"Segment creation and destination delivery are separate lifecycle steps."},{"id":87,"category":"Data Activations and Utilization","select":1,"question":"An advertising activation requires a hashed email identifier, but the segment includes only a unified profile ID. What should the consultant do?","options":["Ensure an eligible email contact point is modeled, governed, selected, and mapped in the activation.","Create a random email for every customer.","Disable consent checks.","Send the internal profile ID and assume the destination can resolve it."],"answers":[0],"explanation":"Destinations require supported identifiers. The activation should use an appropriate contact point that satisfies identity, consent, normalization, and hashing requirements.","tip":"Design activation backward from the destination’s identity contract."},{"id":88,"category":"Data Activations and Utilization","select":1,"question":"A marketing platform shows fewer activated members than the Data 360 segment count. Which explanation is most plausible?","options":["Data 360 always sends duplicate members.","Segment counts and delivered counts must always be identical.","The destination automatically invents missing emails.","Some members lack the required destination identifier, consent, or valid mapping and are filtered during activation."],"answers":[3],"explanation":"Activation eligibility can be narrower than segment membership because the destination requires specific identifiers and may apply consent, suppression, or validation. Delivery metrics should be reconciled at each stage.","tip":"Track counts through segment qualification, activation eligibility, send, destination acceptance, and final match."},{"id":89,"category":"Data Activations and Utilization","select":1,"question":"A loyalty tier changes and the service team must be alerted immediately. Which capability is most aligned with the requirement?","options":["An opportunity stage change.","A manual dashboard refresh.","A yearly report export.","A real-time data action that invokes an event-triggered flow when the governed condition is met."],"answers":[3],"explanation":"Real-time data actions can respond to changes in supported Data 360 entities or data graphs and trigger automation such as flows. The solution requires the relevant real-time entitlements and end-to-end latency design.","tip":"Use real-time actions for moments where delay changes the business outcome."},{"id":90,"category":"Data Activations and Utilization","select":2,"question":"Which two elements are needed for a real-time data action using automation? Select two.","options":["A public guest user with unrestricted access.","A supported data graph or DMO context with tracked fields and conditions.","An event-triggered flow designed to handle the action safely.","A monthly CSV export only."],"answers":[1,2],"explanation":"The data action evaluates a supported real-time context and invokes an automation flow when conditions are met. Security, idempotency, error handling, entitlements, and monitoring are also important.","tip":"Define event, condition, action, failure handling, and duplicate-event behavior as one design."},{"id":91,"category":"Data Activations and Utilization","select":1,"question":"A flow needs to retrieve Data 360 information without copying every attribute into CRM fields. What should the consultant consider?","options":["Supported Data 360 actions and data access in Flow Builder.","An opportunity team.","A formula that calls an external database directly.","Manual re-entry of unified data."],"answers":[0],"explanation":"Data 360 can be used in Salesforce flows through supported actions and data access patterns. This allows automation to use external or unified context while avoiding unnecessary persistence in CRM.","tip":"Copy data only when the business needs a CRM record of it; otherwise retrieve it at the point of use when supported."},{"id":92,"category":"Data Activations and Utilization","select":1,"question":"A flow retrieves a Data 360 customer profile and then updates a high-risk account status automatically. What control is most important?","options":["Ignore null or ambiguous matches.","Run the flow as an unrestricted administrator for every user.","Remove audit history.","Validate identity, permissions, business rules, error handling, and whether human approval is required."],"answers":[3],"explanation":"Automated actions based on external or unified data can have significant consequences. The flow should confirm the correct entity, respect access, handle ambiguity, log decisions, and apply review where risk is high.","tip":"The more consequential the write, the more deterministic and auditable the decision path should be."},{"id":93,"category":"Data Activations and Utilization","select":1,"question":"A marketer wants a segment to update daily, but the underlying calculated insight refreshes weekly. What is the effective freshness of the segment condition?","options":["It is always one hour.","It is automatically real time because the segment runs daily.","It depends only on the destination.","It can be no fresher than the weekly calculated insight dependency."],"answers":[3],"explanation":"A downstream segment cannot create newer values than its upstream insight provides. Scheduling should be coordinated across ingestion, transformation, identity, insight, segment, and activation.","tip":"The slowest dependency often determines the freshness of the final action."},{"id":94,"category":"Data Activations and Utilization","select":1,"question":"A segment is intended for a one-time product recall. What schedule is most appropriate after validation?","options":["Run and activate it for the required recall window, then stop or retire it when the purpose ends.","Refresh it indefinitely with no owner.","Delete consent fields.","Convert it into an identity ruleset."],"answers":[0],"explanation":"A time-bounded operational use case should have an explicit lifecycle, owner, monitoring period, and retirement plan. Leaving unused segments running can create cost, risk, and confusion.","tip":"Govern segments as products: owner, purpose, SLA, dependencies, and end-of-life."},{"id":95,"category":"Data Activations and Utilization","select":1,"question":"A business wants to prioritize customers who are both high value and currently browsing a premium product. What architecture best fits?","options":["Use only a static annual customer list.","Create one CRM user per website visitor.","Combine durable profile or calculated insight data with recent behavioral events in a segment or real-time decision pattern.","Ignore current behavior."],"answers":[2],"explanation":"The use case combines long-term customer value with current intent. The solution should join the appropriate profile and event data at a latency that preserves the browsing signal’s value.","tip":"Strong personalization often combines durable context with momentary intent."},{"id":96,"category":"Data Activations and Utilization","select":1,"question":"A journey activation is technically successful, but customers receive irrelevant content because product category values differ across sources. Where should the root cause be fixed?","options":["By adding more journey steps.","By increasing send frequency.","By hiding campaign reports.","In upstream harmonization or transformation so the category has a consistent governed meaning before segmentation."],"answers":[3],"explanation":"Activation cannot compensate reliably for inconsistent semantics. Standardizing category values upstream makes segments, insights, reports, and destinations use the same business meaning.","tip":"Fix semantic inconsistency once at the shared data layer instead of repeatedly in every destination."},{"id":97,"category":"Data Activations and Utilization","select":2,"question":"Which two metrics best monitor an audience activation pipeline? Select two.","options":["Refresh duration, failures, consumption, and downstream business outcomes.","Only the number of segment names.","Only whether the activation was created.","Segment membership, eligible identifiers, records attempted, accepted, rejected, matched, and suppressed."],"answers":[0,3],"explanation":"Operational metrics show where records were lost or delayed, while outcome metrics show whether the activation produced value. Creation status alone does not prove correct delivery or impact.","tip":"Monitor both pipeline health and business effect; one without the other is incomplete."},{"id":98,"category":"Data Activations and Utilization","select":1,"question":"A customer asks to activate a segment to a new destination that is not supported by a native activation target. What should the consultant do?","options":["Make the segment public.","Evaluate supported APIs, partner connectors, middleware, or custom activation patterns with security and operational controls.","Pretend the destination is supported.","Email customer data manually."],"answers":[1],"explanation":"A nonnative destination may require an approved integration pattern. The design must cover authentication, identifiers, data minimization, retries, monitoring, consent, and destination contracts.","tip":"Custom activation is an integration product, not a one-time export."},{"id":99,"category":"Data Activations and Utilization","select":1,"question":"A segment excludes customers who opted out, but opt-out changes arrive only once per day while campaigns activate hourly. What is the main risk?","options":["The segment will always contain zero members.","The destination will create CRM opportunities.","Identity resolution will stop permanently.","Customers may be contacted after opting out because consent freshness is slower than activation."],"answers":[3],"explanation":"Consent and suppression data must be at least as fresh as the communication decision requires. An hourly activation built on daily consent creates a compliance and trust gap.","tip":"Set the strictest freshness SLA on the data that protects customer rights."},{"id":100,"category":"Data Activations and Utilization","select":1,"question":"A destination requires one record per email address, but a unified customer has three eligible emails. What must the consultant define?","options":["A contact-point selection and prioritization rule aligned with consent and destination requirements.","A random email selection on every run.","A rule to send to every address automatically.","A new Unified Individual for each email."],"answers":[0],"explanation":"The activation needs a deterministic rule for choosing the correct contact point, considering usage type, recency, quality, consent, and business policy. Multiple contact points do not imply multiple people.","tip":"Identity unification and channel address selection are separate decisions."}];
+    const categoryOrder = ["All", "Solution Positioning", "Data 360 Setup and Administration", "Data Source Connection and Ingestion", "Harmonization and Unification", "Data Enhancements, Sharing, and Analysis", "Data Activations and Utilization"];
+    const STORAGE_KEY = "sfData360ConsultantStudyLabV1";
+    const letters = ["A", "B", "C", "D", "E", "F"];
+
+    let state = {
+      answers: {},
+      bookmarks: [],
+      order: questions.map(q => q.id),
+      filter: "All",
+      specialMode: null,
+      currentIndex: 0,
+      drafts: {}
+    };
+
+    function sameSet(a, b) {
+      if (a.length !== b.length) return false;
+      const aa = [...a].sort((x,y) => x-y);
+      const bb = [...b].sort((x,y) => x-y);
+      return aa.every((value, index) => value === bb[index]);
+    }
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (!saved || typeof saved !== "object") return;
+        const validIds = new Set(questions.map(q => q.id));
+        state.answers = saved.answers && typeof saved.answers === "object" ? saved.answers : {};
+        state.bookmarks = Array.isArray(saved.bookmarks) ? saved.bookmarks.filter(id => validIds.has(id)) : [];
+        state.order = Array.isArray(saved.order) && saved.order.length === questions.length && saved.order.every(id => validIds.has(id)) ? saved.order : questions.map(q => q.id);
+        state.filter = categoryOrder.includes(saved.filter) ? saved.filter : "All";
+        state.specialMode = [null, "wrong", "bookmarks", "unanswered"].includes(saved.specialMode) ? saved.specialMode : null;
+        state.currentIndex = Number.isInteger(saved.currentIndex) ? saved.currentIndex : 0;
+        state.drafts = saved.drafts && typeof saved.drafts === "object" ? saved.drafts : {};
+      } catch (error) {
+        console.warn("Could not restore saved study progress.", error);
+      }
+    }
+
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+      catch (error) { console.warn("Could not save study progress in this browser context.", error); }
+    }
+
+    function questionById(id) { return questions.find(q => q.id === id); }
+
+    function getVisibleQuestions() {
+      const ordered = state.order.map(questionById).filter(Boolean);
+      if (state.specialMode === "wrong") return ordered.filter(q => state.answers[q.id] && !state.answers[q.id].correct);
+      if (state.specialMode === "bookmarks") return ordered.filter(q => state.bookmarks.includes(q.id));
+      if (state.specialMode === "unanswered") return ordered.filter(q => !state.answers[q.id]);
+      if (state.filter === "All") return ordered;
+      return ordered.filter(q => q.category === state.filter);
+    }
+
+    function renderFilters() {
+      const container = document.getElementById("categoryFilters");
+      container.innerHTML = categoryOrder.map(category => `
+        <button class="filter-btn" data-category="${category}" aria-pressed="${state.specialMode === null && state.filter === category}">${category}</button>
+      `).join("");
+      container.querySelectorAll("button").forEach(button => {
+        button.addEventListener("click", () => {
+          state.filter = button.dataset.category;
+          state.specialMode = null;
+          state.currentIndex = 0;
+          saveState();
+          render();
+        });
+      });
+    }
+
+    function renderStats() {
+      const answered = Object.keys(state.answers).length;
+      const correct = Object.values(state.answers).filter(a => a.correct).length;
+      const accuracy = answered ? Math.round((correct / answered) * 100) : null;
+      document.getElementById("answeredStat").textContent = `${answered} / ${questions.length}`;
+      document.getElementById("correctStat").textContent = correct;
+      document.getElementById("accuracyStat").textContent = accuracy === null ? "—" : `${accuracy}%`;
+      document.getElementById("bookmarkStat").textContent = state.bookmarks.length;
+      document.getElementById("progressLabel").textContent = `${answered} of ${questions.length} answered`;
+      document.getElementById("progressFill").style.width = `${(answered / questions.length) * 100}%`;
+      const mode = state.specialMode === "wrong" ? "Review Wrong Answers"
+        : state.specialMode === "bookmarks" ? "Bookmarked Questions"
+        : state.specialMode === "unanswered" ? "Unanswered Questions"
+        : state.filter === "All" ? "All Questions" : state.filter;
+      document.getElementById("modeLabel").textContent = mode;
+    }
+
+    function renderQuestion() {
+      const card = document.getElementById("questionCard");
+      const visible = getVisibleQuestions();
+      if (!visible.length) {
+        card.innerHTML = `
+          <div class="empty-state">
+            <div style="font-size:2.4rem">✓</div>
+            <h2>No questions in this view</h2>
+            <p>${state.specialMode === "wrong" ? "You do not have any wrong answers to review." : state.specialMode === "bookmarks" ? "Bookmark questions to build a custom review set." : "You have answered every question in this view."}</p>
+            <button class="btn btn-primary" id="returnAllBtn">Return to All Questions</button>
+          </div>`;
+        document.getElementById("returnAllBtn").addEventListener("click", () => {
+          state.filter = "All"; state.specialMode = null; state.currentIndex = 0; saveState(); render();
+        });
+        return;
+      }
+
+      if (state.currentIndex >= visible.length) state.currentIndex = visible.length - 1;
+      if (state.currentIndex < 0) state.currentIndex = 0;
+
+      const q = visible[state.currentIndex];
+      const answerRecord = state.answers[q.id];
+      const isBookmarked = state.bookmarks.includes(q.id);
+      const draft = Array.isArray(state.drafts[q.id]) ? state.drafts[q.id] : [];
+
+      const optionsHtml = q.options.map((option, index) => {
+        let classes = "option-btn";
+        const selected = draft.includes(index);
+        if (!answerRecord && selected) classes += " selected";
+        if (answerRecord) {
+          const isCorrectOption = q.answers.includes(index);
+          const wasSelected = answerRecord.selected.includes(index);
+          if (isCorrectOption) classes += " correct";
+          else if (wasSelected) classes += " incorrect";
+          else classes += " dimmed";
+        }
+        return `<button class="${classes}" data-option="${index}" ${answerRecord ? "disabled" : ""} aria-pressed="${!answerRecord && selected}">
+          <span class="option-key">${letters[index]}</span><span>${option}</span><span class="option-check">✓</span>
+        </button>`;
+      }).join("");
+
+      const correctAnswerText = q.answers.map(index => `${letters[index]}. ${q.options[index]}`).join("<br>");
+      const feedbackHtml = answerRecord ? `
+        <div class="feedback visible">
+          <div class="feedback-status ${answerRecord.correct ? "correct-text" : "incorrect-text"}">${answerRecord.correct ? "✓ Correct" : "✕ Not quite"}</div>
+          <h3>Correct answer${q.select > 1 ? "s" : ""}</h3>
+          <p><strong>${correctAnswerText}</strong></p>
+          <h3>Why this is correct</h3>
+          <p>${q.explanation}</p>
+          <div class="tip-box"><strong>Exam reasoning tip:</strong> ${q.tip}</div>
+        </div>` : "";
+
+      const multiActions = !answerRecord && q.select > 1 ? `
+        <div class="answer-actions">
+          <span class="selection-count">Selected ${draft.length} of ${q.select}</span>
+          <button class="btn btn-primary" id="submitAnswerBtn" ${draft.length !== q.select ? "disabled" : ""}>Check Answer</button>
+        </div>` : "";
+
+      card.innerHTML = `
+        <div class="question-top">
+          <div class="badge-row">
+            <span class="category-badge">${q.category}</span>
+            <span class="selection-badge">${q.select === 1 ? "Select one" : `Select ${q.select}`}</span>
+          </div>
+          <button class="bookmark-btn ${isBookmarked ? "active" : ""}" id="bookmarkBtn" aria-label="${isBookmarked ? "Remove bookmark" : "Bookmark question"}" aria-pressed="${isBookmarked}">★</button>
+        </div>
+        <div class="question-number">Question ${state.currentIndex + 1} of ${visible.length} · Bank ID ${q.id}</div>
+        <h2>${q.question}</h2>
+        <div class="option-list">${optionsHtml}</div>
+        ${multiActions}
+        ${feedbackHtml}
+        <div class="nav-row">
+          <button class="btn btn-secondary" id="prevBtn" ${state.currentIndex === 0 ? "disabled" : ""}>Previous</button>
+          <button class="btn btn-primary" id="nextBtn" ${state.currentIndex === visible.length - 1 ? "disabled" : ""}>Next</button>
+        </div>`;
+
+      card.querySelectorAll(".option-btn").forEach(button => {
+        button.addEventListener("click", () => selectOption(q, Number(button.dataset.option)));
+      });
+      if (q.select > 1 && !answerRecord) document.getElementById("submitAnswerBtn").addEventListener("click", () => submitAnswer(q));
+      document.getElementById("bookmarkBtn").addEventListener("click", () => toggleBookmark(q.id));
+      document.getElementById("prevBtn").addEventListener("click", previousQuestion);
+      document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+    }
+
+    function selectOption(question, selected) {
+      if (state.answers[question.id]) return;
+      if (question.select === 1) {
+        state.answers[question.id] = { selected: [selected], correct: sameSet([selected], question.answers) };
+        delete state.drafts[question.id];
+      } else {
+        const draft = Array.isArray(state.drafts[question.id]) ? [...state.drafts[question.id]] : [];
+        const existing = draft.indexOf(selected);
+        if (existing >= 0) draft.splice(existing, 1);
+        else if (draft.length < question.select) draft.push(selected);
+        state.drafts[question.id] = draft;
+      }
+      saveState();
+      render();
+    }
+
+    function submitAnswer(question) {
+      if (state.answers[question.id]) return;
+      const draft = Array.isArray(state.drafts[question.id]) ? state.drafts[question.id] : [];
+      if (draft.length !== question.select) return;
+      state.answers[question.id] = { selected: [...draft], correct: sameSet(draft, question.answers) };
+      delete state.drafts[question.id];
+      saveState();
+      render();
+    }
+
+    function toggleBookmark(id) {
+      if (state.bookmarks.includes(id)) state.bookmarks = state.bookmarks.filter(item => item !== id);
+      else state.bookmarks.push(id);
+      saveState(); render();
+    }
+
+    function nextQuestion() {
+      const visible = getVisibleQuestions();
+      if (state.currentIndex < visible.length - 1) {
+        state.currentIndex += 1; saveState(); renderQuestion();
+        document.getElementById("questionCard").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function previousQuestion() {
+      if (state.currentIndex > 0) {
+        state.currentIndex -= 1; saveState(); renderQuestion();
+        document.getElementById("questionCard").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function shuffleQuestions() {
+      const shuffled = [...state.order];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      state.order = shuffled; state.currentIndex = 0; saveState(); render();
+      document.getElementById("study").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function setSpecialMode(mode) { state.specialMode = mode; state.currentIndex = 0; saveState(); render(); }
+
+    function resetProgress() {
+      if (!window.confirm("Reset all answers, bookmarks, draft selections, and question order?")) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch (error) { console.warn("Could not clear saved progress.", error); }
+      state = { answers: {}, bookmarks: [], order: questions.map(q => q.id), filter: "All", specialMode: null, currentIndex: 0, drafts: {} };
+      render();
+    }
+
+    function render() { renderFilters(); renderStats(); renderQuestion(); }
+
+    document.getElementById("startBtn").addEventListener("click", () => document.getElementById("study").scrollIntoView({ behavior: "smooth" }));
+    document.getElementById("shuffleBtn").addEventListener("click", shuffleQuestions);
+    document.getElementById("reviewWrongBtn").addEventListener("click", () => setSpecialMode("wrong"));
+    document.getElementById("reviewBookmarksBtn").addEventListener("click", () => setSpecialMode("bookmarks"));
+    document.getElementById("unansweredBtn").addEventListener("click", () => setSpecialMode("unanswered"));
+    document.getElementById("resetBtn").addEventListener("click", resetProgress);
+
+    document.addEventListener("keydown", (event) => {
+      if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return;
+      const visible = getVisibleQuestions();
+      const q = visible[state.currentIndex];
+      if (!q) return;
+      if (["1", "2", "3", "4"].includes(event.key) && !state.answers[q.id]) {
+        const index = Number(event.key) - 1;
+        if (index < q.options.length) selectOption(q, index);
+      } else if (event.key === "Enter" && q.select > 1 && !state.answers[q.id]) submitAnswer(q);
+      else if (event.key.toLowerCase() === "n") nextQuestion();
+      else if (event.key.toLowerCase() === "p") previousQuestion();
+      else if (event.key.toLowerCase() === "b") toggleBookmark(q.id);
+    });
+
+    loadState();
+    render();
+  </script>
+</body>
+</html>

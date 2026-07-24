@@ -8,6 +8,7 @@ const sourceFiles = {
   "platform-administrator": "salesforce_platform_administrator_study_lab.html",
   "business-analyst": "salesforce_business_analyst_study_lab.html",
   "sales-cloud-consultant": "salesforce_sales_cloud_consultant_study_lab.html",
+  "data-360-consultant": "salesforce_data_360_consultant_study_lab.html",
 };
 
 const metadata = {
@@ -245,6 +246,89 @@ const metadata = {
         title: "Salesforce Help",
         url: "https://help.salesforce.com/",
         description: "Current product documentation and implementation considerations.",
+      },
+    ],
+  },
+  "data-360-consultant": {
+    id: "data-360-consultant",
+    title: "Salesforce Data 360 Consultant",
+    pageTitle: "Salesforce Certified Data 360 Consultant Study Lab",
+    shortTitle: "Data 360 Consultant",
+    code: "D360",
+    path: "certifications/data-360-consultant",
+    sourceFile: sourceFiles["data-360-consultant"],
+    description:
+      "Practice advanced Data 360 consulting scenarios across positioning, setup, ingestion, unification, analysis, and activation.",
+    heroCopy:
+      "Practice current Data 360 exam domains through advanced consulting scenarios covering solution positioning, governance, data spaces, ingestion, Zero Copy, modeling, identity resolution, insights, AI grounding, segmentation, activation, and Flow.",
+    reasoning:
+      "Trace the full data lifecycle: business purpose, source and latency, DLO, transformation, DMO mapping, identity, insight, segment, activation, governance, and consumption.",
+    habits:
+      "Watch for grain, stable keys, relationship paths, consent freshness, false matches, destination identifiers, and end-to-end latency. Real time and more data are not automatically the best design.",
+    integrity:
+      "Salesforce Certified Data 360 Consultant was previously named Salesforce Certified Data Cloud Consultant. This lab uses current Data 360 terminology and contains original questions based on public Salesforce documentation.",
+    blueprintNote:
+      "The bank contains 100 questions distributed according to Salesforce's published domain weighting.",
+    blueprint: [
+      { label: "Solution Positioning", weight: 14 },
+      { label: "Data 360 Setup and Administration", weight: 13 },
+      { label: "Data Source Connection and Ingestion", weight: 18 },
+      { label: "Harmonization and Unification", weight: 17 },
+      { label: "Data Enhancements, Sharing, and Analysis", weight: 18 },
+      { label: "Data Activations and Utilization", weight: 20 },
+    ],
+    resources: [
+      {
+        title: "Data 360 Consultant Credential",
+        url: "https://trailhead.salesforce.com/credentials/data360consultant",
+        description: "Official credential page using the current certification name.",
+      },
+      {
+        title: "Official Data 360 Consultant Exam Guide",
+        url: "https://help.salesforce.com/s/articleView?id=005298940&language=en_US&type=1",
+        description: "Current objectives, exam details, and domain weighting.",
+      },
+      {
+        title: "Official Certification Preparation Trail",
+        url: "https://trailhead.salesforce.com/content/learn/trails/prepare-for-your-salesforce-data-360-consultant-exam",
+        description:
+          "Salesforce-curated learning across setup, ingestion, unification, insights, and activation.",
+      },
+      {
+        title: "About Salesforce Data 360",
+        url: "https://help.salesforce.com/s/articleView?id=data.c360_a_data_cloud.htm&language=en_US&type=5",
+        description: "Official product concepts, capabilities, and terminology.",
+      },
+      {
+        title: "Data 360 Integration Guide",
+        url: "https://developer.salesforce.com/docs/data/data-cloud-int/guide/c360-a-data-cloud-integrations.html",
+        description: "Connectors, ingestion, APIs, Zero Copy, and outbound integration patterns.",
+      },
+      {
+        title: "Data 360 Data Modeling Guide",
+        url: "https://developer.salesforce.com/docs/data/data-cloud-dmo-mapping/guide/c360dm-model-data.html",
+        description: "DLOs, DMOs, standard mappings, relationships, and the Customer 360 Data Model.",
+      },
+      {
+        title: "Identity Resolution",
+        url: "https://help.salesforce.com/s/articleView?id=data.c360_a_identity_resolution_unify_source_profiles.htm&language=en_US&type=5",
+        description: "Official guidance for matching source profiles and creating unified profiles.",
+      },
+      {
+        title: "Segmentation in Data 360",
+        url: "https://help.salesforce.com/s/articleView?id=data.c360_a_segments.htm&language=en_US&type=5",
+        description: "Official segmentation concepts, building, publishing, and audience refinement.",
+      },
+      {
+        title: "Data 360 Query Guide",
+        url: "https://developer.salesforce.com/docs/data/data-cloud-query-guide/guide/query-guide-get-started.html",
+        description: "Query APIs, profile access, calculated insights, and data graph retrieval.",
+      },
+      {
+        title: "Data 360 Architecture",
+        url: "https://architect.salesforce.com/docs/architect/fundamentals/guide/data-360-architecture.html",
+        description:
+          "Salesforce architecture guidance for batch, streaming, real-time, multi-org, AI, and governance patterns.",
       },
     ],
   },
