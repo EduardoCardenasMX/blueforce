@@ -2,7 +2,7 @@
   const letters = ["A", "B", "C", "D", "E", "F"];
   const specialModes = [null, "wrong", "bookmarks", "unanswered"];
   const progressVersion = "v2";
-  const assetVersion = "20260724-perf";
+  const assetVersion = "20260724-fast";
   const certifications = window.BLUEFORCE_CERTIFICATIONS || [];
 
   function escapeHtml(value) {

@@ -2,7 +2,24 @@ DirectoryIndex index.html
 
 RewriteEngine On
 
-# Canonical clean URLs.
+# Canonical host, HTTPS, and clean URLs in one hop for common entry points.
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^blueforce\.cloud$ [NC]
+RewriteRule ^index(?:\.html)?/?$ https://blueforce.cloud/ [R=301,L]
+
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^blueforce\.cloud$ [NC]
+RewriteRule ^(.+?)\.html$ https://blueforce.cloud/$1 [R=301,L]
+
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^blueforce\.cloud$ [NC]
+RewriteRule ^(.+)$ https://blueforce.cloud/$1 [R=301,L]
+
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^blueforce\.cloud$ [NC]
+RewriteRule ^$ https://blueforce.cloud/ [R=301,L]
+
+# Clean URLs for already-canonical requests.
 RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
 RewriteRule ^index\.html$ / [R=301,L]
 
@@ -45,4 +62,5 @@ RewriteRule ^(.+)$ $1.html [L]
   <FilesMatch "\.(html)$">
     Header set Cache-Control "public, max-age=300"
   </FilesMatch>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 </IfModule>

@@ -304,6 +304,12 @@ h1 {
   padding: 20px 0 72px;
 }
 
+.certifications,
+.resources {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
 .section-heading {
   display: flex;
   align-items: end;
