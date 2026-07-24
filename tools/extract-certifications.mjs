@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
+const examDataDir = path.join(root, "assets/data/exams");
 
 const sourceFiles = {
   "ux-designer": "salesforce_ux_designer_study_lab(1).html",
@@ -428,14 +429,24 @@ function normalizeQuestions(certificationId, questions) {
   });
 }
 
+fs.mkdirSync(examDataDir, { recursive: true });
+
 const certifications = Object.entries(sourceFiles).map(([id, file]) => {
   const source = fs.readFileSync(path.join(root, file), "utf8");
   const questions = normalizeQuestions(id, extractConst(source, "questions", "categoryOrder"));
   const categoryOrder = extractConst(source, "categoryOrder", "STORAGE_KEY");
+  const questionBank = { categoryOrder, questions };
+  const questionBankFile = path.join(examDataDir, `${id}.js`);
+  fs.writeFileSync(
+    questionBankFile,
+    `window.BLUEFORCE_QUESTION_BANKS=window.BLUEFORCE_QUESTION_BANKS||{};window.BLUEFORCE_QUESTION_BANKS[${JSON.stringify(id)}]=${JSON.stringify(questionBank)};\n`,
+  );
   return {
     ...metadata[id],
     categoryOrder,
-    questions,
+    questionBankPath: `assets/data/exams/${id}.js`,
+    questionCount: questions.length,
+    questionIds: questions.map((question) => question.id),
   };
 });
 

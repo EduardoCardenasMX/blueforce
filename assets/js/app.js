@@ -2,6 +2,7 @@
   const letters = ["A", "B", "C", "D", "E", "F"];
   const specialModes = [null, "wrong", "bookmarks", "unanswered"];
   const progressVersion = "v2";
+  const assetVersion = "20260724-perf";
   const certifications = window.BLUEFORCE_CERTIFICATIONS || [];
 
   function escapeHtml(value) {
@@ -43,7 +44,54 @@
   }
 
   function validQuestionIds(certification) {
-    return new Set(certification.questions.map((question) => question.id));
+    const ids =
+      certification.questions && certification.questions.length
+        ? certification.questions.map((question) => question.id)
+        : certification.questionIds || [];
+    return new Set(ids);
+  }
+
+  function questionCount(certification) {
+    return certification.questionCount || (certification.questions || []).length;
+  }
+
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const existing = Array.from(document.scripts).find((script) => script.src === src);
+      if (existing) {
+        existing.addEventListener("load", resolve, { once: true });
+        existing.addEventListener("error", reject, { once: true });
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = src;
+      script.async = true;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+
+  async function loadQuestionBank(certification) {
+    if (certification.questions && certification.questions.length) return certification;
+
+    const banks = window.BLUEFORCE_QUESTION_BANKS || {};
+    if (!banks[certification.id]) {
+      const source = `../${certification.questionBankPath}?v=${assetVersion}`;
+      await loadScript(source);
+    }
+
+    const bank = (window.BLUEFORCE_QUESTION_BANKS || {})[certification.id];
+    if (!bank || !Array.isArray(bank.questions)) {
+      throw new Error(`Missing question bank for ${certification.id}`);
+    }
+
+    return {
+      ...certification,
+      categoryOrder: bank.categoryOrder || certification.categoryOrder,
+      questions: bank.questions,
+    };
   }
 
   function getHomeProgress(certification) {
@@ -54,8 +102,9 @@
     const answeredIds = Object.keys(answers).filter((id) => validIds.has(Number(id)));
     const correct = answeredIds.filter((id) => answers[id] && answers[id].correct).length;
     const answered = answeredIds.length;
-    const percent = certification.questions.length
-      ? Math.round((answered / certification.questions.length) * 100)
+    const total = questionCount(certification);
+    const percent = total
+      ? Math.round((answered / total) * 100)
       : 0;
     return { answered, correct, percent };
   }
@@ -65,7 +114,7 @@
     if (!grid) return;
 
     const totalQuestions = certifications.reduce(
-      (sum, certification) => sum + certification.questions.length,
+      (sum, certification) => sum + questionCount(certification),
       0,
     );
     const totals = certifications.reduce(
@@ -94,12 +143,13 @@
     grid.innerHTML = certifications
       .map((certification) => {
         const progress = getHomeProgress(certification);
-        const unanswered = certification.questions.length - progress.answered;
+        const total = questionCount(certification);
+        const unanswered = total - progress.answered;
         return `
           <article class="cert-card">
             <div class="cert-top">
               <div>
-                <div class="eyebrow">${certification.questions.length} questions</div>
+                <div class="eyebrow">${total} questions</div>
                 <h3>${escapeHtml(certification.title)}</h3>
                 <p>${escapeHtml(certification.description)}</p>
               </div>
@@ -131,15 +181,15 @@
       .join("");
   }
 
-  function initExam() {
+  async function initExam() {
     const app = document.getElementById("examApp");
     if (!app) return;
 
     const requestedId =
       document.body.dataset.certification ||
       new URLSearchParams(window.location.search).get("cert");
-    const certification = certifications.find((item) => item.id === requestedId);
-    if (!certification) {
+    const certificationMeta = certifications.find((item) => item.id === requestedId);
+    if (!certificationMeta) {
       console.warn("BlueForce certification not found.", {
         requestedId,
         loadedCertifications: certifications.map((item) => item.id),
@@ -149,6 +199,23 @@
           <div class="empty-state">
             <h2>Certification Not Found</h2>
             <p>Return to BlueForce to choose an available exam.</p>
+            <a class="btn btn-primary" href="../">Back to Home</a>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    let certification;
+    try {
+      certification = await loadQuestionBank(certificationMeta);
+    } catch (error) {
+      console.warn("BlueForce question bank could not be loaded.", error);
+      app.innerHTML = `
+        <div class="shell">
+          <div class="empty-state">
+            <h2>Questions Could Not Load</h2>
+            <p>Refresh the page or return to BlueForce to choose an available exam.</p>
             <a class="btn btn-primary" href="../">Back to Home</a>
           </div>
         </div>
