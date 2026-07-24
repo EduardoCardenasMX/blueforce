@@ -7,6 +7,7 @@ const sourceFiles = {
   "ux-designer": "salesforce_ux_designer_study_lab(1).html",
   "platform-administrator": "salesforce_platform_administrator_study_lab.html",
   "business-analyst": "salesforce_business_analyst_study_lab.html",
+  "sales-cloud-consultant": "salesforce_sales_cloud_consultant_study_lab.html",
 };
 
 const metadata = {
@@ -162,6 +163,88 @@ const metadata = {
         title: "User Acceptance Review",
         url: "https://trailhead.salesforce.com/content/learn/modules/salesforce-business-analyst-certification-prep/explore-user-acceptance",
         description: "UAT plans, testers, scripts, feedback, go/no-go, and sign-off.",
+      },
+    ],
+  },
+  "sales-cloud-consultant": {
+    id: "sales-cloud-consultant",
+    title: "Salesforce Sales Cloud Consultant",
+    pageTitle: "Salesforce Sales Cloud Consultant Certification Study Lab",
+    shortTitle: "Sales Cloud Consultant",
+    code: "SCC",
+    path: "certifications/sales-cloud-consultant",
+    sourceFile: sourceFiles["sales-cloud-consultant"],
+    description:
+      "Practice advanced Sales Cloud consulting scenarios across lifecycle design, implementation strategy, data, and trusted AI.",
+    heroCopy:
+      "Practice current exam domains through advanced consulting scenarios covering discovery, solution design, forecasting, territory management, sales execution, data strategy, adoption, and trusted AI.",
+    reasoning:
+      "Identify the business outcome, constraints, operating model, data implications, and long-term maintainability before choosing the best-fit Salesforce solution.",
+    habits:
+      "Several options may be technically possible. Read qualifiers such as best, most scalable, first, and most appropriate, then choose the answer that addresses the root cause and full scenario.",
+    integrity:
+      "This lab contains original practice questions created from public Salesforce objectives and documentation. It does not reproduce leaked, memorized, or restricted exam content.",
+    blueprintNote:
+      "The bank contains 100 questions distributed according to Salesforce's published domain weighting.",
+    blueprint: [
+      { label: "Sales Lifecycle", weight: 20 },
+      { label: "Consulting and Implementation Strategies", weight: 25 },
+      { label: "Practical Application of Sales Cloud Expertise", weight: 24 },
+      { label: "Data Management", weight: 18 },
+      { label: "Predictive and Generative AI", weight: 13 },
+    ],
+    resources: [
+      {
+        title: "Sales Cloud Consultant Credential",
+        url: "https://trailhead.salesforce.com/credentials/salescloudconsultant",
+        description: "Official credential page and recommended preparation.",
+      },
+      {
+        title: "Official Sales Cloud Consultant Exam Guide",
+        url: "https://help.salesforce.com/s/articleView?id=005298976&language=en_US&type=1",
+        description: "Current exam objectives, audience, and domain weighting.",
+      },
+      {
+        title: "Official Sales Cloud Consultant Trailmix",
+        url: "https://trailhead.salesforce.com/users/strailhead/trailmixes/prepare-for-your-salesforce-sales-cloud-consultant-credential",
+        description: "Salesforce-curated preparation across the current domains.",
+      },
+      {
+        title: "Sales Cloud Basics and Feature Guidance",
+        url: "https://help.salesforce.com/s/articleView?id=sales.sales_core.htm&language=en_US&type=5",
+        description:
+          "Official entry point for leads, opportunities, forecasting, territories, and sales productivity.",
+      },
+      {
+        title: "Salesforce Forecasting",
+        url: "https://help.salesforce.com/s/articleView?id=sales.forecasts3_intro.htm&language=en_US&type=5",
+        description: "Forecast setup, management, guidance, and reporting concepts.",
+      },
+      {
+        title: "Products and Price Books",
+        url: "https://help.salesforce.com/s/articleView?id=sales.products_pricebooks.htm&language=en_US&type=5",
+        description: "Official product catalog, price book, and price book entry model.",
+      },
+      {
+        title: "Drive Productivity with Salesforce AI",
+        url: "https://trailhead.salesforce.com/content/learn/trails/drive-productivity-with-einstein-ai",
+        description: "Predictive and generative AI, governance, and trusted implementation concepts.",
+      },
+      {
+        title: "Salesforce Architects",
+        url: "https://architect.salesforce.com/",
+        description: "Architecture guidance for scalable, secure, and maintainable solution design.",
+      },
+      {
+        title: "Trailblazer Community: Sales Cloud",
+        url: "https://trailhead.salesforce.com/trailblazer-community/topics/salescloud",
+        description:
+          "Peer discussion and implementation perspectives; used only for study themes, never copied questions.",
+      },
+      {
+        title: "Salesforce Help",
+        url: "https://help.salesforce.com/",
+        description: "Current product documentation and implementation considerations.",
       },
     ],
   },

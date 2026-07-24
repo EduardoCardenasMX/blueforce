@@ -5359,5 +5359,1810 @@ window.BLUEFORCE_CERTIFICATIONS = [
         "tip": "Define exit criteria before UAT so the release decision is not invented under schedule pressure."
       }
     ]
+  },
+  {
+    "id": "sales-cloud-consultant",
+    "title": "Salesforce Sales Cloud Consultant",
+    "pageTitle": "Salesforce Sales Cloud Consultant Certification Study Lab",
+    "shortTitle": "Sales Cloud Consultant",
+    "code": "SCC",
+    "path": "certifications/sales-cloud-consultant",
+    "sourceFile": "salesforce_sales_cloud_consultant_study_lab.html",
+    "description": "Practice advanced Sales Cloud consulting scenarios across lifecycle design, implementation strategy, data, and trusted AI.",
+    "heroCopy": "Practice current exam domains through advanced consulting scenarios covering discovery, solution design, forecasting, territory management, sales execution, data strategy, adoption, and trusted AI.",
+    "reasoning": "Identify the business outcome, constraints, operating model, data implications, and long-term maintainability before choosing the best-fit Salesforce solution.",
+    "habits": "Several options may be technically possible. Read qualifiers such as best, most scalable, first, and most appropriate, then choose the answer that addresses the root cause and full scenario.",
+    "integrity": "This lab contains original practice questions created from public Salesforce objectives and documentation. It does not reproduce leaked, memorized, or restricted exam content.",
+    "blueprintNote": "The bank contains 100 questions distributed according to Salesforce's published domain weighting.",
+    "blueprint": [
+      {
+        "label": "Sales Lifecycle",
+        "weight": 20
+      },
+      {
+        "label": "Consulting and Implementation Strategies",
+        "weight": 25
+      },
+      {
+        "label": "Practical Application of Sales Cloud Expertise",
+        "weight": 24
+      },
+      {
+        "label": "Data Management",
+        "weight": 18
+      },
+      {
+        "label": "Predictive and Generative AI",
+        "weight": 13
+      }
+    ],
+    "resources": [
+      {
+        "title": "Sales Cloud Consultant Credential",
+        "url": "https://trailhead.salesforce.com/credentials/salescloudconsultant",
+        "description": "Official credential page and recommended preparation."
+      },
+      {
+        "title": "Official Sales Cloud Consultant Exam Guide",
+        "url": "https://help.salesforce.com/s/articleView?id=005298976&language=en_US&type=1",
+        "description": "Current exam objectives, audience, and domain weighting."
+      },
+      {
+        "title": "Official Sales Cloud Consultant Trailmix",
+        "url": "https://trailhead.salesforce.com/users/strailhead/trailmixes/prepare-for-your-salesforce-sales-cloud-consultant-credential",
+        "description": "Salesforce-curated preparation across the current domains."
+      },
+      {
+        "title": "Sales Cloud Basics and Feature Guidance",
+        "url": "https://help.salesforce.com/s/articleView?id=sales.sales_core.htm&language=en_US&type=5",
+        "description": "Official entry point for leads, opportunities, forecasting, territories, and sales productivity."
+      },
+      {
+        "title": "Salesforce Forecasting",
+        "url": "https://help.salesforce.com/s/articleView?id=sales.forecasts3_intro.htm&language=en_US&type=5",
+        "description": "Forecast setup, management, guidance, and reporting concepts."
+      },
+      {
+        "title": "Products and Price Books",
+        "url": "https://help.salesforce.com/s/articleView?id=sales.products_pricebooks.htm&language=en_US&type=5",
+        "description": "Official product catalog, price book, and price book entry model."
+      },
+      {
+        "title": "Drive Productivity with Salesforce AI",
+        "url": "https://trailhead.salesforce.com/content/learn/trails/drive-productivity-with-einstein-ai",
+        "description": "Predictive and generative AI, governance, and trusted implementation concepts."
+      },
+      {
+        "title": "Salesforce Architects",
+        "url": "https://architect.salesforce.com/",
+        "description": "Architecture guidance for scalable, secure, and maintainable solution design."
+      },
+      {
+        "title": "Trailblazer Community: Sales Cloud",
+        "url": "https://trailhead.salesforce.com/trailblazer-community/topics/salescloud",
+        "description": "Peer discussion and implementation perspectives; used only for study themes, never copied questions."
+      },
+      {
+        "title": "Salesforce Help",
+        "url": "https://help.salesforce.com/",
+        "description": "Current product documentation and implementation considerations."
+      }
+    ],
+    "categoryOrder": [
+      "All",
+      "Sales Lifecycle",
+      "Consulting and Implementation Strategies",
+      "Practical Application of Sales Cloud Expertise",
+      "Data Management",
+      "Predictive and Generative AI"
+    ],
+    "questions": [
+      {
+        "id": 1,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A manufacturer receives thousands of webinar leads, but sales representatives complain that most are not ready for direct outreach. Marketing can reliably identify engagement level and company fit. What should the consultant recommend first?",
+        "options": [
+          "Define lead qualification criteria and use lead scoring or grading before assignment",
+          "Disable lead conversion so marketing owns the entire lifecycle",
+          "Convert every lead immediately and let sales disqualify weak opportunities",
+          "Create one opportunity for every webinar attendee"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "The issue is not record creation; it is qualification and handoff quality. A defined qualification model, supported by scoring or grading signals, helps route sales-ready leads while keeping early-stage prospects in nurture. Converting every lead creates noisy accounts, contacts, and opportunities and does not solve the readiness problem.",
+        "tip": "When a scenario describes poor handoff quality, solve the qualification model before optimizing routing or conversion automation."
+      },
+      {
+        "id": 2,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A B2B company wants sales representatives to preserve the original lead source, create an account and contact, and optionally create an opportunity when a prospect is qualified. Which standard process best supports this requirement?",
+        "options": [
+          "Campaign cloning",
+          "Account merge",
+          "Opportunity split",
+          "Lead conversion"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Lead conversion creates or matches the account and contact and can create an opportunity. Standard lead conversion also carries mapped field values into the resulting records. Campaign cloning, account merge, and opportunity splits serve different stages of the sales lifecycle.",
+        "tip": "Map the lifecycle: prospect record first, qualification second, conversion into durable customer and pipeline records third."
+      },
+      {
+        "id": 3,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A sales organization uses distinct qualification steps for new-logo business and partner-referred business. Both groups need different Lead Status values, but they share the same lead object. What is the best design?",
+        "options": [
+          "Use two role hierarchies",
+          "Create a different org for each sales motion",
+          "Use lead processes with record types",
+          "Create separate lead objects"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Lead processes control the Lead Status values available to users, and record types connect the correct process, picklist values, and page layouts to each sales motion. Separate objects or orgs would introduce unnecessary complexity.",
+        "tip": "For variations in a standard sales process, think business process plus record type before custom objects."
+      },
+      {
+        "id": 4,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A global company sells through direct sales and resellers. A reseller may introduce a deal, but the internal account executive remains responsible for the customer relationship. The company wants to measure partner influence without changing opportunity ownership. Which capability best fits?",
+        "options": [
+          "Change the account owner whenever a partner is involved",
+          "Partner relationships and partner roles on the opportunity",
+          "Create duplicate opportunities for direct and partner teams",
+          "Transfer the opportunity to the reseller user"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Partner-related opportunity capabilities can represent the reseller's involvement while the internal seller retains ownership. Transferring ownership or duplicating opportunities would distort pipeline accountability and forecasting.",
+        "tip": "Separate contribution from ownership. The person accountable for the deal does not have to be the only participant represented on it."
+      },
+      {
+        "id": 5,
+        "category": "Sales Lifecycle",
+        "select": 2,
+        "question": "A sales director wants each representative to receive credit for the portion of revenue they contributed to a complex deal, while overlay specialists also need nonrevenue recognition. Which two capabilities should the consultant evaluate?",
+        "options": [
+          "Account teams only",
+          "Overlay opportunity splits",
+          "Duplicate opportunity records",
+          "Revenue opportunity splits"
+        ],
+        "answers": [
+          1,
+          3
+        ],
+        "explanation": "Revenue splits allocate revenue credit and must total 100 percent. Overlay splits can recognize supporting contributors and do not have to total 100 percent. Account teams provide access and team roles but do not by themselves allocate forecast or credit amounts.",
+        "tip": "When the scenario distinguishes revenue ownership from supporting influence, look for different split types rather than duplicate records."
+      },
+      {
+        "id": 6,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A company sells subscriptions and implementation services. Management wants pipeline reports by product family and more accurate amounts based on quantity and sales price. What should be configured?",
+        "options": [
+          "One custom opportunity stage per product",
+          "Separate accounts for subscriptions and services",
+          "A text field listing purchased items",
+          "Opportunity products with products, price books, and product families"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Opportunity products provide line-level quantity, sales price, and total price. Products can be categorized by product family, while price books define the available prices. A text field cannot support reliable product-level reporting or pricing calculations.",
+        "tip": "If leaders need pipeline by what is being sold, move beyond opportunity-level amount and model line items."
+      },
+      {
+        "id": 7,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A distributor has a standard catalog, a government contract catalog, and region-specific prices. A single opportunity should use one approved collection of product prices. Which design is appropriate?",
+        "options": [
+          "A custom currency field on Account only",
+          "One opportunity per price",
+          "Multiple price books containing the relevant price book entries",
+          "A separate product object for each region"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Products form the shared catalog, while price books contain price book entries for specific commercial contexts such as contracts or regions. An opportunity uses a selected price book for its products.",
+        "tip": "Product answers what is sold; price book entry answers at what list price in a specific selling context."
+      },
+      {
+        "id": 8,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "Sales representatives frequently discount below policy. Discounts above 20 percent require finance approval, and the approved price must remain visible on the opportunity product. What is the most appropriate solution approach?",
+        "options": [
+          "Change the opportunity owner to Finance",
+          "Use an approval process or Flow-based approval triggered by the discount threshold",
+          "Create a public group for discounted products",
+          "Hide the sales price field from all users"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "The requirement is a governed exception, not a blanket restriction. An approval process or appropriate Flow approval can route high discounts to finance while preserving the requested and approved commercial data. Hiding the field or transferring ownership does not represent the business decision.",
+        "tip": "Distinguish validation from approval: validation blocks; approval allows an exception through a controlled decision path."
+      },
+      {
+        "id": 9,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A company wants sales stages to represent customer commitments rather than internal activities. Which discovery question is most useful when redesigning the opportunity process?",
+        "options": [
+          "What observable customer outcome or commitment proves a deal has moved to the next stage?",
+          "Which browser does each sales representative use?",
+          "How many dashboard colors should be used?",
+          "Which user owns the most accounts?"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "A strong stage model is based on objective exit criteria and buyer progress. Asking what customer evidence proves advancement helps prevent subjective stage inflation and improves pipeline quality.",
+        "tip": "Consultant-level questions test the business meaning of data, not just how to configure fields."
+      },
+      {
+        "id": 10,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A sales leader reports that opportunities remain in late stages for months and forecasts are unreliable. Representatives say stage definitions are vague. What should the consultant do before adding automation?",
+        "options": [
+          "Document stage entry and exit criteria with stakeholders and analyze aging by stage",
+          "Automatically close every opportunity after 30 days",
+          "Increase all probabilities to 90 percent",
+          "Replace opportunities with cases"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "The root cause is process ambiguity. The consultant should clarify stage definitions and analyze where deals stall before automating behavior. Automation built on unclear rules would only scale inconsistency.",
+        "tip": "Fix the operating model before automating it. Reliable CRM data follows a shared process definition."
+      },
+      {
+        "id": 11,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "An opportunity is marked Closed Won. Operations must create a fulfillment record, but only after required contract fields are complete. Which approach best balances data quality and automation?",
+        "options": [
+          "Create the fulfillment record manually before the opportunity closes",
+          "Use validation to enforce required closing data and an after-save flow to create the fulfillment record",
+          "Use a report subscription to create records",
+          "Make all opportunity fields universally required"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Validation ensures the record cannot enter the final state without required information. An after-save flow can then create the related fulfillment record after the successful transaction. Universal requiredness would affect stages where the information may not yet exist.",
+        "tip": "Use stage-aware validation for quality and after-save automation for related-record actions."
+      },
+      {
+        "id": 12,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A business has long sales cycles and wants representatives to track competitor, decision criteria, and next step before advancing. Management also wants guided prompts at each stage. Which capability should the consultant prioritize?",
+        "options": [
+          "Account hierarchy",
+          "A compact layout only",
+          "Path with key fields and guidance for success",
+          "Campaign influence"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Path can highlight stage-specific key fields and provide guidance for success. It supports consistent execution without replacing security or the underlying sales process.",
+        "tip": "Path guides users through a process; it does not enforce every rule. Pair it with validation or automation when enforcement is required."
+      },
+      {
+        "id": 13,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "Marketing wants to understand which campaigns influenced opportunities, but sales often associates only the final event. The organization needs a broader attribution model. What should the consultant assess?",
+        "options": [
+          "Territory forecasts",
+          "Opportunity teams",
+          "Lead assignment rules only",
+          "Customizable Campaign Influence and the campaign association process"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Customizable Campaign Influence supports influence models that can recognize multiple campaigns associated with an opportunity. The consultant should also address the operational process that ensures campaign relationships are captured.",
+        "tip": "Attribution requires both a data model and disciplined data capture; configuration alone cannot recover missing associations."
+      },
+      {
+        "id": 14,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A sales team needs to pursue several independent deals with the same customer at the same time. What is the correct data model?",
+        "options": [
+          "One account with multiple opportunities",
+          "One opportunity with multiple accounts",
+          "A new account for every deal",
+          "One lead converted repeatedly"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "The account represents the customer relationship, while each opportunity represents a distinct potential revenue event. Multiple opportunities can therefore exist under the same account.",
+        "tip": "Keep durable entities separate from transactions: customer equals Account; deal equals Opportunity."
+      },
+      {
+        "id": 15,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A company wants a visual view of parent companies and subsidiaries while keeping each legal entity as a separate account. Which standard feature should be used?",
+        "options": [
+          "Product schedule",
+          "Parent Account and account hierarchy",
+          "Opportunity hierarchy",
+          "Lead queue"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "The Parent Account relationship creates a hierarchy of account records and supports viewing corporate structures while preserving separate legal entities.",
+        "tip": "Use the standard hierarchy when the relationship is organizational, not transactional."
+      },
+      {
+        "id": 16,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "Sales representatives collaborate with solution engineers on selected accounts. Engineers need access to the account and a clearly defined team role, but they should not own the records. Which feature is most appropriate?",
+        "options": [
+          "Lead queues",
+          "Territory assignment only",
+          "Account teams",
+          "Manual account duplication"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Account teams allow multiple users to collaborate on an account with defined team roles and configurable access to related records. Ownership remains with the accountable account owner.",
+        "tip": "Use teams for named collaboration; use territories for scalable market-based access and accountability."
+      },
+      {
+        "id": 17,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A company wants recurring revenue projections for a product delivered monthly over one year. Which feature should the consultant consider?",
+        "options": [
+          "Campaign member statuses",
+          "Account history",
+          "Lead assignment rules",
+          "Revenue schedules on opportunity products"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Revenue schedules distribute an opportunity product's revenue across time, supporting more accurate period-based reporting. Quantity schedules address delivery quantities rather than revenue recognition.",
+        "tip": "Determine whether the requirement is when revenue occurs, when quantity is delivered, or both."
+      },
+      {
+        "id": 18,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A sales team uses both quantity and revenue schedules. Which statement is correct?",
+        "options": [
+          "Schedules are associated with opportunity products, not directly with accounts",
+          "Schedules control record sharing",
+          "Schedules automatically create invoices",
+          "Schedules replace price books"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Product schedules are tied to opportunity products and represent expected quantities or revenue over time. They do not replace pricing, invoicing, or access controls.",
+        "tip": "Do not overextend a feature: scheduling models timing, not the entire order-to-cash process."
+      },
+      {
+        "id": 19,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A company wants renewals created six months before contract expiration, with the renewal opportunity linked to the existing customer and assigned to the current account owner. What is the best solution direction?",
+        "options": [
+          "Create renewal leads for existing customers",
+          "Ask representatives to duplicate accounts",
+          "Use a dashboard snapshot",
+          "Use date-driven automation that creates a renewal opportunity and carries the appropriate relationship and owner"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "A scheduled path or scheduled flow can create renewal opportunities based on the relevant expiration date and set ownership and relationships consistently. Leads are generally not the right object for an established customer renewal.",
+        "tip": "Choose objects based on lifecycle state: existing-customer revenue usually belongs in opportunities, not new prospect leads."
+      },
+      {
+        "id": 20,
+        "category": "Sales Lifecycle",
+        "select": 1,
+        "question": "A consultant is designing a lead-to-opportunity process for a company that sometimes sells to individuals rather than businesses. Which consideration is most important?",
+        "options": [
+          "Whether products should be stored as files",
+          "Whether Person Accounts are appropriate and how lead conversion should create them",
+          "Whether opportunity stages should be alphabetical",
+          "Whether every individual needs a campaign"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "For B2C or hybrid models, Person Accounts may represent individuals by combining account and contact characteristics. The consultant must evaluate feature implications and conversion behavior before enabling them, because enablement has lasting architectural consequences.",
+        "tip": "Irreversible or high-impact features require early architecture decisions, not late configuration fixes."
+      },
+      {
+        "id": 21,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "During discovery, executives ask for 'better forecasting,' while sales managers describe inconsistent stages and representatives describe excessive data entry. What should the consultant do first?",
+        "options": [
+          "Install every available Sales Cloud feature",
+          "Configure Einstein Forecasting immediately",
+          "Translate the broad goal into measurable outcomes, process problems, and prioritized requirements",
+          "Copy the current process without challenge"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "The consultant should decompose an ambiguous objective into measurable business outcomes, identify root causes, and prioritize requirements. Forecast technology cannot compensate for unclear stages or poor adoption.",
+        "tip": "A consultant begins with why and how success will be measured, then selects features."
+      },
+      {
+        "id": 22,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "Stakeholders propose 60 mandatory opportunity fields because each department wants complete information. What is the best consultant response?",
+        "options": [
+          "Reject every custom field",
+          "Make all 60 fields required on creation",
+          "Move all fields to Account",
+          "Map each field to a decision, process step, or reporting need and require it only when necessary"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Each data element should have a clear business purpose and appropriate timing. Progressive data capture, stage-based validation, and thoughtful page design reduce user burden while protecting quality.",
+        "tip": "Data quality is not the same as maximum requiredness. Capture the right data at the right moment."
+      },
+      {
+        "id": 23,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A customer wants to replicate a highly customized legacy CRM exactly in Salesforce. What should the consultant recommend?",
+        "options": [
+          "Replace all business terminology with Salesforce terminology",
+          "Avoid stakeholder interviews",
+          "Use fit-gap analysis, challenge low-value customizations, and favor scalable standard capabilities",
+          "Rebuild every screen and exception before go-live"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Fit-gap analysis distinguishes business-critical requirements from legacy habits. Favoring standard capabilities where they meet the need reduces technical debt and improves maintainability.",
+        "tip": "Do not confuse familiarity with business value. Preserve outcomes, not every legacy behavior."
+      },
+      {
+        "id": 24,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A project has four sales regions with conflicting priorities. Which governance approach best supports timely decisions?",
+        "options": [
+          "Delay all decisions until user acceptance testing",
+          "Define a decision-making structure, named process owners, and escalation path",
+          "Let the implementation team decide without business input",
+          "Allow every user to approve every design decision"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Clear governance identifies who owns process decisions, who provides input, and how conflicts are escalated. This prevents design paralysis and protects accountability.",
+        "tip": "Stakeholder participation is broad; decision authority should still be explicit."
+      },
+      {
+        "id": 25,
+        "category": "Consulting and Implementation Strategies",
+        "select": 2,
+        "question": "A consultant must estimate whether a proposed requirement belongs in the first release. Which two factors are most important?",
+        "options": [
+          "Implementation effort, risk, and dependencies",
+          "Whether the feature has the longest name",
+          "The requester's job title alone",
+          "Business value and urgency"
+        ],
+        "answers": [
+          0,
+          3
+        ],
+        "explanation": "Release prioritization balances expected business value with effort, risk, dependencies, and time constraints. Seniority alone should not determine scope.",
+        "tip": "Use a transparent prioritization model so tradeoffs are explainable and repeatable."
+      },
+      {
+        "id": 26,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A sales transformation is technically successful, but representatives continue using spreadsheets. Which missing workstream is most likely responsible?",
+        "options": [
+          "Change management and adoption planning",
+          "A larger role hierarchy",
+          "More validation rules",
+          "Additional record types"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Adoption requires stakeholder engagement, communication, training, reinforcement, leadership sponsorship, and measurement. Technical deployment alone does not change behavior.",
+        "tip": "Implementation success is realized usage and business outcome, not merely production deployment."
+      },
+      {
+        "id": 27,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "Which success metric best demonstrates adoption quality rather than simple login activity?",
+        "options": [
+          "Number of users who logged in once",
+          "Total storage purchased",
+          "Percentage of opportunities with current next steps and close dates",
+          "Number of page layouts created"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Meaningful adoption metrics measure whether users perform the behaviors needed for the business process. A login does not prove that pipeline data is complete or useful.",
+        "tip": "Choose metrics connected to desired behavior and business value, not vanity activity."
+      },
+      {
+        "id": 28,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A company plans a phased rollout by region. The first region has a representative sales model, supportive leadership, and manageable complexity. Why is it a strong pilot candidate?",
+        "options": [
+          "It allows requirements from other regions to be ignored",
+          "It can validate the solution and rollout approach while limiting risk",
+          "It eliminates the need for testing",
+          "It guarantees no changes will be needed"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "A representative but manageable pilot creates evidence about process, configuration, training, and support before broader rollout. It reduces risk without implying that later regions require no discovery.",
+        "tip": "A good pilot is neither the easiest exception nor the most complex market; it should generate transferable learning."
+      },
+      {
+        "id": 29,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A requirement is technically possible with custom code, but a standard feature satisfies 90 percent of the need. The remaining 10 percent is a low-frequency exception. What should the consultant recommend?",
+        "options": [
+          "Evaluate the business value of the exception against long-term cost and favor standard functionality when appropriate",
+          "Always build custom code for perfect fit",
+          "Create a separate Salesforce org for the exception",
+          "Reject the entire requirement"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "The consultant should compare incremental business value with development, testing, maintenance, upgrade, and support costs. A scalable standard design may be the better strategic choice.",
+        "tip": "The best solution is not always the most customized; optimize total lifecycle value."
+      },
+      {
+        "id": 30,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A sponsor asks for an exact return-on-investment forecast for a sales automation feature before discovery is complete. What is the most responsible response?",
+        "options": [
+          "Guarantee a precise percentage immediately",
+          "Use another customer's ROI without adjustment",
+          "Avoid discussing business value",
+          "Define baseline metrics, assumptions, expected benefits, costs, and a method to validate value after rollout"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "A credible business case makes assumptions visible, establishes baselines, estimates benefits and costs, and defines how results will be measured. Precision without evidence would be misleading.",
+        "tip": "Strong consulting communicates uncertainty explicitly rather than hiding it behind confident numbers."
+      },
+      {
+        "id": 31,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A project team discovers a major process dependency after configuration has started. What should happen next?",
+        "options": [
+          "Delete the requirement without telling stakeholders",
+          "Hide the issue to protect the timeline",
+          "Move directly to production",
+          "Assess impact on scope, design, data, testing, and timeline, then route the decision through change control"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Structured change control makes the impact and tradeoffs visible and ensures authorized stakeholders decide whether to adjust scope, schedule, or solution.",
+        "tip": "Change is normal; unmanaged change is the risk."
+      },
+      {
+        "id": 32,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "What is the primary purpose of a design decision log?",
+        "options": [
+          "To record key choices, alternatives, rationale, assumptions, and owners",
+          "To replace user stories",
+          "To store passwords",
+          "To count page views"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "A decision log preserves context for why a design was selected and what assumptions shaped it. This supports governance, onboarding, future maintenance, and revisiting decisions when assumptions change.",
+        "tip": "Documentation should preserve reasoning, not just final configuration."
+      },
+      {
+        "id": 33,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A company has subsidiaries with different currencies, processes, and privacy requirements, but leadership wants a single customer view. What should the consultant assess before deciding on one org or multiple orgs?",
+        "options": [
+          "The preferred dashboard color",
+          "Business process commonality, data residency and security, integration needs, governance, and operating model",
+          "Only the number of users",
+          "Whether every subsidiary uses the same email domain"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Org strategy is an architectural decision influenced by legal requirements, process divergence, data boundaries, integration, governance, scale, and total cost. User count alone is insufficient.",
+        "tip": "Org strategy follows business and governance boundaries, not aesthetic preference."
+      },
+      {
+        "id": 34,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A customer requests a feature that is unavailable in its Salesforce edition. What should the consultant do?",
+        "options": [
+          "Build unsupported behavior secretly",
+          "Pretend the feature is included",
+          "Explain the limitation and compare viable alternatives, add-ons, or edition changes against requirements and cost",
+          "Remove the requirement without discussion"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "The consultant must identify licensing and edition constraints early and present transparent options with their commercial and technical implications.",
+        "tip": "Licensing is part of solution design. A technically valid feature is not viable if the customer cannot use it."
+      },
+      {
+        "id": 35,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A stakeholder workshop is dominated by one executive, while frontline sellers remain silent. What facilitation technique is most appropriate?",
+        "options": [
+          "Accept the executive's view as complete",
+          "Cancel discovery",
+          "Ask only yes-or-no questions",
+          "Use structured turn-taking, targeted questions, anonymous input, or separate sessions to surface diverse evidence"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Effective facilitation intentionally creates space for different roles and evidence. Frontline users often reveal operational constraints that leadership cannot see.",
+        "tip": "Consultants manage participation bias; the loudest voice is not automatically the most accurate source."
+      },
+      {
+        "id": 36,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A company cannot agree whether a requirement is mandatory. Which artifact best clarifies the debate?",
+        "options": [
+          "A traceability matrix linking the requirement to business objective, stakeholder, priority, and acceptance criteria",
+          "A list of usernames",
+          "A login history report",
+          "A compact layout"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Traceability shows why a requirement exists, who needs it, how it supports objectives, and how completion will be validated. This makes prioritization and impact analysis more objective.",
+        "tip": "When requirements become political, reconnect them to measurable outcomes and evidence."
+      },
+      {
+        "id": 37,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A project has a fixed launch date due to regulatory change. Scope exceeds available capacity. What should the consultant recommend?",
+        "options": [
+          "Ignore the date",
+          "Prioritize regulatory and high-value capabilities, define a minimum viable release, and defer lower-priority items transparently",
+          "Keep all scope and reduce testing",
+          "Add unapproved resources without planning"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "With a fixed date, scope must be actively prioritized while protecting compliance and quality. Reducing testing creates unacceptable delivery risk.",
+        "tip": "When one constraint is fixed, manage the others explicitly; do not hide the tradeoff."
+      },
+      {
+        "id": 38,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "During solution design, when is a proof of concept most valuable?",
+        "options": [
+          "After production deployment only",
+          "As a replacement for requirements",
+          "When a high-risk assumption or integration behavior must be validated before committing to the full design",
+          "For every simple field creation"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "A proof of concept reduces uncertainty around a specific high-risk technical or experience assumption. It should have a clear question and success criteria.",
+        "tip": "Use prototypes to learn, not to disguise unfinished production work."
+      },
+      {
+        "id": 39,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A sales process varies slightly across regions, but leaders want global reporting. Which approach is generally most sustainable?",
+        "options": [
+          "Force all regions to use identical language regardless of legal needs",
+          "Use free-text fields for every regional difference",
+          "Create completely unrelated data models for every region",
+          "Standardize the common core, allow justified local variation, and define global data standards"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "A common core supports comparable reporting and maintainability, while controlled local variation handles legitimate differences. Governance should define which elements are global and which are local.",
+        "tip": "Standardize what creates enterprise value; localize what has a defensible business reason."
+      },
+      {
+        "id": 40,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A consultant is asked to recommend training. Which strategy best supports role-based adoption?",
+        "options": [
+          "Train users before the process is finalized and never update materials",
+          "Create task-based learning by persona, use realistic scenarios, provide practice and reinforcement, and prepare managers to coach",
+          "Send only the Salesforce Help homepage",
+          "Deliver one generic four-hour presentation to everyone"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Role-based, scenario-driven learning helps users perform their actual work. Practice, reinforcement, and manager coaching improve retention and adoption beyond a one-time presentation.",
+        "tip": "Training should mirror the user's job, not the implementation team's feature list."
+      },
+      {
+        "id": 41,
+        "category": "Consulting and Implementation Strategies",
+        "select": 2,
+        "question": "Which two deliverables most directly support a smooth transition to operations after go-live?",
+        "options": [
+          "Admin and release documentation for the configured solution",
+          "A list of every meeting attendee",
+          "An undocumented developer sandbox",
+          "A support model with ownership and escalation paths"
+        ],
+        "answers": [
+          0,
+          3
+        ],
+        "explanation": "Operational readiness requires clear support ownership, escalation, documentation, knowledge transfer, monitoring, and release practices. Meeting attendance does not substitute for these controls.",
+        "tip": "Design for day two, not just launch day."
+      },
+      {
+        "id": 42,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A customer asks to go live with known data-quality issues because the configuration is ready. What should the consultant do?",
+        "options": [
+          "Quantify the impact, define remediation or containment, establish acceptance criteria, and obtain an informed go-live decision",
+          "Disable reports permanently",
+          "Delete the affected records",
+          "Proceed without documenting risk"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "The consultant should make the operational consequences visible and present remediation or mitigation options. The sponsor can then make a documented decision based on risk and business need.",
+        "tip": "Escalate with evidence and options, not alarm or concealment."
+      },
+      {
+        "id": 43,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "What is the strongest reason to define nonfunctional requirements for a Sales Cloud implementation?",
+        "options": [
+          "They replace business requirements",
+          "They are only needed for custom code",
+          "They capture qualities such as security, performance, scale, availability, and usability that shape the solution architecture",
+          "They determine opportunity probability"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Nonfunctional requirements constrain and guide architecture even when the user-facing process appears correct. Ignoring them can produce a solution that fails under real operating conditions.",
+        "tip": "A solution can be functionally correct and still be unusable, insecure, or unable to scale."
+      },
+      {
+        "id": 44,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A consultant must choose between a quick workaround and a strategic design. What should guide the recommendation?",
+        "options": [
+          "Only the implementation speed",
+          "The consultant's personal preference",
+          "The number of custom fields already present",
+          "Business urgency, risk, expected lifespan, maintenance cost, user impact, and a documented path to the target state"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "A temporary solution can be appropriate when its risks, lifespan, and migration path are explicit. The recommendation should compare near-term value with long-term cost and architecture.",
+        "tip": "Temporary is a valid strategy only when the exit plan is real."
+      },
+      {
+        "id": 45,
+        "category": "Consulting and Implementation Strategies",
+        "select": 1,
+        "question": "A stakeholder says, 'Salesforce should make our representatives sell better.' How should the consultant turn this into an actionable requirement?",
+        "options": [
+          "Promise higher revenue without process change",
+          "Create a field named Sell Better",
+          "Identify the specific behaviors and outcomes to improve, establish baselines, and define measurable acceptance criteria",
+          "Configure random productivity features"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "The consultant must translate aspiration into observable behavior and measurable outcomes, such as faster lead response, improved conversion, cleaner next steps, or shorter stage duration.",
+        "tip": "Convert vague goals into who does what differently and how success will be measured."
+      },
+      {
+        "id": 46,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "Opportunity organization-wide defaults are Private. Regional specialists must collaborate on opportunities when the account is in their territory, regardless of opportunity owner. Forecasts must roll up by territory. Which solution should the consultant evaluate?",
+        "options": [
+          "Only the role hierarchy",
+          "Enterprise Territory Management with territory-based access and territory forecasts",
+          "Public Read/Write opportunities",
+          "A separate org for every territory"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Enterprise Territory Management is designed for market-based assignment, access, and territory forecasting independent of the managerial role hierarchy. The exact access model and opportunity territory assignment process must be designed carefully.",
+        "tip": "Use roles for management hierarchy; use territories for market coverage that crosses ownership or reporting lines."
+      },
+      {
+        "id": 47,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A matrix sales organization needs managers to forecast by geography while product leaders forecast their product-family contributions. Which combination should the consultant assess?",
+        "options": [
+          "Territory forecasts plus appropriate opportunity or product splits and forecast types",
+          "One static dashboard only",
+          "Duplicate opportunities for each leader",
+          "Account teams without forecasts"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Territory forecasts can support geographic accountability, while split-based forecast types can represent contributor or product-family credit. The consultant must align forecast types with how the business assigns accountability.",
+        "tip": "Forecast architecture should mirror the questions leaders need to answer, not force every perspective into one number."
+      },
+      {
+        "id": 48,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A forecast manager needs to adjust a subordinate's forecast based on known risk without changing the underlying opportunity amounts. Which capability supports this?",
+        "options": [
+          "Opportunity deletion",
+          "Account merge",
+          "Price book cloning",
+          "Forecast adjustments"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Forecast adjustments allow authorized forecast managers to add judgment to forecast totals while preserving the source opportunity data and adjustment history.",
+        "tip": "Separate managerial judgment from transactional pipeline data."
+      },
+      {
+        "id": 49,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "Executives want to compare how the pipeline changed from week to week, including opportunities that moved stages or changed amounts. Which capability should be considered?",
+        "options": [
+          "Lead queues",
+          "Email templates",
+          "Pipeline Inspection with historical pipeline information or appropriate historical trending",
+          "A current-state tabular report only"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Pipeline Inspection and historical pipeline capabilities help managers understand movement and risk over time. A current-state report cannot explain how the pipeline changed.",
+        "tip": "Snapshot questions require historical data; today's record values cannot reconstruct yesterday by themselves."
+      },
+      {
+        "id": 50,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "Sales representatives need a prioritized workspace showing deal health, activity, and changes so managers can coach efficiently. Which Sales Cloud capability best aligns?",
+        "options": [
+          "Pipeline Inspection",
+          "Case escalation rules",
+          "Knowledge articles",
+          "Campaign hierarchy"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Pipeline Inspection provides a consolidated view for managing pipeline, including opportunity metrics, changes, and indicators that support inspection and coaching.",
+        "tip": "Choose a workspace designed for the managerial task rather than assembling unrelated reports first."
+      },
+      {
+        "id": 51,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A company wants leads distributed round-robin among representatives with different regional eligibility and capacity. Standard lead assignment rules handle eligibility but not true capacity-aware rotation. What should the consultant do?",
+        "options": [
+          "Use opportunity teams",
+          "Document the gap and evaluate Flow, AppExchange, or custom routing options against scale and fairness requirements",
+          "Create duplicate leads until distribution looks even",
+          "Set leads to Public Read/Write"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Standard assignment rules route based on criteria but do not inherently provide every advanced round-robin or capacity model. The consultant should identify the gap and choose an extension based on complexity, volume, maintainability, and licensing.",
+        "tip": "Know where standard capability ends; do not claim a feature solves a requirement it only partially addresses."
+      },
+      {
+        "id": 52,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A company needs email and calendar activity captured with minimal representative effort, but legal requires clear retention and access controls. What should the consultant evaluate?",
+        "options": [
+          "Only a custom text field",
+          "Disable all activity tracking",
+          "Einstein Activity Capture capabilities and limitations, data storage model, security, retention, and reporting needs",
+          "Store email passwords in Salesforce"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Activity capture can reduce manual work, but the consultant must evaluate supported activity visibility, retention, reporting, data architecture, and compliance requirements before recommending it.",
+        "tip": "Convenience features can have architectural and compliance implications; assess them before adoption."
+      },
+      {
+        "id": 53,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A sales manager wants representatives to follow a repeatable sequence of calls, emails, and tasks for new prospects. Which feature family should the consultant consider?",
+        "options": [
+          "Opportunity splits",
+          "Product schedules",
+          "Account hierarchy",
+          "Sales Engagement cadences, subject to licensing"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Sales Engagement cadences guide sellers through structured outreach steps and can improve consistency. The consultant must confirm licensing and whether the operating model fits cadence-based work.",
+        "tip": "Match the feature to the seller workflow and verify entitlement before designing around it."
+      },
+      {
+        "id": 54,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A company needs different opportunity page experiences for enterprise and small-business deals. Enterprise users need additional sections and a guided component, while security remains the same. What is the best approach?",
+        "options": [
+          "Record types with appropriate page layouts and Lightning record page activation",
+          "Create separate users for each deal",
+          "Use sharing rules to hide components",
+          "Create a new opportunity object"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Record types can support process and layout variations, while Lightning App Builder activation can deliver different component experiences by app, profile, or record type. Security should still be handled independently.",
+        "tip": "Different experience does not automatically mean different security or a different object."
+      },
+      {
+        "id": 55,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A consultant needs a component visible only when an opportunity is over $1 million and in Negotiation. Which capability is most appropriate?",
+        "options": [
+          "Price book entry",
+          "Component visibility filters in Lightning App Builder",
+          "Campaign influence",
+          "Role hierarchy"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Lightning App Builder supports conditional component visibility based on record fields and other context. This changes the user experience without changing field-level or record security.",
+        "tip": "Visibility rules personalize the page; they are not a security boundary."
+      },
+      {
+        "id": 56,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A company wants to prevent users from skipping required stages but must allow a special executive fast-track process. What is the best design direction?",
+        "options": [
+          "Make all opportunities read-only",
+          "Rely only on Path",
+          "Define explicit transition rules and exceptions, then enforce with validation or Flow based on process and authorization",
+          "Create a field for every possible transition"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Stage-transition governance must encode the approved process and legitimate exceptions. Path provides guidance but does not enforce stage transitions by itself.",
+        "tip": "Guidance, enforcement, and exception authority are separate design concerns."
+      },
+      {
+        "id": 57,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A customer asks whether to use Account Teams or Enterprise Territory Management. Which distinction is most accurate?",
+        "options": [
+          "Account Teams replace opportunity products",
+          "Territories are only for page layouts",
+          "They are identical",
+          "Account Teams support named collaboration on specific accounts; territories support scalable market-based assignment, access, and forecasting"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Account Teams are record-specific collaboration structures. Enterprise Territory Management models broader market coverage and can drive account assignment, access, and territory forecasts.",
+        "tip": "Choose teams for who collaborates on this customer; choose territories for who covers this market segment."
+      },
+      {
+        "id": 58,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A sales operations team needs to update 20,000 opportunity owners after a territory redesign. Which approach is safest?",
+        "options": [
+          "Test the assignment logic in a sandbox, back up data, use the appropriate bulk or territory assignment process, and validate downstream effects",
+          "Manually edit every record in production",
+          "Delete and recreate all opportunities",
+          "Change organization-wide defaults to Public Read/Write"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Large ownership changes affect access, forecasts, automation, and reporting. A controlled, tested bulk process with backup, validation, and stakeholder communication reduces operational risk.",
+        "tip": "Bulk data work is a business change, not just a file upload."
+      },
+      {
+        "id": 59,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A sales team needs an automatically calculated probability based on stage, but managers sometimes need to use a different probability for a specific deal. What standard behavior should the consultant explain?",
+        "options": [
+          "Probability is always locked and cannot vary",
+          "Stages can have default probabilities, and opportunity probability can be adjusted when the business process allows it",
+          "Probability is stored on products only",
+          "Probability comes only from the account owner"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Opportunity stages carry default probabilities, but the opportunity's Probability field can be adjusted unless restricted by the implementation. The consultant should decide whether overrides support or undermine forecast governance.",
+        "tip": "Understand defaults versus enforced values; standard behavior may be configurable through process controls."
+      },
+      {
+        "id": 60,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A company wants to ensure a closed opportunity cannot be reopened by most users, while a small operations group may correct mistakes. Which design is most appropriate?",
+        "options": [
+          "A dashboard filter",
+          "A validation rule that blocks prohibited transitions with a custom permission exception",
+          "A new opportunity object",
+          "A public group with no supporting rule"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "A validation rule can inspect prior and new values and allow an exception through a custom permission assigned to authorized users. This is more maintainable than profile names hard-coded in formulas.",
+        "tip": "Use custom permissions for durable exceptions instead of embedding user or profile names."
+      },
+      {
+        "id": 61,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A consultant is designing quote generation using standard Salesforce Quotes. Which relationship is fundamental?",
+        "options": [
+          "A quote is associated with an opportunity and can synchronize selected line items with it",
+          "A quote controls the role hierarchy",
+          "A quote must be created from a lead only",
+          "A quote replaces the account"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Standard Quotes are related to opportunities, and one quote can be synchronized so its line items and amounts align with the opportunity. The consultant should distinguish standard quoting from more advanced Revenue Cloud requirements.",
+        "tip": "Confirm whether the requirement is basic proposal generation or complex configure-price-quote behavior."
+      },
+      {
+        "id": 62,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A company needs complex product bundles, guided selling, contracted pricing, and advanced discount rules. What should the consultant conclude about standard Sales Cloud products and quotes?",
+        "options": [
+          "Use a lead queue",
+          "Create more opportunity stages",
+          "Use account teams",
+          "The requirements likely exceed basic standard quoting and warrant evaluation of Revenue Cloud or another CPQ solution"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Standard products, price books, and quotes support core selling, but complex configuration and pricing rules are typical CPQ requirements. Product selection should follow a fit-gap assessment and licensing review.",
+        "tip": "Recognize adjacent-cloud boundaries; do not force complex CPQ needs into basic opportunity products."
+      },
+      {
+        "id": 63,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A company uses multiple currencies. Executives want historical opportunity values to reflect the exchange rate applicable near the close date rather than only the current corporate rate. Which feature should be evaluated?",
+        "options": [
+          "Email relay",
+          "Lead scoring",
+          "Advanced Currency Management with dated exchange rates",
+          "Account teams"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Advanced Currency Management supports dated exchange rates for opportunities and related forecasting behavior. The consultant must understand scope and reporting implications before enablement.",
+        "tip": "Currency requirements often depend on whether users need current conversion or historical commercial accuracy."
+      },
+      {
+        "id": 64,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A company wants sales representatives to see only products valid for the selected opportunity price book. What standard behavior supports this?",
+        "options": [
+          "Products are controlled by role hierarchy",
+          "Opportunity products are selected from price book entries in the opportunity's chosen price book",
+          "All active products are always available regardless of price book",
+          "Campaigns determine product visibility"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "The opportunity's price book establishes which product price book entries can be added. Product activation and price book entry activation also matter.",
+        "tip": "Trace availability through Product, Price Book, and Price Book Entry rather than treating them as one object."
+      },
+      {
+        "id": 65,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A consultant must improve mobile seller productivity. What is the best first step?",
+        "options": [
+          "Observe high-value mobile tasks and redesign actions, layouts, and flows around those scenarios",
+          "Add every field to the compact layout",
+          "Disable offline considerations",
+          "Copy the desktop page exactly"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Mobile design should begin with the user's context, frequency, urgency, and device constraints. Quick actions, compact layouts, and mobile-friendly flows should support the most valuable tasks.",
+        "tip": "Start from jobs to be done, not from shrinking the desktop interface."
+      },
+      {
+        "id": 66,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A global sales process requires a guided screen flow that creates an account, contact, and opportunity after checking for duplicates. What design principle is most important?",
+        "options": [
+          "Use one screen for every database operation",
+          "Ignore fault paths",
+          "Create records before validation",
+          "Make the flow transactional, handle faults, minimize duplicate creation, and avoid collecting data already available"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "A robust guided flow validates and searches before creation, manages transaction boundaries and errors, and minimizes redundant input. The experience and data integrity must be designed together.",
+        "tip": "A consultant-level flow question is about failure behavior and data consequences, not just which elements can create records."
+      },
+      {
+        "id": 67,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A company needs automated emails when an opportunity enters Proposal, but only once per entry into that stage. Which automation design should be evaluated?",
+        "options": [
+          "A scheduled report every minute",
+          "A sharing rule",
+          "A record-triggered flow using prior value or change detection and entry criteria",
+          "A formula field alone"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "A record-triggered flow can detect the transition into the target stage and perform the action only when the value changes appropriately. Entry conditions and re-entry behavior must be tested.",
+        "tip": "For event-driven automation, define the exact transition—not merely the current field value."
+      },
+      {
+        "id": 68,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A sales operations manager asks for a dashboard that each regional manager can use to see only records they are allowed to access. Which design should the consultant consider?",
+        "options": [
+          "A dashboard running as the CEO for everyone",
+          "A dynamic dashboard running as the logged-in user, subject to limits and sharing",
+          "A separate Salesforce org per manager",
+          "Public Read/Write opportunities"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Dynamic dashboards display data according to the viewer's access, enabling a shared dashboard design for multiple managers. The consultant must consider edition limits, folder access, and underlying report access.",
+        "tip": "Dashboard running user changes data context; it does not replace report folder sharing or record security."
+      },
+      {
+        "id": 69,
+        "category": "Practical Application of Sales Cloud Expertise",
+        "select": 1,
+        "question": "A company wants managers to receive alerts about deals with no activity, close-date slippage, and decreasing amounts. Which solution direction is most aligned with modern Sales Cloud?",
+        "options": [
+          "Evaluate Pipeline Inspection insights and relevant Einstein or activity capabilities, then validate data prerequisites",
+          "Disable activity capture",
+          "Use cases instead of opportunities",
+          "Create one checkbox manually updated by managers"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Pipeline Inspection and predictive sales capabilities can surface risk and changes, but value depends on complete and trustworthy opportunity and activity data. The consultant should assess prerequisites and user workflow.",
+        "tip": "AI and insights amplify the data and process foundation; they do not replace it."
+      },
+      {
+        "id": 70,
+        "category": "Data Management",
+        "select": 1,
+        "question": "A company is migrating accounts and contacts from three systems. The same customer may have different identifiers and spellings in each source. What should the consultant define before loading data?",
+        "options": [
+          "Opportunity stage probabilities only",
+          "A public group",
+          "A matching, survivorship, and source-of-truth strategy",
+          "A dashboard theme"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Migration requires explicit rules for identifying duplicates, choosing authoritative values, preserving source identifiers, and resolving conflicts. Loading first and deduplicating later creates avoidable risk.",
+        "tip": "Data migration design starts with identity and ownership of truth, not the import tool."
+      },
+      {
+        "id": 71,
+        "category": "Data Management",
+        "select": 2,
+        "question": "Which two practices best preserve relationships during a multi-object migration?",
+        "options": [
+          "Use external ID relationships or mapping tables to connect source keys",
+          "Load parent records before child records and retain external IDs",
+          "Rely on record names as unique identifiers",
+          "Load every object simultaneously without sequencing"
+        ],
+        "answers": [
+          0,
+          1
+        ],
+        "explanation": "Parent-first sequencing and stable external identifiers allow child records to reference the correct Salesforce records. Names are often nonunique and can change.",
+        "tip": "Migration relationships depend on keys, not human-readable labels."
+      },
+      {
+        "id": 72,
+        "category": "Data Management",
+        "select": 1,
+        "question": "A customer asks whether Data Import Wizard or Data Loader should be used for a large recurring import with upsert and command-line automation. Which is more appropriate?",
+        "options": [
+          "Lightning App Builder",
+          "Data Import Wizard",
+          "Report Builder",
+          "Data Loader"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Data Loader supports larger volumes, upsert, export, delete, and command-line automation. Data Import Wizard is simpler for supported objects and smaller interactive imports.",
+        "tip": "Choose the data tool based on operation, volume, repeatability, and supported objects."
+      },
+      {
+        "id": 73,
+        "category": "Data Management",
+        "select": 1,
+        "question": "An integration sends customer updates nightly. Salesforce must update an existing account when the source identifier matches and insert it otherwise. Which operation and field design are appropriate?",
+        "options": [
+          "Merge using email templates",
+          "Upsert using a unique External ID field",
+          "Delete and reload all accounts",
+          "Insert using Account Name"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Upsert combines update and insert based on a specified ID or external ID. A unique external ID provides a stable integration key independent of Salesforce record IDs and mutable names.",
+        "tip": "Integration identity should be explicit and stable."
+      },
+      {
+        "id": 74,
+        "category": "Data Management",
+        "select": 1,
+        "question": "Sales representatives create duplicates because they cannot tell whether a prospect already exists. The business wants warnings for uncertain matches but hard blocks for exact matches. What should be configured?",
+        "options": [
+          "One validation rule based only on Account Name",
+          "Public Read/Write access",
+          "Matching rules with separate duplicate rules using alert and block actions",
+          "Opportunity splits"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Matching rules define how potential duplicates are identified, while duplicate rules define what happens. Different rules can warn on fuzzy candidates and block high-confidence duplicates.",
+        "tip": "Detection logic and user response are separate layers in duplicate management."
+      },
+      {
+        "id": 75,
+        "category": "Data Management",
+        "select": 1,
+        "question": "A migration includes 10 years of closed opportunities, but only three years are needed for operational reporting. What should the consultant recommend?",
+        "options": [
+          "Load everything without analyzing storage or performance",
+          "Convert old opportunities into leads",
+          "Delete all history",
+          "Define retention and archival requirements, load only justified operational history, and preserve older data in an accessible archive"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Historical migration should balance regulatory, analytical, operational, cost, and performance needs. Not every legacy row must become an active Salesforce record.",
+        "tip": "Data value declines differently by use case; migrate with purpose, not habit."
+      },
+      {
+        "id": 76,
+        "category": "Data Management",
+        "select": 1,
+        "question": "A company wants to measure pipeline stage changes over time. Why is enabling field history tracking after go-live insufficient for reconstructing prior history?",
+        "options": [
+          "History tracking begins when enabled and does not recreate past field changes",
+          "It stores only product prices",
+          "It replaces backups",
+          "It automatically imports every legacy change"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Field history captures supported changes prospectively. Prior states must be migrated separately if they are required and technically feasible.",
+        "tip": "Historical capability is not retroactive unless a migration explicitly supplies the history."
+      },
+      {
+        "id": 77,
+        "category": "Data Management",
+        "select": 1,
+        "question": "A company requires auditability for changes to Opportunity Amount and Close Date. Which considerations should the consultant evaluate?",
+        "options": [
+          "Lead queue membership",
+          "Field history tracking limits, retention needs, reporting requirements, and whether a longer-term audit product is required",
+          "Campaign member statuses",
+          "Only the page layout color"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Standard field history provides useful audit data but has field-count, retention, and reporting considerations. Longer retention or broader compliance may require additional platform capabilities.",
+        "tip": "Translate 'audit' into exact fields, actors, retention period, immutability, and retrieval requirements."
+      },
+      {
+        "id": 78,
+        "category": "Data Management",
+        "select": 1,
+        "question": "A data load succeeds technically, but reports show inflated pipeline because duplicate opportunities were loaded. What was missing from the migration plan?",
+        "options": [
+          "A campaign hierarchy",
+          "More profiles",
+          "Business reconciliation and validation against source totals and uniqueness rules",
+          "A new Lightning theme"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Technical success only proves records were processed. Reconciliation should compare counts, financial totals, key distributions, duplicates, relationships, and exception records against agreed acceptance criteria.",
+        "tip": "Every migration needs both technical validation and business validation."
+      },
+      {
+        "id": 79,
+        "category": "Data Management",
+        "select": 1,
+        "question": "A sales organization wants a single account view from ERP, marketing, and support systems. What should the consultant clarify before proposing integration?",
+        "options": [
+          "Which user has the shortest name",
+          "Whether all fields can be text",
+          "Only the number of dashboards",
+          "Which system owns each data element, required latency, direction of flow, conflict handling, and identity matching"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Integration design depends on system of record, timing, direction, orchestration, error handling, and identity. 'Single view' is an outcome, not a complete technical requirement.",
+        "tip": "Ask where truth lives and how quickly it must arrive before selecting integration technology."
+      },
+      {
+        "id": 80,
+        "category": "Data Management",
+        "select": 1,
+        "question": "An ERP is the system of record for product pricing, but representatives need prices in Salesforce. Which integration principle is strongest?",
+        "options": [
+          "Maintain ERP ownership and synchronize governed price data into Salesforce with monitoring and error handling",
+          "Delete the ERP",
+          "Allow unrestricted manual changes in both systems",
+          "Store prices in opportunity notes"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "The architecture should preserve authoritative ownership while making required data available in Salesforce. Controls must address synchronization, failures, timing, and authorized exceptions.",
+        "tip": "Avoid accidental dual-master designs unless conflict resolution is deliberate."
+      },
+      {
+        "id": 81,
+        "category": "Data Management",
+        "select": 1,
+        "question": "A company wants near-real-time updates from Salesforce to an order system after Closed Won, with reliable retry and monitoring. What should the consultant emphasize?",
+        "options": [
+          "Manual re-entry without reconciliation",
+          "A formula field only",
+          "An event or API-based integration pattern with idempotency, error handling, retry, and observability",
+          "A report emailed once a month"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Operational integration needs more than a trigger. Reliable design addresses duplicate messages, replay or retry, downstream availability, transaction boundaries, and monitoring.",
+        "tip": "Consultant-level integration answers include failure behavior, not only the happy-path transport."
+      },
+      {
+        "id": 82,
+        "category": "Data Management",
+        "select": 1,
+        "question": "Salesforce contains sensitive customer data. A downstream analytics team requests a full daily export 'just in case.' What is the best response?",
+        "options": [
+          "Put the file in a public folder",
+          "Apply data minimization, purpose limitation, security review, and export only justified fields and records",
+          "Disable all analytics",
+          "Export everything to every analyst"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Trusted data handling requires limiting data to a defined purpose, audience, retention period, and secure transfer method. Broad exports increase privacy and security risk.",
+        "tip": "Least privilege applies to data movement as well as user permissions."
+      },
+      {
+        "id": 83,
+        "category": "Data Management",
+        "select": 2,
+        "question": "A consultant is planning a cutover. Which two activities most reduce data migration risk?",
+        "options": [
+          "Skip stakeholder sign-off",
+          "Change mappings during production load without review",
+          "Perform rehearsal migrations with measured durations and defect resolution",
+          "Define a final delta strategy, freeze window, reconciliation, and rollback criteria"
+        ],
+        "answers": [
+          2,
+          3
+        ],
+        "explanation": "Rehearsals expose performance and mapping issues. A controlled final delta, freeze, reconciliation, and rollback plan manages the transition from legacy to Salesforce.",
+        "tip": "Cutover is an operational runbook, not merely the final execution of a script."
+      },
+      {
+        "id": 84,
+        "category": "Data Management",
+        "select": 1,
+        "question": "A record-triggered integration sometimes creates duplicate orders when it retries after a timeout. What design concept is missing?",
+        "options": [
+          "A different opportunity stage",
+          "A larger page layout",
+          "A campaign influence model",
+          "Idempotency using a stable transaction key or duplicate-protection mechanism"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Idempotent processing ensures repeated delivery of the same business event does not create duplicate outcomes. Stable keys and downstream duplicate checks are common controls.",
+        "tip": "Assume messages can be delivered more than once; design the business action to remain safe."
+      },
+      {
+        "id": 85,
+        "category": "Data Management",
+        "select": 1,
+        "question": "A company plans to delete obsolete sales data. What must be determined before deletion?",
+        "options": [
+          "Legal retention, business dependencies, reporting impact, backups or archive, and approval authority",
+          "The dashboard color",
+          "Only whether the record owner is active",
+          "The user's locale"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Deletion can affect compliance, integrations, related records, analytics, and recovery. A governed retention policy and approved execution plan are required.",
+        "tip": "Deletion is irreversible business change unless recovery has been deliberately designed."
+      },
+      {
+        "id": 86,
+        "category": "Data Management",
+        "select": 1,
+        "question": "Users report that account ownership changes unexpectedly after a territory assignment job. How should the consultant investigate?",
+        "options": [
+          "Disable all territories immediately without analysis",
+          "Review assignment rules, model state, execution settings, logs, and the intended distinction between territory access and record ownership",
+          "Delete ownership history",
+          "Change every account to Public Read/Write"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Territory assignment behavior depends on model configuration, rules, and how jobs are executed. The consultant should reproduce and trace the assignment logic against expected outcomes.",
+        "tip": "Diagnose configuration-driven data changes by tracing rule, execution, and result—not by patching individual records first."
+      },
+      {
+        "id": 87,
+        "category": "Data Management",
+        "select": 1,
+        "question": "A company wants data-quality dashboards. Which metric is most actionable?",
+        "options": [
+          "Percentage of open opportunities missing a next step, grouped by manager and stage",
+          "Total number of fields in the org",
+          "Number of users with blue profile pictures",
+          "Count of all historical logins"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "An actionable metric identifies a business-critical defect, affected population, and accountable context so managers can intervene. Generic inventory counts do not measure sales data quality.",
+        "tip": "A useful quality metric points to a behavior and an owner."
+      },
+      {
+        "id": 88,
+        "category": "Predictive and Generative AI",
+        "select": 1,
+        "question": "A sales leader wants AI to predict which opportunities are most likely to close. Which type of capability is being requested?",
+        "options": [
+          "A campaign hierarchy",
+          "Generative AI that only rewrites text",
+          "A static validation rule",
+          "Predictive AI based on historical patterns and current record signals"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Predictive AI estimates an outcome or score from data patterns. Generative AI produces content such as summaries or emails. The consultant should also assess data sufficiency and business fit.",
+        "tip": "Classify the use case first: predict, generate, recommend, or execute."
+      },
+      {
+        "id": 89,
+        "category": "Predictive and Generative AI",
+        "select": 1,
+        "question": "A representative wants a first draft of a personalized follow-up email grounded in CRM context. Which capability type is most relevant?",
+        "options": [
+          "A product schedule",
+          "A role hierarchy",
+          "Generative AI for sales communication with trusted grounding and human review",
+          "A duplicate rule"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Generative AI can draft sales communications using authorized CRM context. Trusted design includes grounding, data controls, review, and clear user accountability before sending.",
+        "tip": "Generated content is an assistive draft, not automatic truth."
+      },
+      {
+        "id": 90,
+        "category": "Predictive and Generative AI",
+        "select": 1,
+        "question": "An AI-generated account summary includes a confident but unsupported claim about a customer's expansion plans. What risk does this illustrate?",
+        "options": [
+          "Hallucination or ungrounded generation",
+          "Territory overlap",
+          "Currency conversion",
+          "Record locking"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Generative models can produce plausible but unsupported content. Grounding, source visibility, instructions, evaluation, and human verification reduce this risk.",
+        "tip": "Fluent language is not evidence; teach users to verify material claims."
+      },
+      {
+        "id": 91,
+        "category": "Predictive and Generative AI",
+        "select": 1,
+        "question": "A company wants to use opportunity scoring, but historical outcomes are inconsistent and many Closed Lost reasons are blank. What should the consultant recommend first?",
+        "options": [
+          "Hide loss reasons",
+          "Improve data quality and evaluate whether sufficient representative history exists",
+          "Replace opportunities with cases",
+          "Enable every AI feature immediately"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Predictive models depend on relevant, complete, and representative historical data. Poor labels and inconsistent processes can reduce usefulness and introduce bias.",
+        "tip": "AI readiness is largely data and process readiness."
+      },
+      {
+        "id": 92,
+        "category": "Predictive and Generative AI",
+        "select": 2,
+        "question": "Which two practices align with Salesforce's Trusted AI principles in a sales use case?",
+        "options": [
+          "Use every available field regardless of purpose",
+          "Use appropriate data with transparency and human oversight",
+          "Hide from users that content is AI-generated",
+          "Evaluate bias, privacy, security, and potential harm"
+        ],
+        "answers": [
+          1,
+          3
+        ],
+        "explanation": "Trusted AI design includes responsible data use, transparency, accountability, safety, privacy, inclusion, and human control. Concealment and indiscriminate data use undermine trust.",
+        "tip": "Ask not only whether AI can improve a metric, but who could be harmed and how controls will work."
+      },
+      {
+        "id": 93,
+        "category": "Predictive and Generative AI",
+        "select": 1,
+        "question": "A sales team wants generated emails to include confidential pricing visible only to authorized users. What is the most important design requirement?",
+        "options": [
+          "Disable field-level security",
+          "Copy all pricing into a public prompt",
+          "Use one administrator's access for every user",
+          "Ground generation in data the running user is authorized to access and enforce platform security"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "AI experiences must respect data access and avoid exposing fields or records beyond the user's authorization. Prompt and grounding design should work with the platform security model.",
+        "tip": "AI must not become a shortcut around CRM permissions."
+      },
+      {
+        "id": 94,
+        "category": "Predictive and Generative AI",
+        "select": 1,
+        "question": "A company measures an AI email assistant only by the number of drafts generated. What better evaluation approach should the consultant propose?",
+        "options": [
+          "Ignore user feedback",
+          "Count tokens only",
+          "Measure quality, edit rate, send rate, response or conversion outcomes, user trust, and safety incidents against a baseline",
+          "Assume generation equals value"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Adoption volume does not prove effectiveness. A balanced evaluation measures business outcomes, user effort, quality, trust, and risk compared with a baseline.",
+        "tip": "Evaluate the whole workflow and outcome, not just model activity."
+      },
+      {
+        "id": 95,
+        "category": "Predictive and Generative AI",
+        "select": 1,
+        "question": "A manager asks an AI assistant to summarize pipeline risk. Which grounding strategy is strongest?",
+        "options": [
+          "Use general internet text only",
+          "Use current authorized opportunity, activity, and forecast data with clear time boundaries and source references",
+          "Ask the model to invent missing close dates",
+          "Use data from another customer"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Pipeline analysis should be grounded in current, relevant, authorized business data. Time boundaries and source visibility help users interpret and validate the summary.",
+        "tip": "Grounding quality depends on relevance, recency, authorization, and traceability."
+      },
+      {
+        "id": 96,
+        "category": "Predictive and Generative AI",
+        "select": 1,
+        "question": "A company wants AI to automatically change opportunity stages based on email sentiment. What should the consultant advise?",
+        "options": [
+          "Use sentiment as the only source of truth",
+          "Remove audit history",
+          "Treat stage changes as high-impact actions requiring strong validation, deterministic guardrails, user confirmation or controlled automation, and monitoring",
+          "Allow unrestricted autonomous changes immediately"
+        ],
+        "answers": [
+          2
+        ],
+        "explanation": "Opportunity stages affect forecasts and business actions. A probabilistic signal such as sentiment should not control a high-impact field without validation, governance, and accountability.",
+        "tip": "Use AI signals to support decisions; be cautious when they directly mutate authoritative business state."
+      },
+      {
+        "id": 97,
+        "category": "Predictive and Generative AI",
+        "select": 1,
+        "question": "Sales representatives reject AI recommendations because they do not understand why a deal was scored as risky. Which requirement is missing?",
+        "options": [
+          "A longer role hierarchy",
+          "A second currency",
+          "More hidden fields",
+          "Explainability and actionable reason factors in the user workflow"
+        ],
+        "answers": [
+          3
+        ],
+        "explanation": "Users are more likely to trust and act on a recommendation when they can see meaningful factors and the next action. Explainability also helps identify bad data or inappropriate model behavior.",
+        "tip": "A score without a reason is difficult to coach, challenge, or improve."
+      },
+      {
+        "id": 98,
+        "category": "Predictive and Generative AI",
+        "select": 1,
+        "question": "A generative AI pilot performs well for enterprise accounts but poorly for small-business accounts. What should the consultant investigate?",
+        "options": [
+          "Whether data, prompts, examples, and evaluation sets represent both segments and whether outcomes show bias",
+          "Whether the page background is dark",
+          "Whether every user is in the same role",
+          "Whether products have images"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Uneven performance can result from unrepresentative data, prompts, context availability, or evaluation design. Segment-level evaluation helps identify bias and fit issues hidden by overall averages.",
+        "tip": "Always inspect performance across meaningful user and customer groups, not only the aggregate."
+      },
+      {
+        "id": 99,
+        "category": "Predictive and Generative AI",
+        "select": 1,
+        "question": "A company wants to send AI-generated outreach automatically at scale. Which control is most important before expansion?",
+        "options": [
+          "A bigger email template folder",
+          "A governed approval and monitoring model covering consent, brand, factuality, sensitive data, opt-out, and escalation",
+          "Public access to prompts",
+          "Removing human accountability"
+        ],
+        "answers": [
+          1
+        ],
+        "explanation": "Scaled external communication creates legal, reputational, and customer-experience risk. Governance must define when automation is allowed, how content is evaluated, and how failures are detected and handled.",
+        "tip": "The greater the reach and irreversibility, the stronger the pre-send controls should be."
+      },
+      {
+        "id": 100,
+        "category": "Predictive and Generative AI",
+        "select": 1,
+        "question": "A consultant is choosing between a predictive score and a generative summary for opportunity coaching. What is the best decision principle?",
+        "options": [
+          "Choose based on the user's decision: a score prioritizes or predicts, while a summary synthesizes context; they may complement each other",
+          "Always choose generative AI because it is newer",
+          "Treat both capabilities as identical",
+          "Use predictive AI only for writing"
+        ],
+        "answers": [
+          0
+        ],
+        "explanation": "Predictive and generative capabilities solve different parts of the workflow. A score can prioritize risk, while a grounded summary can explain context and suggested follow-up. The design should start from the decision and action required.",
+        "tip": "Do not select AI by trend; select it by the cognitive task it supports."
+      }
+    ]
   }
 ];

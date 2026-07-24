@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive Salesforce Certified Sales Cloud Consultant study lab with 100 advanced, original, exam-aligned practice questions, explanations, and consulting reasoning tips." />
+  <title>Salesforce Sales Cloud Consultant Certification Study Lab</title>
+  <style>
+    :root {
+      --bg: #071426;
+      --surface: #0f2139;
+      --surface-2: #142a46;
+      --surface-3: #1a3453;
+      --text: #f5f9ff;
+      --muted: #b5c5d9;
+      --line: #2a4668;
+      --brand: #2f9cf4;
+      --brand-2: #78c7ff;
+      --success: #45d483;
+      --success-bg: rgba(69, 212, 131, 0.12);
+      --danger: #ff7e8b;
+      --danger-bg: rgba(255, 126, 139, 0.12);
+      --warning: #ffd36a;
+      --shadow: 0 22px 55px rgba(0, 0, 0, 0.28);
+      --radius: 22px;
+      --radius-sm: 14px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% -10%, rgba(47, 156, 244, 0.22), transparent 35%),
+        radial-gradient(circle at 90% 5%, rgba(120, 199, 255, 0.12), transparent 28%),
+        linear-gradient(180deg, #071426 0%, #091a2e 46%, #071426 100%);
+      line-height: 1.55;
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: var(--brand-2); }
+    a:hover { color: white; }
+    :focus-visible { outline: 3px solid var(--warning); outline-offset: 3px; }
+
+    .skip-link {
+      position: fixed; left: 16px; top: -80px; z-index: 100;
+      padding: 10px 14px; border-radius: 10px; color: #06111f;
+      background: var(--warning); font-weight: 800; transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: 16px; }
+    .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+
+    .hero { padding: 52px 0 28px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr); gap: 24px; align-items: stretch; }
+    .hero-copy, .blueprint-panel {
+      border: 1px solid rgba(120, 199, 255, 0.18); border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(20, 42, 70, 0.94), rgba(10, 28, 49, 0.96)); box-shadow: var(--shadow);
+    }
+    .hero-copy { padding: clamp(28px, 5vw, 54px); position: relative; overflow: hidden; }
+    .hero-copy::after {
+      content: "SCC"; position: absolute; right: -18px; bottom: -58px; font-size: 170px;
+      line-height: 1; font-weight: 900; letter-spacing: -16px; color: rgba(120, 199, 255, 0.05); pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; padding: 7px 11px;
+      border: 1px solid rgba(120, 199, 255, 0.25); border-radius: 999px; color: var(--brand-2);
+      background: rgba(47, 156, 244, 0.08); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    h1 { margin: 0; max-width: 850px; font-size: clamp(2.05rem, 4.8vw, 4.6rem); line-height: 1; letter-spacing: -0.052em; }
+    .hero-copy p { max-width: 780px; margin: 22px 0 0; color: var(--muted); font-size: 1.05rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+    .btn {
+      min-height: 45px; padding: 11px 17px; border: 1px solid transparent; border-radius: 12px;
+      font-weight: 800; transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { color: #06111f; background: linear-gradient(135deg, var(--brand-2), var(--brand)); }
+    .btn-secondary { color: var(--text); border-color: var(--line); background: rgba(255,255,255,0.04); }
+    .btn-danger { color: #ffe9ec; border-color: rgba(255, 126, 139, 0.35); background: rgba(255, 126, 139, 0.08); }
+    .btn:disabled { cursor: not-allowed; opacity: 0.45; transform: none; }
+
+    .blueprint-panel { padding: 24px; }
+    .blueprint-panel h2 { margin: 0 0 6px; font-size: 1.1rem; }
+    .blueprint-panel > p { margin: 0 0 18px; color: var(--muted); font-size: 0.9rem; }
+    .weight-list { display: grid; gap: 10px; }
+    .weight-row { display: grid; grid-template-columns: 1fr auto; gap: 7px; align-items: center; }
+    .weight-label { font-size: 0.82rem; font-weight: 750; }
+    .weight-value { color: var(--brand-2); font-size: 0.8rem; font-weight: 900; }
+    .weight-track { grid-column: 1 / -1; height: 6px; overflow: hidden; border-radius: 999px; background: #071426; }
+    .weight-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--brand), var(--brand-2)); }
+
+    .notice {
+      margin: 22px 0 0; padding: 15px 17px; border: 1px solid rgba(255, 211, 106, 0.25);
+      border-radius: 14px; color: #f8e9bd; background: rgba(255, 211, 106, 0.075); font-size: 0.9rem;
+    }
+
+    .dashboard { padding: 10px 0 56px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; margin-bottom: 18px; }
+    .stat-card { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: rgba(15, 33, 57, 0.9); }
+    .stat-label { color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+    .stat-value { margin-top: 4px; font-size: 1.55rem; font-weight: 900; }
+
+    .toolbar {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 16px; padding: 14px;
+      border: 1px solid var(--line); border-radius: 16px; background: rgba(15, 33, 57, 0.85);
+    }
+    .category-filters { display: flex; flex-wrap: wrap; gap: 8px; flex: 1 1 760px; }
+    .filter-btn {
+      min-height: 38px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px;
+      color: var(--muted); background: transparent; font-size: 0.8rem; font-weight: 800;
+    }
+    .filter-btn[aria-pressed="true"] { color: #06111f; border-color: transparent; background: var(--brand-2); }
+
+    .progress-block { margin-bottom: 16px; }
+    .progress-meta { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 8px; color: var(--muted); font-size: 0.86rem; font-weight: 750; }
+    .progress-track { width: 100%; height: 10px; overflow: hidden; border-radius: 999px; background: #06111f; border: 1px solid #19324f; }
+    .progress-fill { width: 0%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--brand), var(--success)); transition: width 0.25s ease; }
+
+    .study-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
+    .question-card {
+      min-height: 610px; padding: clamp(22px, 4vw, 38px); border: 1px solid var(--line); border-radius: var(--radius);
+      background: linear-gradient(160deg, rgba(20, 42, 70, 0.98), rgba(10, 28, 49, 0.98)); box-shadow: var(--shadow);
+    }
+    .question-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .category-badge, .selection-badge {
+      display: inline-flex; padding: 7px 11px; border-radius: 999px; font-size: 0.76rem; font-weight: 900; letter-spacing: 0.045em; text-transform: uppercase;
+    }
+    .category-badge { color: var(--brand-2); background: rgba(47, 156, 244, 0.11); }
+    .selection-badge { color: #faeac0; background: rgba(255,211,106,0.09); }
+    .bookmark-btn { width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 12px; color: var(--muted); background: rgba(255,255,255,0.03); font-size: 1.15rem; }
+    .bookmark-btn.active { color: var(--warning); border-color: rgba(255,211,106,0.42); background: rgba(255,211,106,0.08); }
+    .question-number { margin: 22px 0 8px; color: var(--muted); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+    .question-card h2 { margin: 0; font-size: clamp(1.3rem, 2.8vw, 1.95rem); line-height: 1.3; letter-spacing: -0.02em; }
+    .option-list { display: grid; gap: 11px; margin-top: 27px; }
+    .option-btn {
+      display: grid; grid-template-columns: 36px 1fr 24px; gap: 13px; align-items: center; width: 100%; min-height: 60px;
+      padding: 12px 15px; border: 1px solid var(--line); border-radius: 14px; color: var(--text);
+      background: rgba(4, 17, 32, 0.36); text-align: left; transition: border-color .15s ease, background .15s ease, transform .15s ease;
+    }
+    .option-btn:hover:not(:disabled) { border-color: var(--brand); background: rgba(47, 156, 244, 0.08); transform: translateY(-1px); }
+    .option-key { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; color: var(--brand-2); background: rgba(47,156,244,0.12); font-weight: 900; }
+    .option-check { color: transparent; font-weight: 900; text-align: center; }
+    .option-btn.selected { border-color: var(--brand-2); background: rgba(47,156,244,0.12); }
+    .option-btn.selected .option-check { color: var(--brand-2); }
+    .option-btn.correct { border-color: rgba(69,212,131,0.75); background: var(--success-bg); }
+    .option-btn.correct .option-key { color: #061b10; background: var(--success); }
+    .option-btn.correct .option-check { color: var(--success); }
+    .option-btn.incorrect { border-color: rgba(255,126,139,0.75); background: var(--danger-bg); }
+    .option-btn.incorrect .option-key { color: #2a060b; background: var(--danger); }
+    .option-btn.incorrect .option-check { color: var(--danger); }
+    .option-btn.dimmed { opacity: 0.56; }
+
+    .answer-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; }
+    .selection-count { color: var(--muted); font-size: 0.86rem; font-weight: 750; }
+
+    .feedback {
+      display: none; margin-top: 24px; padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: rgba(4, 17, 32, 0.46);
+    }
+    .feedback.visible { display: block; animation: rise .2s ease-out; }
+    @keyframes rise { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+    .feedback-status { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; font-weight: 900; }
+    .feedback-status.correct-text { color: var(--success); }
+    .feedback-status.incorrect-text { color: var(--danger); }
+    .feedback h3 { margin: 16px 0 7px; font-size: 0.86rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--brand-2); }
+    .feedback p { margin: 0; color: #d7e3f0; }
+    .tip-box { margin-top: 14px; padding: 13px 15px; border-left: 4px solid var(--warning); border-radius: 8px; color: #faeac0; background: rgba(255,211,106,0.07); }
+
+    .nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+    .nav-row .btn { min-width: 120px; }
+    .side-panel { position: sticky; top: 16px; display: grid; gap: 14px; }
+    .side-card { padding: 19px; border: 1px solid var(--line); border-radius: 17px; background: rgba(15,33,57,0.92); }
+    .side-card h3 { margin: 0 0 8px; font-size: 1rem; }
+    .side-card p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+    .side-card .btn { width: 100%; margin-top: 10px; }
+    .shortcut-list { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; color: var(--muted); font-size: 0.84rem; }
+    kbd { display: inline-grid; place-items: center; min-width: 27px; padding: 2px 6px; border: 1px solid #426388; border-bottom-width: 2px; border-radius: 6px; color: white; background: #0a1b2f; font-size: 0.76rem; font-weight: 800; }
+
+    .resources { padding: 0 0 64px; }
+    .resources-card { padding: clamp(24px, 4vw, 38px); border: 1px solid var(--line); border-radius: var(--radius); background: rgba(15,33,57,0.9); }
+    .resources-card h2 { margin-top: 0; }
+    .resource-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+    .resource-link { display: block; padding: 15px; border: 1px solid var(--line); border-radius: 13px; text-decoration: none; background: rgba(4,17,32,0.32); }
+    .resource-link strong { display: block; color: white; }
+    .resource-link span { display: block; margin-top: 3px; color: var(--muted); font-size: 0.83rem; }
+    .footer-note { margin-top: 20px; color: var(--muted); font-size: 0.82rem; }
+    .empty-state { padding: 70px 20px; text-align: center; }
+    .empty-state h2 { margin-bottom: 8px; }
+    .empty-state p { color: var(--muted); }
+
+    @media (max-width: 900px) {
+      .hero-grid, .study-layout { grid-template-columns: 1fr; }
+      .side-panel { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 20px, 1180px); }
+      .hero { padding-top: 20px; }
+      .hero-copy { padding: 28px 22px; }
+      .hero-copy::after { display: none; }
+      .stats-grid, .side-panel, .resource-grid { grid-template-columns: 1fr; }
+      .question-card { min-height: auto; padding: 22px 17px; }
+      .nav-row, .answer-actions { flex-wrap: wrap; }
+      .nav-row .btn, .answer-actions .btn { flex: 1; }
+      .option-btn { grid-template-columns: 32px 1fr 20px; gap: 10px; padding: 11px 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#study">Skip to study question</a>
+
+  <header class="hero">
+    <div class="shell hero-grid">
+      <section class="hero-copy" aria-labelledby="page-title">
+        <div class="eyebrow">100 original, exam-aligned questions</div>
+        <h1 id="page-title">Salesforce Sales Cloud Consultant Certification Study Lab</h1>
+        <p>Practice the current exam domains through advanced consulting scenarios covering discovery, solution design, forecasting, territory management, sales execution, data strategy, adoption, and trusted AI. Select your answer to reveal the correct choice, a detailed explanation, and an exam-focused reasoning tip.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="startBtn">Start Studying</button>
+          <button class="btn btn-secondary" id="shuffleBtn">Shuffle Questions</button>
+        </div>
+        <div class="notice"><strong>Integrity note:</strong> This lab contains original practice questions created from public Salesforce objectives and documentation. It does not reproduce leaked, memorized, or restricted exam content. Single-answer cards reveal feedback immediately; multi-select cards require you to choose the requested number and submit.</div>
+      </section>
+
+      <aside class="blueprint-panel" aria-label="Official exam blueprint">
+        <h2>Official Exam Blueprint</h2>
+        <p>The bank contains 100 questions distributed exactly according to Salesforce's published domain weighting.</p>
+        <div class="weight-list">
+<div class="weight-row"><span class="weight-label">Sales Lifecycle</span><span class="weight-value">20%</span><div class="weight-track"><div class="weight-fill" style="width:80%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Consulting and Implementation Strategies</span><span class="weight-value">25%</span><div class="weight-track"><div class="weight-fill" style="width:100%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Practical Application of Sales Cloud Expertise</span><span class="weight-value">24%</span><div class="weight-track"><div class="weight-fill" style="width:96%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Data Management</span><span class="weight-value">18%</span><div class="weight-track"><div class="weight-fill" style="width:72%"></div></div></div>
+<div class="weight-row"><span class="weight-label">Predictive and Generative AI</span><span class="weight-value">13%</span><div class="weight-track"><div class="weight-fill" style="width:52%"></div></div></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="dashboard" id="study" aria-labelledby="study-heading">
+      <div class="shell">
+        <h2 id="study-heading" style="position:absolute;left:-9999px;">Interactive study questions</h2>
+
+        <div class="stats-grid" aria-label="Study statistics">
+          <div class="stat-card"><div class="stat-label">Answered</div><div class="stat-value" id="answeredStat">0 / 100</div></div>
+          <div class="stat-card"><div class="stat-label">Correct</div><div class="stat-value" id="correctStat">0</div></div>
+          <div class="stat-card"><div class="stat-label">Accuracy</div><div class="stat-value" id="accuracyStat">—</div></div>
+          <div class="stat-card"><div class="stat-label">Bookmarked</div><div class="stat-value" id="bookmarkStat">0</div></div>
+        </div>
+
+        <div class="toolbar" aria-label="Question filters">
+          <div class="category-filters" id="categoryFilters"></div>
+          <button class="btn btn-secondary" id="reviewWrongBtn">Review Wrong</button>
+          <button class="btn btn-secondary" id="reviewBookmarksBtn">Bookmarks</button>
+        </div>
+
+        <div class="progress-block" aria-label="Study progress">
+          <div class="progress-meta"><span id="progressLabel">0 of 100 answered</span><span id="modeLabel">All Questions</span></div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+
+        <div class="study-layout">
+          <article class="question-card" id="questionCard" aria-live="polite"></article>
+
+          <aside class="side-panel">
+            <div class="side-card">
+              <h3>How to reason</h3>
+              <p>Identify the business outcome, constraints, operating model, data implications, and long-term maintainability. Then choose the solution that best balances standard capability, risk, adoption, and measurable value.</p>
+            </div>
+            <div class="side-card">
+              <h3>Exam habits</h3>
+              <p>Several options may be technically possible. Read qualifiers such as “best,” “most scalable,” “first,” and “most appropriate,” then select the choice that addresses the root cause and the full scenario.</p>
+            </div>
+            <div class="side-card">
+              <h3>Study controls</h3>
+              <button class="btn btn-secondary" id="unansweredBtn">Jump to Unanswered</button>
+              <button class="btn btn-danger" id="resetBtn">Reset Progress</button>
+            </div>
+            <div class="side-card">
+              <h3>Keyboard shortcuts</h3>
+              <ul class="shortcut-list">
+                <li><kbd>1</kbd>–<kbd>4</kbd> select options</li>
+                <li><kbd>Enter</kbd> submit multi-select</li>
+                <li><kbd>N</kbd> next question</li>
+                <li><kbd>P</kbd> previous question</li>
+                <li><kbd>B</kbd> bookmark question</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="resources" aria-labelledby="resources-heading">
+      <div class="shell resources-card">
+        <h2 id="resources-heading">Trusted Study Sources</h2>
+        <p style="color:var(--muted);max-width:900px;">This bank contains original questions synthesized from the current official Salesforce exam guide, Trailhead credential preparation, Salesforce Help, and Salesforce architecture and product documentation. It does not reproduce exam dumps, memorized questions, or restricted certification content.</p>
+        <div class="resource-grid">
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/credentials/salescloudconsultant"><strong>Sales Cloud Consultant Credential</strong><span>Official credential page and recommended preparation.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://help.salesforce.com/s/articleView?id=005298976&amp;language=en_US&amp;type=1"><strong>Official Sales Cloud Consultant Exam Guide</strong><span>Current exam objectives, audience, and domain weighting.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/users/strailhead/trailmixes/prepare-for-your-salesforce-sales-cloud-consultant-credential"><strong>Official Sales Cloud Consultant Trailmix</strong><span>Salesforce-curated preparation across the current domains.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://help.salesforce.com/s/articleView?id=sales.sales_core.htm&amp;language=en_US&amp;type=5"><strong>Sales Cloud Basics and Feature Guidance</strong><span>Official entry point for leads, opportunities, forecasting, territories, and sales productivity.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://help.salesforce.com/s/articleView?id=sales.forecasts3_intro.htm&amp;language=en_US&amp;type=5"><strong>Salesforce Forecasting</strong><span>Forecast setup, management, guidance, and reporting concepts.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://help.salesforce.com/s/articleView?id=sales.products_pricebooks.htm&amp;language=en_US&amp;type=5"><strong>Products and Price Books</strong><span>Official product catalog, price book, and price book entry model.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/content/learn/trails/drive-productivity-with-einstein-ai"><strong>Drive Productivity with Salesforce AI</strong><span>Predictive and generative AI, governance, and trusted implementation concepts.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://architect.salesforce.com/"><strong>Salesforce Architects</strong><span>Architecture guidance for scalable, secure, and maintainable solution design.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://trailhead.salesforce.com/trailblazer-community/topics/salescloud"><strong>Trailblazer Community: Sales Cloud</strong><span>Peer discussion and implementation perspectives; used only for study themes, never copied questions.</span></a>
+          <a class="resource-link" target="_blank" rel="noopener" href="https://help.salesforce.com/"><strong>Salesforce Help</strong><span>Current product documentation and implementation considerations.</span></a>
+        </div>
+        <p class="footer-note"><strong>Study note:</strong> Consultant questions often include several technically valid options. The strongest answer usually addresses the business objective, the root cause, user adoption, data quality, governance, and maintainability—not merely the fastest configuration.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const questions = [{"id":1,"category":"Sales Lifecycle","select":1,"question":"A manufacturer receives thousands of webinar leads, but sales representatives complain that most are not ready for direct outreach. Marketing can reliably identify engagement level and company fit. What should the consultant recommend first?","options":["Convert every lead immediately and let sales disqualify weak opportunities","Define lead qualification criteria and use lead scoring or grading before assignment","Create one opportunity for every webinar attendee","Disable lead conversion so marketing owns the entire lifecycle"],"answers":[1],"explanation":"The issue is not record creation; it is qualification and handoff quality. A defined qualification model, supported by scoring or grading signals, helps route sales-ready leads while keeping early-stage prospects in nurture. Converting every lead creates noisy accounts, contacts, and opportunities and does not solve the readiness problem.","tip":"When a scenario describes poor handoff quality, solve the qualification model before optimizing routing or conversion automation."},{"id":2,"category":"Sales Lifecycle","select":1,"question":"A B2B company wants sales representatives to preserve the original lead source, create an account and contact, and optionally create an opportunity when a prospect is qualified. Which standard process best supports this requirement?","options":["Lead conversion","Campaign cloning","Account merge","Opportunity split"],"answers":[0],"explanation":"Lead conversion creates or matches the account and contact and can create an opportunity. Standard lead conversion also carries mapped field values into the resulting records. Campaign cloning, account merge, and opportunity splits serve different stages of the sales lifecycle.","tip":"Map the lifecycle: prospect record first, qualification second, conversion into durable customer and pipeline records third."},{"id":3,"category":"Sales Lifecycle","select":1,"question":"A sales organization uses distinct qualification steps for new-logo business and partner-referred business. Both groups need different Lead Status values, but they share the same lead object. What is the best design?","options":["Create separate lead objects","Use lead processes with record types","Use two role hierarchies","Create a different org for each sales motion"],"answers":[1],"explanation":"Lead processes control the Lead Status values available to users, and record types connect the correct process, picklist values, and page layouts to each sales motion. Separate objects or orgs would introduce unnecessary complexity.","tip":"For variations in a standard sales process, think business process plus record type before custom objects."},{"id":4,"category":"Sales Lifecycle","select":1,"question":"A global company sells through direct sales and resellers. A reseller may introduce a deal, but the internal account executive remains responsible for the customer relationship. The company wants to measure partner influence without changing opportunity ownership. Which capability best fits?","options":["Partner relationships and partner roles on the opportunity","Transfer the opportunity to the reseller user","Create duplicate opportunities for direct and partner teams","Change the account owner whenever a partner is involved"],"answers":[0],"explanation":"Partner-related opportunity capabilities can represent the reseller's involvement while the internal seller retains ownership. Transferring ownership or duplicating opportunities would distort pipeline accountability and forecasting.","tip":"Separate contribution from ownership. The person accountable for the deal does not have to be the only participant represented on it."},{"id":5,"category":"Sales Lifecycle","select":2,"question":"A sales director wants each representative to receive credit for the portion of revenue they contributed to a complex deal, while overlay specialists also need nonrevenue recognition. Which two capabilities should the consultant evaluate?","options":["Revenue opportunity splits","Overlay opportunity splits","Account teams only","Duplicate opportunity records"],"answers":[0,1],"explanation":"Revenue splits allocate revenue credit and must total 100 percent. Overlay splits can recognize supporting contributors and do not have to total 100 percent. Account teams provide access and team roles but do not by themselves allocate forecast or credit amounts.","tip":"When the scenario distinguishes revenue ownership from supporting influence, look for different split types rather than duplicate records."},{"id":6,"category":"Sales Lifecycle","select":1,"question":"A company sells subscriptions and implementation services. Management wants pipeline reports by product family and more accurate amounts based on quantity and sales price. What should be configured?","options":["Opportunity products with products, price books, and product families","A text field listing purchased items","One custom opportunity stage per product","Separate accounts for subscriptions and services"],"answers":[0],"explanation":"Opportunity products provide line-level quantity, sales price, and total price. Products can be categorized by product family, while price books define the available prices. A text field cannot support reliable product-level reporting or pricing calculations.","tip":"If leaders need pipeline by what is being sold, move beyond opportunity-level amount and model line items."},{"id":7,"category":"Sales Lifecycle","select":1,"question":"A distributor has a standard catalog, a government contract catalog, and region-specific prices. A single opportunity should use one approved collection of product prices. Which design is appropriate?","options":["Multiple price books containing the relevant price book entries","A separate product object for each region","A custom currency field on Account only","One opportunity per price"],"answers":[0],"explanation":"Products form the shared catalog, while price books contain price book entries for specific commercial contexts such as contracts or regions. An opportunity uses a selected price book for its products.","tip":"Product answers what is sold; price book entry answers at what list price in a specific selling context."},{"id":8,"category":"Sales Lifecycle","select":1,"question":"Sales representatives frequently discount below policy. Discounts above 20 percent require finance approval, and the approved price must remain visible on the opportunity product. What is the most appropriate solution approach?","options":["Use an approval process or Flow-based approval triggered by the discount threshold","Hide the sales price field from all users","Create a public group for discounted products","Change the opportunity owner to Finance"],"answers":[0],"explanation":"The requirement is a governed exception, not a blanket restriction. An approval process or appropriate Flow approval can route high discounts to finance while preserving the requested and approved commercial data. Hiding the field or transferring ownership does not represent the business decision.","tip":"Distinguish validation from approval: validation blocks; approval allows an exception through a controlled decision path."},{"id":9,"category":"Sales Lifecycle","select":1,"question":"A company wants sales stages to represent customer commitments rather than internal activities. Which discovery question is most useful when redesigning the opportunity process?","options":["Which browser does each sales representative use?","What observable customer outcome or commitment proves a deal has moved to the next stage?","How many dashboard colors should be used?","Which user owns the most accounts?"],"answers":[1],"explanation":"A strong stage model is based on objective exit criteria and buyer progress. Asking what customer evidence proves advancement helps prevent subjective stage inflation and improves pipeline quality.","tip":"Consultant-level questions test the business meaning of data, not just how to configure fields."},{"id":10,"category":"Sales Lifecycle","select":1,"question":"A sales leader reports that opportunities remain in late stages for months and forecasts are unreliable. Representatives say stage definitions are vague. What should the consultant do before adding automation?","options":["Document stage entry and exit criteria with stakeholders and analyze aging by stage","Automatically close every opportunity after 30 days","Replace opportunities with cases","Increase all probabilities to 90 percent"],"answers":[0],"explanation":"The root cause is process ambiguity. The consultant should clarify stage definitions and analyze where deals stall before automating behavior. Automation built on unclear rules would only scale inconsistency.","tip":"Fix the operating model before automating it. Reliable CRM data follows a shared process definition."},{"id":11,"category":"Sales Lifecycle","select":1,"question":"An opportunity is marked Closed Won. Operations must create a fulfillment record, but only after required contract fields are complete. Which approach best balances data quality and automation?","options":["Use validation to enforce required closing data and an after-save flow to create the fulfillment record","Create the fulfillment record manually before the opportunity closes","Use a report subscription to create records","Make all opportunity fields universally required"],"answers":[0],"explanation":"Validation ensures the record cannot enter the final state without required information. An after-save flow can then create the related fulfillment record after the successful transaction. Universal requiredness would affect stages where the information may not yet exist.","tip":"Use stage-aware validation for quality and after-save automation for related-record actions."},{"id":12,"category":"Sales Lifecycle","select":1,"question":"A business has long sales cycles and wants representatives to track competitor, decision criteria, and next step before advancing. Management also wants guided prompts at each stage. Which capability should the consultant prioritize?","options":["Path with key fields and guidance for success","A compact layout only","Account hierarchy","Campaign influence"],"answers":[0],"explanation":"Path can highlight stage-specific key fields and provide guidance for success. It supports consistent execution without replacing security or the underlying sales process.","tip":"Path guides users through a process; it does not enforce every rule. Pair it with validation or automation when enforcement is required."},{"id":13,"category":"Sales Lifecycle","select":1,"question":"Marketing wants to understand which campaigns influenced opportunities, but sales often associates only the final event. The organization needs a broader attribution model. What should the consultant assess?","options":["Customizable Campaign Influence and the campaign association process","Lead assignment rules only","Opportunity teams","Territory forecasts"],"answers":[0],"explanation":"Customizable Campaign Influence supports influence models that can recognize multiple campaigns associated with an opportunity. The consultant should also address the operational process that ensures campaign relationships are captured.","tip":"Attribution requires both a data model and disciplined data capture; configuration alone cannot recover missing associations."},{"id":14,"category":"Sales Lifecycle","select":1,"question":"A sales team needs to pursue several independent deals with the same customer at the same time. What is the correct data model?","options":["One account with multiple opportunities","One opportunity with multiple accounts","A new account for every deal","One lead converted repeatedly"],"answers":[0],"explanation":"The account represents the customer relationship, while each opportunity represents a distinct potential revenue event. Multiple opportunities can therefore exist under the same account.","tip":"Keep durable entities separate from transactions: customer equals Account; deal equals Opportunity."},{"id":15,"category":"Sales Lifecycle","select":1,"question":"A company wants a visual view of parent companies and subsidiaries while keeping each legal entity as a separate account. Which standard feature should be used?","options":["Parent Account and account hierarchy","Opportunity hierarchy","Lead queue","Product schedule"],"answers":[0],"explanation":"The Parent Account relationship creates a hierarchy of account records and supports viewing corporate structures while preserving separate legal entities.","tip":"Use the standard hierarchy when the relationship is organizational, not transactional."},{"id":16,"category":"Sales Lifecycle","select":1,"question":"Sales representatives collaborate with solution engineers on selected accounts. Engineers need access to the account and a clearly defined team role, but they should not own the records. Which feature is most appropriate?","options":["Account teams","Territory assignment only","Lead queues","Manual account duplication"],"answers":[0],"explanation":"Account teams allow multiple users to collaborate on an account with defined team roles and configurable access to related records. Ownership remains with the accountable account owner.","tip":"Use teams for named collaboration; use territories for scalable market-based access and accountability."},{"id":17,"category":"Sales Lifecycle","select":1,"question":"A company wants recurring revenue projections for a product delivered monthly over one year. Which feature should the consultant consider?","options":["Revenue schedules on opportunity products","Account history","Lead assignment rules","Campaign member statuses"],"answers":[0],"explanation":"Revenue schedules distribute an opportunity product's revenue across time, supporting more accurate period-based reporting. Quantity schedules address delivery quantities rather than revenue recognition.","tip":"Determine whether the requirement is when revenue occurs, when quantity is delivered, or both."},{"id":18,"category":"Sales Lifecycle","select":1,"question":"A sales team uses both quantity and revenue schedules. Which statement is correct?","options":["Schedules are associated with opportunity products, not directly with accounts","Schedules replace price books","Schedules automatically create invoices","Schedules control record sharing"],"answers":[0],"explanation":"Product schedules are tied to opportunity products and represent expected quantities or revenue over time. They do not replace pricing, invoicing, or access controls.","tip":"Do not overextend a feature: scheduling models timing, not the entire order-to-cash process."},{"id":19,"category":"Sales Lifecycle","select":1,"question":"A company wants renewals created six months before contract expiration, with the renewal opportunity linked to the existing customer and assigned to the current account owner. What is the best solution direction?","options":["Use date-driven automation that creates a renewal opportunity and carries the appropriate relationship and owner","Create renewal leads for existing customers","Ask representatives to duplicate accounts","Use a dashboard snapshot"],"answers":[0],"explanation":"A scheduled path or scheduled flow can create renewal opportunities based on the relevant expiration date and set ownership and relationships consistently. Leads are generally not the right object for an established customer renewal.","tip":"Choose objects based on lifecycle state: existing-customer revenue usually belongs in opportunities, not new prospect leads."},{"id":20,"category":"Sales Lifecycle","select":1,"question":"A consultant is designing a lead-to-opportunity process for a company that sometimes sells to individuals rather than businesses. Which consideration is most important?","options":["Whether Person Accounts are appropriate and how lead conversion should create them","Whether opportunity stages should be alphabetical","Whether every individual needs a campaign","Whether products should be stored as files"],"answers":[0],"explanation":"For B2C or hybrid models, Person Accounts may represent individuals by combining account and contact characteristics. The consultant must evaluate feature implications and conversion behavior before enabling them, because enablement has lasting architectural consequences.","tip":"Irreversible or high-impact features require early architecture decisions, not late configuration fixes."},{"id":21,"category":"Consulting and Implementation Strategies","select":1,"question":"During discovery, executives ask for 'better forecasting,' while sales managers describe inconsistent stages and representatives describe excessive data entry. What should the consultant do first?","options":["Configure Einstein Forecasting immediately","Translate the broad goal into measurable outcomes, process problems, and prioritized requirements","Install every available Sales Cloud feature","Copy the current process without challenge"],"answers":[1],"explanation":"The consultant should decompose an ambiguous objective into measurable business outcomes, identify root causes, and prioritize requirements. Forecast technology cannot compensate for unclear stages or poor adoption.","tip":"A consultant begins with why and how success will be measured, then selects features."},{"id":22,"category":"Consulting and Implementation Strategies","select":1,"question":"Stakeholders propose 60 mandatory opportunity fields because each department wants complete information. What is the best consultant response?","options":["Make all 60 fields required on creation","Map each field to a decision, process step, or reporting need and require it only when necessary","Reject every custom field","Move all fields to Account"],"answers":[1],"explanation":"Each data element should have a clear business purpose and appropriate timing. Progressive data capture, stage-based validation, and thoughtful page design reduce user burden while protecting quality.","tip":"Data quality is not the same as maximum requiredness. Capture the right data at the right moment."},{"id":23,"category":"Consulting and Implementation Strategies","select":1,"question":"A customer wants to replicate a highly customized legacy CRM exactly in Salesforce. What should the consultant recommend?","options":["Rebuild every screen and exception before go-live","Use fit-gap analysis, challenge low-value customizations, and favor scalable standard capabilities","Avoid stakeholder interviews","Replace all business terminology with Salesforce terminology"],"answers":[1],"explanation":"Fit-gap analysis distinguishes business-critical requirements from legacy habits. Favoring standard capabilities where they meet the need reduces technical debt and improves maintainability.","tip":"Do not confuse familiarity with business value. Preserve outcomes, not every legacy behavior."},{"id":24,"category":"Consulting and Implementation Strategies","select":1,"question":"A project has four sales regions with conflicting priorities. Which governance approach best supports timely decisions?","options":["Allow every user to approve every design decision","Define a decision-making structure, named process owners, and escalation path","Let the implementation team decide without business input","Delay all decisions until user acceptance testing"],"answers":[1],"explanation":"Clear governance identifies who owns process decisions, who provides input, and how conflicts are escalated. This prevents design paralysis and protects accountability.","tip":"Stakeholder participation is broad; decision authority should still be explicit."},{"id":25,"category":"Consulting and Implementation Strategies","select":2,"question":"A consultant must estimate whether a proposed requirement belongs in the first release. Which two factors are most important?","options":["Business value and urgency","Implementation effort, risk, and dependencies","The requester's job title alone","Whether the feature has the longest name"],"answers":[0,1],"explanation":"Release prioritization balances expected business value with effort, risk, dependencies, and time constraints. Seniority alone should not determine scope.","tip":"Use a transparent prioritization model so tradeoffs are explainable and repeatable."},{"id":26,"category":"Consulting and Implementation Strategies","select":1,"question":"A sales transformation is technically successful, but representatives continue using spreadsheets. Which missing workstream is most likely responsible?","options":["Change management and adoption planning","Additional record types","More validation rules","A larger role hierarchy"],"answers":[0],"explanation":"Adoption requires stakeholder engagement, communication, training, reinforcement, leadership sponsorship, and measurement. Technical deployment alone does not change behavior.","tip":"Implementation success is realized usage and business outcome, not merely production deployment."},{"id":27,"category":"Consulting and Implementation Strategies","select":1,"question":"Which success metric best demonstrates adoption quality rather than simple login activity?","options":["Percentage of opportunities with current next steps and close dates","Number of users who logged in once","Number of page layouts created","Total storage purchased"],"answers":[0],"explanation":"Meaningful adoption metrics measure whether users perform the behaviors needed for the business process. A login does not prove that pipeline data is complete or useful.","tip":"Choose metrics connected to desired behavior and business value, not vanity activity."},{"id":28,"category":"Consulting and Implementation Strategies","select":1,"question":"A company plans a phased rollout by region. The first region has a representative sales model, supportive leadership, and manageable complexity. Why is it a strong pilot candidate?","options":["It can validate the solution and rollout approach while limiting risk","It guarantees no changes will be needed","It eliminates the need for testing","It allows requirements from other regions to be ignored"],"answers":[0],"explanation":"A representative but manageable pilot creates evidence about process, configuration, training, and support before broader rollout. It reduces risk without implying that later regions require no discovery.","tip":"A good pilot is neither the easiest exception nor the most complex market; it should generate transferable learning."},{"id":29,"category":"Consulting and Implementation Strategies","select":1,"question":"A requirement is technically possible with custom code, but a standard feature satisfies 90 percent of the need. The remaining 10 percent is a low-frequency exception. What should the consultant recommend?","options":["Always build custom code for perfect fit","Evaluate the business value of the exception against long-term cost and favor standard functionality when appropriate","Reject the entire requirement","Create a separate Salesforce org for the exception"],"answers":[1],"explanation":"The consultant should compare incremental business value with development, testing, maintenance, upgrade, and support costs. A scalable standard design may be the better strategic choice.","tip":"The best solution is not always the most customized; optimize total lifecycle value."},{"id":30,"category":"Consulting and Implementation Strategies","select":1,"question":"A sponsor asks for an exact return-on-investment forecast for a sales automation feature before discovery is complete. What is the most responsible response?","options":["Guarantee a precise percentage immediately","Define baseline metrics, assumptions, expected benefits, costs, and a method to validate value after rollout","Avoid discussing business value","Use another customer's ROI without adjustment"],"answers":[1],"explanation":"A credible business case makes assumptions visible, establishes baselines, estimates benefits and costs, and defines how results will be measured. Precision without evidence would be misleading.","tip":"Strong consulting communicates uncertainty explicitly rather than hiding it behind confident numbers."},{"id":31,"category":"Consulting and Implementation Strategies","select":1,"question":"A project team discovers a major process dependency after configuration has started. What should happen next?","options":["Hide the issue to protect the timeline","Assess impact on scope, design, data, testing, and timeline, then route the decision through change control","Delete the requirement without telling stakeholders","Move directly to production"],"answers":[1],"explanation":"Structured change control makes the impact and tradeoffs visible and ensures authorized stakeholders decide whether to adjust scope, schedule, or solution.","tip":"Change is normal; unmanaged change is the risk."},{"id":32,"category":"Consulting and Implementation Strategies","select":1,"question":"What is the primary purpose of a design decision log?","options":["To record key choices, alternatives, rationale, assumptions, and owners","To replace user stories","To store passwords","To count page views"],"answers":[0],"explanation":"A decision log preserves context for why a design was selected and what assumptions shaped it. This supports governance, onboarding, future maintenance, and revisiting decisions when assumptions change.","tip":"Documentation should preserve reasoning, not just final configuration."},{"id":33,"category":"Consulting and Implementation Strategies","select":1,"question":"A company has subsidiaries with different currencies, processes, and privacy requirements, but leadership wants a single customer view. What should the consultant assess before deciding on one org or multiple orgs?","options":["Only the number of users","Business process commonality, data residency and security, integration needs, governance, and operating model","The preferred dashboard color","Whether every subsidiary uses the same email domain"],"answers":[1],"explanation":"Org strategy is an architectural decision influenced by legal requirements, process divergence, data boundaries, integration, governance, scale, and total cost. User count alone is insufficient.","tip":"Org strategy follows business and governance boundaries, not aesthetic preference."},{"id":34,"category":"Consulting and Implementation Strategies","select":1,"question":"A customer requests a feature that is unavailable in its Salesforce edition. What should the consultant do?","options":["Pretend the feature is included","Explain the limitation and compare viable alternatives, add-ons, or edition changes against requirements and cost","Build unsupported behavior secretly","Remove the requirement without discussion"],"answers":[1],"explanation":"The consultant must identify licensing and edition constraints early and present transparent options with their commercial and technical implications.","tip":"Licensing is part of solution design. A technically valid feature is not viable if the customer cannot use it."},{"id":35,"category":"Consulting and Implementation Strategies","select":1,"question":"A stakeholder workshop is dominated by one executive, while frontline sellers remain silent. What facilitation technique is most appropriate?","options":["Accept the executive's view as complete","Use structured turn-taking, targeted questions, anonymous input, or separate sessions to surface diverse evidence","Cancel discovery","Ask only yes-or-no questions"],"answers":[1],"explanation":"Effective facilitation intentionally creates space for different roles and evidence. Frontline users often reveal operational constraints that leadership cannot see.","tip":"Consultants manage participation bias; the loudest voice is not automatically the most accurate source."},{"id":36,"category":"Consulting and Implementation Strategies","select":1,"question":"A company cannot agree whether a requirement is mandatory. Which artifact best clarifies the debate?","options":["A traceability matrix linking the requirement to business objective, stakeholder, priority, and acceptance criteria","A list of usernames","A compact layout","A login history report"],"answers":[0],"explanation":"Traceability shows why a requirement exists, who needs it, how it supports objectives, and how completion will be validated. This makes prioritization and impact analysis more objective.","tip":"When requirements become political, reconnect them to measurable outcomes and evidence."},{"id":37,"category":"Consulting and Implementation Strategies","select":1,"question":"A project has a fixed launch date due to regulatory change. Scope exceeds available capacity. What should the consultant recommend?","options":["Keep all scope and reduce testing","Prioritize regulatory and high-value capabilities, define a minimum viable release, and defer lower-priority items transparently","Ignore the date","Add unapproved resources without planning"],"answers":[1],"explanation":"With a fixed date, scope must be actively prioritized while protecting compliance and quality. Reducing testing creates unacceptable delivery risk.","tip":"When one constraint is fixed, manage the others explicitly; do not hide the tradeoff."},{"id":38,"category":"Consulting and Implementation Strategies","select":1,"question":"During solution design, when is a proof of concept most valuable?","options":["When a high-risk assumption or integration behavior must be validated before committing to the full design","For every simple field creation","After production deployment only","As a replacement for requirements"],"answers":[0],"explanation":"A proof of concept reduces uncertainty around a specific high-risk technical or experience assumption. It should have a clear question and success criteria.","tip":"Use prototypes to learn, not to disguise unfinished production work."},{"id":39,"category":"Consulting and Implementation Strategies","select":1,"question":"A sales process varies slightly across regions, but leaders want global reporting. Which approach is generally most sustainable?","options":["Create completely unrelated data models for every region","Standardize the common core, allow justified local variation, and define global data standards","Force all regions to use identical language regardless of legal needs","Use free-text fields for every regional difference"],"answers":[1],"explanation":"A common core supports comparable reporting and maintainability, while controlled local variation handles legitimate differences. Governance should define which elements are global and which are local.","tip":"Standardize what creates enterprise value; localize what has a defensible business reason."},{"id":40,"category":"Consulting and Implementation Strategies","select":1,"question":"A consultant is asked to recommend training. Which strategy best supports role-based adoption?","options":["Deliver one generic four-hour presentation to everyone","Create task-based learning by persona, use realistic scenarios, provide practice and reinforcement, and prepare managers to coach","Send only the Salesforce Help homepage","Train users before the process is finalized and never update materials"],"answers":[1],"explanation":"Role-based, scenario-driven learning helps users perform their actual work. Practice, reinforcement, and manager coaching improve retention and adoption beyond a one-time presentation.","tip":"Training should mirror the user's job, not the implementation team's feature list."},{"id":41,"category":"Consulting and Implementation Strategies","select":2,"question":"Which two deliverables most directly support a smooth transition to operations after go-live?","options":["A support model with ownership and escalation paths","Admin and release documentation for the configured solution","A list of every meeting attendee","An undocumented developer sandbox"],"answers":[0,1],"explanation":"Operational readiness requires clear support ownership, escalation, documentation, knowledge transfer, monitoring, and release practices. Meeting attendance does not substitute for these controls.","tip":"Design for day two, not just launch day."},{"id":42,"category":"Consulting and Implementation Strategies","select":1,"question":"A customer asks to go live with known data-quality issues because the configuration is ready. What should the consultant do?","options":["Proceed without documenting risk","Quantify the impact, define remediation or containment, establish acceptance criteria, and obtain an informed go-live decision","Delete the affected records","Disable reports permanently"],"answers":[1],"explanation":"The consultant should make the operational consequences visible and present remediation or mitigation options. The sponsor can then make a documented decision based on risk and business need.","tip":"Escalate with evidence and options, not alarm or concealment."},{"id":43,"category":"Consulting and Implementation Strategies","select":1,"question":"What is the strongest reason to define nonfunctional requirements for a Sales Cloud implementation?","options":["They capture qualities such as security, performance, scale, availability, and usability that shape the solution architecture","They replace business requirements","They are only needed for custom code","They determine opportunity probability"],"answers":[0],"explanation":"Nonfunctional requirements constrain and guide architecture even when the user-facing process appears correct. Ignoring them can produce a solution that fails under real operating conditions.","tip":"A solution can be functionally correct and still be unusable, insecure, or unable to scale."},{"id":44,"category":"Consulting and Implementation Strategies","select":1,"question":"A consultant must choose between a quick workaround and a strategic design. What should guide the recommendation?","options":["Only the implementation speed","Business urgency, risk, expected lifespan, maintenance cost, user impact, and a documented path to the target state","The consultant's personal preference","The number of custom fields already present"],"answers":[1],"explanation":"A temporary solution can be appropriate when its risks, lifespan, and migration path are explicit. The recommendation should compare near-term value with long-term cost and architecture.","tip":"Temporary is a valid strategy only when the exit plan is real."},{"id":45,"category":"Consulting and Implementation Strategies","select":1,"question":"A stakeholder says, 'Salesforce should make our representatives sell better.' How should the consultant turn this into an actionable requirement?","options":["Configure random productivity features","Identify the specific behaviors and outcomes to improve, establish baselines, and define measurable acceptance criteria","Promise higher revenue without process change","Create a field named Sell Better"],"answers":[1],"explanation":"The consultant must translate aspiration into observable behavior and measurable outcomes, such as faster lead response, improved conversion, cleaner next steps, or shorter stage duration.","tip":"Convert vague goals into who does what differently and how success will be measured."},{"id":46,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"Opportunity organization-wide defaults are Private. Regional specialists must collaborate on opportunities when the account is in their territory, regardless of opportunity owner. Forecasts must roll up by territory. Which solution should the consultant evaluate?","options":["Enterprise Territory Management with territory-based access and territory forecasts","Only the role hierarchy","Public Read/Write opportunities","A separate org for every territory"],"answers":[0],"explanation":"Enterprise Territory Management is designed for market-based assignment, access, and territory forecasting independent of the managerial role hierarchy. The exact access model and opportunity territory assignment process must be designed carefully.","tip":"Use roles for management hierarchy; use territories for market coverage that crosses ownership or reporting lines."},{"id":47,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A matrix sales organization needs managers to forecast by geography while product leaders forecast their product-family contributions. Which combination should the consultant assess?","options":["Territory forecasts plus appropriate opportunity or product splits and forecast types","One static dashboard only","Duplicate opportunities for each leader","Account teams without forecasts"],"answers":[0],"explanation":"Territory forecasts can support geographic accountability, while split-based forecast types can represent contributor or product-family credit. The consultant must align forecast types with how the business assigns accountability.","tip":"Forecast architecture should mirror the questions leaders need to answer, not force every perspective into one number."},{"id":48,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A forecast manager needs to adjust a subordinate's forecast based on known risk without changing the underlying opportunity amounts. Which capability supports this?","options":["Forecast adjustments","Opportunity deletion","Price book cloning","Account merge"],"answers":[0],"explanation":"Forecast adjustments allow authorized forecast managers to add judgment to forecast totals while preserving the source opportunity data and adjustment history.","tip":"Separate managerial judgment from transactional pipeline data."},{"id":49,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"Executives want to compare how the pipeline changed from week to week, including opportunities that moved stages or changed amounts. Which capability should be considered?","options":["Pipeline Inspection with historical pipeline information or appropriate historical trending","A current-state tabular report only","Lead queues","Email templates"],"answers":[0],"explanation":"Pipeline Inspection and historical pipeline capabilities help managers understand movement and risk over time. A current-state report cannot explain how the pipeline changed.","tip":"Snapshot questions require historical data; today's record values cannot reconstruct yesterday by themselves."},{"id":50,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"Sales representatives need a prioritized workspace showing deal health, activity, and changes so managers can coach efficiently. Which Sales Cloud capability best aligns?","options":["Pipeline Inspection","Case escalation rules","Campaign hierarchy","Knowledge articles"],"answers":[0],"explanation":"Pipeline Inspection provides a consolidated view for managing pipeline, including opportunity metrics, changes, and indicators that support inspection and coaching.","tip":"Choose a workspace designed for the managerial task rather than assembling unrelated reports first."},{"id":51,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A company wants leads distributed round-robin among representatives with different regional eligibility and capacity. Standard lead assignment rules handle eligibility but not true capacity-aware rotation. What should the consultant do?","options":["Document the gap and evaluate Flow, AppExchange, or custom routing options against scale and fairness requirements","Create duplicate leads until distribution looks even","Use opportunity teams","Set leads to Public Read/Write"],"answers":[0],"explanation":"Standard assignment rules route based on criteria but do not inherently provide every advanced round-robin or capacity model. The consultant should identify the gap and choose an extension based on complexity, volume, maintainability, and licensing.","tip":"Know where standard capability ends; do not claim a feature solves a requirement it only partially addresses."},{"id":52,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A company needs email and calendar activity captured with minimal representative effort, but legal requires clear retention and access controls. What should the consultant evaluate?","options":["Einstein Activity Capture capabilities and limitations, data storage model, security, retention, and reporting needs","Only a custom text field","Disable all activity tracking","Store email passwords in Salesforce"],"answers":[0],"explanation":"Activity capture can reduce manual work, but the consultant must evaluate supported activity visibility, retention, reporting, data architecture, and compliance requirements before recommending it.","tip":"Convenience features can have architectural and compliance implications; assess them before adoption."},{"id":53,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A sales manager wants representatives to follow a repeatable sequence of calls, emails, and tasks for new prospects. Which feature family should the consultant consider?","options":["Sales Engagement cadences, subject to licensing","Opportunity splits","Account hierarchy","Product schedules"],"answers":[0],"explanation":"Sales Engagement cadences guide sellers through structured outreach steps and can improve consistency. The consultant must confirm licensing and whether the operating model fits cadence-based work.","tip":"Match the feature to the seller workflow and verify entitlement before designing around it."},{"id":54,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A company needs different opportunity page experiences for enterprise and small-business deals. Enterprise users need additional sections and a guided component, while security remains the same. What is the best approach?","options":["Record types with appropriate page layouts and Lightning record page activation","Create a new opportunity object","Use sharing rules to hide components","Create separate users for each deal"],"answers":[0],"explanation":"Record types can support process and layout variations, while Lightning App Builder activation can deliver different component experiences by app, profile, or record type. Security should still be handled independently.","tip":"Different experience does not automatically mean different security or a different object."},{"id":55,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A consultant needs a component visible only when an opportunity is over $1 million and in Negotiation. Which capability is most appropriate?","options":["Component visibility filters in Lightning App Builder","Role hierarchy","Price book entry","Campaign influence"],"answers":[0],"explanation":"Lightning App Builder supports conditional component visibility based on record fields and other context. This changes the user experience without changing field-level or record security.","tip":"Visibility rules personalize the page; they are not a security boundary."},{"id":56,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A company wants to prevent users from skipping required stages but must allow a special executive fast-track process. What is the best design direction?","options":["Define explicit transition rules and exceptions, then enforce with validation or Flow based on process and authorization","Rely only on Path","Create a field for every possible transition","Make all opportunities read-only"],"answers":[0],"explanation":"Stage-transition governance must encode the approved process and legitimate exceptions. Path provides guidance but does not enforce stage transitions by itself.","tip":"Guidance, enforcement, and exception authority are separate design concerns."},{"id":57,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A customer asks whether to use Account Teams or Enterprise Territory Management. Which distinction is most accurate?","options":["Account Teams support named collaboration on specific accounts; territories support scalable market-based assignment, access, and forecasting","They are identical","Account Teams replace opportunity products","Territories are only for page layouts"],"answers":[0],"explanation":"Account Teams are record-specific collaboration structures. Enterprise Territory Management models broader market coverage and can drive account assignment, access, and territory forecasts.","tip":"Choose teams for who collaborates on this customer; choose territories for who covers this market segment."},{"id":58,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A sales operations team needs to update 20,000 opportunity owners after a territory redesign. Which approach is safest?","options":["Test the assignment logic in a sandbox, back up data, use the appropriate bulk or territory assignment process, and validate downstream effects","Manually edit every record in production","Change organization-wide defaults to Public Read/Write","Delete and recreate all opportunities"],"answers":[0],"explanation":"Large ownership changes affect access, forecasts, automation, and reporting. A controlled, tested bulk process with backup, validation, and stakeholder communication reduces operational risk.","tip":"Bulk data work is a business change, not just a file upload."},{"id":59,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A sales team needs an automatically calculated probability based on stage, but managers sometimes need to use a different probability for a specific deal. What standard behavior should the consultant explain?","options":["Stages can have default probabilities, and opportunity probability can be adjusted when the business process allows it","Probability is always locked and cannot vary","Probability comes only from the account owner","Probability is stored on products only"],"answers":[0],"explanation":"Opportunity stages carry default probabilities, but the opportunity's Probability field can be adjusted unless restricted by the implementation. The consultant should decide whether overrides support or undermine forecast governance.","tip":"Understand defaults versus enforced values; standard behavior may be configurable through process controls."},{"id":60,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A company wants to ensure a closed opportunity cannot be reopened by most users, while a small operations group may correct mistakes. Which design is most appropriate?","options":["A validation rule that blocks prohibited transitions with a custom permission exception","A new opportunity object","A dashboard filter","A public group with no supporting rule"],"answers":[0],"explanation":"A validation rule can inspect prior and new values and allow an exception through a custom permission assigned to authorized users. This is more maintainable than profile names hard-coded in formulas.","tip":"Use custom permissions for durable exceptions instead of embedding user or profile names."},{"id":61,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A consultant is designing quote generation using standard Salesforce Quotes. Which relationship is fundamental?","options":["A quote is associated with an opportunity and can synchronize selected line items with it","A quote replaces the account","A quote must be created from a lead only","A quote controls the role hierarchy"],"answers":[0],"explanation":"Standard Quotes are related to opportunities, and one quote can be synchronized so its line items and amounts align with the opportunity. The consultant should distinguish standard quoting from more advanced Revenue Cloud requirements.","tip":"Confirm whether the requirement is basic proposal generation or complex configure-price-quote behavior."},{"id":62,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A company needs complex product bundles, guided selling, contracted pricing, and advanced discount rules. What should the consultant conclude about standard Sales Cloud products and quotes?","options":["The requirements likely exceed basic standard quoting and warrant evaluation of Revenue Cloud or another CPQ solution","Create more opportunity stages","Use account teams","Use a lead queue"],"answers":[0],"explanation":"Standard products, price books, and quotes support core selling, but complex configuration and pricing rules are typical CPQ requirements. Product selection should follow a fit-gap assessment and licensing review.","tip":"Recognize adjacent-cloud boundaries; do not force complex CPQ needs into basic opportunity products."},{"id":63,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A company uses multiple currencies. Executives want historical opportunity values to reflect the exchange rate applicable near the close date rather than only the current corporate rate. Which feature should be evaluated?","options":["Advanced Currency Management with dated exchange rates","Lead scoring","Account teams","Email relay"],"answers":[0],"explanation":"Advanced Currency Management supports dated exchange rates for opportunities and related forecasting behavior. The consultant must understand scope and reporting implications before enablement.","tip":"Currency requirements often depend on whether users need current conversion or historical commercial accuracy."},{"id":64,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A company wants sales representatives to see only products valid for the selected opportunity price book. What standard behavior supports this?","options":["Opportunity products are selected from price book entries in the opportunity's chosen price book","All active products are always available regardless of price book","Products are controlled by role hierarchy","Campaigns determine product visibility"],"answers":[0],"explanation":"The opportunity's price book establishes which product price book entries can be added. Product activation and price book entry activation also matter.","tip":"Trace availability through Product, Price Book, and Price Book Entry rather than treating them as one object."},{"id":65,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A consultant must improve mobile seller productivity. What is the best first step?","options":["Observe high-value mobile tasks and redesign actions, layouts, and flows around those scenarios","Copy the desktop page exactly","Add every field to the compact layout","Disable offline considerations"],"answers":[0],"explanation":"Mobile design should begin with the user's context, frequency, urgency, and device constraints. Quick actions, compact layouts, and mobile-friendly flows should support the most valuable tasks.","tip":"Start from jobs to be done, not from shrinking the desktop interface."},{"id":66,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A global sales process requires a guided screen flow that creates an account, contact, and opportunity after checking for duplicates. What design principle is most important?","options":["Make the flow transactional, handle faults, minimize duplicate creation, and avoid collecting data already available","Create records before validation","Ignore fault paths","Use one screen for every database operation"],"answers":[0],"explanation":"A robust guided flow validates and searches before creation, manages transaction boundaries and errors, and minimizes redundant input. The experience and data integrity must be designed together.","tip":"A consultant-level flow question is about failure behavior and data consequences, not just which elements can create records."},{"id":67,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A company needs automated emails when an opportunity enters Proposal, but only once per entry into that stage. Which automation design should be evaluated?","options":["A record-triggered flow using prior value or change detection and entry criteria","A scheduled report every minute","A formula field alone","A sharing rule"],"answers":[0],"explanation":"A record-triggered flow can detect the transition into the target stage and perform the action only when the value changes appropriately. Entry conditions and re-entry behavior must be tested.","tip":"For event-driven automation, define the exact transition—not merely the current field value."},{"id":68,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A sales operations manager asks for a dashboard that each regional manager can use to see only records they are allowed to access. Which design should the consultant consider?","options":["A dynamic dashboard running as the logged-in user, subject to limits and sharing","A dashboard running as the CEO for everyone","Public Read/Write opportunities","A separate Salesforce org per manager"],"answers":[0],"explanation":"Dynamic dashboards display data according to the viewer's access, enabling a shared dashboard design for multiple managers. The consultant must consider edition limits, folder access, and underlying report access.","tip":"Dashboard running user changes data context; it does not replace report folder sharing or record security."},{"id":69,"category":"Practical Application of Sales Cloud Expertise","select":1,"question":"A company wants managers to receive alerts about deals with no activity, close-date slippage, and decreasing amounts. Which solution direction is most aligned with modern Sales Cloud?","options":["Evaluate Pipeline Inspection insights and relevant Einstein or activity capabilities, then validate data prerequisites","Create one checkbox manually updated by managers","Use cases instead of opportunities","Disable activity capture"],"answers":[0],"explanation":"Pipeline Inspection and predictive sales capabilities can surface risk and changes, but value depends on complete and trustworthy opportunity and activity data. The consultant should assess prerequisites and user workflow.","tip":"AI and insights amplify the data and process foundation; they do not replace it."},{"id":70,"category":"Data Management","select":1,"question":"A company is migrating accounts and contacts from three systems. The same customer may have different identifiers and spellings in each source. What should the consultant define before loading data?","options":["A matching, survivorship, and source-of-truth strategy","A dashboard theme","Opportunity stage probabilities only","A public group"],"answers":[0],"explanation":"Migration requires explicit rules for identifying duplicates, choosing authoritative values, preserving source identifiers, and resolving conflicts. Loading first and deduplicating later creates avoidable risk.","tip":"Data migration design starts with identity and ownership of truth, not the import tool."},{"id":71,"category":"Data Management","select":2,"question":"Which two practices best preserve relationships during a multi-object migration?","options":["Load parent records before child records and retain external IDs","Use external ID relationships or mapping tables to connect source keys","Rely on record names as unique identifiers","Load every object simultaneously without sequencing"],"answers":[0,1],"explanation":"Parent-first sequencing and stable external identifiers allow child records to reference the correct Salesforce records. Names are often nonunique and can change.","tip":"Migration relationships depend on keys, not human-readable labels."},{"id":72,"category":"Data Management","select":1,"question":"A customer asks whether Data Import Wizard or Data Loader should be used for a large recurring import with upsert and command-line automation. Which is more appropriate?","options":["Data Loader","Data Import Wizard","Report Builder","Lightning App Builder"],"answers":[0],"explanation":"Data Loader supports larger volumes, upsert, export, delete, and command-line automation. Data Import Wizard is simpler for supported objects and smaller interactive imports.","tip":"Choose the data tool based on operation, volume, repeatability, and supported objects."},{"id":73,"category":"Data Management","select":1,"question":"An integration sends customer updates nightly. Salesforce must update an existing account when the source identifier matches and insert it otherwise. Which operation and field design are appropriate?","options":["Upsert using a unique External ID field","Insert using Account Name","Delete and reload all accounts","Merge using email templates"],"answers":[0],"explanation":"Upsert combines update and insert based on a specified ID or external ID. A unique external ID provides a stable integration key independent of Salesforce record IDs and mutable names.","tip":"Integration identity should be explicit and stable."},{"id":74,"category":"Data Management","select":1,"question":"Sales representatives create duplicates because they cannot tell whether a prospect already exists. The business wants warnings for uncertain matches but hard blocks for exact matches. What should be configured?","options":["Matching rules with separate duplicate rules using alert and block actions","One validation rule based only on Account Name","Public Read/Write access","Opportunity splits"],"answers":[0],"explanation":"Matching rules define how potential duplicates are identified, while duplicate rules define what happens. Different rules can warn on fuzzy candidates and block high-confidence duplicates.","tip":"Detection logic and user response are separate layers in duplicate management."},{"id":75,"category":"Data Management","select":1,"question":"A migration includes 10 years of closed opportunities, but only three years are needed for operational reporting. What should the consultant recommend?","options":["Define retention and archival requirements, load only justified operational history, and preserve older data in an accessible archive","Load everything without analyzing storage or performance","Delete all history","Convert old opportunities into leads"],"answers":[0],"explanation":"Historical migration should balance regulatory, analytical, operational, cost, and performance needs. Not every legacy row must become an active Salesforce record.","tip":"Data value declines differently by use case; migrate with purpose, not habit."},{"id":76,"category":"Data Management","select":1,"question":"A company wants to measure pipeline stage changes over time. Why is enabling field history tracking after go-live insufficient for reconstructing prior history?","options":["History tracking begins when enabled and does not recreate past field changes","It automatically imports every legacy change","It stores only product prices","It replaces backups"],"answers":[0],"explanation":"Field history captures supported changes prospectively. Prior states must be migrated separately if they are required and technically feasible.","tip":"Historical capability is not retroactive unless a migration explicitly supplies the history."},{"id":77,"category":"Data Management","select":1,"question":"A company requires auditability for changes to Opportunity Amount and Close Date. Which considerations should the consultant evaluate?","options":["Field history tracking limits, retention needs, reporting requirements, and whether a longer-term audit product is required","Only the page layout color","Campaign member statuses","Lead queue membership"],"answers":[0],"explanation":"Standard field history provides useful audit data but has field-count, retention, and reporting considerations. Longer retention or broader compliance may require additional platform capabilities.","tip":"Translate 'audit' into exact fields, actors, retention period, immutability, and retrieval requirements."},{"id":78,"category":"Data Management","select":1,"question":"A data load succeeds technically, but reports show inflated pipeline because duplicate opportunities were loaded. What was missing from the migration plan?","options":["Business reconciliation and validation against source totals and uniqueness rules","A new Lightning theme","More profiles","A campaign hierarchy"],"answers":[0],"explanation":"Technical success only proves records were processed. Reconciliation should compare counts, financial totals, key distributions, duplicates, relationships, and exception records against agreed acceptance criteria.","tip":"Every migration needs both technical validation and business validation."},{"id":79,"category":"Data Management","select":1,"question":"A sales organization wants a single account view from ERP, marketing, and support systems. What should the consultant clarify before proposing integration?","options":["Which system owns each data element, required latency, direction of flow, conflict handling, and identity matching","Only the number of dashboards","Which user has the shortest name","Whether all fields can be text"],"answers":[0],"explanation":"Integration design depends on system of record, timing, direction, orchestration, error handling, and identity. 'Single view' is an outcome, not a complete technical requirement.","tip":"Ask where truth lives and how quickly it must arrive before selecting integration technology."},{"id":80,"category":"Data Management","select":1,"question":"An ERP is the system of record for product pricing, but representatives need prices in Salesforce. Which integration principle is strongest?","options":["Maintain ERP ownership and synchronize governed price data into Salesforce with monitoring and error handling","Allow unrestricted manual changes in both systems","Delete the ERP","Store prices in opportunity notes"],"answers":[0],"explanation":"The architecture should preserve authoritative ownership while making required data available in Salesforce. Controls must address synchronization, failures, timing, and authorized exceptions.","tip":"Avoid accidental dual-master designs unless conflict resolution is deliberate."},{"id":81,"category":"Data Management","select":1,"question":"A company wants near-real-time updates from Salesforce to an order system after Closed Won, with reliable retry and monitoring. What should the consultant emphasize?","options":["An event or API-based integration pattern with idempotency, error handling, retry, and observability","A report emailed once a month","A formula field only","Manual re-entry without reconciliation"],"answers":[0],"explanation":"Operational integration needs more than a trigger. Reliable design addresses duplicate messages, replay or retry, downstream availability, transaction boundaries, and monitoring.","tip":"Consultant-level integration answers include failure behavior, not only the happy-path transport."},{"id":82,"category":"Data Management","select":1,"question":"Salesforce contains sensitive customer data. A downstream analytics team requests a full daily export 'just in case.' What is the best response?","options":["Apply data minimization, purpose limitation, security review, and export only justified fields and records","Export everything to every analyst","Disable all analytics","Put the file in a public folder"],"answers":[0],"explanation":"Trusted data handling requires limiting data to a defined purpose, audience, retention period, and secure transfer method. Broad exports increase privacy and security risk.","tip":"Least privilege applies to data movement as well as user permissions."},{"id":83,"category":"Data Management","select":2,"question":"A consultant is planning a cutover. Which two activities most reduce data migration risk?","options":["Perform rehearsal migrations with measured durations and defect resolution","Define a final delta strategy, freeze window, reconciliation, and rollback criteria","Change mappings during production load without review","Skip stakeholder sign-off"],"answers":[0,1],"explanation":"Rehearsals expose performance and mapping issues. A controlled final delta, freeze, reconciliation, and rollback plan manages the transition from legacy to Salesforce.","tip":"Cutover is an operational runbook, not merely the final execution of a script."},{"id":84,"category":"Data Management","select":1,"question":"A record-triggered integration sometimes creates duplicate orders when it retries after a timeout. What design concept is missing?","options":["Idempotency using a stable transaction key or duplicate-protection mechanism","A larger page layout","A different opportunity stage","A campaign influence model"],"answers":[0],"explanation":"Idempotent processing ensures repeated delivery of the same business event does not create duplicate outcomes. Stable keys and downstream duplicate checks are common controls.","tip":"Assume messages can be delivered more than once; design the business action to remain safe."},{"id":85,"category":"Data Management","select":1,"question":"A company plans to delete obsolete sales data. What must be determined before deletion?","options":["Legal retention, business dependencies, reporting impact, backups or archive, and approval authority","Only whether the record owner is active","The dashboard color","The user's locale"],"answers":[0],"explanation":"Deletion can affect compliance, integrations, related records, analytics, and recovery. A governed retention policy and approved execution plan are required.","tip":"Deletion is irreversible business change unless recovery has been deliberately designed."},{"id":86,"category":"Data Management","select":1,"question":"Users report that account ownership changes unexpectedly after a territory assignment job. How should the consultant investigate?","options":["Review assignment rules, model state, execution settings, logs, and the intended distinction between territory access and record ownership","Disable all territories immediately without analysis","Change every account to Public Read/Write","Delete ownership history"],"answers":[0],"explanation":"Territory assignment behavior depends on model configuration, rules, and how jobs are executed. The consultant should reproduce and trace the assignment logic against expected outcomes.","tip":"Diagnose configuration-driven data changes by tracing rule, execution, and result—not by patching individual records first."},{"id":87,"category":"Data Management","select":1,"question":"A company wants data-quality dashboards. Which metric is most actionable?","options":["Percentage of open opportunities missing a next step, grouped by manager and stage","Total number of fields in the org","Number of users with blue profile pictures","Count of all historical logins"],"answers":[0],"explanation":"An actionable metric identifies a business-critical defect, affected population, and accountable context so managers can intervene. Generic inventory counts do not measure sales data quality.","tip":"A useful quality metric points to a behavior and an owner."},{"id":88,"category":"Predictive and Generative AI","select":1,"question":"A sales leader wants AI to predict which opportunities are most likely to close. Which type of capability is being requested?","options":["Predictive AI based on historical patterns and current record signals","Generative AI that only rewrites text","A static validation rule","A campaign hierarchy"],"answers":[0],"explanation":"Predictive AI estimates an outcome or score from data patterns. Generative AI produces content such as summaries or emails. The consultant should also assess data sufficiency and business fit.","tip":"Classify the use case first: predict, generate, recommend, or execute."},{"id":89,"category":"Predictive and Generative AI","select":1,"question":"A representative wants a first draft of a personalized follow-up email grounded in CRM context. Which capability type is most relevant?","options":["Generative AI for sales communication with trusted grounding and human review","A role hierarchy","A duplicate rule","A product schedule"],"answers":[0],"explanation":"Generative AI can draft sales communications using authorized CRM context. Trusted design includes grounding, data controls, review, and clear user accountability before sending.","tip":"Generated content is an assistive draft, not automatic truth."},{"id":90,"category":"Predictive and Generative AI","select":1,"question":"An AI-generated account summary includes a confident but unsupported claim about a customer's expansion plans. What risk does this illustrate?","options":["Hallucination or ungrounded generation","Record locking","Territory overlap","Currency conversion"],"answers":[0],"explanation":"Generative models can produce plausible but unsupported content. Grounding, source visibility, instructions, evaluation, and human verification reduce this risk.","tip":"Fluent language is not evidence; teach users to verify material claims."},{"id":91,"category":"Predictive and Generative AI","select":1,"question":"A company wants to use opportunity scoring, but historical outcomes are inconsistent and many Closed Lost reasons are blank. What should the consultant recommend first?","options":["Improve data quality and evaluate whether sufficient representative history exists","Enable every AI feature immediately","Replace opportunities with cases","Hide loss reasons"],"answers":[0],"explanation":"Predictive models depend on relevant, complete, and representative historical data. Poor labels and inconsistent processes can reduce usefulness and introduce bias.","tip":"AI readiness is largely data and process readiness."},{"id":92,"category":"Predictive and Generative AI","select":2,"question":"Which two practices align with Salesforce's Trusted AI principles in a sales use case?","options":["Use appropriate data with transparency and human oversight","Evaluate bias, privacy, security, and potential harm","Hide from users that content is AI-generated","Use every available field regardless of purpose"],"answers":[0,1],"explanation":"Trusted AI design includes responsible data use, transparency, accountability, safety, privacy, inclusion, and human control. Concealment and indiscriminate data use undermine trust.","tip":"Ask not only whether AI can improve a metric, but who could be harmed and how controls will work."},{"id":93,"category":"Predictive and Generative AI","select":1,"question":"A sales team wants generated emails to include confidential pricing visible only to authorized users. What is the most important design requirement?","options":["Ground generation in data the running user is authorized to access and enforce platform security","Copy all pricing into a public prompt","Use one administrator's access for every user","Disable field-level security"],"answers":[0],"explanation":"AI experiences must respect data access and avoid exposing fields or records beyond the user's authorization. Prompt and grounding design should work with the platform security model.","tip":"AI must not become a shortcut around CRM permissions."},{"id":94,"category":"Predictive and Generative AI","select":1,"question":"A company measures an AI email assistant only by the number of drafts generated. What better evaluation approach should the consultant propose?","options":["Measure quality, edit rate, send rate, response or conversion outcomes, user trust, and safety incidents against a baseline","Count tokens only","Ignore user feedback","Assume generation equals value"],"answers":[0],"explanation":"Adoption volume does not prove effectiveness. A balanced evaluation measures business outcomes, user effort, quality, trust, and risk compared with a baseline.","tip":"Evaluate the whole workflow and outcome, not just model activity."},{"id":95,"category":"Predictive and Generative AI","select":1,"question":"A manager asks an AI assistant to summarize pipeline risk. Which grounding strategy is strongest?","options":["Use current authorized opportunity, activity, and forecast data with clear time boundaries and source references","Use general internet text only","Ask the model to invent missing close dates","Use data from another customer"],"answers":[0],"explanation":"Pipeline analysis should be grounded in current, relevant, authorized business data. Time boundaries and source visibility help users interpret and validate the summary.","tip":"Grounding quality depends on relevance, recency, authorization, and traceability."},{"id":96,"category":"Predictive and Generative AI","select":1,"question":"A company wants AI to automatically change opportunity stages based on email sentiment. What should the consultant advise?","options":["Treat stage changes as high-impact actions requiring strong validation, deterministic guardrails, user confirmation or controlled automation, and monitoring","Allow unrestricted autonomous changes immediately","Remove audit history","Use sentiment as the only source of truth"],"answers":[0],"explanation":"Opportunity stages affect forecasts and business actions. A probabilistic signal such as sentiment should not control a high-impact field without validation, governance, and accountability.","tip":"Use AI signals to support decisions; be cautious when they directly mutate authoritative business state."},{"id":97,"category":"Predictive and Generative AI","select":1,"question":"Sales representatives reject AI recommendations because they do not understand why a deal was scored as risky. Which requirement is missing?","options":["Explainability and actionable reason factors in the user workflow","More hidden fields","A longer role hierarchy","A second currency"],"answers":[0],"explanation":"Users are more likely to trust and act on a recommendation when they can see meaningful factors and the next action. Explainability also helps identify bad data or inappropriate model behavior.","tip":"A score without a reason is difficult to coach, challenge, or improve."},{"id":98,"category":"Predictive and Generative AI","select":1,"question":"A generative AI pilot performs well for enterprise accounts but poorly for small-business accounts. What should the consultant investigate?","options":["Whether data, prompts, examples, and evaluation sets represent both segments and whether outcomes show bias","Whether the page background is dark","Whether every user is in the same role","Whether products have images"],"answers":[0],"explanation":"Uneven performance can result from unrepresentative data, prompts, context availability, or evaluation design. Segment-level evaluation helps identify bias and fit issues hidden by overall averages.","tip":"Always inspect performance across meaningful user and customer groups, not only the aggregate."},{"id":99,"category":"Predictive and Generative AI","select":1,"question":"A company wants to send AI-generated outreach automatically at scale. Which control is most important before expansion?","options":["A governed approval and monitoring model covering consent, brand, factuality, sensitive data, opt-out, and escalation","A bigger email template folder","Public access to prompts","Removing human accountability"],"answers":[0],"explanation":"Scaled external communication creates legal, reputational, and customer-experience risk. Governance must define when automation is allowed, how content is evaluated, and how failures are detected and handled.","tip":"The greater the reach and irreversibility, the stronger the pre-send controls should be."},{"id":100,"category":"Predictive and Generative AI","select":1,"question":"A consultant is choosing between a predictive score and a generative summary for opportunity coaching. What is the best decision principle?","options":["Choose based on the user's decision: a score prioritizes or predicts, while a summary synthesizes context; they may complement each other","Always choose generative AI because it is newer","Use predictive AI only for writing","Treat both capabilities as identical"],"answers":[0],"explanation":"Predictive and generative capabilities solve different parts of the workflow. A score can prioritize risk, while a grounded summary can explain context and suggested follow-up. The design should start from the decision and action required.","tip":"Do not select AI by trend; select it by the cognitive task it supports."}];
+    const categoryOrder = ["All", "Sales Lifecycle", "Consulting and Implementation Strategies", "Practical Application of Sales Cloud Expertise", "Data Management", "Predictive and Generative AI"];
+    const STORAGE_KEY = "sfSalesCloudConsultantStudyLabV1";
+    const letters = ["A", "B", "C", "D", "E", "F"];
+
+    let state = {
+      answers: {},
+      bookmarks: [],
+      order: questions.map(q => q.id),
+      filter: "All",
+      specialMode: null,
+      currentIndex: 0,
+      drafts: {}
+    };
+
+    function sameSet(a, b) {
+      if (a.length !== b.length) return false;
+      const aa = [...a].sort((x,y) => x-y);
+      const bb = [...b].sort((x,y) => x-y);
+      return aa.every((value, index) => value === bb[index]);
+    }
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (!saved || typeof saved !== "object") return;
+        const validIds = new Set(questions.map(q => q.id));
+        state.answers = saved.answers && typeof saved.answers === "object" ? saved.answers : {};
+        state.bookmarks = Array.isArray(saved.bookmarks) ? saved.bookmarks.filter(id => validIds.has(id)) : [];
+        state.order = Array.isArray(saved.order) && saved.order.length === questions.length && saved.order.every(id => validIds.has(id)) ? saved.order : questions.map(q => q.id);
+        state.filter = categoryOrder.includes(saved.filter) ? saved.filter : "All";
+        state.specialMode = [null, "wrong", "bookmarks", "unanswered"].includes(saved.specialMode) ? saved.specialMode : null;
+        state.currentIndex = Number.isInteger(saved.currentIndex) ? saved.currentIndex : 0;
+        state.drafts = saved.drafts && typeof saved.drafts === "object" ? saved.drafts : {};
+      } catch (error) {
+        console.warn("Could not restore saved study progress.", error);
+      }
+    }
+
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+      catch (error) { console.warn("Could not save study progress in this browser context.", error); }
+    }
+
+    function questionById(id) { return questions.find(q => q.id === id); }
+
+    function getVisibleQuestions() {
+      const ordered = state.order.map(questionById).filter(Boolean);
+      if (state.specialMode === "wrong") return ordered.filter(q => state.answers[q.id] && !state.answers[q.id].correct);
+      if (state.specialMode === "bookmarks") return ordered.filter(q => state.bookmarks.includes(q.id));
+      if (state.specialMode === "unanswered") return ordered.filter(q => !state.answers[q.id]);
+      if (state.filter === "All") return ordered;
+      return ordered.filter(q => q.category === state.filter);
+    }
+
+    function renderFilters() {
+      const container = document.getElementById("categoryFilters");
+      container.innerHTML = categoryOrder.map(category => `
+        <button class="filter-btn" data-category="${category}" aria-pressed="${state.specialMode === null && state.filter === category}">${category}</button>
+      `).join("");
+      container.querySelectorAll("button").forEach(button => {
+        button.addEventListener("click", () => {
+          state.filter = button.dataset.category;
+          state.specialMode = null;
+          state.currentIndex = 0;
+          saveState();
+          render();
+        });
+      });
+    }
+
+    function renderStats() {
+      const answered = Object.keys(state.answers).length;
+      const correct = Object.values(state.answers).filter(a => a.correct).length;
+      const accuracy = answered ? Math.round((correct / answered) * 100) : null;
+      document.getElementById("answeredStat").textContent = `${answered} / ${questions.length}`;
+      document.getElementById("correctStat").textContent = correct;
+      document.getElementById("accuracyStat").textContent = accuracy === null ? "—" : `${accuracy}%`;
+      document.getElementById("bookmarkStat").textContent = state.bookmarks.length;
+      document.getElementById("progressLabel").textContent = `${answered} of ${questions.length} answered`;
+      document.getElementById("progressFill").style.width = `${(answered / questions.length) * 100}%`;
+      const mode = state.specialMode === "wrong" ? "Review Wrong Answers"
+        : state.specialMode === "bookmarks" ? "Bookmarked Questions"
+        : state.specialMode === "unanswered" ? "Unanswered Questions"
+        : state.filter === "All" ? "All Questions" : state.filter;
+      document.getElementById("modeLabel").textContent = mode;
+    }
+
+    function renderQuestion() {
+      const card = document.getElementById("questionCard");
+      const visible = getVisibleQuestions();
+      if (!visible.length) {
+        card.innerHTML = `
+          <div class="empty-state">
+            <div style="font-size:2.4rem">✓</div>
+            <h2>No questions in this view</h2>
+            <p>${state.specialMode === "wrong" ? "You do not have any wrong answers to review." : state.specialMode === "bookmarks" ? "Bookmark questions to build a custom review set." : "You have answered every question in this view."}</p>
+            <button class="btn btn-primary" id="returnAllBtn">Return to All Questions</button>
+          </div>`;
+        document.getElementById("returnAllBtn").addEventListener("click", () => {
+          state.filter = "All"; state.specialMode = null; state.currentIndex = 0; saveState(); render();
+        });
+        return;
+      }
+
+      if (state.currentIndex >= visible.length) state.currentIndex = visible.length - 1;
+      if (state.currentIndex < 0) state.currentIndex = 0;
+
+      const q = visible[state.currentIndex];
+      const answerRecord = state.answers[q.id];
+      const isBookmarked = state.bookmarks.includes(q.id);
+      const draft = Array.isArray(state.drafts[q.id]) ? state.drafts[q.id] : [];
+
+      const optionsHtml = q.options.map((option, index) => {
+        let classes = "option-btn";
+        const selected = draft.includes(index);
+        if (!answerRecord && selected) classes += " selected";
+        if (answerRecord) {
+          const isCorrectOption = q.answers.includes(index);
+          const wasSelected = answerRecord.selected.includes(index);
+          if (isCorrectOption) classes += " correct";
+          else if (wasSelected) classes += " incorrect";
+          else classes += " dimmed";
+        }
+        return `<button class="${classes}" data-option="${index}" ${answerRecord ? "disabled" : ""} aria-pressed="${!answerRecord && selected}">
+          <span class="option-key">${letters[index]}</span><span>${option}</span><span class="option-check">✓</span>
+        </button>`;
+      }).join("");
+
+      const correctAnswerText = q.answers.map(index => `${letters[index]}. ${q.options[index]}`).join("<br>");
+      const feedbackHtml = answerRecord ? `
+        <div class="feedback visible">
+          <div class="feedback-status ${answerRecord.correct ? "correct-text" : "incorrect-text"}">${answerRecord.correct ? "✓ Correct" : "✕ Not quite"}</div>
+          <h3>Correct answer${q.select > 1 ? "s" : ""}</h3>
+          <p><strong>${correctAnswerText}</strong></p>
+          <h3>Why this is correct</h3>
+          <p>${q.explanation}</p>
+          <div class="tip-box"><strong>Exam reasoning tip:</strong> ${q.tip}</div>
+        </div>` : "";
+
+      const multiActions = !answerRecord && q.select > 1 ? `
+        <div class="answer-actions">
+          <span class="selection-count">Selected ${draft.length} of ${q.select}</span>
+          <button class="btn btn-primary" id="submitAnswerBtn" ${draft.length !== q.select ? "disabled" : ""}>Check Answer</button>
+        </div>` : "";
+
+      card.innerHTML = `
+        <div class="question-top">
+          <div class="badge-row">
+            <span class="category-badge">${q.category}</span>
+            <span class="selection-badge">${q.select === 1 ? "Select one" : `Select ${q.select}`}</span>
+          </div>
+          <button class="bookmark-btn ${isBookmarked ? "active" : ""}" id="bookmarkBtn" aria-label="${isBookmarked ? "Remove bookmark" : "Bookmark question"}" aria-pressed="${isBookmarked}">★</button>
+        </div>
+        <div class="question-number">Question ${state.currentIndex + 1} of ${visible.length} · Bank ID ${q.id}</div>
+        <h2>${q.question}</h2>
+        <div class="option-list">${optionsHtml}</div>
+        ${multiActions}
+        ${feedbackHtml}
+        <div class="nav-row">
+          <button class="btn btn-secondary" id="prevBtn" ${state.currentIndex === 0 ? "disabled" : ""}>Previous</button>
+          <button class="btn btn-primary" id="nextBtn" ${state.currentIndex === visible.length - 1 ? "disabled" : ""}>Next</button>
+        </div>`;
+
+      card.querySelectorAll(".option-btn").forEach(button => {
+        button.addEventListener("click", () => selectOption(q, Number(button.dataset.option)));
+      });
+      if (q.select > 1 && !answerRecord) document.getElementById("submitAnswerBtn").addEventListener("click", () => submitAnswer(q));
+      document.getElementById("bookmarkBtn").addEventListener("click", () => toggleBookmark(q.id));
+      document.getElementById("prevBtn").addEventListener("click", previousQuestion);
+      document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+    }
+
+    function selectOption(question, selected) {
+      if (state.answers[question.id]) return;
+      if (question.select === 1) {
+        state.answers[question.id] = { selected: [selected], correct: sameSet([selected], question.answers) };
+        delete state.drafts[question.id];
+      } else {
+        const draft = Array.isArray(state.drafts[question.id]) ? [...state.drafts[question.id]] : [];
+        const existing = draft.indexOf(selected);
+        if (existing >= 0) draft.splice(existing, 1);
+        else if (draft.length < question.select) draft.push(selected);
+        state.drafts[question.id] = draft;
+      }
+      saveState();
+      render();
+    }
+
+    function submitAnswer(question) {
+      if (state.answers[question.id]) return;
+      const draft = Array.isArray(state.drafts[question.id]) ? state.drafts[question.id] : [];
+      if (draft.length !== question.select) return;
+      state.answers[question.id] = { selected: [...draft], correct: sameSet(draft, question.answers) };
+      delete state.drafts[question.id];
+      saveState();
+      render();
+    }
+
+    function toggleBookmark(id) {
+      if (state.bookmarks.includes(id)) state.bookmarks = state.bookmarks.filter(item => item !== id);
+      else state.bookmarks.push(id);
+      saveState(); render();
+    }
+
+    function nextQuestion() {
+      const visible = getVisibleQuestions();
+      if (state.currentIndex < visible.length - 1) {
+        state.currentIndex += 1; saveState(); renderQuestion();
+        document.getElementById("questionCard").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function previousQuestion() {
+      if (state.currentIndex > 0) {
+        state.currentIndex -= 1; saveState(); renderQuestion();
+        document.getElementById("questionCard").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function shuffleQuestions() {
+      const shuffled = [...state.order];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      state.order = shuffled; state.currentIndex = 0; saveState(); render();
+      document.getElementById("study").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function setSpecialMode(mode) { state.specialMode = mode; state.currentIndex = 0; saveState(); render(); }
+
+    function resetProgress() {
+      if (!window.confirm("Reset all answers, bookmarks, draft selections, and question order?")) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch (error) { console.warn("Could not clear saved progress.", error); }
+      state = { answers: {}, bookmarks: [], order: questions.map(q => q.id), filter: "All", specialMode: null, currentIndex: 0, drafts: {} };
+      render();
+    }
+
+    function render() { renderFilters(); renderStats(); renderQuestion(); }
+
+    document.getElementById("startBtn").addEventListener("click", () => document.getElementById("study").scrollIntoView({ behavior: "smooth" }));
+    document.getElementById("shuffleBtn").addEventListener("click", shuffleQuestions);
+    document.getElementById("reviewWrongBtn").addEventListener("click", () => setSpecialMode("wrong"));
+    document.getElementById("reviewBookmarksBtn").addEventListener("click", () => setSpecialMode("bookmarks"));
+    document.getElementById("unansweredBtn").addEventListener("click", () => setSpecialMode("unanswered"));
+    document.getElementById("resetBtn").addEventListener("click", resetProgress);
+
+    document.addEventListener("keydown", (event) => {
+      if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return;
+      const visible = getVisibleQuestions();
+      const q = visible[state.currentIndex];
+      if (!q) return;
+      if (["1", "2", "3", "4"].includes(event.key) && !state.answers[q.id]) {
+        const index = Number(event.key) - 1;
+        if (index < q.options.length) selectOption(q, index);
+      } else if (event.key === "Enter" && q.select > 1 && !state.answers[q.id]) submitAnswer(q);
+      else if (event.key.toLowerCase() === "n") nextQuestion();
+      else if (event.key.toLowerCase() === "p") previousQuestion();
+      else if (event.key.toLowerCase() === "b") toggleBookmark(q.id);
+    });
+
+    loadState();
+    render();
+  </script>
+</body>
+</html>
