@@ -4,8 +4,9 @@ import vm from "node:vm";
 
 const rootDir = path.resolve(import.meta.dirname, "..");
 const catalogPath = path.join(rootDir, "assets/data/certifications.js");
-const assetVersion = "20260725-seo";
+const assetVersion = "20260725-header";
 const siteUrl = "https://blueforce.cloud";
+const faviconPath = "/assets/img/icono_blueforce.png";
 
 function readCertifications() {
   const code = fs.readFileSync(catalogPath, "utf8");
@@ -262,10 +263,21 @@ function alternateLinks(enPath, esPath, canonicalPath) {
   <link rel="alternate" hreflang="x-default" href="${siteUrl}/" />`;
 }
 
+function iconLinks() {
+  return `<link rel="icon" type="image/png" sizes="500x500" href="${faviconPath}" />
+  <link rel="apple-touch-icon" href="${faviconPath}" />`;
+}
+
 function languageSwitch(enPath, esPath, activeLocale) {
-  return `<div class="language-switch" aria-label="Language">
-          <a href="${enPath}"${activeLocale === "en" ? ' aria-current="true"' : ""}>EN</a>
-          <a href="${esPath}"${activeLocale === "es" ? ' aria-current="true"' : ""}>ES</a>
+  return `<div class="language-switch" aria-label="Language selector">
+          <a class="language-option" href="${enPath}" aria-label="View in English"${activeLocale === "en" ? ' aria-current="true"' : ""}>
+            <span class="language-flag" aria-hidden="true">🇺🇸</span>
+            <span class="language-code">EN</span>
+          </a>
+          <a class="language-option" href="${esPath}" aria-label="Ver en español"${activeLocale === "es" ? ' aria-current="true"' : ""}>
+            <span class="language-flag" aria-hidden="true">🇲🇽</span>
+            <span class="language-code">ES</span>
+          </a>
         </div>`;
 }
 
@@ -280,7 +292,9 @@ function homePage(locale, options = {}) {
   const preloadHref = options.root
     ? "assets/img/blueforce-practice-preview.jpg"
     : "/assets/img/blueforce-practice-preview.jpg";
-  const stylesheetHref = options.root ? "assets/css/styles.css" : "/assets/css/styles.css";
+  const stylesheetHref = options.root
+    ? `assets/css/styles.css?v=${assetVersion}`
+    : `/assets/css/styles.css?v=${assetVersion}`;
   const dataSrc = options.root
     ? `assets/data/certifications.js?v=${assetVersion}`
     : `/assets/data/certifications.js?v=${assetVersion}`;
@@ -304,6 +318,7 @@ function homePage(locale, options = {}) {
   <meta property="og:url" content="${siteUrl}${canonicalPath}" />
   <title>${escapeHtml(copy.title)}</title>
   ${alternateLinks(enPath, esPath, canonicalPath)}
+  ${iconLinks()}
   <link rel="preload" as="image" href="${preloadHref}" fetchpriority="high" />
   <link rel="stylesheet" href="${stylesheetHref}" />
   <script type="application/ld+json">
@@ -417,7 +432,8 @@ function examPage(cert, locale, options = {}) {
   <meta property="og:url" content="${siteUrl}${canonicalPath}" />
   <title>${escapeHtml(title)}</title>
   ${alternateLinks(enPath, esPath, canonicalPath)}
-  <link rel="stylesheet" href="/assets/css/styles.css" />
+  ${iconLinks()}
+  <link rel="stylesheet" href="/assets/css/styles.css?v=${assetVersion}" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
