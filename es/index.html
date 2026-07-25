@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HEQC283GWW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HEQC283GWW');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BlueForce ofrece examenes de practica para certificaciones Salesforce con feedback inmediato, navegacion bilingue y progreso local." />
+  <meta property="og:title" content="BlueForce | Examenes de practica para certificaciones Salesforce" />
+  <meta property="og:description" content="BlueForce ofrece examenes de practica para certificaciones Salesforce con feedback inmediato, navegacion bilingue y progreso local." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://blueforce.cloud/es/" />
+  <title>BlueForce | Examenes de practica para certificaciones Salesforce</title>
+  <link rel="canonical" href="https://blueforce.cloud/es/" />
+  <link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/" />
+  <link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/" />
+  <link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <link rel="preload" as="image" href="/assets/img/blueforce-practice-preview.jpg" fetchpriority="high" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "BlueForce",
+      "url": "https://blueforce.cloud/es/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any",
+      "description": "BlueForce ofrece examenes de practica para certificaciones Salesforce con feedback inmediato, navegacion bilingue y progreso local."
+    }
+  </script>
+</head>
+<body data-locale="es" data-cert-base="certificaciones">
+  <a class="skip-link" href="#certifications">Saltar a certificaciones</a>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand-lockup" href="/es/" aria-label="Inicio de BlueForce">
+        <span class="brand-mark">BF</span>
+        <span>BlueForce</span>
+      </a>
+      <nav class="topbar-nav" aria-label="Navegacion principal">
+        <a href="/es/#certifications">Certificaciones</a>
+        <div class="language-switch" aria-label="Language">
+          <a href="/en/">EN</a>
+          <a href="/es/" aria-current="true">ES</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="home-title">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Practica Salesforce</div>
+          <h1 id="home-title">Preparate para tu certificacion con practica guiada.</h1>
+          <p>BlueForce convierte bancos de preguntas en sesiones dinamicas: responde, recibe feedback inmediato, repasa errores y retoma tu progreso desde este navegador.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/es/#certifications">Elegir examen</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Resumen de BlueForce">
+          <img class="hero-preview" src="/assets/img/blueforce-practice-preview.jpg" width="900" height="200" fetchpriority="high" decoding="async" alt="Vista previa de un panel de practica con preguntas, progreso y feedback" />
+          <div class="hero-panel-grid">
+            <div class="mini-metric">
+              <div class="mini-label">Certificaciones</div>
+              <div class="mini-value" id="certCount">0</div>
+            </div>
+            <div class="mini-metric">
+              <div class="mini-label">Preguntas</div>
+              <div class="mini-value" id="questionCount">0</div>
+            </div>
+            <div class="mini-metric">
+              <div class="mini-label">Respondidas</div>
+              <div class="mini-value" id="globalProgress">0 / 0</div>
+            </div>
+            <div class="mini-metric">
+              <div class="mini-label">Precision</div>
+              <div class="mini-value" id="globalAccuracy">0%</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="certifications" id="certifications" aria-labelledby="certifications-title">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Examenes disponibles</div>
+            <h2 id="certifications-title">Elige una certificacion</h2>
+          </div>
+          <p>Cada examen guarda su progreso por separado y te permite repasar preguntas incorrectas, marcadas o pendientes.</p>
+        </div>
+        <div class="cert-grid" id="certificationGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/data/certifications.js?v=20260725-seo"></script>
+  <script src="/assets/js/home.js?v=20260725-seo"></script>
+</body>
+</html>

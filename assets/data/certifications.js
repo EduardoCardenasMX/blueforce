@@ -1,5 +1,6 @@
 // Generated from the original Salesforce study lab HTML files.
-// To add a certification, add metadata and a source file to tools/extract-certifications.mjs, then rerun it.
+// To add a certification, update tools/extract-certifications.mjs, rerun it,
+// then run tools/build-localized-pages.mjs to create the localized routes.
 window.BLUEFORCE_CERTIFICATIONS = [
   {
     "id": "ux-designer",

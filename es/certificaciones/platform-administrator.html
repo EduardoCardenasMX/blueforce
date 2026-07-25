@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HEQC283GWW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HEQC283GWW');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Practica para Salesforce Platform Administrator con preguntas de examen, feedback inmediato, tips y progreso guardado localmente." />
+  <meta property="og:title" content="Salesforce Platform Administrator Certification Study Lab | BlueForce" />
+  <meta property="og:description" content="Practica para Salesforce Platform Administrator con preguntas de examen, feedback inmediato, tips y progreso guardado localmente." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://blueforce.cloud/es/certificaciones/platform-administrator" />
+  <title>Salesforce Platform Administrator Certification Study Lab | BlueForce</title>
+  <link rel="canonical" href="https://blueforce.cloud/es/certificaciones/platform-administrator" />
+  <link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/certifications/platform-administrator" />
+  <link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/certificaciones/platform-administrator" />
+  <link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "BlueForce",
+          "item": "https://blueforce.cloud/es/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Salesforce Platform Administrator",
+          "item": "https://blueforce.cloud/es/certificaciones/platform-administrator"
+        }
+      ]
+    }
+  </script>
+</head>
+<body data-locale="es" data-certification="platform-administrator">
+  <a class="skip-link" href="#study">Saltar a la pregunta</a>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand-lockup" href="/es/" aria-label="Inicio de BlueForce">
+        <span class="brand-mark">BF</span>
+        <span>BlueForce</span>
+      </a>
+      <nav class="topbar-nav" aria-label="Navegacion principal">
+        <a href="/es/">Inicio</a>
+        <a href="/es/#certifications">Certificaciones</a>
+        <div class="language-switch" aria-label="Language">
+          <a href="/en/certifications/platform-administrator">EN</a>
+          <a href="/es/certificaciones/platform-administrator" aria-current="true">ES</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="examApp">
+    <section class="exam-hero" aria-labelledby="pageTitle">
+      <div class="shell hero-grid">
+        <section class="hero-copy">
+          <div class="eyebrow" id="examEyebrow">Preguntas originales</div>
+          <h1 id="pageTitle">Salesforce Platform Administrator Certification Study Lab</h1>
+          <p id="heroCopy">Practica dominios actuales con escenarios realistas de administrador. Selecciona tus respuestas para ver la opcion correcta, una explicacion y un tip de examen.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="startBtn">Empezar practica</button>
+            <button class="btn btn-secondary" id="shuffleBtn">Mezclar preguntas</button>
+          </div>
+          <div class="notice"><strong>Nota de integridad:</strong> <span id="integrityNote">Este lab contiene preguntas originales creadas desde objetivos publicos y documentacion de Salesforce. No reproduce contenido restringido del examen.</span></div>
+        </section>
+
+        <aside class="blueprint-panel" aria-label="Guia oficial">
+          <h2>Guia oficial</h2>
+          <p id="blueprintNote">El banco contiene preguntas distribuidas de forma cercana al peso publicado para cada dominio.</p>
+          <div class="weight-list" id="blueprintList"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="dashboard" id="study" aria-labelledby="studyHeading">
+      <div class="shell">
+        <h2 id="studyHeading" style="position:absolute;left:-9999px;">Preguntas interactivas</h2>
+
+        <div class="stats-grid" aria-label="Study statistics">
+          <div class="stat-card"><div class="stat-label">Respondidas</div><div class="stat-value" id="answeredStat">0</div></div>
+          <div class="stat-card"><div class="stat-label">Correctas</div><div class="stat-value" id="correctStat">0</div></div>
+          <div class="stat-card"><div class="stat-label">Precision</div><div class="stat-value" id="accuracyStat">0%</div></div>
+          <div class="stat-card"><div class="stat-label">Falladas</div><div class="stat-value" id="wrongStat">0</div></div>
+          <div class="stat-card"><div class="stat-label">Marcadas</div><div class="stat-value" id="bookmarkStat">0</div></div>
+        </div>
+
+        <div class="toolbar" aria-label="Filtros de preguntas">
+          <div class="category-filters" id="categoryFilters"></div>
+          <button class="btn btn-secondary" id="reviewWrongBtn">Repasar errores</button>
+          <button class="btn btn-secondary" id="reviewBookmarksBtn">Marcadas</button>
+        </div>
+
+        <div class="progress-block" aria-label="Study progress">
+          <div class="progress-meta"><span id="progressLabel">0 respondidas</span><span id="modeLabel">Todas</span></div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+
+        <div class="study-layout">
+          <article class="question-card" id="questionCard" aria-live="polite"></article>
+
+          <aside class="side-panel">
+            <div class="side-card">
+              <h3>Como razonar</h3>
+              <p id="reasoningText">Separa permisos de sharing, identifica el objeto y el proceso de negocio, y elige la capacidad Salesforce mas nativa y mantenible.</p>
+            </div>
+            <div class="side-card">
+              <h3>Habitos de examen</h3>
+              <p id="habitsText">Lee cada calificativo: best, most efficient, without code, select two y based on record ownership suelen cambiar la respuesta.</p>
+            </div>
+            <div class="side-card">
+              <h3>Controles</h3>
+              <button class="btn btn-secondary" id="unansweredBtn">Ir a pendientes</button>
+              <button class="btn btn-danger" id="resetBtn">Reiniciar progreso</button>
+            </div>
+            <div class="side-card">
+              <h3>Atajos</h3>
+              <ul class="shortcut-list">
+                <li><kbd>1</kbd>-<kbd>6</kbd> elegir opciones</li>
+                <li><kbd>Enter</kbd> enviar seleccion multiple</li>
+                <li><kbd>N</kbd> siguiente</li>
+                <li><kbd>P</kbd> anterior</li>
+                <li><kbd>B</kbd> marcar</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="resources" aria-labelledby="resourcesHeading">
+      <div class="shell resources-card">
+        <h2 id="resourcesHeading">Recursos de estudio</h2>
+        <p style="color:var(--muted);max-width:860px;">Este banco de preguntas fue importado desde la guia HTML original y conecta con recursos publicos para repasar mas.</p>
+        <div class="resource-grid" id="resourceGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/data/certifications.js?v=20260725-seo"></script>
+  <script src="/assets/js/app.js?v=20260725-seo"></script>
+</body>
+</html>

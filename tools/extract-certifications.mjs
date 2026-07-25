@@ -450,6 +450,6 @@ const certifications = Object.entries(sourceFiles).map(([id, file]) => {
   };
 });
 
-const output = `// Generated from the original Salesforce study lab HTML files.\n// To add a certification, add metadata and a source file to tools/extract-certifications.mjs, then rerun it.\nwindow.BLUEFORCE_CERTIFICATIONS = ${JSON.stringify(certifications, null, 2)};\n`;
+const output = `// Generated from the original Salesforce study lab HTML files.\n// To add a certification, update tools/extract-certifications.mjs, rerun it,\n// then run tools/build-localized-pages.mjs to create the localized routes.\nwindow.BLUEFORCE_CERTIFICATIONS = ${JSON.stringify(certifications, null, 2)};\n`;
 
 fs.writeFileSync(path.join(root, "assets/data/certifications.js"), output);

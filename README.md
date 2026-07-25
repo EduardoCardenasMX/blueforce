@@ -1,34 +1,53 @@
 # BlueForce
 
-App estatica para practicar certificaciones Salesforce con feedback inmediato y progreso local por certificacion.
+Static app for Salesforce certification practice with instant feedback, bilingual interface URLs, and local progress per certification.
 
-## URLs publicas
+## Public URLs
 
-- Home: `/`
-- Certificaciones: `/certifications/ux-designer`, `/certifications/platform-administrator`, `/certifications/business-analyst`
-- Los archivos fisicos siguen siendo `.html`, pero `.htaccess` redirige las URLs con `.html` a sus versiones limpias.
+- English home: `/en/`
+- Spanish home: `/es/`
+- English exams: `/en/certifications/ux-designer`
+- Spanish exams: `/es/certificaciones/ux-designer`
+- The root `/` remains an x-default entry point and links into the language-specific routes.
+- Physical files still use `.html`, but `.htaccess` redirects public `.html` URLs to clean URLs.
 
-## Archivos principales
+## Main Files
 
-- `index.html`: homepage con certificaciones disponibles y resumen de progreso.
-- `certifications/*.html`: paginas independientes para cada certificacion. Las URLs publicas se sirven sin `.html` mediante `.htaccess`.
-- `assets/data/certifications.js`: banco normalizado de certificaciones y preguntas.
-- `assets/js/app.js`: motor compartido de practica, filtros, bookmarks, review de errores y localStorage.
-- `assets/css/styles.css`: estilos compartidos.
-- `tools/extract-certifications.mjs`: extractor que convierte los HTML originales al formato comun.
+- `index.html`, `en/index.html`, `es/index.html`: homepages.
+- `en/certifications/*.html` and `es/certificaciones/*.html`: localized exam pages.
+- `certifications/*.html`: legacy English exam pages, canonicalized to `/en/certifications/...`.
+- `assets/data/certifications.js`: normalized certification catalog.
+- `assets/data/exams/*.js`: question banks imported from the original HTML guides.
+- `assets/js/app.js`: shared practice engine, filters, bookmarks, missed review, and `localStorage`.
+- `assets/js/home.js`: lightweight homepage renderer.
+- `assets/css/styles.css`: shared styles.
+- `tools/extract-certifications.mjs`: converts original HTML guides into the shared data format.
+- `tools/build-localized-pages.mjs`: regenerates English and Spanish pages, `sitemap.xml`, and `robots.txt`.
 
-## Agregar una certificacion
+## Add A Certification
 
-1. Copia el nuevo HTML de study lab en la raiz del proyecto.
-2. Agrega su entrada en `sourceFiles` y `metadata` dentro de `tools/extract-certifications.mjs`.
-3. Ejecuta:
+1. Copy the new study lab HTML into the project root.
+2. Add its entry to `sourceFiles` and `metadata` inside `tools/extract-certifications.mjs`.
+3. Run:
 
 ```bash
 node tools/extract-certifications.mjs
 ```
 
-4. Crea una pagina en `certifications/nueva-certificacion.html` usando una de las paginas actuales como base y cambiando `data-certification`. En `metadata.path`, usa la URL limpia, por ejemplo `certifications/nueva-certificacion`.
+4. Regenerate the localized pages:
 
-El progreso queda guardado en `localStorage`, separado por `id` de certificacion.
+```bash
+node tools/build-localized-pages.mjs
+```
 
-El extractor tambien reordena las opciones de forma deterministica y recalcula las respuestas correctas para evitar patrones como que la respuesta correcta sea casi siempre la opcion A. Si cambias esa logica, incrementa `progressVersion` en `assets/js/app.js` para no mezclar progreso guardado contra indices de opciones anteriores.
+5. If you want Spanish interface copy for that certification, add its Spanish metadata to:
+
+- `tools/build-localized-pages.mjs`
+- `assets/js/home.js`
+- `assets/js/app.js`
+
+The exam questions, options, explanations, and tips remain in English by design.
+
+Progress is saved in `localStorage`, separated by certification `id`.
+
+The extractor also reorders options deterministically and recalculates correct answers to avoid answer patterns such as almost every correct answer being option A. If that logic changes, increment `progressVersion` in `assets/js/app.js` so saved progress is not mixed with older option indexes.

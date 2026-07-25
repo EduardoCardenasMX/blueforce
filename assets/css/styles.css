@@ -137,6 +137,27 @@ a:hover {
   color: white;
 }
 
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  border: 1px solid rgba(120, 199, 255, 0.18);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.language-switch a {
+  min-width: 34px;
+  padding: 5px 7px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.language-switch a[aria-current="true"] {
+  color: #06111f;
+  background: var(--brand-2);
+}
+
 .hero {
   padding: clamp(46px, 7vw, 88px) 0 34px;
 }

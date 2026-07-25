@@ -2,8 +2,145 @@
   const letters = ["A", "B", "C", "D", "E", "F"];
   const specialModes = [null, "wrong", "bookmarks", "unanswered"];
   const progressVersion = "v2";
-  const assetVersion = "20260724-fast";
+  const assetVersion = "20260725-seo";
   const certifications = window.BLUEFORCE_CERTIFICATIONS || [];
+  const locale = document.body.dataset.locale || document.documentElement.lang || "en";
+  const text = {
+    en: {
+      all: "All",
+      allQuestions: "All Questions",
+      missedReview: "Missed Review",
+      bookmarked: "Bookmarked",
+      unanswered: "Unanswered",
+      certificationNotFound: "Certification Not Found",
+      certificationNotFoundCopy: "Return to BlueForce to choose an available exam.",
+      questionsCouldNotLoad: "Questions Could Not Load",
+      questionsCouldNotLoadCopy:
+        "Refresh the page or return to BlueForce to choose an available exam.",
+      backHome: "Back to Home",
+      answeredProgress: (answered, total) => `${answered} of ${total} answered`,
+      noQuestionsTitle: "No Questions in This View",
+      noMissed: "You do not have any missed questions to review.",
+      noBookmarks: "Bookmark questions to build your review list.",
+      noUnanswered: "You have answered every question in this view.",
+      viewAll: "View All",
+      answeredQuestion: (id) => `Answered Question - Bank ${id}`,
+      questionPosition: (current, total, id) => `Question ${current} of ${total} - Bank ${id}`,
+      correct: "Correct",
+      incorrect: "Incorrect",
+      correctAnswer: (multiple) => `Correct Answer${multiple ? "s" : ""}`,
+      whyCorrect: "Why This Is Correct",
+      examTip: "Exam tip:",
+      selectedCount: (selected, total) => `${selected} of ${total} selected`,
+      submitAnswer: "Submit Answer",
+      select: (total) => `Select ${total}`,
+      bookmarkQuestion: "Bookmark question",
+      previous: "Previous",
+      next: "Next",
+      resetConfirm: "Reset answers, bookmarks, and question order?",
+      originalQuestions: (total) => `${total} original questions`,
+      homeHref: "/en/",
+    },
+    es: {
+      all: "Todas",
+      allQuestions: "Todas las preguntas",
+      missedReview: "Repaso de errores",
+      bookmarked: "Marcadas",
+      unanswered: "Pendientes",
+      certificationNotFound: "Certificacion no encontrada",
+      certificationNotFoundCopy: "Vuelve a BlueForce para elegir un examen disponible.",
+      questionsCouldNotLoad: "No se pudieron cargar las preguntas",
+      questionsCouldNotLoadCopy:
+        "Actualiza la pagina o vuelve a BlueForce para elegir un examen disponible.",
+      backHome: "Volver al inicio",
+      answeredProgress: (answered, total) => `${answered} de ${total} respondidas`,
+      noQuestionsTitle: "No hay preguntas en esta vista",
+      noMissed: "No tienes preguntas falladas para repasar.",
+      noBookmarks: "Marca preguntas para construir tu lista de repaso.",
+      noUnanswered: "Ya respondiste todas las preguntas en esta vista.",
+      viewAll: "Ver todas",
+      answeredQuestion: (id) => `Pregunta respondida - Banco ${id}`,
+      questionPosition: (current, total, id) => `Pregunta ${current} de ${total} - Banco ${id}`,
+      correct: "Correcto",
+      incorrect: "Incorrecto",
+      correctAnswer: (multiple) => `Respuesta${multiple ? "s" : ""} correcta${multiple ? "s" : ""}`,
+      whyCorrect: "Por que es correcta",
+      examTip: "Tip de examen:",
+      selectedCount: (selected, total) => `${selected} de ${total} seleccionadas`,
+      submitAnswer: "Enviar respuesta",
+      select: (total) => `Selecciona ${total}`,
+      bookmarkQuestion: "Marcar pregunta",
+      previous: "Anterior",
+      next: "Siguiente",
+      resetConfirm: "Reiniciar respuestas, marcadores y orden de preguntas?",
+      originalQuestions: (total) => `${total} preguntas originales`,
+      homeHref: "/es/",
+    },
+  }[locale] || {};
+  const certCopy = {
+    es: {
+      "ux-designer": {
+        heroCopy:
+          "Estudia los dominios oficiales con tarjetas basadas en escenarios. Elige una respuesta para ver la opcion correcta, una explicacion practica y un tip de razonamiento.",
+        reasoning:
+          "Identifica primero el objetivo del usuario y despues elige la solucion Salesforce mas nativa, accesible y sostenible.",
+        habits:
+          "Compara cada opcion contra evidencia del usuario, accesibilidad, SLDS y configuracion declarativa antes de decidir.",
+        integrity:
+          "Estas preguntas son originales y se crearon desde objetivos publicos y documentacion. No son preguntas reales filtradas o memorizadas del examen.",
+        blueprintNote:
+          "La distribucion sigue los porcentajes publicados para los dominios del examen.",
+      },
+      "platform-administrator": {
+        heroCopy:
+          "Practica dominios actuales con escenarios realistas de administrador. Selecciona tus respuestas para ver la opcion correcta, una explicacion y un tip de examen.",
+        reasoning:
+          "Separa permisos de sharing, identifica el objeto y el proceso de negocio, y elige la capacidad Salesforce mas nativa y mantenible.",
+        habits:
+          "Lee cada calificativo: best, most efficient, without code, select two y based on record ownership suelen cambiar la respuesta.",
+        integrity:
+          "Este lab contiene preguntas originales creadas desde objetivos publicos y documentacion de Salesforce. No reproduce contenido restringido del examen.",
+        blueprintNote:
+          "El banco contiene preguntas distribuidas de forma cercana al peso publicado para cada dominio.",
+      },
+      "business-analyst": {
+        heroCopy:
+          "Practica dominios actuales con escenarios realistas de analisis de negocio en Salesforce. Selecciona tus respuestas para ver la opcion correcta, una explicacion y un tip de examen.",
+        reasoning:
+          "Identifica el resultado de negocio, separa evidencia de supuestos y elige la tecnica o artefacto que cree el entendimiento compartido mas claro.",
+        habits:
+          "Lee cada calificativo: first, best, current state, future state, select two y most effective technique suelen determinar la respuesta.",
+        integrity:
+          "Este lab contiene preguntas originales creadas desde objetivos publicos, documentacion de Salesforce y practicas establecidas de analisis de negocio.",
+        blueprintNote:
+          "El banco contiene 100 preguntas, por lo que el conteo refleja el peso publicado para cada dominio.",
+      },
+      "sales-cloud-consultant": {
+        heroCopy:
+          "Practica dominios actuales con escenarios avanzados de consultoria sobre discovery, diseno de solucion, forecasting, territory management, ejecucion comercial, datos, adopcion y trusted AI.",
+        reasoning:
+          "Identifica el resultado de negocio, restricciones, modelo operativo, impacto en datos y mantenibilidad antes de elegir la mejor solucion.",
+        habits:
+          "Varias opciones pueden ser tecnicamente posibles. Lee best, most scalable, first y most appropriate, y elige la respuesta que resuelve la causa raiz.",
+        integrity:
+          "Este lab contiene preguntas originales creadas desde objetivos publicos y documentacion de Salesforce. No reproduce contenido filtrado, memorizado o restringido.",
+        blueprintNote:
+          "El banco contiene 100 preguntas distribuidas segun el peso publicado por Salesforce.",
+      },
+      "data-360-consultant": {
+        heroCopy:
+          "Practica dominios actuales con escenarios consultivos de Data 360 sobre datos, identidad, segmentacion, activacion, seguridad y gobernanza.",
+        reasoning:
+          "Identifica la fuente, el modelo de datos, la identidad, el objetivo de activacion y las restricciones de gobernanza antes de seleccionar una opcion.",
+        habits:
+          "Lee los detalles de latencia, consentimiento, volumen, identidad, unificacion y activacion; suelen ser la diferencia entre respuestas parecidas.",
+        integrity:
+          "Este lab contiene preguntas originales creadas desde objetivos publicos y documentacion de Salesforce. No reproduce contenido restringido del examen.",
+        blueprintNote:
+          "El banco contiene preguntas distribuidas alrededor de los dominios publicados del examen.",
+      },
+    },
+  };
 
   function escapeHtml(value) {
     return String(value)
@@ -55,6 +192,13 @@
     return certification.questionCount || (certification.questions || []).length;
   }
 
+  function localizedCertification(certification) {
+    return {
+      ...certification,
+      ...(certCopy[locale]?.[certification.id] || {}),
+    };
+  }
+
   function loadScript(src) {
     return new Promise((resolve, reject) => {
       const existing = Array.from(document.scripts).find((script) => script.src === src);
@@ -78,7 +222,7 @@
 
     const banks = window.BLUEFORCE_QUESTION_BANKS || {};
     if (!banks[certification.id]) {
-      const source = `../${certification.questionBankPath}?v=${assetVersion}`;
+      const source = `/${certification.questionBankPath}?v=${assetVersion}`;
       await loadScript(source);
     }
 
@@ -197,9 +341,9 @@
       app.innerHTML = `
         <div class="shell">
           <div class="empty-state">
-            <h2>Certification Not Found</h2>
-            <p>Return to BlueForce to choose an available exam.</p>
-            <a class="btn btn-primary" href="../">Back to Home</a>
+            <h2>${text.certificationNotFound}</h2>
+            <p>${text.certificationNotFoundCopy}</p>
+            <a class="btn btn-primary" href="${text.homeHref}">${text.backHome}</a>
           </div>
         </div>
       `;
@@ -214,15 +358,16 @@
       app.innerHTML = `
         <div class="shell">
           <div class="empty-state">
-            <h2>Questions Could Not Load</h2>
-            <p>Refresh the page or return to BlueForce to choose an available exam.</p>
-            <a class="btn btn-primary" href="../">Back to Home</a>
+            <h2>${text.questionsCouldNotLoad}</h2>
+            <p>${text.questionsCouldNotLoadCopy}</p>
+            <a class="btn btn-primary" href="${text.homeHref}">${text.backHome}</a>
           </div>
         </div>
       `;
       return;
     }
 
+    certification = localizedCertification(certification);
     document.title = `${certification.pageTitle} | BlueForce`;
     hydrateExamShell(certification);
 
@@ -331,10 +476,10 @@
     }
 
     function modeLabel() {
-      if (state.specialMode === "wrong") return "Missed Review";
-      if (state.specialMode === "bookmarks") return "Bookmarked";
-      if (state.specialMode === "unanswered") return "Unanswered";
-      return state.filter === "All" ? "All Questions" : state.filter;
+      if (state.specialMode === "wrong") return text.missedReview;
+      if (state.specialMode === "bookmarks") return text.bookmarked;
+      if (state.specialMode === "unanswered") return text.unanswered;
+      return state.filter === "All" ? text.allQuestions : state.filter;
     }
 
     function renderFilters() {
@@ -343,7 +488,7 @@
       container.innerHTML = certification.categoryOrder
         .map((category) => {
           const isActive = !state.specialMode && state.filter === category;
-          const label = category === "All" ? "All" : category;
+          const label = category === "All" ? text.all : category;
           return `<button class="filter-btn" data-category="${escapeHtml(category)}" aria-pressed="${isActive}">${escapeHtml(label)}</button>`;
         })
         .join("");
@@ -372,7 +517,7 @@
       document.getElementById("accuracyStat").textContent = accuracy === null ? "0%" : `${accuracy}%`;
       document.getElementById("bookmarkStat").textContent = state.bookmarks.length;
       document.getElementById("wrongStat").textContent = wrong;
-      document.getElementById("progressLabel").textContent = `${answered} of ${total} answered`;
+      document.getElementById("progressLabel").textContent = text.answeredProgress(answered, total);
       document.getElementById("modeLabel").textContent = modeLabel();
       document.getElementById("progressFill").style.width = `${pct}%`;
     }
@@ -386,15 +531,15 @@
       if (!visible.length && !heldQuestion) {
         const message =
           state.specialMode === "wrong"
-            ? "You do not have any missed questions to review."
+            ? text.noMissed
             : state.specialMode === "bookmarks"
-              ? "Bookmark questions to build your review list."
-              : "You have answered every question in this view.";
+              ? text.noBookmarks
+              : text.noUnanswered;
         card.innerHTML = `
           <div class="empty-state">
-            <h2>No Questions in This View</h2>
+            <h2>${text.noQuestionsTitle}</h2>
             <p>${message}</p>
-            <button class="btn btn-primary" id="returnAllBtn">View All</button>
+            <button class="btn btn-primary" id="returnAllBtn">${text.viewAll}</button>
           </div>
         `;
         document.getElementById("returnAllBtn").addEventListener("click", () => {
@@ -413,8 +558,8 @@
       const draft = Array.isArray(state.drafts[question.id]) ? state.drafts[question.id] : [];
       const selectedCount = answerRecord ? answerRecord.selected.length : draft.length;
       const questionPosition = heldQuestion
-        ? `Answered Question - Bank ${question.id}`
-        : `Question ${state.currentIndex + 1} of ${visible.length} - Bank ${question.id}`;
+        ? text.answeredQuestion(question.id)
+        : text.questionPosition(state.currentIndex + 1, visible.length, question.id);
       const previousDisabled = heldQuestion ? state.currentIndex === 0 : state.currentIndex === 0;
       const nextDisabled = heldQuestion
         ? visible.length <= state.currentIndex
@@ -450,13 +595,13 @@
         ? `
           <div class="feedback visible">
             <div class="feedback-status ${answerRecord.correct ? "correct-text" : "incorrect-text"}">
-              ${answerRecord.correct ? "Correct" : "Incorrect"}
+              ${answerRecord.correct ? text.correct : text.incorrect}
             </div>
-            <h3>Correct Answer${question.select > 1 ? "s" : ""}</h3>
+            <h3>${text.correctAnswer(question.select > 1)}</h3>
             <p><strong>${correctAnswerText}</strong></p>
-            <h3>Why This Is Correct</h3>
+            <h3>${text.whyCorrect}</h3>
             <p>${escapeHtml(question.explanation)}</p>
-            <div class="tip-box"><strong>Exam tip:</strong> ${escapeHtml(question.tip)}</div>
+            <div class="tip-box"><strong>${text.examTip}</strong> ${escapeHtml(question.tip)}</div>
           </div>
         `
         : "";
@@ -465,8 +610,8 @@
         !answerRecord && question.select > 1
           ? `
             <div class="answer-actions">
-              <span class="selection-count">${selectedCount} of ${question.select} selected</span>
-              <button class="btn btn-primary" id="submitAnswerBtn" ${selectedCount === question.select ? "" : "disabled"}>Submit Answer</button>
+              <span class="selection-count">${text.selectedCount(selectedCount, question.select)}</span>
+              <button class="btn btn-primary" id="submitAnswerBtn" ${selectedCount === question.select ? "" : "disabled"}>${text.submitAnswer}</button>
             </div>
           `
           : "";
@@ -475,9 +620,9 @@
         <div class="question-top">
           <div class="badge-row">
             <span class="category-badge">${escapeHtml(question.category)}</span>
-            ${question.select > 1 ? `<span class="selection-badge">Select ${question.select}</span>` : ""}
+            ${question.select > 1 ? `<span class="selection-badge">${text.select(question.select)}</span>` : ""}
           </div>
-          <button class="bookmark-btn ${isBookmarked ? "active" : ""}" id="bookmarkBtn" aria-label="Bookmark question" title="Bookmark question">B</button>
+          <button class="bookmark-btn ${isBookmarked ? "active" : ""}" id="bookmarkBtn" aria-label="${text.bookmarkQuestion}" title="${text.bookmarkQuestion}">B</button>
         </div>
         <div class="question-number">${questionPosition}</div>
         <h2>${escapeHtml(question.question)}</h2>
@@ -485,8 +630,8 @@
         ${multiActions}
         ${feedbackHtml}
         <div class="nav-row">
-          <button class="btn btn-secondary" id="prevBtn" ${previousDisabled ? "disabled" : ""}>Previous</button>
-          <button class="btn btn-secondary" id="nextBtn" ${nextDisabled ? "disabled" : ""}>Next</button>
+          <button class="btn btn-secondary" id="prevBtn" ${previousDisabled ? "disabled" : ""}>${text.previous}</button>
+          <button class="btn btn-secondary" id="nextBtn" ${nextDisabled ? "disabled" : ""}>${text.next}</button>
         </div>
       `;
 
@@ -602,7 +747,7 @@
     }
 
     function resetProgress() {
-      if (!window.confirm("Reset answers, bookmarks, and question order?")) {
+      if (!window.confirm(text.resetConfirm)) {
         return;
       }
       try {
@@ -666,7 +811,7 @@
   function hydrateExamShell(certification) {
     const total = certification.questions.length;
     const maxWeight = Math.max(...certification.blueprint.map((item) => item.weight));
-    document.getElementById("examEyebrow").textContent = `${total} original questions`;
+    document.getElementById("examEyebrow").textContent = text.originalQuestions(total);
     document.getElementById("pageTitle").textContent = certification.pageTitle;
     document.getElementById("heroCopy").textContent = certification.heroCopy;
     document.getElementById("integrityNote").textContent = certification.integrity;
@@ -676,7 +821,7 @@
     const sourceFileLink = document.getElementById("sourceFile");
     if (sourceFileLink) {
       sourceFileLink.textContent = certification.sourceFile;
-      sourceFileLink.href = `../${certification.sourceFile}`;
+      sourceFileLink.href = `/${certification.sourceFile}`;
     }
 
     document.getElementById("blueprintList").innerHTML = certification.blueprint
