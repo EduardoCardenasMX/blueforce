@@ -4,9 +4,10 @@ import vm from "node:vm";
 
 const rootDir = path.resolve(import.meta.dirname, "..");
 const catalogPath = path.join(rootDir, "assets/data/certifications.js");
-const assetVersion = "20260725-header";
+const assetVersion = "20260725-logo";
 const siteUrl = "https://blueforce.cloud";
 const faviconPath = "/assets/img/icono_blueforce.png";
+const logoPath = "/assets/img/logo_blueforce.png";
 
 function readCertifications() {
   const code = fs.readFileSync(catalogPath, "utf8");
@@ -339,8 +340,7 @@ function homePage(locale, options = {}) {
   <header class="topbar">
     <div class="shell topbar-inner">
       <a class="brand-lockup" href="${homeHref}" aria-label="${copy.brandAria}">
-        <span class="brand-mark">BF</span>
-        <span>BlueForce</span>
+        <img class="brand-logo" src="${logoPath}" width="180" height="52" alt="" decoding="async" />
       </a>
       <nav class="topbar-nav" aria-label="${copy.mainNav}">
         <a href="${certsHref}">${copy.navCertifications}</a>
@@ -461,8 +461,7 @@ function examPage(cert, locale, options = {}) {
   <header class="topbar">
     <div class="shell topbar-inner">
       <a class="brand-lockup" href="${homeHref}" aria-label="${copy.brandAria}">
-        <span class="brand-mark">BF</span>
-        <span>BlueForce</span>
+        <img class="brand-logo" src="${logoPath}" width="180" height="52" alt="" decoding="async" />
       </a>
       <nav class="topbar-nav" aria-label="${copy.mainNav}">
         <a href="${homeHref}">${copy.navHome}</a>
