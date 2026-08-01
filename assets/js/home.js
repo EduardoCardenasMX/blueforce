@@ -11,7 +11,6 @@
       localProgress: "Local progress",
       resume: "Resume",
       start: "Start",
-      practice: "Practice",
     },
     es: {
       questions: "preguntas",
@@ -21,7 +20,6 @@
       localProgress: "Progreso local",
       resume: "Retomar",
       start: "Empezar",
-      practice: "Practicar",
     },
   }[locale] || {};
   const certCopy = {
@@ -182,7 +180,6 @@
               </div>
               <div class="home-actions">
                 <a class="btn btn-primary" href="${escapeHtml(path)}">${progress.answered ? copy.resume : copy.start}</a>
-                <a class="btn btn-secondary" href="${escapeHtml(path)}#study">${copy.practice}</a>
               </div>
             </article>
           `;

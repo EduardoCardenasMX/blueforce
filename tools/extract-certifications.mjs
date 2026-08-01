@@ -667,6 +667,162 @@ const optionRewriteOverrides = new Map(
       "Broaden CRM record access so users can see more objects while building Data 360 queries",
     "Recreate the DMO in every space":
       "Duplicate the DMO across all data spaces so users can find it from any workspace",
+    "Ignore user feedback":
+      "Use only automated quality metrics and postpone direct user feedback until after rollout",
+    "Count tokens only":
+      "Measure assistant usage volume and response length as the primary indicators of business value",
+    "Assume generation equals value":
+      "Treat every generated draft as successful output without comparing quality or downstream outcomes",
+    "Disable reports permanently":
+      "Remove the affected report access while the team decides whether the issue affects go-live criteria",
+    "Delete the affected records":
+      "Correct the symptom by deleting impacted records and rebuilding the dashboard after deployment",
+    "Proceed without documenting risk":
+      "Proceed with launch and handle reporting concerns through informal follow-up after release",
+    "Put the file in a public folder":
+      "Use a shared export location so analysts can access the complete dataset without requesting field access",
+    "Disable all analytics":
+      "Pause analytics access broadly until a smaller export request can be defined by the reporting team",
+    "Export everything to every analyst":
+      "Approve a complete export for all analysts and rely on downstream teams to filter sensitive fields",
+    "Only a custom text field":
+      "Use a custom text field on Activity to summarize captured email and calendar details manually",
+    "Disable all activity tracking":
+      "Turn off activity capture until the team can define every reporting and retention requirement",
+    "Store email passwords in Salesforce":
+      "Store mailbox credentials in Salesforce configuration so synchronization can run under shared access",
+    "Make reports fast enough":
+      "As a sales manager, I want reports to load quickly so that I can review pipeline more easily",
+    "As a user, I want a better experience":
+      "As a user, I want the approval experience improved so that approvals are less frustrating",
+    "Improve Salesforce":
+      "As a sales manager, I want Salesforce improved so that the team can work more efficiently",
+    "The Account owner role":
+      "The CRM Account owner hierarchy, because account ownership determines which individuals qualify",
+    "The number of dashboards":
+      "The number of dashboards connected to the segment, because each dashboard could affect counts",
+    "The user’s locale":
+      "The user's locale and date format, because display settings can make segment counts look different",
+    "Ignore the date":
+      "Keep the original scope and accept schedule risk without changing release priorities",
+    "Keep all scope and reduce testing":
+      "Maintain every requested feature and recover time by reducing validation depth before launch",
+    "Add unapproved resources without planning":
+      "Add resources informally to preserve scope, then update the plan after delivery begins",
+    "Make the segment public":
+      "Publish the segment broadly so unsupported destinations can manually retrieve the audience",
+    "Email customer data manually":
+      "Send the audience file manually to the destination owner when the connector is unavailable",
+    "Pretend the destination is supported":
+      "Configure the destination as if support exists and resolve delivery issues after activation",
+    "Use sentiment as the only source of truth":
+      "Let sentiment analysis drive stage changes whenever the latest email suggests buyer intent",
+    "Remove audit history":
+      "Remove audit history from the workflow so automated stage updates do not create review noise",
+    "Allow unrestricted autonomous changes immediately":
+      "Allow the assistant to update stages automatically as soon as a sentiment signal is detected",
+    "Load everything without analyzing storage or performance":
+      "Load the full legacy history into active Salesforce objects and address reporting performance later",
+    "Convert old opportunities into leads":
+      "Convert older closed opportunities into leads so historical activity remains searchable by sales users",
+    "Delete all history":
+      "Delete historical opportunity data before migration and rely only on future Salesforce records",
+    "Ask testers to decide the architecture":
+      "Put detailed object, automation, and integration choices directly inside each story for testers to interpret",
+    "Remove the user value":
+      "Focus the story on solution components and remove the business outcome from acceptance discussions",
+    "Add more implementation detail to every story":
+      "Add full implementation design to every story so development can start without separate design notes",
+    "Change the source primary keys":
+      "Change source identifiers to make both dashboards use the same record-matching assumption",
+    "Hide both dashboards":
+      "Hide both dashboards until the team chooses which number should be used for executive reporting",
+    "Average the two numbers":
+      "Average both dashboard values and publish the blended figure as the official metric",
+    "By increasing send frequency":
+      "Increase activation frequency so campaign output refreshes before inconsistent source values matter",
+    "By adding more journey steps":
+      "Add additional journey decision steps to separate inconsistent values after segmentation",
+    "By hiding campaign reports":
+      "Hide campaign reports that expose inconsistent categories until segments finish running",
+    "Disable all territories immediately without analysis":
+      "Disable territory automation first, then investigate ownership changes after users stop seeing updates",
+    "Delete ownership history":
+      "Clear ownership history so future reports focus only on the latest territory assignment result",
+    "Change every account to Public Read/Write":
+      "Open account access broadly so territory-related ownership changes no longer affect visibility",
+    "Delete the ERP":
+      "Move pricing ownership into Salesforce immediately so representatives can edit prices directly",
+    "Allow unrestricted manual changes in both systems":
+      "Allow sales users to update prices in either system and reconcile differences during month-end review",
+    "Store prices in opportunity notes":
+      "Store current ERP prices in opportunity notes so representatives can reference them during quoting",
+    "Rely on placeholder text only":
+      "Use placeholder text as the only visible field description to keep the form visually compact",
+    "Use color to imply the field name":
+      "Represent field meaning through color treatment so users can infer the input type visually",
+    "Remove the visible text":
+      "Remove visible labels and rely on surrounding context to communicate each field's purpose",
+    "Modify segment logic only":
+      "Adjust segment criteria to avoid the changed source field while leaving ingestion mappings untouched",
+    "Delete the source connection permanently":
+      "Delete and recreate the source connection before confirming which schema change caused the failure",
+    "Assume Data 360 will infer every change without risk":
+      "Let Data 360 infer the changed source structure and validate downstream behavior after activation",
+    "Remove the business need":
+      "Remove the requested outcome and keep only requirements that clearly match known platform features",
+    "Promise the feature to stakeholders before validation":
+      "Promise the requested feature first and ask the technical team to identify a path later",
+    "Guess based on a previous project":
+      "Use the approach from a similar project without checking current org constraints or documentation",
+    "An opportunity stage change":
+      "Use an opportunity stage update to indicate that a real-time condition was met",
+    "A manual dashboard refresh":
+      "Refresh a dashboard manually so business users can notice when the condition appears",
+    "A yearly report export":
+      "Export a yearly report and use the file as the trigger for downstream actions",
+    "Use one screen for every database operation":
+      "Create a separate screen for each database operation so users can confirm every step manually",
+    "Ignore fault paths":
+      "Leave fault handling out of the flow and rely on users to report failed submissions",
+    "Create records before validation":
+      "Create records early in the flow and clean up duplicates if validation fails later",
+    "Ignore current behavior":
+      "Build the audience only from durable profile attributes and review behavior in a later release",
+    "Create one CRM user per website visitor":
+      "Create a Salesforce user for each known visitor so behavior can be joined to CRM identity",
+    "Use only a static annual customer list":
+      "Use an annual static customer list and refresh eligibility during the next planning cycle",
+    "Remove all section labels":
+      "Remove section labels so users scan the page without extra headings between related lists",
+    "Add every available related list":
+      "Add every related list to the page so users can access all possible context in one place",
+    "Use a different font for each relationship":
+      "Differentiate each related list with a unique font treatment instead of changing structure",
+    "Use icons with no accessible names":
+      "Use icon-only action buttons and rely on visual recognition to communicate priority",
+    "Remove all button labels":
+      "Remove button labels to reduce visual weight and make all actions appear equally compact",
+    "Make every button a brand button":
+      "Style every action as a primary brand button so users notice all available choices",
+    "They replace business requirements":
+      "Use nonfunctional requirements as a substitute for functional requirements during design",
+    "They are only needed for custom code":
+      "Document nonfunctional requirements only when Apex or external integrations are planned",
+    "They determine opportunity probability":
+      "Use nonfunctional requirements to set opportunity probability and forecast category behavior",
+    "Manual re-entry without reconciliation":
+      "Have users re-enter order details manually and compare failures during weekly operations review",
+    "A formula field only":
+      "Use a formula field to display order status without designing message delivery or retries",
+    "A report emailed once a month":
+      "Email a monthly report of Closed Won opportunities to the order team for manual processing",
+    "Disable activity capture":
+      "Disable activity capture until managers manually identify which deals lack enough engagement",
+    "Use cases instead of opportunities":
+      "Track pipeline risk with cases so managers can route follow-up work separately from opportunities",
+    "Create one checkbox manually updated by managers":
+      "Create a risk checkbox and ask managers to update it during pipeline reviews",
   }),
 );
 
@@ -674,16 +830,59 @@ function normalizeOptionText(value) {
   return String(value).replace(/\s+/g, " ").trim().replace(/\.$/, "");
 }
 
-function polishShortDistractor(option, question, targetLength) {
+function lowerFirst(value) {
+  return value ? value.charAt(0).toLowerCase() + value.slice(1) : value;
+}
+
+function expandShortDistractor(option, question, certificationId, targetLength) {
+  if (option.length >= targetLength) return option;
+
+  const scenarioTailByCertification = {
+    "ux-designer": [
+      "while preserving the current interface pattern and relying on users to infer the missing context",
+      "as the main design response before validating accessibility, clarity, or task success",
+      "and confirm later whether the change improves the user's task flow",
+    ],
+    "business-analyst": [
+      "as the primary next step and capture the remaining assumptions for later stakeholder review",
+      "before validating the root cause, business outcome, and acceptance conditions with stakeholders",
+      "and revisit the broader requirement details after the team has started delivery planning",
+    ],
+    "sales-cloud-consultant": [
+      "as the initial solution and monitor adoption or reporting after rollout to find remaining gaps",
+      "before validating the full sales process, data impact, and long-term operating model",
+      "and handle exceptions through enablement, reports, or follow-up backlog refinement",
+    ],
+    "data-360-consultant": [
+      "as the main design path and validate mappings, identity, and activation behavior after processing",
+      "before confirming grain, keys, consent, governance, and downstream consumption requirements",
+      "and resolve source or activation issues during the next refresh or implementation checkpoint",
+    ],
+  };
+  const tails = scenarioTailByCertification[certificationId] || [
+    "as the initial path and validate remaining assumptions during a later review",
+  ];
+  const tail = tails[hashString(`${certificationId}:${question.id}:${option}`) % tails.length];
+
+  if (/^only\s+/i.test(option)) {
+    return `Focus on ${lowerFirst(option.replace(/^only\s+/i, ""))} as the main evidence and defer the broader scenario analysis`;
+  }
+  if (/^(a|an|the)\s+/i.test(option)) {
+    return `${option} used as the primary solution path ${tail}`;
+  }
+  return `${option}, ${tail}`;
+}
+
+function polishShortDistractor(option, question, certificationId, targetLength) {
   const normalized = normalizeOptionText(option);
   const override = optionRewriteOverrides.get(normalized);
   if (override) return override;
   const specific = distractorPatterns.find((item) => item.pattern.test(normalized));
   if (specific) return specific.replacement;
-  return normalized;
+  return expandShortDistractor(normalized, question, certificationId, targetLength);
 }
 
-function improveDistractors(question) {
+function improveDistractors(certificationId, question) {
   const answers = new Set(Array.isArray(question.answers) ? question.answers : [question.answer]);
   const correctLengths = [...answers].map((index) => question.options[index].length);
   const maxCorrectLength = Math.max(...correctLengths);
@@ -696,7 +895,7 @@ function improveDistractors(question) {
   );
   const needsPolish =
     maxCorrectLength / Math.max(avgWrongLength, 1) > 1.55 || hasWeakDistractor;
-  const targetLength = Math.min(Math.round(maxCorrectLength * 0.68), 92);
+  const targetLength = Math.max(58, Math.min(Math.round(maxCorrectLength * 0.82), 110));
 
   if (!needsPolish) {
     return {
@@ -709,7 +908,7 @@ function improveDistractors(question) {
     ...question,
     options: question.options.map((option, index) => {
       if (answers.has(index)) return normalizeOptionText(option);
-      return polishShortDistractor(option, question, targetLength);
+      return polishShortDistractor(option, question, certificationId, targetLength);
     }),
   };
 }
@@ -745,10 +944,218 @@ function reorderOptions(question, answers, targetSlotCounts, seed) {
   };
 }
 
+const finalQuestionOverrides = new Map(
+  Object.entries({
+    "sales-cloud-consultant:94": {
+      options: [
+        "Measure draft volume, prompt usage, and average response length, then compare trends after rollout",
+        "Measure user ratings, edit rate, send rate, response outcomes, safety issues, and quality against a baseline",
+        "Measure only whether representatives open the assistant and generate at least one email draft",
+        "Measure model latency and token consumption first, then infer business value from technical efficiency",
+      ],
+      answers: [1],
+    },
+    "sales-cloud-consultant:42": {
+      options: [
+        "Quantify impact, define containment, establish acceptance criteria, and get an informed go-live decision",
+        "Move the issue to a post-launch backlog item after notifying only the project delivery team",
+        "Pause only the affected report while leaving release scope unchanged and undocumented",
+        "Replace affected records with corrected samples so executive dashboards pass the final walkthrough",
+      ],
+      answers: [0],
+    },
+    "sales-cloud-consultant:82": {
+      options: [
+        "Create a complete secure export and ask the analytics team to remove fields they do not need",
+        "Apply purpose limitation, minimization, security review, and export only justified fields and records",
+        "Grant analysts temporary broad access so they can discover which fields are useful for modeling",
+        "Move the request to a shared folder workflow and rely on downstream retention controls",
+      ],
+      answers: [1],
+    },
+    "sales-cloud-consultant:52": {
+      options: [
+        "Use a custom Activity text field where users summarize meetings and emails for managers",
+        "Enable all available activity tracking and revisit storage, security, and retention during adoption",
+        "Evaluate capture capabilities, limitations, storage model, security, retention, and reporting needs",
+        "Store synchronized email metadata in a shared integration user context for consistent reporting",
+      ],
+      answers: [2],
+    },
+    "business-analyst:83": {
+      options: [
+        "As a user, I want a faster approval screen so that discount requests feel easier to submit",
+        "As a sales manager, I want a discount report so that I can see large deals in one place",
+        "As a sales manager, I want opportunities over $500,000 flagged within one minute so I can review risk promptly",
+        "As an approver, I want all discounts routed through automation so that every request follows one path",
+      ],
+      answers: [2],
+    },
+    "data-360-consultant:83": {
+      options: [
+        "The segment grain, relationship cardinality, aggregation, and distinct Individual logic",
+        "The CRM account-owner hierarchy, because owner visibility can change the audience population",
+        "The dashboard filters and refresh schedule, because reporting configuration can change visible totals",
+        "The locale and date display settings, because date formatting can affect how counts are interpreted",
+      ],
+      answers: [0],
+    },
+    "sales-cloud-consultant:37": {
+      options: [
+        "Keep the release date, include all requested capabilities, and shift unresolved risk to support",
+        "Prioritize regulatory and high-value capabilities, define an MVP, and defer lower-priority scope transparently",
+        "Reduce formal testing for low-risk areas and use stakeholder sign-off as the primary control",
+        "Add temporary resources outside the plan and reconcile scope, budget, and ownership after launch",
+      ],
+      answers: [1],
+    },
+    "data-360-consultant:98": {
+      options: [
+        "Publish the segment to a general export destination and let operations upload the file manually",
+        "Use email delivery for the audience while the team waits for native destination support",
+        "Model the destination as a supported connector and troubleshoot rejected payloads after activation",
+        "Evaluate supported APIs, partner connectors, middleware, or custom activation with security and controls",
+      ],
+      answers: [3],
+    },
+    "sales-cloud-consultant:96": {
+      options: [
+        "Use sentiment as a decision signal and let representatives reverse incorrect stage changes later",
+        "Allow autonomous stage changes for low-value opportunities while monitoring exceptions manually",
+        "Treat stage changes as high-impact actions requiring validation, guardrails, confirmation, and monitoring",
+        "Remove stage-change audit requirements so automated updates do not create excessive review work",
+      ],
+      answers: [2],
+    },
+    "sales-cloud-consultant:75": {
+      options: [
+        "Load the full legacy history into active objects and optimize reports after users identify slow areas",
+        "Convert older closed opportunities into leads so sales teams can still search historical names",
+        "Load only three years and discard older data because it is not required for operational reports",
+        "Define retention and archival needs, load justified operational history, and preserve older data in an archive",
+      ],
+      answers: [3],
+    },
+    "business-analyst:81": {
+      options: [
+        "Ask testers to decide architecture during UAT when they can compare the finished workflow",
+        "Move all solution details into the story so developers have complete implementation instructions",
+        "Remove the user value statement and manage business intent through the design document only",
+        "Keep intent and acceptance conditions clear, and move solution details to design notes unless they are constraints",
+      ],
+      answers: [3],
+    },
+    "data-360-consultant:69": {
+      options: [
+        "Define the business metric and document object, identity state, filters, and time frame",
+        "Align source primary keys first so both dashboards use the same technical identifier",
+        "Hide both dashboards until the data team selects a single number for executive reporting",
+        "Average both dashboard totals and publish the blended value as the common metric",
+      ],
+      answers: [0],
+    },
+    "data-360-consultant:96": {
+      options: [
+        "Increase activation frequency so category differences are refreshed before each journey send",
+        "Add journey decision steps that branch on each source-specific category value",
+        "Normalize the category during harmonization or transformation so segmentation uses a governed meaning",
+        "Hide campaign reports that expose the inconsistency until the next data model release",
+      ],
+      answers: [2],
+    },
+    "sales-cloud-consultant:86": {
+      options: [
+        "Disable territory automation first, then investigate ownership changes after updates stop",
+        "Review assignment rules, model state, execution settings, logs, and the difference between access and ownership",
+        "Clear ownership history so reports focus on the latest territory assignment result",
+        "Open account access broadly so territory assignment no longer affects user visibility",
+      ],
+      answers: [1],
+    },
+    "sales-cloud-consultant:80": {
+      options: [
+        "Maintain ERP ownership and synchronize governed price data into Salesforce with monitoring and error handling",
+        "Move price ownership into Salesforce immediately so representatives can edit prices directly",
+        "Allow updates in both systems and reconcile price differences during month-end review",
+        "Store current ERP prices in opportunity notes so representatives can reference them while quoting",
+      ],
+      answers: [0],
+    },
+    "ux-designer:98": {
+      options: [
+        "Use placeholder text as the only visible label so the form keeps a cleaner appearance",
+        "Use a correctly associated label and connect error or help text with supported accessible markup",
+        "Represent the field meaning through color treatment so users can infer the input type visually",
+        "Remove visible labels and rely on surrounding context to communicate each field's purpose",
+      ],
+      answers: [1],
+    },
+    "data-360-consultant:34": {
+      options: [
+        "Adjust segment criteria to avoid the changed source field while leaving ingestion mappings untouched",
+        "Delete and recreate the source connection before confirming which schema change caused the failure",
+        "Assess schema drift, update streams or mappings, test sample records, and validate downstream impact",
+        "Let Data 360 infer the changed source structure and validate behavior after the next activation",
+      ],
+      answers: [2],
+    },
+    "business-analyst:38": {
+      options: [
+        "Remove the requested business need until stakeholders can restate it as a standard feature",
+        "Collaborate with admins, architects, developers, and documentation to evaluate feasibility and tradeoffs",
+        "Promise the feature first so stakeholders remain aligned while the team investigates later",
+        "Use the approach from a similar project without checking current org constraints",
+      ],
+      answers: [1],
+    },
+    "sales-cloud-consultant:66": {
+      options: [
+        "Use a separate screen for each database operation so users can confirm every saved record",
+        "Leave fault handling out of the first release and train users to report failed submissions",
+        "Create records early in the flow, then clean up duplicates if later validation fails",
+        "Make the flow transactional, handle faults, minimize duplicate creation, and avoid recollecting known data",
+      ],
+      answers: [3],
+    },
+    "data-360-consultant:95": {
+      options: [
+        "Use only durable annual profile attributes and refresh the audience during the next planning cycle",
+        "Combine durable profile or insight data with recent behavioral events in a segment or real-time pattern",
+        "Create one CRM user per visitor so behavioral events can be joined to authenticated identity",
+        "Ignore current behavior and rely on lifetime customer value as the only eligibility signal",
+      ],
+      answers: [1],
+    },
+    "ux-designer:82": {
+      options: [
+        "Prioritize key related data and organize secondary content with tabs, accordions, or related-list components",
+        "Remove all section labels so users scan related information without interruptions",
+        "Add every related list to the first view so users have complete context without navigation",
+        "Differentiate each relationship with a unique font treatment instead of changing structure",
+      ],
+      answers: [0],
+    },
+    "ux-designer:91": {
+      options: [
+        "Establish a clear action hierarchy with one primary action and appropriate neutral or destructive treatments",
+        "Use icon-only buttons so repeated users can rely on recognition instead of text labels",
+        "Remove visible labels from secondary actions to reduce visual weight in the action area",
+        "Style every action as a primary brand button so users notice all available choices",
+      ],
+      answers: [0],
+    },
+  }),
+);
+
+function applyFinalQuestionOverride(certificationId, question) {
+  const override = finalQuestionOverrides.get(`${certificationId}:${question.id}`);
+  return override ? { ...question, ...override } : question;
+}
+
 function normalizeQuestions(certificationId, questions) {
   const targetSlotCounts = {};
   return questions.map((question) => {
-    const improvedQuestion = improveDistractors(question);
+    const improvedQuestion = improveDistractors(certificationId, question);
     const answers = Array.isArray(improvedQuestion.answers)
       ? improvedQuestion.answers
       : [improvedQuestion.answer];
@@ -758,7 +1165,7 @@ function normalizeQuestions(certificationId, questions) {
       targetSlotCounts,
       `${certificationId}:${improvedQuestion.id}`,
     );
-    return {
+    return applyFinalQuestionOverride(certificationId, {
       id: improvedQuestion.id,
       category: improvedQuestion.category,
       select: Number(improvedQuestion.select || answers.length || 1),
@@ -767,7 +1174,7 @@ function normalizeQuestions(certificationId, questions) {
       answers: reordered.answers,
       explanation: improvedQuestion.explanation,
       tip: improvedQuestion.tip,
-    };
+    });
   });
 }
 

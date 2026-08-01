@@ -1,8 +1,8 @@
 (function () {
   const letters = ["A", "B", "C", "D", "E", "F"];
   const specialModes = [null, "wrong", "bookmarks", "unanswered"];
-  const progressVersion = "v2";
-  const assetVersion = "20260801-distractors";
+  const progressVersion = "v3";
+  const assetVersion = "20260801-ui";
   const certifications = window.BLUEFORCE_CERTIFICATIONS || [];
   const locale = document.body.dataset.locale || document.documentElement.lang || "en";
   const text = {
@@ -180,6 +180,20 @@
     return aa.every((value, index) => value === bb[index]);
   }
 
+  function shuffle(items) {
+    const next = [...items];
+    for (let index = next.length - 1; index > 0; index -= 1) {
+      const swap = Math.floor(Math.random() * (index + 1));
+      [next[index], next[swap]] = [next[swap], next[index]];
+    }
+    return next;
+  }
+
+  function isValidOptionOrder(order, question) {
+    if (!Array.isArray(order) || order.length !== question.options.length) return false;
+    return order.every((value) => Number.isInteger(value)) && new Set(order).size === order.length;
+  }
+
   function validQuestionIds(certification) {
     const ids =
       certification.questions && certification.questions.length
@@ -317,7 +331,6 @@
             </div>
             <div class="home-actions">
               <a class="btn btn-primary" href="${escapeHtml(certification.path)}">${progress.answered ? "Resume" : "Start"}</a>
-              <a class="btn btn-secondary" href="${escapeHtml(certification.path)}#study">Practice</a>
             </div>
           </article>
         `;
@@ -385,6 +398,7 @@
       currentIndex: 0,
       drafts: {},
       pendingFeedbackQuestionId: null,
+      optionOrders: {},
     };
 
     function loadState() {
@@ -424,11 +438,38 @@
           saved.answers[saved.pendingFeedbackQuestionId]
             ? saved.pendingFeedbackQuestionId
             : null,
+        optionOrders:
+          saved.optionOrders && typeof saved.optionOrders === "object"
+            ? Object.fromEntries(
+                Object.entries(saved.optionOrders).filter(([id, order]) => {
+                  const question = questionById.get(Number(id));
+                  return question && isValidOptionOrder(order, question);
+                }),
+              )
+            : {},
       };
     }
 
     function saveState() {
       writeProgress(certification, state);
+    }
+
+    function optionOrderFor(question) {
+      const saved = state.optionOrders[question.id];
+      if (isValidOptionOrder(saved, question)) return saved;
+      const order = shuffle(question.options.map((_, index) => index));
+      state.optionOrders[question.id] = order;
+      saveState();
+      return order;
+    }
+
+    function displayQuestion(question) {
+      const order = optionOrderFor(question);
+      return {
+        ...question,
+        options: order.map((index) => question.options[index]),
+        answers: question.answers.map((answer) => order.indexOf(answer)),
+      };
     }
 
     function getVisibleQuestions() {
@@ -552,7 +593,8 @@
         return;
       }
 
-      const question = heldQuestion || visible[state.currentIndex];
+      const sourceQuestion = heldQuestion || visible[state.currentIndex];
+      const question = displayQuestion(sourceQuestion);
       const answerRecord = state.answers[question.id];
       const isBookmarked = state.bookmarks.includes(question.id);
       const draft = Array.isArray(state.drafts[question.id]) ? state.drafts[question.id] : [];
@@ -755,6 +797,7 @@
         currentIndex: 0,
         drafts: {},
         pendingFeedbackQuestionId: null,
+        optionOrders: {},
       };
       render();
     }

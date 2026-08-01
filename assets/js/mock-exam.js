@@ -1,7 +1,7 @@
 (function () {
   const letters = ["A", "B", "C", "D", "E", "F"];
-  const activeVersion = "v1";
-  const assetVersion = "20260801-distractors";
+  const activeVersion = "v2";
+  const assetVersion = "20260801-ui";
   const certifications = window.BLUEFORCE_CERTIFICATIONS || [];
   const locale = document.body.dataset.locale || document.documentElement.lang || "en";
   const t = {
@@ -203,6 +203,30 @@
     return next;
   }
 
+  function isValidOptionOrder(order, question) {
+    if (!Array.isArray(order) || order.length !== question.options.length) return false;
+    return order.every((value) => Number.isInteger(value)) && new Set(order).size === order.length;
+  }
+
+  function createOptionOrders(questions) {
+    return Object.fromEntries(
+      questions.map((question) => [
+        question.id,
+        shuffle(question.options.map((_, index) => index)),
+      ]),
+    );
+  }
+
+  function displayQuestion(question, attempt) {
+    const order = attempt.optionOrders?.[question.id];
+    if (!isValidOptionOrder(order, question)) return question;
+    return {
+      ...question,
+      options: order.map((index) => question.options[index]),
+      answers: question.answers.map((answer) => order.indexOf(answer)),
+    };
+  }
+
   function allocateByBlueprint(certification, total) {
     const weights = certification.blueprint || [];
     const weightTotal = weights.reduce((sum, item) => sum + item.weight, 0);
@@ -388,6 +412,15 @@
         questionStartedAt: Number.isFinite(saved.questionStartedAt)
           ? saved.questionStartedAt
           : Date.now(),
+        optionOrders:
+          saved.optionOrders && typeof saved.optionOrders === "object"
+            ? Object.fromEntries(
+                Object.entries(saved.optionOrders).filter(([id, order]) => {
+                  const question = questionById.get(Number(id));
+                  return question && questionIds.includes(Number(id)) && isValidOptionOrder(order, question);
+                }),
+              )
+            : {},
       };
     }
 
@@ -402,6 +435,7 @@
         expiresAt: now + certification.examConfig.officialDurationMinutes * 60 * 1000,
         submittedAt: null,
         questionIds: selected.map((question) => question.id),
+        optionOrders: createOptionOrders(selected),
         answers: {},
         currentIndex: 0,
         markedForReview: [],
@@ -535,10 +569,11 @@
 
     function renderQuestion() {
       const card = document.getElementById("mockQuestionCard");
-      const question = currentQuestion();
-      if (!card || !question) return;
-      const selected = attempt.answers[question.id]?.selected || [];
-      const marked = attempt.markedForReview.includes(question.id);
+      const sourceQuestion = currentQuestion();
+      if (!card || !sourceQuestion) return;
+      const question = displayQuestion(sourceQuestion, attempt);
+      const selected = attempt.answers[sourceQuestion.id]?.selected || [];
+      const marked = attempt.markedForReview.includes(sourceQuestion.id);
       const optionsHtml = question.options
         .map((option, index) => {
           const active = selected.includes(index);
@@ -555,12 +590,12 @@
       card.innerHTML = `
         <div class="question-top">
           <div class="badge-row">
-            <span class="category-badge">${escapeHtml(question.category)}</span>
+            <span class="category-badge">${escapeHtml(sourceQuestion.category)}</span>
             ${question.select > 1 ? `<span class="selection-badge">${t.select(question.select)}</span>` : ""}
           </div>
           <button class="btn btn-secondary" id="mockMarkBtn">${marked ? t.unmarkReview : t.markReview}</button>
         </div>
-        <div class="question-number">${t.question} ${attempt.currentIndex + 1} ${t.of} ${getQuestions().length} - Bank ${question.id}</div>
+        <div class="question-number">${t.question} ${attempt.currentIndex + 1} ${t.of} ${getQuestions().length} - Bank ${sourceQuestion.id}</div>
         <h2>${escapeHtml(question.question)}</h2>
         <div class="option-list">${optionsHtml}</div>
         <div class="nav-row">
@@ -572,7 +607,7 @@
       card.querySelectorAll(".option-btn").forEach((button) => {
         button.addEventListener("click", () => chooseOption(question, Number(button.dataset.option)));
       });
-      document.getElementById("mockMarkBtn").addEventListener("click", () => toggleMarked(question.id));
+      document.getElementById("mockMarkBtn").addEventListener("click", () => toggleMarked(sourceQuestion.id));
       document.getElementById("mockPrevBtn").addEventListener("click", () => move(-1));
       document.getElementById("mockNextBtn").addEventListener("click", () => move(1));
     }
@@ -589,7 +624,7 @@
     }
 
     function calculateResults() {
-      const questions = getQuestions();
+      const questions = getQuestions().map((question) => displayQuestion(question, attempt));
       const domainMap = new Map();
       let correct = 0;
       let unanswered = 0;

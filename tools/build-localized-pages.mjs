@@ -4,7 +4,7 @@ import vm from "node:vm";
 
 const rootDir = path.resolve(import.meta.dirname, "..");
 const catalogPath = path.join(rootDir, "assets/data/certifications.js");
-const assetVersion = "20260801-distractors";
+const assetVersion = "20260801-ui";
 const siteUrl = "https://blueforce.cloud";
 const faviconPath = "/assets/img/icono_blueforce.png";
 const logoPath = "/assets/img/logo_blueforce.png";
@@ -214,7 +214,7 @@ const ui = {
     canonicalPath: "/es/",
     skipHome: "Saltar a certificaciones",
     navHome: "Inicio",
-    navStudy: "Estudio",
+    navStudy: "Estudiar",
     navMockExams: "Examenes de prueba",
     mainNav: "Navegacion principal",
     brandAria: "Inicio de BlueForce",
