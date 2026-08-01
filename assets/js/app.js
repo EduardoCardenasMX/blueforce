@@ -2,7 +2,7 @@
   const letters = ["A", "B", "C", "D", "E", "F"];
   const specialModes = [null, "wrong", "bookmarks", "unanswered"];
   const progressVersion = "v2";
-  const assetVersion = "20260801-mock";
+  const assetVersion = "20260801-study-submit";
   const certifications = window.BLUEFORCE_CERTIFICATIONS || [];
   const locale = document.body.dataset.locale || document.documentElement.lang || "en";
   const text = {
@@ -606,8 +606,8 @@
         `
         : "";
 
-      const multiActions =
-        !answerRecord && question.select > 1
+      const answerActions =
+        !answerRecord
           ? `
             <div class="answer-actions">
               <span class="selection-count">${text.selectedCount(selectedCount, question.select)}</span>
@@ -627,7 +627,7 @@
         <div class="question-number">${questionPosition}</div>
         <h2>${escapeHtml(question.question)}</h2>
         <div class="option-list">${optionsHtml}</div>
-        ${multiActions}
+        ${answerActions}
         ${feedbackHtml}
         <div class="nav-row">
           <button class="btn btn-secondary" id="prevBtn" ${previousDisabled ? "disabled" : ""}>${text.previous}</button>
@@ -642,33 +642,24 @@
       document.getElementById("prevBtn").addEventListener("click", previousQuestion);
       document.getElementById("nextBtn").addEventListener("click", nextQuestion);
       const submit = document.getElementById("submitAnswerBtn");
-      if (submit) submit.addEventListener("click", () => submitMulti(question));
+      if (submit) submit.addEventListener("click", () => submitAnswer(question));
     }
 
     function chooseOption(question, selected) {
       if (state.answers[question.id]) return;
-      if (question.select === 1) {
-        state.answers[question.id] = {
-          selected: [selected],
-          correct: sameSet([selected], question.answers),
-        };
-        delete state.drafts[question.id];
-        state.pendingFeedbackQuestionId =
-          state.specialMode === "unanswered" ? question.id : null;
-      } else {
-        const draft = Array.isArray(state.drafts[question.id])
-          ? [...state.drafts[question.id]]
-          : [];
-        const existing = draft.indexOf(selected);
-        if (existing >= 0) draft.splice(existing, 1);
-        else if (draft.length < question.select) draft.push(selected);
-        state.drafts[question.id] = draft;
-      }
+      const draft = Array.isArray(state.drafts[question.id])
+        ? [...state.drafts[question.id]]
+        : [];
+      const existing = draft.indexOf(selected);
+      if (existing >= 0) draft.splice(existing, 1);
+      else if (question.select === 1) draft.splice(0, draft.length, selected);
+      else if (draft.length < question.select) draft.push(selected);
+      state.drafts[question.id] = draft;
       saveState();
       render();
     }
 
-    function submitMulti(question) {
+    function submitAnswer(question) {
       if (state.answers[question.id]) return;
       const draft = Array.isArray(state.drafts[question.id])
         ? state.drafts[question.id]
@@ -796,8 +787,8 @@
       if (["1", "2", "3", "4", "5", "6"].includes(event.key) && !state.answers[question.id]) {
         const index = Number(event.key) - 1;
         if (index < question.options.length) chooseOption(question, index);
-      } else if (event.key === "Enter" && question.select > 1 && !state.answers[question.id]) {
-        submitMulti(question);
+      } else if (event.key === "Enter" && !state.answers[question.id]) {
+        submitAnswer(question);
       } else if (event.key.toLowerCase() === "n") {
         nextQuestion();
       } else if (event.key.toLowerCase() === "p") {
