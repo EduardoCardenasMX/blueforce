@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HEQC283GWW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HEQC283GWW');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Examen cronometrado de Salesforce UX Designer con preguntas aleatorias, distribucion tipo oficial y feedback final de rendimiento." />
+  <meta property="og:title" content="Examen de prueba Salesforce UX Designer | BlueForce" />
+  <meta property="og:description" content="Examen cronometrado de Salesforce UX Designer con preguntas aleatorias, distribucion tipo oficial y feedback final de rendimiento." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://blueforce.cloud/es/examenes-de-prueba/ux-designer" />
+  <title>Examen de prueba Salesforce UX Designer | BlueForce</title>
+  <link rel="canonical" href="https://blueforce.cloud/es/examenes-de-prueba/ux-designer" />
+  <link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/ux-designer" />
+  <link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/ux-designer" />
+  <link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <link rel="icon" type="image/png" sizes="500x500" href="/assets/img/icono_blueforce.png" />
+  <link rel="apple-touch-icon" href="/assets/img/icono_blueforce.png" />
+  <link rel="stylesheet" href="/assets/css/styles.css?v=20260801-mock" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      "name": "Examen de prueba Salesforce UX Designer",
+      "url": "https://blueforce.cloud/es/examenes-de-prueba/ux-designer",
+      "learningResourceType": "Practice test",
+      "description": "Examen cronometrado de Salesforce UX Designer con preguntas aleatorias, distribucion tipo oficial y feedback final de rendimiento."
+    }
+  </script>
+</head>
+<body data-locale="es" data-certification="ux-designer" data-mock-base="/es/examenes-de-prueba/">
+  <a class="skip-link" href="#mockExamApp">Examen cronometrado</a>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand-lockup" href="/es/" aria-label="Inicio de BlueForce">
+        <img class="brand-logo" src="/assets/img/logo_blueforce.png" width="180" height="52" alt="" decoding="async" />
+      </a>
+      <nav class="topbar-nav" aria-label="Navegacion principal">
+        <a href="/es/">Inicio</a>
+        <a href="/es/#certifications">Certificaciones</a>
+        <a href="/es/examenes-de-prueba/" aria-current="page">Examenes</a>
+        <div class="language-switch" aria-label="Language selector">
+          <a class="language-option" href="/en/mock-exams/ux-designer" aria-label="View in English">
+            <span class="language-flag" aria-hidden="true">🇺🇸</span>
+            <span class="language-code">EN</span>
+          </a>
+          <a class="language-option" href="/es/examenes-de-prueba/ux-designer" aria-label="Ver en español" aria-current="true">
+            <span class="language-flag" aria-hidden="true">🇲🇽</span>
+            <span class="language-code">ES</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="mockExamApp">
+    <section class="exam-hero" aria-labelledby="mockExamTitle">
+      <div class="shell hero-grid">
+        <section class="hero-copy">
+          <div class="eyebrow">Examen cronometrado</div>
+          <h1 id="mockExamTitle">Examen de prueba Salesforce UX Designer</h1>
+          <p>Responde cada pregunta antes de que termine el tiempo. Puedes marcar preguntas para revisar y terminar antes si estas listo.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="startMockBtn">Iniciar examen</button>
+          </div>
+          <div class="notice" id="activeAttemptNotice" hidden></div>
+        </section>
+
+        <aside class="blueprint-panel" aria-label="Distribucion por dominio">
+          <h2>Tiempo oficial</h2>
+          <p>60 preguntas · 105 minutos · 65% minimo</p>
+          <div class="weight-list" id="mockBlueprintList"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="dashboard" id="mockExamSurface" hidden>
+      <div class="shell">
+        <div class="mock-status-bar" aria-label="Examen cronometrado">
+          <div>
+            <div class="stat-label">Tiempo restante</div>
+            <div class="mock-timer" id="mockTimer">--:--</div>
+          </div>
+          <div>
+            <div class="stat-label">Progreso</div>
+            <div class="mock-progress-text" id="mockProgressText">0 / 0</div>
+          </div>
+          <button class="btn btn-danger" id="finishMockBtn">Finalizar examen</button>
+        </div>
+
+        <div class="study-layout mock-layout">
+          <article class="question-card" id="mockQuestionCard" aria-live="polite"></article>
+          <aside class="side-panel">
+            <div class="side-card">
+              <h3>Navegacion</h3>
+              <div class="question-palette" id="mockQuestionPalette"></div>
+            </div>
+            <div class="side-card">
+              <h3>Reglas</h3>
+              <p>Los examenes no muestran feedback hasta el final. Las preguntas sin respuesta cuentan como incorrectas y el reloj no se puede pausar.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard" id="mockResultsSurface" hidden>
+      <div class="shell">
+        <div id="mockResults"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/data/certifications.js?v=20260801-mock"></script>
+  <script src="/assets/js/mock-exam.js?v=20260801-mock"></script>
+</body>
+</html>

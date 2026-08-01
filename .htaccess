@@ -25,6 +25,7 @@ RewriteRule ^index\.html$ / [R=301,L]
 
 RewriteRule ^index/?$ / [R=301,L]
 RewriteRule ^(en|es)/index/?$ /$1/ [R=301,L]
+RewriteRule ^(.+)/index/?$ /$1/ [R=301,L]
 
 RewriteRule ^certifications/(.+)\.html$ /en/certifications/$1 [R=301,L]
 RewriteRule ^certifications/(.+)$ /en/certifications/$1 [R=301,L]

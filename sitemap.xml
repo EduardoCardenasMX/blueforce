@@ -17,6 +17,22 @@
   <priority>1.0</priority>
 </url>
 <url>
+  <loc>https://blueforce.cloud/en/mock-exams/</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/" />
+  <xhtml:link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://blueforce.cloud/es/examenes-de-prueba/</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/" />
+  <xhtml:link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
   <loc>https://blueforce.cloud/en/certifications/ux-designer</loc>
   <xhtml:link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/certifications/ux-designer" />
   <xhtml:link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/certificaciones/ux-designer" />
@@ -92,6 +108,86 @@
   <loc>https://blueforce.cloud/es/certificaciones/data-360-consultant</loc>
   <xhtml:link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/certifications/data-360-consultant" />
   <xhtml:link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/certificaciones/data-360-consultant" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://blueforce.cloud/en/mock-exams/ux-designer</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/ux-designer" />
+  <xhtml:link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/ux-designer" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://blueforce.cloud/es/examenes-de-prueba/ux-designer</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/ux-designer" />
+  <xhtml:link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/ux-designer" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://blueforce.cloud/en/mock-exams/platform-administrator</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/platform-administrator" />
+  <xhtml:link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/platform-administrator" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://blueforce.cloud/es/examenes-de-prueba/platform-administrator</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/platform-administrator" />
+  <xhtml:link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/platform-administrator" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://blueforce.cloud/en/mock-exams/business-analyst</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/business-analyst" />
+  <xhtml:link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/business-analyst" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://blueforce.cloud/es/examenes-de-prueba/business-analyst</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/business-analyst" />
+  <xhtml:link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/business-analyst" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://blueforce.cloud/en/mock-exams/sales-cloud-consultant</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/sales-cloud-consultant" />
+  <xhtml:link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/sales-cloud-consultant" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://blueforce.cloud/es/examenes-de-prueba/sales-cloud-consultant</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/sales-cloud-consultant" />
+  <xhtml:link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/sales-cloud-consultant" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://blueforce.cloud/en/mock-exams/data-360-consultant</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/data-360-consultant" />
+  <xhtml:link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/data-360-consultant" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://blueforce.cloud/es/examenes-de-prueba/data-360-consultant</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/data-360-consultant" />
+  <xhtml:link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/data-360-consultant" />
   <xhtml:link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>

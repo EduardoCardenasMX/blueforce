@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HEQC283GWW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HEQC283GWW');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Choose a certification and start a timed mock exam with randomized questions, official-style pacing, and results by domain." />
+  <meta property="og:title" content="Salesforce Mock Exams | BlueForce" />
+  <meta property="og:description" content="Choose a certification and start a timed mock exam with randomized questions, official-style pacing, and results by domain." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://blueforce.cloud/en/mock-exams/" />
+  <title>Salesforce Mock Exams | BlueForce</title>
+  <link rel="canonical" href="https://blueforce.cloud/en/mock-exams/" />
+  <link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/" />
+  <link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/" />
+  <link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <link rel="icon" type="image/png" sizes="500x500" href="/assets/img/icono_blueforce.png" />
+  <link rel="apple-touch-icon" href="/assets/img/icono_blueforce.png" />
+  <link rel="stylesheet" href="/assets/css/styles.css?v=20260801-mock" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Salesforce Mock Exams",
+      "url": "https://blueforce.cloud/en/mock-exams/",
+      "description": "Choose a certification and start a timed mock exam with randomized questions, official-style pacing, and results by domain."
+    }
+  </script>
+</head>
+<body data-locale="en" data-mock-base="/en/mock-exams/">
+  <a class="skip-link" href="#mockExamList">Choose a timed mock exam</a>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand-lockup" href="/en/" aria-label="BlueForce home">
+        <img class="brand-logo" src="/assets/img/logo_blueforce.png" width="180" height="52" alt="" decoding="async" />
+      </a>
+      <nav class="topbar-nav" aria-label="Main navigation">
+        <a href="/en/">Home</a>
+        <a href="/en/#certifications">Certifications</a>
+        <a href="/en/mock-exams/" aria-current="page">Mock Exams</a>
+        <div class="language-switch" aria-label="Language selector">
+          <a class="language-option" href="/en/mock-exams/" aria-label="View in English" aria-current="true">
+            <span class="language-flag" aria-hidden="true">🇺🇸</span>
+            <span class="language-code">EN</span>
+          </a>
+          <a class="language-option" href="/es/examenes-de-prueba/" aria-label="Ver en español">
+            <span class="language-flag" aria-hidden="true">🇲🇽</span>
+            <span class="language-code">ES</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="exam-hero" aria-labelledby="mockListTitle">
+      <div class="shell hero-grid">
+        <section class="hero-copy">
+          <div class="eyebrow">Timed exam simulator</div>
+          <h1 id="mockListTitle">Choose a timed mock exam</h1>
+          <p>Choose a certification and start a timed mock exam with randomized questions, official-style pacing, and results by domain.</p>
+          <div class="notice">Mock exams do not show feedback until the end. Unanswered questions count as incorrect, and the timer cannot be paused.</div>
+        </section>
+
+        <aside class="blueprint-panel" aria-label="Official timing">
+          <h2>Official timing</h2>
+          <p>Each simulator uses one local active session and keeps the clock running even if you reload the page.</p>
+          <div class="weight-list">
+            <div class="weight-row">
+              <span class="weight-label">Feedback</span>
+              <span class="weight-value">At the end</span>
+              <div class="weight-track"><div class="weight-fill" style="width:100%"></div></div>
+            </div>
+            <div class="weight-row">
+              <span class="weight-label">Pause</span>
+              <span class="weight-value">No</span>
+              <div class="weight-track"><div class="weight-fill" style="width:0%"></div></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="certifications" id="mockExamList" aria-labelledby="mockExamListHeading">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Domain distribution</div>
+            <h2 id="mockExamListHeading">Choose a timed mock exam</h2>
+          </div>
+          <p>Mock exams do not show feedback until the end. Unanswered questions count as incorrect, and the timer cannot be paused.</p>
+        </div>
+        <div class="cert-grid" id="mockCertificationGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/data/certifications.js?v=20260801-mock"></script>
+  <script src="/assets/js/mock-exam.js?v=20260801-mock"></script>
+</body>
+</html>

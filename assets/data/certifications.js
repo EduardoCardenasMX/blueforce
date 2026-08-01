@@ -42,6 +42,11 @@ window.BLUEFORCE_CERTIFICATIONS = [
         "weight": 11
       }
     ],
+    "examConfig": {
+      "officialQuestionCount": 60,
+      "officialDurationMinutes": 105,
+      "passingScore": 65
+    },
     "resources": [
       {
         "title": "Salesforce UX Designer Credential",
@@ -221,6 +226,11 @@ window.BLUEFORCE_CERTIFICATIONS = [
         "weight": 8
       }
     ],
+    "examConfig": {
+      "officialQuestionCount": 60,
+      "officialDurationMinutes": 105,
+      "passingScore": 65
+    },
     "resources": [
       {
         "title": "Platform Administrator Credential",
@@ -394,6 +404,11 @@ window.BLUEFORCE_CERTIFICATIONS = [
         "weight": 12
       }
     ],
+    "examConfig": {
+      "officialQuestionCount": 60,
+      "officialDurationMinutes": 105,
+      "passingScore": 72
+    },
     "resources": [
       {
         "title": "Salesforce Business Analyst Credential",
@@ -576,6 +591,11 @@ window.BLUEFORCE_CERTIFICATIONS = [
         "weight": 13
       }
     ],
+    "examConfig": {
+      "officialQuestionCount": 60,
+      "officialDurationMinutes": 105,
+      "passingScore": 68
+    },
     "resources": [
       {
         "title": "Sales Cloud Consultant Credential",
@@ -781,6 +801,11 @@ window.BLUEFORCE_CERTIFICATIONS = [
         "weight": 20
       }
     ],
+    "examConfig": {
+      "officialQuestionCount": 60,
+      "officialDurationMinutes": 105,
+      "passingScore": 70
+    },
     "resources": [
       {
         "title": "Data 360 Consultant Credential",

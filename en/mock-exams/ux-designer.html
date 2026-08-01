@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HEQC283GWW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HEQC283GWW');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Timed Salesforce UX Designer mock exam with randomized questions, official-style distribution, and final performance feedback." />
+  <meta property="og:title" content="Salesforce UX Designer Mock Exam | BlueForce" />
+  <meta property="og:description" content="Timed Salesforce UX Designer mock exam with randomized questions, official-style distribution, and final performance feedback." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://blueforce.cloud/en/mock-exams/ux-designer" />
+  <title>Salesforce UX Designer Mock Exam | BlueForce</title>
+  <link rel="canonical" href="https://blueforce.cloud/en/mock-exams/ux-designer" />
+  <link rel="alternate" hreflang="en" href="https://blueforce.cloud/en/mock-exams/ux-designer" />
+  <link rel="alternate" hreflang="es" href="https://blueforce.cloud/es/examenes-de-prueba/ux-designer" />
+  <link rel="alternate" hreflang="x-default" href="https://blueforce.cloud/" />
+  <link rel="icon" type="image/png" sizes="500x500" href="/assets/img/icono_blueforce.png" />
+  <link rel="apple-touch-icon" href="/assets/img/icono_blueforce.png" />
+  <link rel="stylesheet" href="/assets/css/styles.css?v=20260801-mock" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      "name": "Salesforce UX Designer Mock Exam",
+      "url": "https://blueforce.cloud/en/mock-exams/ux-designer",
+      "learningResourceType": "Practice test",
+      "description": "Timed Salesforce UX Designer mock exam with randomized questions, official-style distribution, and final performance feedback."
+    }
+  </script>
+</head>
+<body data-locale="en" data-certification="ux-designer" data-mock-base="/en/mock-exams/">
+  <a class="skip-link" href="#mockExamApp">Timed mock exam</a>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand-lockup" href="/en/" aria-label="BlueForce home">
+        <img class="brand-logo" src="/assets/img/logo_blueforce.png" width="180" height="52" alt="" decoding="async" />
+      </a>
+      <nav class="topbar-nav" aria-label="Main navigation">
+        <a href="/en/">Home</a>
+        <a href="/en/#certifications">Certifications</a>
+        <a href="/en/mock-exams/" aria-current="page">Mock Exams</a>
+        <div class="language-switch" aria-label="Language selector">
+          <a class="language-option" href="/en/mock-exams/ux-designer" aria-label="View in English" aria-current="true">
+            <span class="language-flag" aria-hidden="true">🇺🇸</span>
+            <span class="language-code">EN</span>
+          </a>
+          <a class="language-option" href="/es/examenes-de-prueba/ux-designer" aria-label="Ver en español">
+            <span class="language-flag" aria-hidden="true">🇲🇽</span>
+            <span class="language-code">ES</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="mockExamApp">
+    <section class="exam-hero" aria-labelledby="mockExamTitle">
+      <div class="shell hero-grid">
+        <section class="hero-copy">
+          <div class="eyebrow">Timed mock exam</div>
+          <h1 id="mockExamTitle">Salesforce UX Designer Mock Exam</h1>
+          <p>Answer every question before time runs out. You can mark questions for review and finish early when you are ready.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="startMockBtn">Start Mock Exam</button>
+          </div>
+          <div class="notice" id="activeAttemptNotice" hidden></div>
+        </section>
+
+        <aside class="blueprint-panel" aria-label="Domain distribution">
+          <h2>Official timing</h2>
+          <p>60 questions · 105 minutes · 65% passing score</p>
+          <div class="weight-list" id="mockBlueprintList"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="dashboard" id="mockExamSurface" hidden>
+      <div class="shell">
+        <div class="mock-status-bar" aria-label="Timed mock exam">
+          <div>
+            <div class="stat-label">Time remaining</div>
+            <div class="mock-timer" id="mockTimer">--:--</div>
+          </div>
+          <div>
+            <div class="stat-label">Progress</div>
+            <div class="mock-progress-text" id="mockProgressText">0 / 0</div>
+          </div>
+          <button class="btn btn-danger" id="finishMockBtn">Finish Exam</button>
+        </div>
+
+        <div class="study-layout mock-layout">
+          <article class="question-card" id="mockQuestionCard" aria-live="polite"></article>
+          <aside class="side-panel">
+            <div class="side-card">
+              <h3>Navigation</h3>
+              <div class="question-palette" id="mockQuestionPalette"></div>
+            </div>
+            <div class="side-card">
+              <h3>Rules</h3>
+              <p>Mock exams do not show feedback until the end. Unanswered questions count as incorrect, and the timer cannot be paused.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard" id="mockResultsSurface" hidden>
+      <div class="shell">
+        <div id="mockResults"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/data/certifications.js?v=20260801-mock"></script>
+  <script src="/assets/js/mock-exam.js?v=20260801-mock"></script>
+</body>
+</html>

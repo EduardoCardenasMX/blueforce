@@ -4,7 +4,7 @@ import vm from "node:vm";
 
 const rootDir = path.resolve(import.meta.dirname, "..");
 const catalogPath = path.join(rootDir, "assets/data/certifications.js");
-const assetVersion = "20260725-logo";
+const assetVersion = "20260801-mock";
 const siteUrl = "https://blueforce.cloud";
 const faviconPath = "/assets/img/icono_blueforce.png";
 const logoPath = "/assets/img/logo_blueforce.png";
@@ -129,6 +129,7 @@ const ui = {
     skipHome: "Skip to certifications",
     navHome: "Home",
     navCertifications: "Certifications",
+    navMockExams: "Mock Exams",
     mainNav: "Main navigation",
     brandAria: "BlueForce home",
     eyebrow: "Salesforce practice labs",
@@ -152,7 +153,28 @@ const ui = {
       "Preview of a practice dashboard with questions, progress, and feedback",
     homeHref: "/en/",
     certsHref: "/en/#certifications",
+    mockExamsHref: "/en/mock-exams/",
     certBase: "certifications",
+    mockBase: "mock-exams",
+    mockListTitle: "Salesforce Mock Exams",
+    mockListDescription:
+      "Choose a certification and start a timed mock exam with randomized questions, official-style pacing, and results by domain.",
+    mockListEyebrow: "Timed exam simulator",
+    mockListHeading: "Choose a timed mock exam",
+    mockListCopy:
+      "Mock exams do not show feedback until the end. Unanswered questions count as incorrect, and the timer cannot be paused.",
+    startMockExam: "Start Mock Exam",
+    resumeMockExam: "Resume Active Exam",
+    officialTiming: "Official timing",
+    passingScoreLabel: "Passing score",
+    domainDistribution: "Domain distribution",
+    mockExamTitle: (title) => `${title} Mock Exam`,
+    mockExamDescription: (title) =>
+      `Timed ${title} mock exam with randomized questions, official-style distribution, and final performance feedback.`,
+    mockExamEyebrow: "Timed mock exam",
+    mockExamIntro:
+      "Answer every question before time runs out. You can mark questions for review and finish early when you are ready.",
+    mockExamAppLabel: "Timed mock exam",
     examSkip: "Skip to question",
     originalQuestions: "Original questions",
     startPractice: "Start Practice",
@@ -193,6 +215,7 @@ const ui = {
     skipHome: "Saltar a certificaciones",
     navHome: "Inicio",
     navCertifications: "Certificaciones",
+    navMockExams: "Examenes",
     mainNav: "Navegacion principal",
     brandAria: "Inicio de BlueForce",
     eyebrow: "Practica Salesforce",
@@ -216,7 +239,28 @@ const ui = {
       "Vista previa de un panel de practica con preguntas, progreso y feedback",
     homeHref: "/es/",
     certsHref: "/es/#certifications",
+    mockExamsHref: "/es/examenes-de-prueba/",
     certBase: "certificaciones",
+    mockBase: "examenes-de-prueba",
+    mockListTitle: "Examenes de prueba Salesforce",
+    mockListDescription:
+      "Elige una certificacion e inicia un examen cronometrado con preguntas aleatorias, ritmo oficial y resultados por dominio.",
+    mockListEyebrow: "Simulador con tiempo",
+    mockListHeading: "Elige un examen cronometrado",
+    mockListCopy:
+      "Los examenes no muestran feedback hasta el final. Las preguntas sin respuesta cuentan como incorrectas y el reloj no se puede pausar.",
+    startMockExam: "Iniciar examen",
+    resumeMockExam: "Retomar examen activo",
+    officialTiming: "Tiempo oficial",
+    passingScoreLabel: "Puntaje minimo",
+    domainDistribution: "Distribucion por dominio",
+    mockExamTitle: (title) => `Examen de prueba ${title}`,
+    mockExamDescription: (title) =>
+      `Examen cronometrado de ${title} con preguntas aleatorias, distribucion tipo oficial y feedback final de rendimiento.`,
+    mockExamEyebrow: "Examen cronometrado",
+    mockExamIntro:
+      "Responde cada pregunta antes de que termine el tiempo. Puedes marcar preguntas para revisar y terminar antes si estas listo.",
+    mockExamAppLabel: "Examen cronometrado",
     examSkip: "Saltar a la pregunta",
     originalQuestions: "Preguntas originales",
     startPractice: "Empezar practica",
@@ -344,6 +388,7 @@ function homePage(locale, options = {}) {
       </a>
       <nav class="topbar-nav" aria-label="${copy.mainNav}">
         <a href="${certsHref}">${copy.navCertifications}</a>
+        <a href="${copy.mockExamsHref}">${copy.navMockExams}</a>
         ${languageSwitch(enPath, esPath, locale)}
       </nav>
     </div>
@@ -466,6 +511,7 @@ function examPage(cert, locale, options = {}) {
       <nav class="topbar-nav" aria-label="${copy.mainNav}">
         <a href="${homeHref}">${copy.navHome}</a>
         <a href="${certsHref}">${copy.navCertifications}</a>
+        <a href="${copy.mockExamsHref}">${copy.navMockExams}</a>
         ${languageSwitch(enPath, esPath, locale)}
       </nav>
     </div>
@@ -559,12 +605,229 @@ function examPage(cert, locale, options = {}) {
 </html>`;
 }
 
+function mockListPage(locale) {
+  const copy = ui[locale];
+  const enPath = "/en/mock-exams/";
+  const esPath = "/es/examenes-de-prueba/";
+
+  return `<!DOCTYPE html>
+<html lang="${copy.htmlLang}">
+<head>
+  ${googleTag()}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="${escapeHtml(copy.mockListDescription)}" />
+  <meta property="og:title" content="${escapeHtml(copy.mockListTitle)} | BlueForce" />
+  <meta property="og:description" content="${escapeHtml(copy.mockListDescription)}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="${siteUrl}${locale === "en" ? enPath : esPath}" />
+  <title>${escapeHtml(copy.mockListTitle)} | BlueForce</title>
+  ${alternateLinks(enPath, esPath, locale === "en" ? enPath : esPath)}
+  ${iconLinks()}
+  <link rel="stylesheet" href="/assets/css/styles.css?v=${assetVersion}" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "${escapeHtml(copy.mockListTitle)}",
+      "url": "${siteUrl}${locale === "en" ? enPath : esPath}",
+      "description": "${escapeHtml(copy.mockListDescription)}"
+    }
+  </script>
+</head>
+<body data-locale="${locale}" data-mock-base="${copy.mockExamsHref}">
+  <a class="skip-link" href="#mockExamList">${copy.mockListHeading}</a>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand-lockup" href="${copy.homeHref}" aria-label="${copy.brandAria}">
+        <img class="brand-logo" src="${logoPath}" width="180" height="52" alt="" decoding="async" />
+      </a>
+      <nav class="topbar-nav" aria-label="${copy.mainNav}">
+        <a href="${copy.homeHref}">${copy.navHome}</a>
+        <a href="${copy.certsHref}">${copy.navCertifications}</a>
+        <a href="${copy.mockExamsHref}" aria-current="page">${copy.navMockExams}</a>
+        ${languageSwitch(enPath, esPath, locale)}
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="exam-hero" aria-labelledby="mockListTitle">
+      <div class="shell hero-grid">
+        <section class="hero-copy">
+          <div class="eyebrow">${copy.mockListEyebrow}</div>
+          <h1 id="mockListTitle">${copy.mockListHeading}</h1>
+          <p>${copy.mockListDescription}</p>
+          <div class="notice">${copy.mockListCopy}</div>
+        </section>
+
+        <aside class="blueprint-panel" aria-label="${copy.officialTiming}">
+          <h2>${copy.officialTiming}</h2>
+          <p>${locale === "es" ? "Cada simulador usa una sesion activa local y conserva el reloj aunque recargues la pagina." : "Each simulator uses one local active session and keeps the clock running even if you reload the page."}</p>
+          <div class="weight-list">
+            <div class="weight-row">
+              <span class="weight-label">${locale === "es" ? "Feedback" : "Feedback"}</span>
+              <span class="weight-value">${locale === "es" ? "Al final" : "At the end"}</span>
+              <div class="weight-track"><div class="weight-fill" style="width:100%"></div></div>
+            </div>
+            <div class="weight-row">
+              <span class="weight-label">${locale === "es" ? "Pausa" : "Pause"}</span>
+              <span class="weight-value">${locale === "es" ? "No" : "No"}</span>
+              <div class="weight-track"><div class="weight-fill" style="width:0%"></div></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="certifications" id="mockExamList" aria-labelledby="mockExamListHeading">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">${copy.domainDistribution}</div>
+            <h2 id="mockExamListHeading">${copy.mockListHeading}</h2>
+          </div>
+          <p>${copy.mockListCopy}</p>
+        </div>
+        <div class="cert-grid" id="mockCertificationGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/data/certifications.js?v=${assetVersion}"></script>
+  <script src="/assets/js/mock-exam.js?v=${assetVersion}"></script>
+</body>
+</html>`;
+}
+
+function mockExamPage(cert, locale) {
+  const copy = ui[locale];
+  const localCert = localizedCert(cert, locale);
+  const enPath = `/en/mock-exams/${cert.id}`;
+  const esPath = `/es/examenes-de-prueba/${cert.id}`;
+  const canonicalPath = locale === "en" ? enPath : esPath;
+  const title = copy.mockExamTitle(localCert.title);
+  const description = copy.mockExamDescription(localCert.title);
+
+  return `<!DOCTYPE html>
+<html lang="${copy.htmlLang}">
+<head>
+  ${googleTag()}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="${escapeHtml(description)}" />
+  <meta property="og:title" content="${escapeHtml(title)} | BlueForce" />
+  <meta property="og:description" content="${escapeHtml(description)}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="${siteUrl}${canonicalPath}" />
+  <title>${escapeHtml(title)} | BlueForce</title>
+  ${alternateLinks(enPath, esPath, canonicalPath)}
+  ${iconLinks()}
+  <link rel="stylesheet" href="/assets/css/styles.css?v=${assetVersion}" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      "name": "${escapeHtml(title)}",
+      "url": "${siteUrl}${canonicalPath}",
+      "learningResourceType": "Practice test",
+      "description": "${escapeHtml(description)}"
+    }
+  </script>
+</head>
+<body data-locale="${locale}" data-certification="${cert.id}" data-mock-base="${copy.mockExamsHref}">
+  <a class="skip-link" href="#mockExamApp">${copy.mockExamAppLabel}</a>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand-lockup" href="${copy.homeHref}" aria-label="${copy.brandAria}">
+        <img class="brand-logo" src="${logoPath}" width="180" height="52" alt="" decoding="async" />
+      </a>
+      <nav class="topbar-nav" aria-label="${copy.mainNav}">
+        <a href="${copy.homeHref}">${copy.navHome}</a>
+        <a href="${copy.certsHref}">${copy.navCertifications}</a>
+        <a href="${copy.mockExamsHref}" aria-current="page">${copy.navMockExams}</a>
+        ${languageSwitch(enPath, esPath, locale)}
+      </nav>
+    </div>
+  </header>
+
+  <main id="mockExamApp">
+    <section class="exam-hero" aria-labelledby="mockExamTitle">
+      <div class="shell hero-grid">
+        <section class="hero-copy">
+          <div class="eyebrow">${copy.mockExamEyebrow}</div>
+          <h1 id="mockExamTitle">${escapeHtml(title)}</h1>
+          <p>${copy.mockExamIntro}</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="startMockBtn">${copy.startMockExam}</button>
+          </div>
+          <div class="notice" id="activeAttemptNotice" hidden></div>
+        </section>
+
+        <aside class="blueprint-panel" aria-label="${copy.domainDistribution}">
+          <h2>${copy.officialTiming}</h2>
+          <p>${cert.examConfig.officialQuestionCount} ${locale === "es" ? "preguntas" : "questions"} · ${cert.examConfig.officialDurationMinutes} ${locale === "es" ? "minutos" : "minutes"} · ${cert.examConfig.passingScore}% ${locale === "es" ? "minimo" : "passing score"}</p>
+          <div class="weight-list" id="mockBlueprintList"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="dashboard" id="mockExamSurface" hidden>
+      <div class="shell">
+        <div class="mock-status-bar" aria-label="${copy.mockExamAppLabel}">
+          <div>
+            <div class="stat-label">${locale === "es" ? "Tiempo restante" : "Time remaining"}</div>
+            <div class="mock-timer" id="mockTimer">--:--</div>
+          </div>
+          <div>
+            <div class="stat-label">${locale === "es" ? "Progreso" : "Progress"}</div>
+            <div class="mock-progress-text" id="mockProgressText">0 / 0</div>
+          </div>
+          <button class="btn btn-danger" id="finishMockBtn">${locale === "es" ? "Finalizar examen" : "Finish Exam"}</button>
+        </div>
+
+        <div class="study-layout mock-layout">
+          <article class="question-card" id="mockQuestionCard" aria-live="polite"></article>
+          <aside class="side-panel">
+            <div class="side-card">
+              <h3>${locale === "es" ? "Navegacion" : "Navigation"}</h3>
+              <div class="question-palette" id="mockQuestionPalette"></div>
+            </div>
+            <div class="side-card">
+              <h3>${locale === "es" ? "Reglas" : "Rules"}</h3>
+              <p>${copy.mockListCopy}</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard" id="mockResultsSurface" hidden>
+      <div class="shell">
+        <div id="mockResults"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/data/certifications.js?v=${assetVersion}"></script>
+  <script src="/assets/js/mock-exam.js?v=${assetVersion}"></script>
+</body>
+</html>`;
+}
+
 function sitemap(certifications) {
   const pairs = [
     { en: "/en/", es: "/es/" },
+    { en: "/en/mock-exams/", es: "/es/examenes-de-prueba/" },
     ...certifications.map((cert) => ({
       en: `/en/certifications/${cert.id}`,
       es: `/es/certificaciones/${cert.id}`,
+    })),
+    ...certifications.map((cert) => ({
+      en: `/en/mock-exams/${cert.id}`,
+      es: `/es/examenes-de-prueba/${cert.id}`,
     })),
   ];
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -604,11 +867,15 @@ const certifications = readCertifications();
 writeFile(path.join(rootDir, "index.html"), homePage("en", { root: true, canonicalPath: "/en/" }));
 writeFile(path.join(rootDir, "en/index.html"), homePage("en"));
 writeFile(path.join(rootDir, "es/index.html"), homePage("es"));
+writeFile(path.join(rootDir, "en/mock-exams/index.html"), mockListPage("en"));
+writeFile(path.join(rootDir, "es/examenes-de-prueba/index.html"), mockListPage("es"));
 
 for (const cert of certifications) {
   writeFile(path.join(rootDir, `certifications/${cert.id}.html`), examPage(cert, "en", { legacy: true }));
   writeFile(path.join(rootDir, `en/certifications/${cert.id}.html`), examPage(cert, "en"));
   writeFile(path.join(rootDir, `es/certificaciones/${cert.id}.html`), examPage(cert, "es"));
+  writeFile(path.join(rootDir, `en/mock-exams/${cert.id}.html`), mockExamPage(cert, "en"));
+  writeFile(path.join(rootDir, `es/examenes-de-prueba/${cert.id}.html`), mockExamPage(cert, "es"));
 }
 
 writeFile(path.join(rootDir, "sitemap.xml"), sitemap(certifications));

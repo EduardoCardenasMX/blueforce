@@ -41,6 +41,11 @@ const metadata = {
       { label: "Human-Centered Design", weight: 12 },
       { label: "Testing", weight: 11 },
     ],
+    examConfig: {
+      officialQuestionCount: 60,
+      officialDurationMinutes: 105,
+      passingScore: 65,
+    },
     resources: [
       {
         title: "Salesforce UX Designer Credential",
@@ -89,6 +94,11 @@ const metadata = {
       { label: "Automation", weight: 15 },
       { label: "Agentforce", weight: 8 },
     ],
+    examConfig: {
+      officialQuestionCount: 60,
+      officialDurationMinutes: 105,
+      passingScore: 65,
+    },
     resources: [
       {
         title: "Platform Administrator Credential",
@@ -135,6 +145,11 @@ const metadata = {
       { label: "User Stories", weight: 18 },
       { label: "User Acceptance", weight: 12 },
     ],
+    examConfig: {
+      officialQuestionCount: 60,
+      officialDurationMinutes: 105,
+      passingScore: 72,
+    },
     resources: [
       {
         title: "Salesforce Business Analyst Credential",
@@ -195,6 +210,11 @@ const metadata = {
       { label: "Data Management", weight: 18 },
       { label: "Predictive and Generative AI", weight: 13 },
     ],
+    examConfig: {
+      officialQuestionCount: 60,
+      officialDurationMinutes: 105,
+      passingScore: 68,
+    },
     resources: [
       {
         title: "Sales Cloud Consultant Credential",
@@ -278,6 +298,11 @@ const metadata = {
       { label: "Data Enhancements, Sharing, and Analysis", weight: 18 },
       { label: "Data Activations and Utilization", weight: 20 },
     ],
+    examConfig: {
+      officialQuestionCount: 60,
+      officialDurationMinutes: 105,
+      passingScore: 70,
+    },
     resources: [
       {
         title: "Data 360 Consultant Credential",

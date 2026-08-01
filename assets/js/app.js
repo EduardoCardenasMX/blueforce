@@ -2,7 +2,7 @@
   const letters = ["A", "B", "C", "D", "E", "F"];
   const specialModes = [null, "wrong", "bookmarks", "unanswered"];
   const progressVersion = "v2";
-  const assetVersion = "20260725-seo";
+  const assetVersion = "20260801-mock";
   const certifications = window.BLUEFORCE_CERTIFICATIONS || [];
   const locale = document.body.dataset.locale || document.documentElement.lang || "en";
   const text = {
