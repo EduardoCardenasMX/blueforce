@@ -4,7 +4,7 @@ import vm from "node:vm";
 
 const rootDir = path.resolve(import.meta.dirname, "..");
 const catalogPath = path.join(rootDir, "assets/data/certifications.js");
-const assetVersion = "20260801-study-submit";
+const assetVersion = "20260801-distractors";
 const siteUrl = "https://blueforce.cloud";
 const faviconPath = "/assets/img/icono_blueforce.png";
 const logoPath = "/assets/img/logo_blueforce.png";

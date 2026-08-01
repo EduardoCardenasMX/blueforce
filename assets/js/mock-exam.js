@@ -1,7 +1,7 @@
 (function () {
   const letters = ["A", "B", "C", "D", "E", "F"];
   const activeVersion = "v1";
-  const assetVersion = "20260801-mock";
+  const assetVersion = "20260801-distractors";
   const certifications = window.BLUEFORCE_CERTIFICATIONS || [];
   const locale = document.body.dataset.locale || document.documentElement.lang || "en";
   const t = {

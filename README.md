@@ -26,6 +26,7 @@ Static app for Salesforce certification practice with instant feedback, bilingua
 - `assets/js/home.js`: lightweight homepage renderer.
 - `assets/css/styles.css`: shared styles.
 - `tools/extract-certifications.mjs`: converts original HTML guides into the shared data format.
+- `tools/audit-question-quality.mjs`: reports answer-letter balance, length bias, and weak distractor risks.
 - `tools/build-localized-pages.mjs`: regenerates English and Spanish pages, `sitemap.xml`, and `robots.txt`.
 
 ## Add A Certification
@@ -38,13 +39,19 @@ Static app for Salesforce certification practice with instant feedback, bilingua
 node tools/extract-certifications.mjs
 ```
 
-4. Regenerate the localized pages:
+4. Review answer balance and distractor quality:
+
+```bash
+node tools/audit-question-quality.mjs
+```
+
+5. Regenerate the localized pages:
 
 ```bash
 node tools/build-localized-pages.mjs
 ```
 
-5. If you want Spanish interface copy for that certification, add its Spanish metadata to:
+6. If you want Spanish interface copy for that certification, add its Spanish metadata to:
 
 - `tools/build-localized-pages.mjs`
 - `assets/js/home.js`
@@ -55,4 +62,4 @@ The exam questions, options, explanations, and tips remain in English by design.
 
 Practice progress and active mock exam attempts are saved in `localStorage`, separated by certification `id`. Mock exams keep only one active/latest attempt per certification.
 
-The extractor also reorders options deterministically and recalculates correct answers to avoid answer patterns such as almost every correct answer being option A. If that logic changes, increment `progressVersion` in `assets/js/app.js` so saved progress is not mixed with older option indexes.
+The extractor also reorders options deterministically, recalculates correct answers, and applies a first-pass distractor cleanup for obvious weak options. If option order logic changes, increment `progressVersion` in `assets/js/app.js` so saved progress is not mixed with older option indexes.

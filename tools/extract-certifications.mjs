@@ -400,6 +400,320 @@ function chooseBalancedSlot(counts, optionCount, seed) {
   })[0];
 }
 
+const distractorPatterns = [
+  {
+    pattern: /dashboard color|dashboard theme|page background|new lightning theme|preferred dashboard color/i,
+    replacement:
+      "Dashboard presentation changes that make the metric more visible without changing the underlying process design",
+  },
+  {
+    pattern: /dashboard filter/i,
+    replacement:
+      "Dashboard filters that let viewers narrow results without changing the underlying data model or automation",
+  },
+  {
+    pattern: /campaign hierarchy/i,
+    replacement:
+      "Campaign hierarchy configuration used to aggregate marketing performance across related campaign records",
+  },
+  {
+    pattern: /role hierarchy depth|role hierarchy branch|a role hierarchy$/i,
+    replacement:
+      "Role hierarchy changes that broaden record visibility for managers in the affected reporting structure",
+  },
+  {
+    pattern: /lead queue|lead queues|lead assignment/i,
+    replacement:
+      "Lead queue routing that assigns incoming prospects to the appropriate sales or marketing team",
+  },
+  {
+    pattern: /case queue|case queues|case escalation|email-to-case|web-to-case/i,
+    replacement:
+      "Case management configuration intended for support routing, escalation, or customer-service intake",
+  },
+  {
+    pattern: /compact layout|page layout|larger page layout/i,
+    replacement:
+      "Record layout changes that surface fields or actions without changing the business rule being evaluated",
+  },
+  {
+    pattern: /public group|account team|opportunity team|case team/i,
+    replacement:
+      "Collaboration or sharing group configuration used to coordinate access for a defined set of users",
+  },
+  {
+    pattern: /permission set|profile|more profiles|profile photo|blue profile/i,
+    replacement:
+      "Permission or profile configuration that changes user capabilities but does not define the process outcome",
+  },
+  {
+    pattern: /fiscal year|currency|forecast|territory/i,
+    replacement:
+      "Sales planning configuration for fiscal, currency, forecast, or territory behavior in the sales model",
+  },
+  {
+    pattern: /email template|mass email|email relay|confirmation email/i,
+    replacement:
+      "Email configuration that controls message formatting or delivery without resolving the full scenario",
+  },
+  {
+    pattern: /data loader|data import wizard|csv|spreadsheet|public spreadsheet/i,
+    replacement:
+      "Manual file-based data handling with mappings and operational controls managed outside the target workflow",
+  },
+];
+
+const optionRewriteOverrides = new Map(
+  Object.entries({
+    "To the browser address bar":
+      "To the browser address bar so keyboard users can confirm the page context before interacting",
+    "To a random page element":
+      "To the first focusable element in the underlying page content rather than inside the modal",
+    "Behind the modal":
+      "To the element that launched the modal while leaving the overlay and focus order unchanged",
+    "To replace data privacy controls":
+      "To validate scripted scenarios without involving users who can reveal policy or permission gaps",
+    "To make the scripts longer":
+      "To expand scripted coverage before confirming that the workflow reflects real user behavior",
+    "To avoid documenting expected results":
+      "To rely on exploratory feedback instead of predefined expected results and acceptance criteria",
+    "To replace user stories":
+      "To replace user stories with architecture notes as the only project record",
+    "To store passwords":
+      "To centralize sensitive operational details in the decision log for later implementation",
+    "To count page views":
+      "To measure navigation activity after launch instead of documenting design rationale",
+    "Promise higher revenue without process change":
+      "Promise revenue improvement based only on feature availability, without defining behavior changes",
+    "Create a field named Sell Better":
+      "Create a generic sales-productivity field and let managers interpret improvement informally",
+    "Configure random productivity features":
+      "Configure multiple productivity features before linking them to measurable sales outcomes",
+    "A user acceptance criterion":
+      "A user acceptance criterion that defines one story condition but not the accumulated design burden",
+    "A customer journey":
+      "A customer journey artifact that describes experience stages without quantifying delivery constraints",
+    "A stakeholder persona":
+      "A stakeholder persona that captures user context without showing maintainability risk",
+    "The BA alone":
+      "The business analyst alone after translating the story into a detailed solution recommendation",
+    "The executive sponsor alone":
+      "The executive sponsor alone because they approved funding for the initiative",
+    "The UAT testers after release":
+      "The UAT testers after release, once the team has already completed implementation",
+    "Guarantee a precise percentage immediately":
+      "Guarantee a precise return percentage before baseline data, assumptions, and adoption risks are known",
+    "Use another customer's ROI without adjustment":
+      "Reuse another customer's ROI model without adjusting for process, data, volume, or adoption differences",
+    "Avoid discussing business value":
+      "Avoid the ROI discussion until after launch, then infer value from implementation completion",
+    "Number of objects created":
+      "Number of technical objects created during implementation, regardless of downstream retention impact",
+    "Total fields ingested regardless of use":
+      "Total fields ingested into the platform, even when the fields are not tied to a retention decision",
+    "Number of meetings held":
+      "Number of project meetings completed before launch, without a baseline outcome comparison",
+    "Skip stakeholder review and begin development":
+      "Begin development from the current-state process before validating whether the process should change",
+    "Automatically copy the current state into Salesforce":
+      "Replicate the existing workflow in Salesforce without evaluating root causes or improvement options",
+    "Choose the option with the most screens":
+      "Choose the design with the most visible screens because it appears more complete to stakeholders",
+    "A validation-rule error path":
+      "A validation-rule error path that blocks the save transaction instead of handling post-commit work",
+    "A duplicate-rule path":
+      "A duplicate-rule path that evaluates potential record matches rather than external processing timing",
+    "A before-save path":
+      "A before-save path optimized for same-record field updates within the original transaction",
+    "The page should feel modern":
+      "The page should feel modern, with success left to subjective stakeholder interpretation",
+    "The team should work efficiently":
+      "The team should work efficiently, without defining a measurable system behavior or threshold",
+    "The project should improve customer trust":
+      "The project should improve customer trust, without stating the condition, action, or expected result",
+    "Use a different font on each page":
+      "Use different typography on each page so each record area appears visually distinct",
+    "Require the agent to memorize record IDs":
+      "Require agents to remember identifiers and switch records manually during the service process",
+    "Increase decorative imagery":
+      "Increase decorative imagery to make the service workflow feel more engaging",
+    "The approval should work correctly":
+      "Given a discount request exists, when a reviewer opens it, then the approval page should be available",
+    "Managers like approvals":
+      "Given a manager receives an approval, when they review it, then they should understand the request",
+    "Build a discount flow":
+      "Given a discount is requested, when automation runs, then a flow should update the opportunity",
+    "Replace unit and system testing":
+      "Replace technical testing with user sign-off as the only evidence that the release is ready",
+    "Prove that no software defect can ever exist":
+      "Prove the release has no defects by asking business users to complete one successful path",
+    "Train developers on Salesforce syntax":
+      "Train developers on Salesforce syntax during UAT so they can adjust defects while users test",
+    "The system should be user friendly":
+      "The system should be easy to use for sales representatives handling discount approvals",
+    "Salesforce should automate everything":
+      "The system should automate the discount process without specifying a threshold or routing condition",
+    "Reports should be better":
+      "Reports should give managers better visibility into discounted opportunities after submission",
+    "It includes business value":
+      "It mentions a broad business benefit but combines several independent workflow outcomes",
+    "It contains a user role":
+      "It names a user role but still bundles multiple behaviors into one oversized story",
+    "It has too few technical tasks":
+      "It lacks a detailed task list, even though the business outcome is already too broad",
+    "Alternate priorities randomly":
+      "Rotate priorities by department so each stakeholder group receives equal implementation time",
+    "Prioritize the department with the largest meeting attendance":
+      "Prioritize the requests represented by the largest stakeholder group in the latest workshop",
+    "Ask the development team to choose without business input":
+      "Ask the delivery team to sequence requirements based only on technical convenience",
+    "Accept the executive's view as complete":
+      "Use the executive sponsor's perspective as the main input and confirm details later with users",
+    "Cancel discovery":
+      "Shorten discovery and move directly into solution design to preserve the delivery schedule",
+    "Ask only yes-or-no questions":
+      "Use a closed-question interview script so stakeholders can validate assumptions quickly",
+    "A duplicate identity ruleset":
+      "A duplicate identity ruleset that changes profile matching before the metric definition is agreed",
+    "A new source system":
+      "A new source system to provide additional attributes before the score interpretation is documented",
+    "More decimal places only":
+      "More decimal precision in the score display without changing the business interpretation",
+    "Make all opportunities read-only":
+      "Make opportunity stages read-only for most users and handle exceptions through support requests",
+    "Rely only on Path":
+      "Rely on Path guidance to describe expected stage movement without enforcing transition rules",
+    "Create a field for every possible transition":
+      "Create separate transition-tracking fields for each stage movement and report on violations later",
+    "Only the number of segment names":
+      "Track only the number of named segments published, without downstream activation diagnostics",
+    "Only whether the activation was created":
+      "Track whether the activation exists, without validating member eligibility or destination outcomes",
+    "Always choose generative AI because it is newer":
+      "Choose generative AI as the default capability for every sales workflow regardless of decision type",
+    "Treat both capabilities as identical":
+      "Treat predictive scoring and generated summaries as interchangeable because both use AI",
+    "Use predictive AI only for writing":
+      "Use predictive AI to draft sales content instead of estimating likelihood or prioritizing outcomes",
+    "After production deployment only":
+      "Validate risky assumptions after deployment once production users can provide real feedback",
+    "As a replacement for requirements":
+      "Use the prototype as the requirements artifact and defer detailed requirements documentation",
+    "For every simple field creation":
+      "Create a proof of concept for each field-level change before adding it to the backlog",
+    "Use general internet text only":
+      "Ground the summary in broad public sales guidance instead of current authorized CRM data",
+    "Ask the model to invent missing close dates":
+      "Allow the model to infer missing pipeline dates when forecast data is incomplete",
+    "Use data from another customer":
+      "Use another customer's historical pipeline as the grounding source for the summary",
+    "There is no difference":
+      "Treat both testing types as the same activity because they occur before release",
+    "UAT replaces all regression testing":
+      "Use business acceptance as evidence that existing functionality still behaves correctly",
+    "Regression testing is performed only by executives":
+      "Limit regression testing to executive walkthroughs of the most visible business process",
+    "New and old only":
+      "Track requirements with only a current and previous state instead of a full lifecycle",
+    "Important and unimportant only":
+      "Classify requirements only by importance and let teams infer implementation status",
+    "Red, blue, and green":
+      "Use color-coded requirement labels as the main lifecycle status model",
+    "To select brand colors":
+      "Use the benchmark primarily to compare visual-brand preferences before and after redesign",
+    "To guarantee every user will like the new design":
+      "Use the benchmark as proof that the new design will satisfy all user groups",
+    "To avoid speaking with users":
+      "Use the benchmark to replace follow-up user research during the redesign effort",
+    "Always build custom code for perfect fit":
+      "Build a custom extension for each exception so the process exactly matches current requests",
+    "Create a separate Salesforce org for the exception":
+      "Move the exceptional process into a separate org to avoid changing the primary implementation",
+    "Reject the entire requirement":
+      "Reject the request because it does not align cleanly with the standard feature set",
+    "Hover-only interactions":
+      "Prioritize hover interactions that reveal details while keeping the mobile screen visually compact",
+    "Every desktop field and action on the first screen":
+      "Place the full desktop field set on the mobile page so users do not need additional navigation",
+    "Dense multi-column tables":
+      "Use dense multi-column tables to preserve the same information density as the desktop view",
+    "Consumption cannot be observed after implementation":
+      "Treat consumption as an operational metric that cannot influence the initial architecture",
+    "Credits are unrelated to architecture":
+      "Estimate credits after launch because architecture choices do not affect platform consumption",
+    "Only the number of Salesforce users affects Data 360 cost":
+      "Base the estimate only on licensed user count rather than data volume or activation frequency",
+    "Which user has the shortest name":
+      "Use the easiest user attribute to map as the first integration identity rule",
+    "Whether all fields can be text":
+      "Standardize every incoming field as text so mappings are easier to configure initially",
+    "Only the number of dashboards":
+      "Scope the integration around the number of dashboards that need to display the data",
+    "It is only a library of company logos":
+      "Treat SLDS mainly as a branding library for logos and campaign-specific visual assets",
+    "It automatically writes every business requirement":
+      "Use SLDS components as a substitute for documenting experience requirements",
+    "It replaces the Salesforce data model":
+      "Use SLDS guidance to decide object relationships and record ownership behavior",
+    "A production release":
+      "Use a production release to learn whether the unknown approach works for users",
+    "A completed UAT sign-off":
+      "Wait for completed UAT sign-off before researching the technical uncertainty",
+    "A persona workshop only":
+      "Use a persona workshop to resolve the implementation uncertainty without a technical spike",
+    "Change the user’s locale":
+      "Change the user's locale and reload the query builder before checking data-space scope",
+    "Make all CRM records public":
+      "Broaden CRM record access so users can see more objects while building Data 360 queries",
+    "Recreate the DMO in every space":
+      "Duplicate the DMO across all data spaces so users can find it from any workspace",
+  }),
+);
+
+function normalizeOptionText(value) {
+  return String(value).replace(/\s+/g, " ").trim().replace(/\.$/, "");
+}
+
+function polishShortDistractor(option, question, targetLength) {
+  const normalized = normalizeOptionText(option);
+  const override = optionRewriteOverrides.get(normalized);
+  if (override) return override;
+  const specific = distractorPatterns.find((item) => item.pattern.test(normalized));
+  if (specific) return specific.replacement;
+  return normalized;
+}
+
+function improveDistractors(question) {
+  const answers = new Set(Array.isArray(question.answers) ? question.answers : [question.answer]);
+  const correctLengths = [...answers].map((index) => question.options[index].length);
+  const maxCorrectLength = Math.max(...correctLengths);
+  const wrongOptions = question.options.filter((_, index) => !answers.has(index));
+  const avgWrongLength =
+    wrongOptions.reduce((sum, option) => sum + option.length, 0) /
+    Math.max(wrongOptions.length, 1);
+  const hasWeakDistractor = wrongOptions.some((option) =>
+    distractorPatterns.some((item) => item.pattern.test(option)),
+  );
+  const needsPolish =
+    maxCorrectLength / Math.max(avgWrongLength, 1) > 1.55 || hasWeakDistractor;
+  const targetLength = Math.min(Math.round(maxCorrectLength * 0.68), 92);
+
+  if (!needsPolish) {
+    return {
+      ...question,
+      options: question.options.map((option) => normalizeOptionText(option)),
+    };
+  }
+
+  return {
+    ...question,
+    options: question.options.map((option, index) => {
+      if (answers.has(index)) return normalizeOptionText(option);
+      return polishShortDistractor(option, question, targetLength);
+    }),
+  };
+}
+
 function reorderOptions(question, answers, targetSlotCounts, seed) {
   const optionIndexes = question.options.map((_, index) => index);
   if (answers.length === 1) {
@@ -434,22 +748,25 @@ function reorderOptions(question, answers, targetSlotCounts, seed) {
 function normalizeQuestions(certificationId, questions) {
   const targetSlotCounts = {};
   return questions.map((question) => {
-    const answers = Array.isArray(question.answers) ? question.answers : [question.answer];
+    const improvedQuestion = improveDistractors(question);
+    const answers = Array.isArray(improvedQuestion.answers)
+      ? improvedQuestion.answers
+      : [improvedQuestion.answer];
     const reordered = reorderOptions(
-      question,
+      improvedQuestion,
       answers,
       targetSlotCounts,
-      `${certificationId}:${question.id}`,
+      `${certificationId}:${improvedQuestion.id}`,
     );
     return {
-      id: question.id,
-      category: question.category,
-      select: Number(question.select || answers.length || 1),
-      question: question.question,
+      id: improvedQuestion.id,
+      category: improvedQuestion.category,
+      select: Number(improvedQuestion.select || answers.length || 1),
+      question: improvedQuestion.question,
       options: reordered.options,
       answers: reordered.answers,
-      explanation: question.explanation,
-      tip: question.tip,
+      explanation: improvedQuestion.explanation,
+      tip: improvedQuestion.tip,
     };
   });
 }
