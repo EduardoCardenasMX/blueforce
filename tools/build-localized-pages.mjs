@@ -128,7 +128,7 @@ const ui = {
     canonicalPath: "/en/",
     skipHome: "Skip to certifications",
     navHome: "Home",
-    navCertifications: "Certifications",
+    navStudy: "Study",
     navMockExams: "Mock Exams",
     mainNav: "Main navigation",
     brandAria: "BlueForce home",
@@ -214,8 +214,8 @@ const ui = {
     canonicalPath: "/es/",
     skipHome: "Saltar a certificaciones",
     navHome: "Inicio",
-    navCertifications: "Certificaciones",
-    navMockExams: "Examenes",
+    navStudy: "Estudio",
+    navMockExams: "Examenes de prueba",
     mainNav: "Navegacion principal",
     brandAria: "Inicio de BlueForce",
     eyebrow: "Practica Salesforce",
@@ -326,6 +326,23 @@ function languageSwitch(enPath, esPath, activeLocale) {
         </div>`;
 }
 
+function navLink(href, label, isActive) {
+  return `<a href="${href}"${isActive ? ' aria-current="page"' : ""}>${label}</a>`;
+}
+
+function headerNav(copy, enPath, esPath, locale, options = {}) {
+  const homeHref = options.homeHref || copy.homeHref;
+  const studyHref = options.studyHref || copy.certsHref;
+  const active = options.active || "";
+
+  return `<nav class="topbar-nav" aria-label="${copy.mainNav}">
+        ${navLink(homeHref, copy.navHome, active === "home")}
+        ${navLink(studyHref, copy.navStudy, active === "study")}
+        ${navLink(copy.mockExamsHref, copy.navMockExams, active === "mock")}
+        ${languageSwitch(enPath, esPath, locale)}
+      </nav>`;
+}
+
 function homePage(locale, options = {}) {
   const copy = ui[locale];
   const canonicalPath = options.canonicalPath || copy.canonicalPath;
@@ -386,11 +403,11 @@ function homePage(locale, options = {}) {
       <a class="brand-lockup" href="${homeHref}" aria-label="${copy.brandAria}">
         <img class="brand-logo" src="${logoPath}" width="180" height="52" alt="" decoding="async" />
       </a>
-      <nav class="topbar-nav" aria-label="${copy.mainNav}">
-        <a href="${certsHref}">${copy.navCertifications}</a>
-        <a href="${copy.mockExamsHref}">${copy.navMockExams}</a>
-        ${languageSwitch(enPath, esPath, locale)}
-      </nav>
+      ${headerNav(copy, enPath, esPath, locale, {
+        homeHref,
+        studyHref: certsHref,
+        active: "home",
+      })}
     </div>
   </header>
 
@@ -508,12 +525,11 @@ function examPage(cert, locale, options = {}) {
       <a class="brand-lockup" href="${homeHref}" aria-label="${copy.brandAria}">
         <img class="brand-logo" src="${logoPath}" width="180" height="52" alt="" decoding="async" />
       </a>
-      <nav class="topbar-nav" aria-label="${copy.mainNav}">
-        <a href="${homeHref}">${copy.navHome}</a>
-        <a href="${certsHref}">${copy.navCertifications}</a>
-        <a href="${copy.mockExamsHref}">${copy.navMockExams}</a>
-        ${languageSwitch(enPath, esPath, locale)}
-      </nav>
+      ${headerNav(copy, enPath, esPath, locale, {
+        homeHref,
+        studyHref: certsHref,
+        active: "study",
+      })}
     </div>
   </header>
 
@@ -643,12 +659,7 @@ function mockListPage(locale) {
       <a class="brand-lockup" href="${copy.homeHref}" aria-label="${copy.brandAria}">
         <img class="brand-logo" src="${logoPath}" width="180" height="52" alt="" decoding="async" />
       </a>
-      <nav class="topbar-nav" aria-label="${copy.mainNav}">
-        <a href="${copy.homeHref}">${copy.navHome}</a>
-        <a href="${copy.certsHref}">${copy.navCertifications}</a>
-        <a href="${copy.mockExamsHref}" aria-current="page">${copy.navMockExams}</a>
-        ${languageSwitch(enPath, esPath, locale)}
-      </nav>
+      ${headerNav(copy, enPath, esPath, locale, { active: "mock" })}
     </div>
   </header>
 
@@ -744,12 +755,7 @@ function mockExamPage(cert, locale) {
       <a class="brand-lockup" href="${copy.homeHref}" aria-label="${copy.brandAria}">
         <img class="brand-logo" src="${logoPath}" width="180" height="52" alt="" decoding="async" />
       </a>
-      <nav class="topbar-nav" aria-label="${copy.mainNav}">
-        <a href="${copy.homeHref}">${copy.navHome}</a>
-        <a href="${copy.certsHref}">${copy.navCertifications}</a>
-        <a href="${copy.mockExamsHref}" aria-current="page">${copy.navMockExams}</a>
-        ${languageSwitch(enPath, esPath, locale)}
-      </nav>
+      ${headerNav(copy, enPath, esPath, locale, { active: "mock" })}
     </div>
   </header>
 
