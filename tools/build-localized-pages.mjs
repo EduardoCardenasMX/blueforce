@@ -47,6 +47,11 @@ function googleTag() {
   </script>`;
 }
 
+function googleAdSenseTag() {
+  return `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7891390174675098"
+     crossorigin="anonymous"></script>`;
+}
+
 const certCopy = {
   es: {
     "ux-designer": {
@@ -371,6 +376,7 @@ function homePage(locale, options = {}) {
 <html lang="${copy.htmlLang}">
 <head>
   ${googleTag()}
+  ${googleAdSenseTag()}
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="${escapeHtml(copy.metaDescription)}" />
@@ -485,6 +491,7 @@ function examPage(cert, locale, options = {}) {
 <html lang="${copy.htmlLang}">
 <head>
   ${googleTag()}
+  ${googleAdSenseTag()}
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="${escapeHtml(description)}" />
@@ -630,6 +637,7 @@ function mockListPage(locale) {
 <html lang="${copy.htmlLang}">
 <head>
   ${googleTag()}
+  ${googleAdSenseTag()}
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="${escapeHtml(copy.mockListDescription)}" />
@@ -725,6 +733,7 @@ function mockExamPage(cert, locale) {
 <html lang="${copy.htmlLang}">
 <head>
   ${googleTag()}
+  ${googleAdSenseTag()}
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="${escapeHtml(description)}" />
