@@ -45,13 +45,15 @@ node tools/extract-certifications.mjs
 node tools/audit-question-quality.mjs
 ```
 
-5. Regenerate the localized pages:
+5. If the audit reports issues, fix the questions in the source HTML and rerun extraction. The extractor intentionally does not rewrite or polish answer choices.
+
+6. Regenerate the localized pages:
 
 ```bash
 node tools/build-localized-pages.mjs
 ```
 
-6. If you want Spanish interface copy for that certification, add its Spanish metadata to:
+7. If you want Spanish interface copy for that certification, add its Spanish metadata to:
 
 - `tools/build-localized-pages.mjs`
 - `assets/js/home.js`
@@ -62,4 +64,4 @@ The exam questions, options, explanations, and tips remain in English by design.
 
 Practice progress and active mock exam attempts are saved in `localStorage`, separated by certification `id`. Mock exams keep only one active/latest attempt per certification.
 
-The extractor also reorders options deterministically, recalculates correct answers, and applies a first-pass distractor cleanup for obvious weak options. If option order logic changes, increment `progressVersion` in `assets/js/app.js` so saved progress is not mixed with older option indexes.
+The source HTML is the editorial source of truth for questions, options, answers, explanations, and tips. The extractor validates and imports that content without reordering or rewriting answer choices. Study sessions and mock exams still randomize option display per local session, so if that runtime option-order logic changes, increment `progressVersion` in `assets/js/app.js` and `activeVersion` in `assets/js/mock-exam.js` so saved progress is not mixed with older option indexes.

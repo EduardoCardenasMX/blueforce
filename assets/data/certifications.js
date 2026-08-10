@@ -4,12 +4,12 @@
 window.BLUEFORCE_CERTIFICATIONS = [
   {
     "id": "ux-designer",
-    "title": "Salesforce UX Designer",
-    "pageTitle": "Salesforce UX Designer Certification Study Lab",
-    "shortTitle": "UX Designer",
+    "title": "Salesforce Platform User Experience Designer",
+    "pageTitle": "Salesforce Platform User Experience Designer Certification Study Lab",
+    "shortTitle": "Platform UX Designer",
     "code": "UX",
     "path": "certifications/ux-designer",
-    "sourceFile": "salesforce_ux_designer_study_lab(1).html",
+    "sourceFile": "salesforce_platform_user_experience_designer_study_lab.html",
     "description": "Practice the official domains with scenario-based questions, instant feedback, and exam-focused reasoning tips.",
     "heroCopy": "Study the official domains with scenario-based cards. Choose an answer to reveal the correct option, a practical explanation, and a reasoning tip.",
     "reasoning": "Identify the user's goal first, then choose the most native, accessible, and maintainable Salesforce solution that meets it.",
@@ -22,7 +22,7 @@ window.BLUEFORCE_CERTIFICATIONS = [
         "weight": 27
       },
       {
-        "label": "SLDS",
+        "label": "Salesforce Lightning Design System (SLDS)",
         "weight": 21
       },
       {
@@ -49,14 +49,14 @@ window.BLUEFORCE_CERTIFICATIONS = [
     },
     "resources": [
       {
-        "title": "Salesforce UX Designer Credential",
+        "title": "Platform User Experience Designer Credential",
         "url": "https://trailhead.salesforce.com/credentials/userexperiencedesigner",
         "description": "Official credential page and recommended preparation."
       },
       {
-        "title": "Official UX Designer Cert Prep",
-        "url": "https://trailhead.salesforce.com/content/learn/modules/ux-designer-certification-prep",
-        "description": "Domains, scenarios, flashcards, and related modules."
+        "title": "Official Platform User Experience Designer Exam Guide",
+        "url": "https://help.salesforce.com/s/articleView?id=005298974&language=en_US&type=1",
+        "description": "Current exam logistics, objectives, and official outline."
       },
       {
         "title": "W3C WCAG Overview",
@@ -65,13 +65,12 @@ window.BLUEFORCE_CERTIFICATIONS = [
       }
     ],
     "categoryOrder": [
-      "All",
       "Discovery",
       "UX Fundamentals",
       "Human-Centered Design",
       "Declarative Design",
       "Testing",
-      "SLDS"
+      "Salesforce Lightning Design System (SLDS)"
     ],
     "questionBankPath": "assets/data/exams/ux-designer.js",
     "questionCount": 100,
@@ -249,7 +248,6 @@ window.BLUEFORCE_CERTIFICATIONS = [
       }
     ],
     "categoryOrder": [
-      "All",
       "Configuration and Setup",
       "Object Manager and Lightning App Builder",
       "Sales and Marketing Applications",
@@ -400,7 +398,7 @@ window.BLUEFORCE_CERTIFICATIONS = [
         "weight": 18
       },
       {
-        "label": "User Acceptance",
+        "label": "Development Support and User Acceptance",
         "weight": 12
       }
     ],
@@ -442,13 +440,12 @@ window.BLUEFORCE_CERTIFICATIONS = [
       }
     ],
     "categoryOrder": [
-      "All",
       "Customer Discovery",
       "Collaboration with Stakeholders",
       "Business Process Mapping",
       "Requirements",
       "User Stories",
-      "User Acceptance"
+      "Development Support and User Acceptance"
     ],
     "questionBankPath": "assets/data/exams/business-analyst.js",
     "questionCount": 100,
@@ -649,7 +646,6 @@ window.BLUEFORCE_CERTIFICATIONS = [
       }
     ],
     "categoryOrder": [
-      "All",
       "Sales Lifecycle",
       "Consulting and Implementation Strategies",
       "Practical Application of Sales Cloud Expertise",
@@ -859,7 +855,6 @@ window.BLUEFORCE_CERTIFICATIONS = [
       }
     ],
     "categoryOrder": [
-      "All",
       "Solution Positioning",
       "Data 360 Setup and Administration",
       "Data Source Connection and Ingestion",
