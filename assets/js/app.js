@@ -2,7 +2,7 @@
   const letters = ["A", "B", "C", "D", "E", "F"];
   const specialModes = [null, "wrong", "bookmarks", "unanswered"];
   const progressVersion = "v3";
-  const assetVersion = "20260801-ui";
+  const assetVersion = "20260815-study";
   const certifications = window.BLUEFORCE_CERTIFICATIONS || [];
   const locale = document.body.dataset.locale || document.documentElement.lang || "en";
   const text = {
@@ -31,6 +31,12 @@
       correctAnswer: (multiple) => `Correct Answer${multiple ? "s" : ""}`,
       whyCorrect: "Why This Is Correct",
       examTip: "Exam tip:",
+      studyDeeper: "Study This Topic",
+      coreIdea: "Core idea",
+      connectConcepts: "Connect the Concepts",
+      reviewChecklist: "Review checklist",
+      studyResources: "Resources for this topic",
+      openResource: "Open resource",
       selectedCount: (selected, total) => `${selected} of ${total} selected`,
       submitAnswer: "Submit Answer",
       select: (total) => `Select ${total}`,
@@ -66,6 +72,12 @@
       correctAnswer: (multiple) => `Respuesta${multiple ? "s" : ""} correcta${multiple ? "s" : ""}`,
       whyCorrect: "Por que es correcta",
       examTip: "Tip de examen:",
+      studyDeeper: "Profundiza este tema",
+      coreIdea: "Idea clave",
+      connectConcepts: "Conecta los conceptos",
+      reviewChecklist: "Checklist de repaso",
+      studyResources: "Recursos para este tema",
+      openResource: "Abrir recurso",
       selectedCount: (selected, total) => `${selected} de ${total} seleccionadas`,
       submitAnswer: "Enviar respuesta",
       select: (total) => `Selecciona ${total}`,
@@ -142,6 +154,539 @@
     },
   };
 
+  const categoryStudyGuides = {
+    en: {
+      "Configuration and Setup": {
+        summary:
+          "This domain is about separating user identity, system permissions, record access, org settings, and administrative delegation. Most mistakes happen when those layers are mixed together.",
+        checklist: [
+          "Name the layer first: license, profile, permission set, role, sharing, or org setting.",
+          "Ask whether the requirement changes what a user can do or which records the user can see.",
+          "Prefer least privilege: add narrow access without broadening every user with the same profile.",
+        ],
+      },
+      "Object Manager and Lightning App Builder": {
+        summary:
+          "This domain connects the data model with the record experience. Strong answers respect relationships, record types, page layouts, Lightning pages, and security boundaries.",
+        checklist: [
+          "Identify the object, relationship type, lifecycle, owner, and reporting need.",
+          "Separate page layout responsibilities from Lightning page/component responsibilities.",
+          "Treat visibility rules as presentation logic, not a replacement for security.",
+        ],
+      },
+      "Sales and Marketing Applications": {
+        summary:
+          "Sales and marketing questions usually test the native lifecycle from lead capture through opportunity execution, products, campaigns, forecasting, and handoff.",
+        checklist: [
+          "Map the process stage: capture, qualify, sell, forecast, fulfill, or measure.",
+          "Use native features before custom automation when the requirement matches a standard sales process.",
+          "Distinguish person participation from record ownership and routing.",
+        ],
+      },
+      "Service and Support Applications": {
+        summary:
+          "Service questions are about intake, routing, collaboration, SLAs, knowledge, and customer visibility. The best answer usually fits where the case is in its lifecycle.",
+        checklist: [
+          "Separate case creation, assignment, escalation, response, entitlement, and knowledge.",
+          "Use queues for shared ownership and teams for named collaboration on one record.",
+          "Connect timed commitments to entitlement or escalation behavior based on the scenario.",
+        ],
+      },
+      "Productivity and Collaboration": {
+        summary:
+          "This domain tests day-to-day user efficiency: activities, Chatter, list views, quick actions, favorites, and ways to keep context while working.",
+        checklist: [
+          "Ask whether the user needs a personal shortcut, a team collaboration space, or a record action.",
+          "Distinguish a task from a scheduled event.",
+          "Choose features that reduce navigation and keep work in context.",
+        ],
+      },
+      "Data and Analytics Management": {
+        summary:
+          "Analytics questions reward knowing the grain of the data, the report format, and whether the calculation happens per row, per group, or across related records.",
+        checklist: [
+          "Define the record grain before choosing a report feature.",
+          "Use cross filters for with/without related-record questions.",
+          "Match row-level, bucket, summary, and dashboard features to the calculation need.",
+        ],
+      },
+      Automation: {
+        summary:
+          "Automation questions test timing, transaction boundaries, reuse, user interaction, and maintainability. The right flow type depends on when and how the work starts.",
+        checklist: [
+          "Decide whether the process runs before save, after save, on a schedule, or from a screen.",
+          "Use subflows for reusable background logic.",
+          "Separate immediate record updates from delayed or asynchronous work.",
+        ],
+      },
+      Agentforce: {
+        summary:
+          "Agentforce questions separate trusted knowledge from controlled action. Good designs give the agent clear scope, grounding, instructions, permissions, and escalation paths.",
+        checklist: [
+          "Ask whether the agent needs to know something, do something, or escalate.",
+          "Use data libraries for grounding and actions for controlled execution.",
+          "Treat instructions, guardrails, and permissions as part of the solution design.",
+        ],
+      },
+      Discovery: {
+        summary:
+          "Discovery is about reducing uncertainty before solution design. Strong answers gather evidence from real users, stakeholders, systems, and business goals.",
+        checklist: [
+          "Clarify the problem before proposing the interface.",
+          "Prefer direct observation and structured interviews when behavior is unclear.",
+          "Separate stakeholder opinion from user evidence.",
+        ],
+      },
+      "UX Fundamentals": {
+        summary:
+          "UX fundamentals focus on cognitive load, accessibility, hierarchy, responsive behavior, errors, and how quickly users can complete real tasks.",
+        checklist: [
+          "Make meaning visible through text, structure, and affordances, not color alone.",
+          "Prioritize task flow and context over decorative polish.",
+          "Test with the device, input method, and constraints users actually have.",
+        ],
+      },
+      "Human-Centered Design": {
+        summary:
+          "Human-centered design balances desirability, feasibility, viability, inclusion, and long-term relationship value.",
+        checklist: [
+          "Anchor artifacts in research-backed behavior, not demographics alone.",
+          "Use journey maps for user experience over time and service blueprints for operational dependencies.",
+          "Include diverse users early instead of treating accessibility as a final review.",
+        ],
+      },
+      "Declarative Design": {
+        summary:
+          "Declarative design means choosing standard, maintainable Salesforce capabilities that support the task without unnecessary code or custom objects.",
+        checklist: [
+          "Prefer standard objects and native features when they fit the verified requirement.",
+          "Match relationships, pages, actions, and guidance to the user's work.",
+          "Avoid using presentation configuration as a substitute for data model or security design.",
+        ],
+      },
+      Testing: {
+        summary:
+          "Testing questions ask what kind of evidence proves the design works: usability, accessibility, UAT, analytics, or production monitoring.",
+        checklist: [
+          "Match the test method to the risk or assumption being validated.",
+          "Use representative users and realistic tasks when usability is the question.",
+          "Capture actionable findings that can change the design.",
+        ],
+      },
+      "Salesforce Lightning Design System (SLDS)": {
+        summary:
+          "SLDS questions test whether the interface feels native, accessible, consistent, and reusable in the Salesforce ecosystem.",
+        checklist: [
+          "Use standard patterns and components before inventing a custom interaction.",
+          "Keep accessibility, responsive behavior, and visual consistency together.",
+          "Distinguish brand expression from platform interaction rules.",
+        ],
+      },
+      "Customer Discovery": {
+        summary:
+          "Customer discovery turns business goals, constraints, and user evidence into a shared understanding of what must change.",
+        checklist: [
+          "Identify stakeholders, outcomes, constraints, risks, and decision makers.",
+          "Use current-state evidence before defining future-state scope.",
+          "Document assumptions and validate them with the right audience.",
+        ],
+      },
+      "Collaboration with Stakeholders": {
+        summary:
+          "Stakeholder collaboration aligns people around priorities, decisions, tradeoffs, and ownership so the project does not drift.",
+        checklist: [
+          "Choose facilitation techniques based on conflict, ambiguity, and decision urgency.",
+          "Make ownership and decision rights explicit.",
+          "Use artifacts that create shared understanding, not just status updates.",
+        ],
+      },
+      "Business Process Mapping": {
+        summary:
+          "Process mapping makes work visible so teams can identify gaps, handoffs, pain points, and improvement opportunities.",
+        checklist: [
+          "Separate current state from future state.",
+          "Capture actors, systems, decisions, exceptions, and handoffs.",
+          "Use the map to validate scope and business value.",
+        ],
+      },
+      "Requirements": {
+        summary:
+          "Requirements questions test clarity, traceability, prioritization, and whether a need has enough evidence to guide build and acceptance.",
+        checklist: [
+          "Separate business need, functional behavior, and acceptance criteria.",
+          "Prioritize by value, risk, dependency, and stakeholder alignment.",
+          "Keep requirements testable and traceable to outcomes.",
+        ],
+      },
+      "User Stories": {
+        summary:
+          "User stories connect a role, need, and outcome, then make the expected behavior testable with acceptance criteria.",
+        checklist: [
+          "State who needs the capability, what they need, and why it matters.",
+          "Use acceptance criteria to remove ambiguity.",
+          "Split stories when workflow, data, or validation rules become too broad.",
+        ],
+      },
+      "User Acceptance": {
+        summary:
+          "UAT confirms that the delivered solution supports the business process with real users, realistic data, and agreed acceptance criteria.",
+        checklist: [
+          "Test against signed-off requirements and business scenarios.",
+          "Prepare users, scripts, data, issue triage, and sign-off criteria.",
+          "Separate UAT defects from new scope requests.",
+        ],
+      },
+      "Sales Lifecycle": {
+        summary:
+          "Sales lifecycle questions test how discovery, qualification, opportunity management, forecasting, and adoption connect into a measurable sales process.",
+        checklist: [
+          "Locate the problem in the lifecycle before selecting the feature.",
+          "Tie configuration choices to sales behavior and measurable outcomes.",
+          "Prefer scalable process design over one-off record fixes.",
+        ],
+      },
+      "Implementation Strategies": {
+        summary:
+          "Implementation strategy is about sequencing, risk, governance, adoption, and how a solution moves safely from design to production.",
+        checklist: [
+          "Identify dependencies, data readiness, release approach, and training needs.",
+          "Use pilots or phased rollout when risk, complexity, or behavior change is high.",
+          "Connect adoption metrics to the business outcome.",
+        ],
+      },
+      "Sales Cloud Solution Design": {
+        summary:
+          "Solution design questions ask for the simplest durable architecture that fits the sales process, data model, security model, and reporting needs.",
+        checklist: [
+          "Separate process configuration from security, automation, and analytics.",
+          "Use native Sales Cloud capabilities when they match the requirement.",
+          "Design for scale, maintenance, and clean reporting.",
+        ],
+      },
+      "Sales Cloud Analytics": {
+        summary:
+          "Sales analytics questions test forecasting, pipeline visibility, metric definitions, dashboard design, and trusted data quality.",
+        checklist: [
+          "Define metric meaning, owner, grain, and refresh cadence.",
+          "Separate forecast categories from opportunity stages.",
+          "Design dashboards around decisions, not just available charts.",
+        ],
+      },
+      "Sales Productivity and Best Practices": {
+        summary:
+          "Productivity questions reward features that reduce friction for sellers while preserving process discipline and data quality.",
+        checklist: [
+          "Choose tools that keep selling activity in context.",
+          "Use guidance, automation, and collaboration where they reduce repeated manual work.",
+          "Balance convenience with governance and reporting needs.",
+        ],
+      },
+      "AI for Sales": {
+        summary:
+          "AI for sales questions test trusted AI use: data quality, grounding, human oversight, permission-aware output, and measurable productivity gains.",
+        checklist: [
+          "Confirm the use case has enough trusted data and clear user value.",
+          "Keep sensitive decisions governed, explainable, and reviewable.",
+          "Use AI to support seller decisions, not bypass the sales process.",
+        ],
+      },
+      "Solution Overview": {
+        summary:
+          "Data 360 solution questions test positioning, architecture fit, data scope, identity, governance, and business value.",
+        checklist: [
+          "Clarify the business outcome before choosing ingestion, modeling, or activation.",
+          "Map source data, identity, consent, and destination needs.",
+          "Design for governance and measurable value from the start.",
+        ],
+      },
+      "Setup and Administration": {
+        summary:
+          "Setup questions focus on tenant readiness, permissions, data spaces, connectors, dependencies, and operating controls.",
+        checklist: [
+          "Check prerequisites before troubleshooting downstream behavior.",
+          "Separate admin access, data access, and activation permissions.",
+          "Plan monitoring, ownership, and lifecycle management.",
+        ],
+      },
+      "Data Ingestion and Modeling": {
+        summary:
+          "Ingestion and modeling questions test how source data becomes usable, related, governed, and queryable in Data 360.",
+        checklist: [
+          "Know whether the data is batch, streaming, calculated, copied, or accessed in place.",
+          "Map source fields to the right DLOs, DMOs, keys, and relationships.",
+          "Fix semantics upstream instead of patching every downstream use case.",
+        ],
+      },
+      "Identity Resolution": {
+        summary:
+          "Identity questions are about matching, reconciliation, survivorship, confidence, consent, and the difference between source profiles and unified profiles.",
+        checklist: [
+          "Separate identity rules from segmentation and activation rules.",
+          "Review match keys, normalization, rulesets, and survivorship.",
+          "Treat false matches and missed matches as business risks, not just data quality issues.",
+        ],
+      },
+      "Segmentation and Insights": {
+        summary:
+          "Segmentation questions test audience logic, entity grain, relationships, calculated insights, freshness, and governed definitions.",
+        checklist: [
+          "Define the audience entity and count distinct people, not joined rows.",
+          "Check relationship paths, data spaces, and refresh dependencies.",
+          "Include consent and suppression logic where communication is involved.",
+        ],
+      },
+      "Data Enhancements, Sharing, and Analysis": {
+        summary:
+          "This domain covers governed data products, sharing patterns, analysis quality, model evaluation, and responsible use of enriched data.",
+        checklist: [
+          "Share the smallest governed data product that satisfies the use case.",
+          "Evaluate metrics by business cost, fairness, and segment performance.",
+          "Protect sensitive attributes with legal, ethical, and consent review.",
+        ],
+      },
+      "Data Activations and Utilization": {
+        summary:
+          "Activation questions test how qualified audiences and governed data move into destinations, flows, real-time actions, and business processes.",
+        checklist: [
+          "Design backward from the destination identity and mapping contract.",
+          "Trace counts through segment, eligibility, activation, destination, and match.",
+          "Coordinate freshness, consent, monitoring, and retirement.",
+        ],
+      },
+    },
+  };
+
+  categoryStudyGuides.es = Object.fromEntries(
+    Object.keys(categoryStudyGuides.en).map((category) => [
+      category,
+      {
+        summary: `Esta pregunta pertenece a ${category}. Usala para estudiar el concepto, la decision de diseno y las diferencias con opciones parecidas, no solo para recordar una respuesta.`,
+        checklist: [
+          "Identifica que parte del escenario cambia la respuesta correcta.",
+          "Compara la opcion correcta contra las opciones descartadas y nombra por que no aplican.",
+          "Busca el recurso oficial relacionado y revisa el concepto completo antes de avanzar.",
+        ],
+      },
+    ]),
+  );
+
+  const topicStudyRules = [
+    {
+      terms: ["license", "licence", "licensing"],
+      focus: {
+        en: "User licenses and access layers",
+        es: "Licencias de usuario y capas de acceso",
+      },
+      summary: {
+        en:
+          "A user license determines the baseline product capabilities available to a user. Profiles and permission sets refine permissions inside that licensed boundary, while roles and sharing decide record visibility.",
+        es:
+          "Una licencia define las capacidades base disponibles para un usuario. Los perfiles y permission sets ajustan permisos dentro de ese limite, mientras que roles y sharing determinan visibilidad de registros.",
+      },
+      checklist: {
+        en: [
+          "Start with the license when the question asks what product capabilities a user can have.",
+          "Use profiles or permission sets when the same license can support the needed permission difference.",
+          "Use roles, sharing rules, teams, or queues only when the issue is record visibility or ownership.",
+        ],
+        es: [
+          "Empieza por la licencia cuando la pregunta trata de capacidades de producto disponibles para el usuario.",
+          "Usa perfiles o permission sets cuando la misma licencia permite resolver la diferencia de permisos.",
+          "Usa roles, sharing rules, teams o queues solo si el problema es visibilidad u ownership de registros.",
+        ],
+      },
+      resources: [
+        {
+          title: "Salesforce Help: User Licenses",
+          url: "https://help.salesforce.com/s/articleView?id=sf.users_understanding_license_types.htm&type=5",
+          description: "Official overview of Salesforce user license types and what they control.",
+        },
+      ],
+    },
+    {
+      terms: ["permission set", "profile", "permissions", "permission set group"],
+      focus: {
+        en: "Profiles, permission sets, and least privilege",
+        es: "Perfiles, permission sets y minimo privilegio",
+      },
+      summary: {
+        en:
+          "Profiles provide baseline access. Permission sets and permission set groups add targeted permissions without cloning profiles or broadening access for every similar user.",
+        es:
+          "Los perfiles dan el acceso base. Los permission sets y permission set groups agregan permisos puntuales sin clonar perfiles ni ampliar acceso para todos los usuarios similares.",
+      },
+      checklist: {
+        en: [
+          "Use permission sets for exceptions or additive access.",
+          "Do not use roles or sharing tools to grant system permissions.",
+          "Check object, field, app, tab, and system permissions separately.",
+        ],
+        es: [
+          "Usa permission sets para excepciones o acceso adicional.",
+          "No uses roles o herramientas de sharing para conceder permisos de sistema.",
+          "Revisa permisos de objeto, campo, app, tab y sistema por separado.",
+        ],
+      },
+      resources: [
+        {
+          title: "Salesforce Help: Permission Sets",
+          url: "https://help.salesforce.com/s/articleView?id=sf.perm_sets_overview.htm&type=5",
+          description: "Official guide to permission sets and permission set groups.",
+        },
+      ],
+    },
+    {
+      terms: ["organization-wide defaults", "owd", "role hierarchy", "sharing rule", "record visibility"],
+      focus: {
+        en: "Record access and sharing model",
+        es: "Acceso a registros y modelo de sharing",
+      },
+      summary: {
+        en:
+          "Record access starts with organization-wide defaults and opens through role hierarchy, sharing rules, teams, territories, queues, or manual sharing depending on the record and process.",
+        es:
+          "El acceso a registros empieza con organization-wide defaults y se abre mediante role hierarchy, sharing rules, teams, territories, queues o manual sharing segun el registro y el proceso.",
+      },
+      checklist: {
+        en: [
+          "Ask whether access is based on ownership, criteria, hierarchy, collaboration, or work pooling.",
+          "Keep field-level security separate from record visibility.",
+          "Use the narrowest sharing mechanism that can maintain the rule automatically.",
+        ],
+        es: [
+          "Pregunta si el acceso depende de ownership, criterios, jerarquia, colaboracion o pool de trabajo.",
+          "Separa field-level security de visibilidad de registros.",
+          "Usa el mecanismo de sharing mas especifico que pueda mantener la regla automaticamente.",
+        ],
+      },
+    },
+    {
+      terms: ["record type", "business process", "sales process", "support process", "page layout"],
+      focus: {
+        en: "Record types, processes, and page experience",
+        es: "Record types, procesos y experiencia de pagina",
+      },
+      summary: {
+        en:
+          "Record types package different business processes, picklist values, and page layout assignments. They are useful when the same object supports distinct workflows or audiences.",
+        es:
+          "Los record types agrupan procesos de negocio, valores de picklist y asignaciones de page layout. Son utiles cuando el mismo objeto soporta flujos o audiencias distintas.",
+      },
+      checklist: {
+        en: [
+          "Use sales or support processes for key standard picklists such as Stage or Case Status.",
+          "Use page layouts for fields, related lists, and many actions.",
+          "Use Lightning App Builder for component arrangement and component visibility.",
+        ],
+        es: [
+          "Usa sales o support processes para picklists estandar clave como Stage o Case Status.",
+          "Usa page layouts para campos, related lists y muchas acciones.",
+          "Usa Lightning App Builder para componentes, regiones y visibilidad de componentes.",
+        ],
+      },
+    },
+    {
+      terms: ["flow", "subflow", "scheduled path", "asynchronously", "record-triggered"],
+      focus: {
+        en: "Flow timing and maintainability",
+        es: "Timing de Flow y mantenibilidad",
+      },
+      summary: {
+        en:
+          "Flow design depends on trigger timing, transaction needs, user interaction, reuse, and error handling. The right flow type should fit the business event.",
+        es:
+          "El diseno de Flow depende del momento de ejecucion, la transaccion, interaccion del usuario, reutilizacion y manejo de errores. El tipo de flow debe corresponder al evento de negocio.",
+      },
+      checklist: {
+        en: [
+          "Use before-save flows for fast same-record updates.",
+          "Use after-save paths for related records, actions, and work after commit.",
+          "Use subflows when several automations need the same logic.",
+        ],
+        es: [
+          "Usa before-save flows para actualizaciones rapidas en el mismo registro.",
+          "Usa after-save paths para registros relacionados, acciones y trabajo posterior al commit.",
+          "Usa subflows cuando varias automatizaciones comparten la misma logica.",
+        ],
+      },
+    },
+    {
+      terms: ["report", "dashboard", "matrix", "bucket", "cross filter", "summary formula"],
+      focus: {
+        en: "Reports, dashboards, and calculation grain",
+        es: "Reportes, dashboards y nivel de calculo",
+      },
+      summary: {
+        en:
+          "Reporting decisions depend on whether the question asks for row logic, grouping logic, relationship existence, dashboard filtering, or scheduled delivery.",
+        es:
+          "Las decisiones de reporting dependen de si la pregunta pide logica por fila, por agrupacion, existencia de relacion, filtro de dashboard o entrega programada.",
+      },
+      checklist: {
+        en: [
+          "Use row-level formulas for per-record calculations.",
+          "Use summary formulas for aggregate calculations at grouping levels.",
+          "Use dashboard filters for viewer-controlled dashboard slices.",
+        ],
+        es: [
+          "Usa row-level formulas para calculos por registro.",
+          "Usa summary formulas para calculos agregados por grupo.",
+          "Usa dashboard filters para vistas controladas por quien consume el dashboard.",
+        ],
+      },
+    },
+    {
+      terms: ["identity", "unified profile", "ruleset", "match", "survivorship"],
+      focus: {
+        en: "Identity resolution and unified profiles",
+        es: "Identity resolution y perfiles unificados",
+      },
+      summary: {
+        en:
+          "Identity resolution decides which source profiles belong together and which attributes survive into the unified profile. The rules must balance match confidence, consent, and business risk.",
+        es:
+          "Identity resolution decide que perfiles fuente pertenecen juntos y que atributos sobreviven en el perfil unificado. Las reglas deben balancear confianza, consentimiento y riesgo de negocio.",
+      },
+      checklist: {
+        en: [
+          "Inspect match keys and normalization before blaming activation or segmentation.",
+          "Separate unified identity from channel contact-point selection.",
+          "Evaluate false positives and false negatives as business risks.",
+        ],
+        es: [
+          "Revisa match keys y normalizacion antes de culpar activacion o segmentacion.",
+          "Separa identidad unificada de seleccion de contact point por canal.",
+          "Evalua falsos positivos y falsos negativos como riesgos de negocio.",
+        ],
+      },
+    },
+    {
+      terms: ["segment", "segmentation", "activation", "consent", "suppression", "destination"],
+      focus: {
+        en: "Segments, consent, and activation",
+        es: "Segmentos, consentimiento y activacion",
+      },
+      summary: {
+        en:
+          "A segment defines who qualifies; activation defines what is sent, where, when, and with which identifiers. Consent, freshness, mappings, and suppression can reduce the delivered audience.",
+        es:
+          "Un segmento define quien califica; la activacion define que se envia, a donde, cuando y con que identificadores. Consentimiento, frescura, mappings y supresiones pueden reducir la audiencia entregada.",
+      },
+      checklist: {
+        en: [
+          "Design backward from the destination identifier requirements.",
+          "Track counts from membership through eligibility and delivery.",
+          "Make consent and suppression at least as fresh as the activation cadence.",
+        ],
+        es: [
+          "Disena desde los identificadores requeridos por el destino.",
+          "Rastrea conteos desde membership hasta elegibilidad y entrega.",
+          "Asegura que consentimiento y supresiones sean tan frescos como la cadencia de activacion.",
+        ],
+      },
+    },
+  ];
+
   function escapeHtml(value) {
     return String(value)
       .replaceAll("&", "&amp;")
@@ -149,6 +694,182 @@
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#039;");
+  }
+
+  function localizedValue(value) {
+    if (!value || typeof value !== "object" || Array.isArray(value)) return value;
+    return value[locale] || value.en || Object.values(value)[0];
+  }
+
+  function localizedList(value) {
+    const next = localizedValue(value);
+    return Array.isArray(next) ? next.filter(Boolean) : [];
+  }
+
+  function questionTextBlob(question) {
+    return [
+      question.category,
+      question.question,
+      question.explanation,
+      question.tip,
+      ...(question.options || []),
+    ]
+      .join(" ")
+      .toLowerCase();
+  }
+
+  function topicStudyGuideFor(question) {
+    const blob = questionTextBlob(question);
+    return topicStudyRules.find((rule) =>
+      rule.terms.some((term) => blob.includes(term.toLowerCase())),
+    );
+  }
+
+  function studyExtrasFor(question) {
+    const extras = question.deepDive || question.studyGuide || question.study || {};
+    return extras && typeof extras === "object" ? extras : {};
+  }
+
+  function scoreResource(resource, question) {
+    const blob = questionTextBlob(question);
+    const words = `${resource.title || ""} ${resource.description || ""}`
+      .toLowerCase()
+      .split(/[^a-z0-9]+/)
+      .filter((word) => word.length > 4);
+    return words.reduce((score, word) => score + (blob.includes(word) ? 1 : 0), 0);
+  }
+
+  function mergeResources(...groups) {
+    const seen = new Set();
+    return groups
+      .flat()
+      .filter(Boolean)
+      .filter((resource) => resource.title && resource.url)
+      .filter((resource) => {
+        const key = resource.url;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .slice(0, 4);
+  }
+
+  function resourcesForQuestion(question, certification, topicGuide, extras) {
+    const explicitResources = Array.isArray(extras.resources) ? extras.resources : [];
+    const topicResources = topicGuide?.resources || [];
+    const certificationResources = Array.isArray(certification.resources)
+      ? certification.resources
+      : [];
+    const matchedResources = certificationResources
+      .map((resource) => ({ resource, score: scoreResource(resource, question) }))
+      .filter((item) => item.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map((item) => item.resource);
+    const broadResources = certificationResources.slice(0, 2);
+    return mergeResources(explicitResources, topicResources, matchedResources, broadResources);
+  }
+
+  function questionStudyProfile(question, certification) {
+    const extras = studyExtrasFor(question);
+    const topicGuide = topicStudyGuideFor(question);
+    const categoryGuide =
+      categoryStudyGuides[locale]?.[question.category] ||
+      categoryStudyGuides.en[question.category] ||
+      {};
+    const correctAnswer = question.answers
+      .map((index) => `${letters[index]}. ${question.options[index]}`)
+      .join("; ");
+
+    const focus =
+      localizedValue(extras.focus) ||
+      localizedValue(topicGuide?.focus) ||
+      question.category;
+    const summary =
+      localizedValue(extras.summary) ||
+      localizedValue(topicGuide?.summary) ||
+      categoryGuide.summary ||
+      question.explanation;
+    const checklist = [
+      ...localizedList(extras.checklist),
+      ...localizedList(topicGuide?.checklist),
+      ...(categoryGuide.checklist || []),
+    ].slice(0, 5);
+    const connections = localizedList(extras.connections);
+    const defaultConnections =
+      locale === "es"
+        ? [
+            `La respuesta correcta apunta a: ${correctAnswer}. Estudia que problema resuelve y que limites tiene.`,
+            `El escenario pertenece a ${question.category}; conecta el requisito del caso con la capacidad Salesforce que lo resuelve.`,
+            `Vuelve al tip y conviertelo en una regla de decision para reconocer preguntas similares.`,
+          ]
+        : [
+            `The correct answer points to: ${correctAnswer}. Study the problem it solves and the limits it has.`,
+            `The scenario belongs to ${question.category}; connect the case requirement to the Salesforce capability that solves it.`,
+            `Turn the tip into a decision rule you can reuse when similar options appear.`,
+          ];
+
+    return {
+      focus,
+      summary,
+      checklist,
+      connections: connections.length ? connections : defaultConnections,
+      resources: resourcesForQuestion(question, certification, topicGuide, extras),
+    };
+  }
+
+  function renderResourceCard(resource) {
+    return `
+      <a class="study-resource-link" target="_blank" rel="noopener" href="${escapeHtml(resource.url)}" aria-label="${escapeHtml(`${text.openResource}: ${resource.title}`)}">
+        <strong>${escapeHtml(resource.title)}</strong>
+        ${resource.description ? `<span>${escapeHtml(resource.description)}</span>` : ""}
+      </a>
+    `;
+  }
+
+  function renderStudyPanel(question, certification) {
+    const profile = questionStudyProfile(question, certification);
+    const checklistHtml = profile.checklist
+      .map((item) => `<li>${escapeHtml(item)}</li>`)
+      .join("");
+    const connectionsHtml = profile.connections
+      .map((item) => `<li>${escapeHtml(item)}</li>`)
+      .join("");
+    const resourcesHtml = profile.resources.map(renderResourceCard).join("");
+
+    return `
+      <section class="study-deep-dive" aria-labelledby="studyDeepDiveTitle">
+        <div class="study-deep-dive-header">
+          <div>
+            <h3 id="studyDeepDiveTitle">${text.studyDeeper}</h3>
+            <p>${escapeHtml(profile.focus)}</p>
+          </div>
+        </div>
+        <div class="study-deep-dive-grid">
+          <div class="study-note">
+            <h4>${text.coreIdea}</h4>
+            <p>${escapeHtml(profile.summary)}</p>
+          </div>
+          <div class="study-note">
+            <h4>${text.connectConcepts}</h4>
+            <ul>${connectionsHtml}</ul>
+          </div>
+        </div>
+        <div class="study-note study-note-wide">
+          <h4>${text.reviewChecklist}</h4>
+          <ul>${checklistHtml}</ul>
+        </div>
+        ${
+          resourcesHtml
+            ? `
+              <div class="study-resources">
+                <h4>${text.studyResources}</h4>
+                <div class="study-resource-grid">${resourcesHtml}</div>
+              </div>
+            `
+            : ""
+        }
+      </section>
+    `;
   }
 
   function storageKey(certification) {
@@ -644,6 +1365,7 @@
             <h3>${text.whyCorrect}</h3>
             <p>${escapeHtml(question.explanation)}</p>
             <div class="tip-box"><strong>${text.examTip}</strong> ${escapeHtml(question.tip)}</div>
+            ${renderStudyPanel(question, certification)}
           </div>
         `
         : "";

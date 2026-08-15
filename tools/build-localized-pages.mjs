@@ -5,6 +5,7 @@ import vm from "node:vm";
 const rootDir = path.resolve(import.meta.dirname, "..");
 const catalogPath = path.join(rootDir, "assets/data/certifications.js");
 const assetVersion = "20260801-ui";
+const studyAssetVersion = "20260815-study";
 const siteUrl = "https://blueforce.cloud";
 const faviconPath = "/assets/img/icono_blueforce.png";
 const logoPath = "/assets/img/logo_blueforce.png";
@@ -502,7 +503,7 @@ function examPage(cert, locale, options = {}) {
   <title>${escapeHtml(title)}</title>
   ${alternateLinks(enPath, esPath, canonicalPath)}
   ${iconLinks()}
-  <link rel="stylesheet" href="/assets/css/styles.css?v=${assetVersion}" />
+  <link rel="stylesheet" href="/assets/css/styles.css?v=${studyAssetVersion}" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -622,8 +623,8 @@ function examPage(cert, locale, options = {}) {
     </section>
   </main>
 
-  <script src="/assets/data/certifications.js?v=${assetVersion}"></script>
-  <script src="/assets/js/app.js?v=${assetVersion}"></script>
+  <script src="/assets/data/certifications.js?v=${studyAssetVersion}"></script>
+  <script src="/assets/js/app.js?v=${studyAssetVersion}"></script>
 </body>
 </html>`;
 }
