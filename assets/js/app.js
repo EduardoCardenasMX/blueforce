@@ -31,12 +31,9 @@
       correctAnswer: (multiple) => `Correct Answer${multiple ? "s" : ""}`,
       whyCorrect: "Why This Is Correct",
       examTip: "Exam tip:",
-      studyDeeper: "Study This Topic",
-      coreIdea: "Core idea",
-      connectConcepts: "Connect the Concepts",
-      reviewChecklist: "Review checklist",
-      studyResources: "Resources for this topic",
-      openResource: "Open resource",
+      deeperExplanation: "Go Deeper",
+      keyDistinctions: "How to recognize it again",
+      recommendedTopics: "Recommended topics to study",
       selectedCount: (selected, total) => `${selected} of ${total} selected`,
       submitAnswer: "Submit Answer",
       select: (total) => `Select ${total}`,
@@ -72,12 +69,9 @@
       correctAnswer: (multiple) => `Respuesta${multiple ? "s" : ""} correcta${multiple ? "s" : ""}`,
       whyCorrect: "Por que es correcta",
       examTip: "Tip de examen:",
-      studyDeeper: "Profundiza este tema",
-      coreIdea: "Idea clave",
-      connectConcepts: "Conecta los conceptos",
-      reviewChecklist: "Checklist de repaso",
-      studyResources: "Recursos para este tema",
-      openResource: "Abrir recurso",
+      deeperExplanation: "Profundiza",
+      keyDistinctions: "Como reconocerlo de nuevo",
+      recommendedTopics: "Temas recomendados para estudiar",
       selectedCount: (selected, total) => `${selected} de ${total} seleccionadas`,
       submitAnswer: "Enviar respuesta",
       select: (total) => `Selecciona ${total}`,
@@ -153,322 +147,6 @@
       },
     },
   };
-
-  const categoryStudyGuides = {
-    en: {
-      "Configuration and Setup": {
-        summary:
-          "This domain is about separating user identity, system permissions, record access, org settings, and administrative delegation. Most mistakes happen when those layers are mixed together.",
-        checklist: [
-          "Name the layer first: license, profile, permission set, role, sharing, or org setting.",
-          "Ask whether the requirement changes what a user can do or which records the user can see.",
-          "Prefer least privilege: add narrow access without broadening every user with the same profile.",
-        ],
-      },
-      "Object Manager and Lightning App Builder": {
-        summary:
-          "This domain connects the data model with the record experience. Strong answers respect relationships, record types, page layouts, Lightning pages, and security boundaries.",
-        checklist: [
-          "Identify the object, relationship type, lifecycle, owner, and reporting need.",
-          "Separate page layout responsibilities from Lightning page/component responsibilities.",
-          "Treat visibility rules as presentation logic, not a replacement for security.",
-        ],
-      },
-      "Sales and Marketing Applications": {
-        summary:
-          "Sales and marketing questions usually test the native lifecycle from lead capture through opportunity execution, products, campaigns, forecasting, and handoff.",
-        checklist: [
-          "Map the process stage: capture, qualify, sell, forecast, fulfill, or measure.",
-          "Use native features before custom automation when the requirement matches a standard sales process.",
-          "Distinguish person participation from record ownership and routing.",
-        ],
-      },
-      "Service and Support Applications": {
-        summary:
-          "Service questions are about intake, routing, collaboration, SLAs, knowledge, and customer visibility. The best answer usually fits where the case is in its lifecycle.",
-        checklist: [
-          "Separate case creation, assignment, escalation, response, entitlement, and knowledge.",
-          "Use queues for shared ownership and teams for named collaboration on one record.",
-          "Connect timed commitments to entitlement or escalation behavior based on the scenario.",
-        ],
-      },
-      "Productivity and Collaboration": {
-        summary:
-          "This domain tests day-to-day user efficiency: activities, Chatter, list views, quick actions, favorites, and ways to keep context while working.",
-        checklist: [
-          "Ask whether the user needs a personal shortcut, a team collaboration space, or a record action.",
-          "Distinguish a task from a scheduled event.",
-          "Choose features that reduce navigation and keep work in context.",
-        ],
-      },
-      "Data and Analytics Management": {
-        summary:
-          "Analytics questions reward knowing the grain of the data, the report format, and whether the calculation happens per row, per group, or across related records.",
-        checklist: [
-          "Define the record grain before choosing a report feature.",
-          "Use cross filters for with/without related-record questions.",
-          "Match row-level, bucket, summary, and dashboard features to the calculation need.",
-        ],
-      },
-      Automation: {
-        summary:
-          "Automation questions test timing, transaction boundaries, reuse, user interaction, and maintainability. The right flow type depends on when and how the work starts.",
-        checklist: [
-          "Decide whether the process runs before save, after save, on a schedule, or from a screen.",
-          "Use subflows for reusable background logic.",
-          "Separate immediate record updates from delayed or asynchronous work.",
-        ],
-      },
-      Agentforce: {
-        summary:
-          "Agentforce questions separate trusted knowledge from controlled action. Good designs give the agent clear scope, grounding, instructions, permissions, and escalation paths.",
-        checklist: [
-          "Ask whether the agent needs to know something, do something, or escalate.",
-          "Use data libraries for grounding and actions for controlled execution.",
-          "Treat instructions, guardrails, and permissions as part of the solution design.",
-        ],
-      },
-      Discovery: {
-        summary:
-          "Discovery is about reducing uncertainty before solution design. Strong answers gather evidence from real users, stakeholders, systems, and business goals.",
-        checklist: [
-          "Clarify the problem before proposing the interface.",
-          "Prefer direct observation and structured interviews when behavior is unclear.",
-          "Separate stakeholder opinion from user evidence.",
-        ],
-      },
-      "UX Fundamentals": {
-        summary:
-          "UX fundamentals focus on cognitive load, accessibility, hierarchy, responsive behavior, errors, and how quickly users can complete real tasks.",
-        checklist: [
-          "Make meaning visible through text, structure, and affordances, not color alone.",
-          "Prioritize task flow and context over decorative polish.",
-          "Test with the device, input method, and constraints users actually have.",
-        ],
-      },
-      "Human-Centered Design": {
-        summary:
-          "Human-centered design balances desirability, feasibility, viability, inclusion, and long-term relationship value.",
-        checklist: [
-          "Anchor artifacts in research-backed behavior, not demographics alone.",
-          "Use journey maps for user experience over time and service blueprints for operational dependencies.",
-          "Include diverse users early instead of treating accessibility as a final review.",
-        ],
-      },
-      "Declarative Design": {
-        summary:
-          "Declarative design means choosing standard, maintainable Salesforce capabilities that support the task without unnecessary code or custom objects.",
-        checklist: [
-          "Prefer standard objects and native features when they fit the verified requirement.",
-          "Match relationships, pages, actions, and guidance to the user's work.",
-          "Avoid using presentation configuration as a substitute for data model or security design.",
-        ],
-      },
-      Testing: {
-        summary:
-          "Testing questions ask what kind of evidence proves the design works: usability, accessibility, UAT, analytics, or production monitoring.",
-        checklist: [
-          "Match the test method to the risk or assumption being validated.",
-          "Use representative users and realistic tasks when usability is the question.",
-          "Capture actionable findings that can change the design.",
-        ],
-      },
-      "Salesforce Lightning Design System (SLDS)": {
-        summary:
-          "SLDS questions test whether the interface feels native, accessible, consistent, and reusable in the Salesforce ecosystem.",
-        checklist: [
-          "Use standard patterns and components before inventing a custom interaction.",
-          "Keep accessibility, responsive behavior, and visual consistency together.",
-          "Distinguish brand expression from platform interaction rules.",
-        ],
-      },
-      "Customer Discovery": {
-        summary:
-          "Customer discovery turns business goals, constraints, and user evidence into a shared understanding of what must change.",
-        checklist: [
-          "Identify stakeholders, outcomes, constraints, risks, and decision makers.",
-          "Use current-state evidence before defining future-state scope.",
-          "Document assumptions and validate them with the right audience.",
-        ],
-      },
-      "Collaboration with Stakeholders": {
-        summary:
-          "Stakeholder collaboration aligns people around priorities, decisions, tradeoffs, and ownership so the project does not drift.",
-        checklist: [
-          "Choose facilitation techniques based on conflict, ambiguity, and decision urgency.",
-          "Make ownership and decision rights explicit.",
-          "Use artifacts that create shared understanding, not just status updates.",
-        ],
-      },
-      "Business Process Mapping": {
-        summary:
-          "Process mapping makes work visible so teams can identify gaps, handoffs, pain points, and improvement opportunities.",
-        checklist: [
-          "Separate current state from future state.",
-          "Capture actors, systems, decisions, exceptions, and handoffs.",
-          "Use the map to validate scope and business value.",
-        ],
-      },
-      "Requirements": {
-        summary:
-          "Requirements questions test clarity, traceability, prioritization, and whether a need has enough evidence to guide build and acceptance.",
-        checklist: [
-          "Separate business need, functional behavior, and acceptance criteria.",
-          "Prioritize by value, risk, dependency, and stakeholder alignment.",
-          "Keep requirements testable and traceable to outcomes.",
-        ],
-      },
-      "User Stories": {
-        summary:
-          "User stories connect a role, need, and outcome, then make the expected behavior testable with acceptance criteria.",
-        checklist: [
-          "State who needs the capability, what they need, and why it matters.",
-          "Use acceptance criteria to remove ambiguity.",
-          "Split stories when workflow, data, or validation rules become too broad.",
-        ],
-      },
-      "User Acceptance": {
-        summary:
-          "UAT confirms that the delivered solution supports the business process with real users, realistic data, and agreed acceptance criteria.",
-        checklist: [
-          "Test against signed-off requirements and business scenarios.",
-          "Prepare users, scripts, data, issue triage, and sign-off criteria.",
-          "Separate UAT defects from new scope requests.",
-        ],
-      },
-      "Sales Lifecycle": {
-        summary:
-          "Sales lifecycle questions test how discovery, qualification, opportunity management, forecasting, and adoption connect into a measurable sales process.",
-        checklist: [
-          "Locate the problem in the lifecycle before selecting the feature.",
-          "Tie configuration choices to sales behavior and measurable outcomes.",
-          "Prefer scalable process design over one-off record fixes.",
-        ],
-      },
-      "Implementation Strategies": {
-        summary:
-          "Implementation strategy is about sequencing, risk, governance, adoption, and how a solution moves safely from design to production.",
-        checklist: [
-          "Identify dependencies, data readiness, release approach, and training needs.",
-          "Use pilots or phased rollout when risk, complexity, or behavior change is high.",
-          "Connect adoption metrics to the business outcome.",
-        ],
-      },
-      "Sales Cloud Solution Design": {
-        summary:
-          "Solution design questions ask for the simplest durable architecture that fits the sales process, data model, security model, and reporting needs.",
-        checklist: [
-          "Separate process configuration from security, automation, and analytics.",
-          "Use native Sales Cloud capabilities when they match the requirement.",
-          "Design for scale, maintenance, and clean reporting.",
-        ],
-      },
-      "Sales Cloud Analytics": {
-        summary:
-          "Sales analytics questions test forecasting, pipeline visibility, metric definitions, dashboard design, and trusted data quality.",
-        checklist: [
-          "Define metric meaning, owner, grain, and refresh cadence.",
-          "Separate forecast categories from opportunity stages.",
-          "Design dashboards around decisions, not just available charts.",
-        ],
-      },
-      "Sales Productivity and Best Practices": {
-        summary:
-          "Productivity questions reward features that reduce friction for sellers while preserving process discipline and data quality.",
-        checklist: [
-          "Choose tools that keep selling activity in context.",
-          "Use guidance, automation, and collaboration where they reduce repeated manual work.",
-          "Balance convenience with governance and reporting needs.",
-        ],
-      },
-      "AI for Sales": {
-        summary:
-          "AI for sales questions test trusted AI use: data quality, grounding, human oversight, permission-aware output, and measurable productivity gains.",
-        checklist: [
-          "Confirm the use case has enough trusted data and clear user value.",
-          "Keep sensitive decisions governed, explainable, and reviewable.",
-          "Use AI to support seller decisions, not bypass the sales process.",
-        ],
-      },
-      "Solution Overview": {
-        summary:
-          "Data 360 solution questions test positioning, architecture fit, data scope, identity, governance, and business value.",
-        checklist: [
-          "Clarify the business outcome before choosing ingestion, modeling, or activation.",
-          "Map source data, identity, consent, and destination needs.",
-          "Design for governance and measurable value from the start.",
-        ],
-      },
-      "Setup and Administration": {
-        summary:
-          "Setup questions focus on tenant readiness, permissions, data spaces, connectors, dependencies, and operating controls.",
-        checklist: [
-          "Check prerequisites before troubleshooting downstream behavior.",
-          "Separate admin access, data access, and activation permissions.",
-          "Plan monitoring, ownership, and lifecycle management.",
-        ],
-      },
-      "Data Ingestion and Modeling": {
-        summary:
-          "Ingestion and modeling questions test how source data becomes usable, related, governed, and queryable in Data 360.",
-        checklist: [
-          "Know whether the data is batch, streaming, calculated, copied, or accessed in place.",
-          "Map source fields to the right DLOs, DMOs, keys, and relationships.",
-          "Fix semantics upstream instead of patching every downstream use case.",
-        ],
-      },
-      "Identity Resolution": {
-        summary:
-          "Identity questions are about matching, reconciliation, survivorship, confidence, consent, and the difference between source profiles and unified profiles.",
-        checklist: [
-          "Separate identity rules from segmentation and activation rules.",
-          "Review match keys, normalization, rulesets, and survivorship.",
-          "Treat false matches and missed matches as business risks, not just data quality issues.",
-        ],
-      },
-      "Segmentation and Insights": {
-        summary:
-          "Segmentation questions test audience logic, entity grain, relationships, calculated insights, freshness, and governed definitions.",
-        checklist: [
-          "Define the audience entity and count distinct people, not joined rows.",
-          "Check relationship paths, data spaces, and refresh dependencies.",
-          "Include consent and suppression logic where communication is involved.",
-        ],
-      },
-      "Data Enhancements, Sharing, and Analysis": {
-        summary:
-          "This domain covers governed data products, sharing patterns, analysis quality, model evaluation, and responsible use of enriched data.",
-        checklist: [
-          "Share the smallest governed data product that satisfies the use case.",
-          "Evaluate metrics by business cost, fairness, and segment performance.",
-          "Protect sensitive attributes with legal, ethical, and consent review.",
-        ],
-      },
-      "Data Activations and Utilization": {
-        summary:
-          "Activation questions test how qualified audiences and governed data move into destinations, flows, real-time actions, and business processes.",
-        checklist: [
-          "Design backward from the destination identity and mapping contract.",
-          "Trace counts through segment, eligibility, activation, destination, and match.",
-          "Coordinate freshness, consent, monitoring, and retirement.",
-        ],
-      },
-    },
-  };
-
-  categoryStudyGuides.es = Object.fromEntries(
-    Object.keys(categoryStudyGuides.en).map((category) => [
-      category,
-      {
-        summary: `Esta pregunta pertenece a ${category}. Usala para estudiar el concepto, la decision de diseno y las diferencias con opciones parecidas, no solo para recordar una respuesta.`,
-        checklist: [
-          "Identifica que parte del escenario cambia la respuesta correcta.",
-          "Compara la opcion correcta contra las opciones descartadas y nombra por que no aplican.",
-          "Busca el recurso oficial relacionado y revisa el concepto completo antes de avanzar.",
-        ],
-      },
-    ]),
-  );
 
   const topicStudyRules = [
     {
@@ -719,10 +397,35 @@
   }
 
   function topicStudyGuideFor(question) {
-    const blob = questionTextBlob(question);
-    return topicStudyRules.find((rule) =>
-      rule.terms.some((term) => blob.includes(term.toLowerCase())),
+    const correctOptions = question.answers.map((index) => question.options[index]);
+    const incorrectOptions = question.options.filter(
+      (_, index) => !question.answers.includes(index),
     );
+    const primaryBlob = [
+      question.category,
+      question.question,
+      question.explanation,
+      question.tip,
+      ...correctOptions,
+    ]
+      .join(" ")
+      .toLowerCase();
+    const secondaryBlob = incorrectOptions.join(" ").toLowerCase();
+    const scored = topicStudyRules
+      .map((rule) => {
+        const score = rule.terms.reduce((total, term) => {
+          const normalized = term.toLowerCase();
+          return (
+            total +
+            (primaryBlob.includes(normalized) ? 3 : 0) +
+            (secondaryBlob.includes(normalized) ? 1 : 0)
+          );
+        }, 0);
+        return { rule, score };
+      })
+      .filter((item) => item.score > 0)
+      .sort((a, b) => b.score - a.score);
+    return scored[0]?.rule || null;
   }
 
   function studyExtrasFor(question) {
@@ -730,146 +433,120 @@
     return extras && typeof extras === "object" ? extras : {};
   }
 
-  function scoreResource(resource, question) {
-    const blob = questionTextBlob(question);
-    const words = `${resource.title || ""} ${resource.description || ""}`
-      .toLowerCase()
-      .split(/[^a-z0-9]+/)
-      .filter((word) => word.length > 4);
-    return words.reduce((score, word) => score + (blob.includes(word) ? 1 : 0), 0);
+  function optionConcepts(question) {
+    const ignored = new Set([
+      "a",
+      "an",
+      "and",
+      "based",
+      "by",
+      "for",
+      "from",
+      "in",
+      "of",
+      "on",
+      "or",
+      "the",
+      "to",
+      "with",
+      "una",
+      "un",
+      "de",
+      "del",
+      "el",
+      "la",
+      "las",
+      "los",
+      "para",
+      "por",
+      "que",
+      "sin",
+    ]);
+    return question.answers
+      .map((index) => question.options[index])
+      .flatMap((option) => option.split(/[,.;:()/-]+/))
+      .map((part) => part.trim())
+      .filter((part) => {
+        const normalized = part.toLowerCase();
+        return part.length > 4 && !ignored.has(normalized);
+      })
+      .slice(0, 3);
   }
 
-  function mergeResources(...groups) {
+  function recommendedTopicsFor(question, topicGuide, extras) {
+    const explicitTopics = localizedList(extras.topics);
+    const topicFocus = localizedValue(topicGuide?.focus);
+    const topics = [
+      ...explicitTopics,
+      ...(topicFocus ? [topicFocus] : []),
+      ...optionConcepts(question),
+      question.category,
+    ];
     const seen = new Set();
-    return groups
-      .flat()
+    return topics
+      .map((topic) => String(topic).trim())
       .filter(Boolean)
-      .filter((resource) => resource.title && resource.url)
-      .filter((resource) => {
-        const key = resource.url;
+      .filter((topic) => {
+        const key = topic.toLowerCase();
         if (seen.has(key)) return false;
         seen.add(key);
         return true;
       })
-      .slice(0, 4);
+      .slice(0, 5);
   }
 
-  function resourcesForQuestion(question, certification, topicGuide, extras) {
-    const explicitResources = Array.isArray(extras.resources) ? extras.resources : [];
-    const topicResources = topicGuide?.resources || [];
-    const certificationResources = Array.isArray(certification.resources)
-      ? certification.resources
-      : [];
-    const matchedResources = certificationResources
-      .map((resource) => ({ resource, score: scoreResource(resource, question) }))
-      .filter((item) => item.score > 0)
-      .sort((a, b) => b.score - a.score)
-      .map((item) => item.resource);
-    const broadResources = certificationResources.slice(0, 2);
-    return mergeResources(explicitResources, topicResources, matchedResources, broadResources);
-  }
-
-  function questionStudyProfile(question, certification) {
+  function questionFeedbackProfile(question) {
     const extras = studyExtrasFor(question);
     const topicGuide = topicStudyGuideFor(question);
-    const categoryGuide =
-      categoryStudyGuides[locale]?.[question.category] ||
-      categoryStudyGuides.en[question.category] ||
-      {};
-    const correctAnswer = question.answers
-      .map((index) => `${letters[index]}. ${question.options[index]}`)
-      .join("; ");
-
-    const focus =
-      localizedValue(extras.focus) ||
-      localizedValue(topicGuide?.focus) ||
-      question.category;
     const summary =
       localizedValue(extras.summary) ||
       localizedValue(topicGuide?.summary) ||
-      categoryGuide.summary ||
-      question.explanation;
+      "";
     const checklist = [
       ...localizedList(extras.checklist),
       ...localizedList(topicGuide?.checklist),
-      ...(categoryGuide.checklist || []),
-    ].slice(0, 5);
-    const connections = localizedList(extras.connections);
-    const defaultConnections =
-      locale === "es"
-        ? [
-            `La respuesta correcta apunta a: ${correctAnswer}. Estudia que problema resuelve y que limites tiene.`,
-            `El escenario pertenece a ${question.category}; conecta el requisito del caso con la capacidad Salesforce que lo resuelve.`,
-            `Vuelve al tip y conviertelo en una regla de decision para reconocer preguntas similares.`,
-          ]
-        : [
-            `The correct answer points to: ${correctAnswer}. Study the problem it solves and the limits it has.`,
-            `The scenario belongs to ${question.category}; connect the case requirement to the Salesforce capability that solves it.`,
-            `Turn the tip into a decision rule you can reuse when similar options appear.`,
-          ];
+    ].slice(0, 3);
 
     return {
-      focus,
       summary,
       checklist,
-      connections: connections.length ? connections : defaultConnections,
-      resources: resourcesForQuestion(question, certification, topicGuide, extras),
+      topics: recommendedTopicsFor(question, topicGuide, extras),
     };
   }
 
-  function renderResourceCard(resource) {
-    return `
-      <a class="study-resource-link" target="_blank" rel="noopener" href="${escapeHtml(resource.url)}" aria-label="${escapeHtml(`${text.openResource}: ${resource.title}`)}">
-        <strong>${escapeHtml(resource.title)}</strong>
-        ${resource.description ? `<span>${escapeHtml(resource.description)}</span>` : ""}
-      </a>
-    `;
-  }
-
-  function renderStudyPanel(question, certification) {
-    const profile = questionStudyProfile(question, certification);
+  function renderExtendedFeedback(question) {
+    const profile = questionFeedbackProfile(question);
     const checklistHtml = profile.checklist
       .map((item) => `<li>${escapeHtml(item)}</li>`)
       .join("");
-    const connectionsHtml = profile.connections
-      .map((item) => `<li>${escapeHtml(item)}</li>`)
-      .join("");
-    const resourcesHtml = profile.resources.map(renderResourceCard).join("");
 
     return `
-      <section class="study-deep-dive" aria-labelledby="studyDeepDiveTitle">
-        <div class="study-deep-dive-header">
-          <div>
-            <h3 id="studyDeepDiveTitle">${text.studyDeeper}</h3>
-            <p>${escapeHtml(profile.focus)}</p>
-          </div>
-        </div>
-        <div class="study-deep-dive-grid">
-          <div class="study-note">
-            <h4>${text.coreIdea}</h4>
+      ${
+        profile.summary
+          ? `
+            <h3>${text.deeperExplanation}</h3>
             <p>${escapeHtml(profile.summary)}</p>
-          </div>
-          <div class="study-note">
-            <h4>${text.connectConcepts}</h4>
-            <ul>${connectionsHtml}</ul>
-          </div>
-        </div>
-        <div class="study-note study-note-wide">
-          <h4>${text.reviewChecklist}</h4>
-          <ul>${checklistHtml}</ul>
-        </div>
-        ${
-          resourcesHtml
-            ? `
-              <div class="study-resources">
-                <h4>${text.studyResources}</h4>
-                <div class="study-resource-grid">${resourcesHtml}</div>
-              </div>
-            `
-            : ""
-        }
-      </section>
+          `
+          : ""
+      }
+      ${
+        checklistHtml
+          ? `
+            <h3>${text.keyDistinctions}</h3>
+            <ul class="feedback-study-list">${checklistHtml}</ul>
+          `
+          : ""
+      }
     `;
+  }
+
+  function renderRecommendedTopics(question) {
+    const topicsHtml = questionFeedbackProfile(question).topics
+      .map((topic) => `<span class="study-topic-chip">${escapeHtml(topic)}</span>`)
+      .join("");
+    return topicsHtml
+      ? `<div class="study-topic-list"><strong>${text.recommendedTopics}</strong><div>${topicsHtml}</div></div>`
+      : "";
   }
 
   function storageKey(certification) {
@@ -1364,8 +1041,9 @@
             <p><strong>${correctAnswerText}</strong></p>
             <h3>${text.whyCorrect}</h3>
             <p>${escapeHtml(question.explanation)}</p>
+            ${renderExtendedFeedback(question)}
             <div class="tip-box"><strong>${text.examTip}</strong> ${escapeHtml(question.tip)}</div>
-            ${renderStudyPanel(question, certification)}
+            ${renderRecommendedTopics(question)}
           </div>
         `
         : "";
