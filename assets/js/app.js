@@ -150,6 +150,45 @@
 
   const topicStudyRules = [
     {
+      terms: [
+        "contextual interview",
+        "contextual interviews",
+        "direct observation",
+        "observe representative users",
+        "user research",
+        "evidence-gathering",
+        "root-cause analysis",
+        "actual workflow",
+        "workarounds",
+      ],
+      focus: {
+        en: "Discovery research and contextual inquiry",
+        es: "Discovery research e investigacion contextual",
+      },
+      summary: {
+        en:
+          "When the problem is unclear, the first goal is to understand the real workflow before choosing a solution. Direct observation and contextual interviews reveal where users lose time, which workarounds they use, and whether the stated complaint is only a symptom.",
+        es:
+          "Cuando el problema no esta claro, lo primero es entender el flujo real antes de elegir una solucion. La observacion directa y las entrevistas contextuales revelan donde se pierde tiempo, que workarounds usan los usuarios y si la queja inicial es solo un sintoma.",
+      },
+      checklist: {
+        en: [
+          "Choose research when stakeholders disagree about where the problem happens.",
+          "Look for answers that observe real behavior instead of accepting assumptions.",
+          "Redesign after identifying the root cause, not before.",
+        ],
+        es: [
+          "Elige investigacion cuando los stakeholders no coinciden sobre donde ocurre el problema.",
+          "Busca respuestas que observen comportamiento real en vez de aceptar supuestos.",
+          "Redisena despues de identificar la causa raiz, no antes.",
+        ],
+      },
+      topics: {
+        en: ["Contextual interviews", "Direct observation", "Root-cause discovery"],
+        es: ["Entrevistas contextuales", "Observacion directa", "Discovery de causa raiz"],
+      },
+    },
+    {
       terms: ["license", "licence", "licensing"],
       focus: {
         en: "User licenses and access layers",
@@ -289,7 +328,16 @@
       },
     },
     {
-      terms: ["report", "dashboard", "matrix", "bucket", "cross filter", "summary formula"],
+      terms: [
+        "dashboard",
+        "matrix report",
+        "bucket field",
+        "cross filter",
+        "summary formula",
+        "row-level formula",
+        "report subscription",
+        "report format",
+      ],
       focus: {
         en: "Reports, dashboards, and calculation grain",
         es: "Reportes, dashboards y nivel de calculo",
@@ -397,6 +445,14 @@
   }
 
   function topicStudyGuideFor(question) {
+    function matchesTerm(blob, term) {
+      const escaped = term
+        .toLowerCase()
+        .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+        .replace(/\\ /g, "\\s+");
+      return new RegExp(`\\b${escaped}s?\\b`).test(blob);
+    }
+
     const correctOptions = question.answers.map((index) => question.options[index]);
     const incorrectOptions = question.options.filter(
       (_, index) => !question.answers.includes(index),
@@ -414,11 +470,10 @@
     const scored = topicStudyRules
       .map((rule) => {
         const score = rule.terms.reduce((total, term) => {
-          const normalized = term.toLowerCase();
           return (
             total +
-            (primaryBlob.includes(normalized) ? 3 : 0) +
-            (secondaryBlob.includes(normalized) ? 1 : 0)
+            (matchesTerm(primaryBlob, term) ? 3 : 0) +
+            (matchesTerm(secondaryBlob, term) ? 1 : 0)
           );
         }, 0);
         return { rule, score };
@@ -468,16 +523,23 @@
       .map((part) => part.trim())
       .filter((part) => {
         const normalized = part.toLowerCase();
-        return part.length > 4 && !ignored.has(normalized);
+        return (
+          part.length > 4 &&
+          part.length <= 54 &&
+          part.split(/\s+/).length <= 5 &&
+          !ignored.has(normalized)
+        );
       })
       .slice(0, 3);
   }
 
   function recommendedTopicsFor(question, topicGuide, extras) {
     const explicitTopics = localizedList(extras.topics);
+    const ruleTopics = localizedList(topicGuide?.topics);
     const topicFocus = localizedValue(topicGuide?.focus);
     const topics = [
       ...explicitTopics,
+      ...ruleTopics,
       ...(topicFocus ? [topicFocus] : []),
       ...optionConcepts(question),
       question.category,
